@@ -1,0 +1,21 @@
+{
+  "name": "motor-do-livro-toc",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Motor de publicação do livro Teoria das Restrições (Markdown -> HTML navegável + PDF).",
+  "scripts": {
+    "build": "node verifica-espelho.mjs && node verifica-referencias.mjs && node build.mjs && node verifica-capitulos.mjs && node verifica-exercicios.mjs",
+    "pdf": "node pdf.mjs"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.1",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}

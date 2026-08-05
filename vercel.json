@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd publicar && npm install --no-audit --no-fund && SEM_PDF=1 node build.mjs && SEM_PDF=1 node verifica-capitulos.mjs",
+  "outputDirectory": "docs",
+  "cleanUrls": true,
+  "trailingSlash": false
+}

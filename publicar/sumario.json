@@ -1,0 +1,147 @@
+{
+  "titulo": "Teoria das Restrições",
+  "subtitulo": "Um livro vivo sobre enxergar a restrição e pensar com rigor — do sistema à decisão",
+  "companion_backend": "https://theoryofconstraintlivebook-production.up.railway.app",
+  "partes": [
+    {
+      "nome": "Abertura",
+      "itens": [
+        {
+          "arquivo": "livro/00-introducao.md",
+          "titulo": "00 — Introdução",
+          "teaser": "Por que treinar o raciocínio, e como este livro funciona."
+        }
+      ]
+    },
+    {
+      "nome": "Módulo 0 — A restrição",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/01-sistema-e-restricao.md",
+          "titulo": "01 — O sistema e a restrição",
+          "teaser": "Toda corrente tem um elo que decide a resistência do conjunto."
+        },
+        {
+          "arquivo": "livro/capitulos/02-otimo-local.md",
+          "titulo": "02 — O ótimo local que destrói o todo",
+          "teaser": "Cada área melhora o seu número, e o resultado piora."
+        },
+        {
+          "arquivo": "livro/capitulos/03-cinco-passos.md",
+          "titulo": "03 — Os cinco passos de focalização",
+          "teaser": "Identificar, explorar, subordinar, elevar — e não parar."
+        },
+        {
+          "arquivo": "livro/capitulos/04-tres-perguntas.md",
+          "titulo": "04 — As três perguntas da mudança",
+          "teaser": "O que mudar, para o que mudar, como causar a mudança."
+        }
+      ]
+    },
+    {
+      "nome": "Módulo 1 — Fundamentos lógicos",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/05-por-que-ferramentas.md",
+          "titulo": "05 — Por que ferramentas de raciocínio",
+          "teaser": "O que a intuição acerta, o que ela erra, e onde entram as ferramentas."
+        },
+        {
+          "arquivo": "livro/capitulos/06-causa-e-efeito.md",
+          "titulo": "06 — Lógica de Causa e Efeito",
+          "teaser": "\"Se… então…\": a conexão que sustenta todo diagnóstico."
+        },
+        {
+          "arquivo": "livro/capitulos/07-pre-requisito.md",
+          "titulo": "07 — Lógica de Pré-Requisito",
+          "teaser": "\"Para… é necessário…\": a conexão que sustenta todo plano."
+        },
+        {
+          "arquivo": "livro/capitulos/08-premissas.md",
+          "titulo": "08 — Premissas",
+          "teaser": "O que você acredita sem perceber — e que segura a conexão de pé."
+        },
+        {
+          "arquivo": "livro/capitulos/09-cadeias-logicas.md",
+          "titulo": "09 — Cadeias Lógicas",
+          "teaser": "Encadear conexões sem perder o rigor no caminho."
+        }
+      ]
+    },
+    {
+      "nome": "Módulo 2 — O que mudar",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/10-nuvem.md",
+          "titulo": "10 — A Nuvem",
+          "teaser": "Estruturar um dilema até enxergar por que ele existe."
+        },
+        {
+          "arquivo": "livro/capitulos/11-conflitos-recorrentes.md",
+          "titulo": "11 — Conflitos Recorrentes",
+          "teaser": "O problema que sempre volta: o loop entre dois comportamentos."
+        }
+      ]
+    },
+    {
+      "nome": "Módulo 3 — Para o que mudar",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/12-injecoes.md",
+          "titulo": "12 — Injeções",
+          "teaser": "Quebrar a premissa certa e dissolver o conflito."
+        }
+      ]
+    },
+    {
+      "nome": "Módulo 4 — Como causar a mudança",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/13-analise-pre-requisitos.md",
+          "titulo": "13 — Análise de Pré-Requisitos",
+          "teaser": "Do obstáculo ao plano executável, na ordem certa."
+        },
+        {
+          "arquivo": "livro/capitulos/14-aplicacao-integrada.md",
+          "titulo": "14 — Aplicação Integrada",
+          "teaser": "Uma hora, um problema real, da análise ao plano."
+        }
+      ]
+    },
+    {
+      "nome": "Aparato do livro",
+      "itens": [
+        {
+          "arquivo": "livro/glossario.md",
+          "titulo": "Glossário",
+          "teaser": "Os termos do método, com definição e contexto."
+        },
+        {
+          "arquivo": "livro/bibliografia.md",
+          "titulo": "Bibliografia",
+          "teaser": "As fontes oficiais em que este livro se apoia."
+        },
+        {
+          "arquivo": "livro/HISTORICO.md",
+          "titulo": "Histórico",
+          "teaser": "Edições, datas e o que mudou a cada rodada."
+        },
+        {
+          "arquivo": "livro/GUIA-EDITORIAL.md",
+          "titulo": "Guia Editorial",
+          "teaser": "Como este livro é escrito — método e regras."
+        }
+      ]
+    },
+    {
+      "nome": "Sobre",
+      "itens": [
+        {
+          "arquivo": "livro/autor.md",
+          "titulo": "Sobre o autor",
+          "teaser": "Quem dirige este livro vivo."
+        }
+      ]
+    }
+  ]
+}

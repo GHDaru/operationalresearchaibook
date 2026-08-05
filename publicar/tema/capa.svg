@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536" width="1024" height="1536" role="img"
+     aria-label="Capa de Teoria das Restrições: uma corrente vertical de elos azuis com um único elo em âmbar — a restrição, o elo que determina a resistência do conjunto — sobre fundo azul-escuro com traços de blueprint.">
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1526"/>
+      <stop offset="55%" stop-color="#0d1a30"/>
+      <stop offset="100%" stop-color="#091220"/>
+    </linearGradient>
+    <radialGradient id="brilho" cx="50%" cy="47%" r="34%">
+      <stop offset="0%" stop-color="#e0a24a" stop-opacity=".30"/>
+      <stop offset="60%" stop-color="#e0a24a" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#e0a24a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grade" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#78aeff" stroke-width="1" opacity=".07"/>
+    </pattern>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1536" fill="url(#fundo)"/>
+  <rect width="1024" height="1536" fill="url(#grade)"/>
+  <rect width="1024" height="1536" fill="url(#brilho)"/>
+
+  <!-- Traços de blueprint: eixos e marcações discretas -->
+  <g stroke="#78aeff" stroke-width="1" opacity=".16" fill="none">
+    <circle cx="470" cy="850" r="286"/>
+    <circle cx="470" cy="850" r="218" stroke-dasharray="6 10"/>
+    <path d="M 92 850 H 1024"/>
+    <path d="M 470 500 V 1220"/>
+  </g>
+
+  <!-- Título -->
+  <text x="92" y="196" fill="#eef3fb" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="1">TEORIA DAS</text>
+  <text x="92" y="292" fill="#eef3fb" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="1">RESTRIÇÕES</text>
+  <path d="M 92 330 H 560" stroke="#e0a24a" stroke-width="4"/>
+  <text x="92" y="384" fill="#9db4d6" font-family="Georgia, 'Times New Roman', serif" font-size="30">Um livro vivo sobre pensar com rigor</text>
+
+  <!-- A corrente: cinco elos verticais, o do meio em âmbar (a restrição) -->
+  <g transform="translate(470, 850)">
+    <g fill="none" stroke="#5c86c4" stroke-width="15" opacity=".92">
+      <ellipse cx="0" cy="-268" rx="60" ry="94"/>
+      <ellipse cx="0" cy="-134" rx="60" ry="94"/>
+      <ellipse cx="0" cy="134" rx="60" ry="94"/>
+      <ellipse cx="0" cy="268" rx="60" ry="94"/>
+    </g>
+
+    <!-- O elo restritivo: mais fino, em âmbar, com brilho -->
+    <g filter="url(#glow)">
+      <ellipse cx="0" cy="0" rx="60" ry="94" fill="none" stroke="#e0a24a" stroke-width="8"/>
+    </g>
+
+    <!-- Marcação técnica apontando o elo -->
+    <g stroke="#e0a24a" stroke-width="2" fill="none" opacity=".85">
+      <path d="M 86 0 H 224"/>
+      <circle cx="86" cy="0" r="5" fill="#e0a24a" stroke="none"/>
+    </g>
+    <text x="240" y="-8" fill="#e0a24a" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="26">a restrição</text>
+    <text x="240" y="28" fill="#7d94b8" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="19">o elo mais fraco</text>
+    <text x="240" y="54" fill="#7d94b8" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="19">define o todo</text>
+  </g>
+
+  <!-- Créditos -->
+  <g font-family="'SF Mono', Menlo, Consolas, monospace" font-size="23" fill="#7d94b8">
+    <text x="92" y="1360">Gilsiley Henrique Darú — edição, direção e orquestração</text>
+    <text x="92" y="1400">Claude (Anthropic) — pesquisa e geração de texto (co-autoria)</text>
+  </g>
+  <path d="M 92 1440 H 300" stroke="#e0a24a" stroke-width="3" opacity=".7"/>
+</svg>

@@ -1,0 +1,73 @@
+name: CI do livro (build, testes e PDFs)
+
+# Portão de qualidade: roda os testes do tutor, regenera o corpus e prova que o
+# site e os PDFs constroem. NÃO publica — a publicação é do Vercel (ADR 0002),
+# que constrói o mesmo motor com SEM_PDF=1. O docs/ é gerado, não versionado.
+
+on:
+  push:
+    branches: [main, "0*"]
+    paths:
+      - "livro/**"
+      - "publicar/**"
+      - "chat-companion/**"
+      - ".github/workflows/publicar.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Princípio VI: as skills instaladas são a regra vigente, e divergência
+      # silenciosa em relação ao Maestro é dívida. O repositório do Maestro é
+      # privado, então o CI só consegue checar quando houver um token com acesso
+      # (secret MAESTRO_TOKEN). Sem o segredo, o passo é pulado — e a sincronia
+      # continua sendo feita localmente com scripts/sync-maestro.sh.
+      - name: Sincronia com o Maestro
+        if: ${{ secrets.MAESTRO_TOKEN != '' }}
+        run: |
+          git clone --depth 1 https://x-access-token:${{ secrets.MAESTRO_TOKEN }}@github.com/GHDaru/maestro.git /tmp/maestro
+          MAESTRO=/tmp/maestro scripts/sync-maestro.sh --check
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Testes do chat companion
+        run: pip install -q -r requirements.txt pytest httpx && python -m pytest -q
+        working-directory: chat-companion/backend
+      # O corpus do tutor é regerado a cada build: o chat nunca responde por uma
+      # versão antiga do livro (dívida herdada do motor original, corrigida aqui).
+      - name: Regerar o corpus do tutor
+        run: python build_corpus.py
+        working-directory: chat-companion/backend
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar dependências do motor
+        run: npm ci
+        working-directory: publicar
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: Gerar o site (Markdown -> docs/)
+        run: npm run build
+        working-directory: publicar
+      - name: Instalar Chromium (para os PDFs)
+        run: npx playwright install --with-deps chromium
+        working-directory: publicar
+      - name: Gerar PDFs (livro completo + por capítulo)
+        run: npm run pdf
+        working-directory: publicar
+      - name: Limpar temporário de impressão
+        run: rm -f docs/_print.html
+      # Verifica também o modo do Vercel (sem Chromium, portanto sem PDFs):
+      # os dois caminhos de build precisam ficar verdes (ADR 0002).
+      - name: Verificar o build do Vercel (SEM_PDF)
+        run: SEM_PDF=1 node build.mjs && SEM_PDF=1 node verifica-capitulos.mjs
+        working-directory: publicar
