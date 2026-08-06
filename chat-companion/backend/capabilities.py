@@ -17,38 +17,25 @@ from typing import Optional
 
 # chave, rótulo, descrição (voltada ao leitor), capítulo que libera, tools que habilita.
 # tools=() significa capacidade conceitual (sem tool nova) ou infra sempre-presente.
+#
+# Esta é a FONTE DA VERDADE do gating. `COMPANION_CAPS` em `publicar/build.mjs`
+# é um espelho para exibição, e `verifica-espelho.mjs` barra a divergência.
+# Mudou aqui, mude lá.
+#
+# O registro cresce com os capítulos: cada rodada de conteúdo acrescenta as
+# capacidades que seus capítulos destravam (formular um modelo linear, ler um
+# preço-sombra, escolher entre exato e heurístico). Hoje o handbook está na
+# rodada de fundação e ainda não publicou capítulo de método.
 REGISTRO = [
-    {"chave": "tutor", "rotulo": "Tutor do livro", "libera": 0, "tools": (),
-     "descricao": "Explico conceitos e conduzo por perguntas, usando o texto do livro."},
+    {"chave": "tutor", "rotulo": "Tutor do handbook", "libera": 0, "tools": (),
+     "descricao": "Explico conceitos e conduzo por perguntas, usando o texto do handbook."},
     {"chave": "busca_livro", "rotulo": "Busca no livro", "libera": 0, "tools": ("buscar_no_livro",),
      "descricao": "Encontro os trechos do livro que embasam a resposta, e cito a fonte."},
-    {"chave": "restricao", "rotulo": "A restrição", "libera": 1, "tools": (),
-     "descricao": "Ajudo a identificar a restrição de um sistema seu e a testar se é ela mesma."},
-    {"chave": "cinco_passos", "rotulo": "Cinco passos", "libera": 3, "tools": (),
-     "descricao": "Conduzo o ciclo de focalização e aponto em que passo você está."},
-    {"chave": "tres_perguntas", "rotulo": "As três perguntas", "libera": 4, "tools": (),
-     "descricao": "Ajudo a enquadrar seu problema numa das três perguntas da mudança."},
+    {"chave": "mapa", "rotulo": "Mapa do handbook", "libera": 0, "tools": (),
+     "descricao": "Situo um tema no mapa: em que parte ele mora, o que vem antes e o que ele destrava."},
     {"chave": "exercicios", "rotulo": "Exercícios", "libera": 1,
      "tools": ("exercicio_registrar_tentativa",),
      "descricao": "Conduzo o exercício da página, avalio sua resposta pelos critérios e registro a tentativa."},
-    {"chave": "causa_efeito", "rotulo": "Causa e efeito", "libera": 6, "tools": (),
-     "descricao": "Ajudo a testar conexões \"se… então…\" que você escreveu."},
-    {"chave": "pre_requisito", "rotulo": "Pré-requisito", "libera": 7, "tools": (),
-     "descricao": "Ajudo a testar conexões \"para… é necessário…\" pela negativa."},
-    {"chave": "premissas", "rotulo": "Premissas", "libera": 8, "tools": (),
-     "descricao": "Provoco o levantamento de premissas de uma conexão sua."},
-    {"chave": "cadeias", "rotulo": "Cadeias lógicas", "libera": 9, "tools": ("calcular",),
-     "descricao": "Verifico o encadeamento: saltos, circularidade e efeitos órfãos."},
-    {"chave": "nuvem", "rotulo": "A Nuvem", "libera": 10, "tools": (),
-     "descricao": "Conduzo a montagem de uma Nuvem e aplico os testes de verificação."},
-    {"chave": "conflito_recorrente", "rotulo": "Conflitos recorrentes", "libera": 11, "tools": (),
-     "descricao": "Ajudo a fechar o loop de um problema que sempre volta."},
-    {"chave": "injecoes", "rotulo": "Injeções", "libera": 12, "tools": (),
-     "descricao": "Provoco a inversão de premissas e valido as injeções candidatas."},
-    {"chave": "apr", "rotulo": "Análise de Pré-Requisitos", "libera": 13, "tools": (),
-     "descricao": "Ajudo a converter obstáculos em objetivos intermediários e a sequenciá-los."},
-    {"chave": "aplicacao", "rotulo": "Aplicação integrada", "libera": 14, "tools": (),
-     "descricao": "Conduzo o percurso completo em uma hora sobre um problema seu."},
 ]
 
 MODOS = ("avancado", "progressivo")

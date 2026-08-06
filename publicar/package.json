@@ -1,9 +1,9 @@
 {
-  "name": "motor-do-livro-toc",
+  "name": "motor-do-handbook-po",
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "description": "Motor de publicação do livro Teoria das Restrições (Markdown -> HTML navegável + PDF).",
+  "description": "Motor de publicação do handbook de Pesquisa Operacional (Markdown -> HTML navegável + PDF).",
   "scripts": {
     "build": "node verifica-espelho.mjs && node verifica-referencias.mjs && node build.mjs && node verifica-capitulos.mjs && node verifica-exercicios.mjs",
     "pdf": "node pdf.mjs"

@@ -27,7 +27,7 @@ from ragindex import BookIndex
 from store import make_store
 from tools import Tools
 
-app = FastAPI(title="chat-companion · Teoria das Restrições")
+app = FastAPI(title="chat-companion · Pesquisa Operacional")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.ALLOWED_ORIGINS,
@@ -73,29 +73,41 @@ def _rate_ok_chat(session_id: str, ip: str) -> bool:
 # a evidência recente é que um tutor de IA com scaffolding socrático melhora
 # muito a aprendizagem, enquanto um assistente que entrega a resposta pronta a
 # PIORA — o aluno vira dependente e cai quando a muleta some. As regras abaixo
-# são o guardrail que separa os dois casos. O nome é uma homenagem ao Jonah de
-# "A Meta", que ensina exclusivamente por perguntas.
+# são o guardrail que separa os dois casos. Em Pesquisa Operacional o risco é
+# concreto: entregar o modelo pronto ensina a copiar formulação, e formular é
+# justamente a habilidade que o handbook existe para treinar.
 PERSONA = (
-    "Você é o tutor do livro vivo 'Teoria das Restrições', em português do Brasil. "
-    "Seu papel é treinar o raciocínio do leitor, não pensar por ele.\n"
+    "Você é o tutor do handbook vivo de Pesquisa Operacional, em português do Brasil. "
+    "Seu papel é treinar a capacidade de MODELAR do leitor, não modelar por ele.\n"
     "\n"
     "COMO RESPONDER — decida pelo tipo de pergunta:\n"
-    "1. Pergunta factual ou de referência (o que significa X, onde está Y, qual a "
-    "estrutura da Nuvem): responda DIRETO e com precisão, citando o trecho do livro "
-    "entre colchetes. Não socratize o que é consulta.\n"
-    "2. Pergunta conceitual, ou pedido de ajuda com um exercício, diagrama ou problema "
-    "do próprio leitor: NÃO entregue a resposta. Conduza por perguntas, uma de cada vez, "
-    "e ofereça dica em camadas — primeiro a mais leve, e só aprofunde se o leitor "
-    "continuar travado. Devolva o raciocínio dele para exame: 'você escreveu que A causa "
-    "B; dado A, B acontece por si, ou falta algo?'\n"
+    "1. Pergunta factual ou de referência (o que significa preço-sombra, o que diz o "
+    "teorema forte da dualidade, onde o livro trata de degenerescência): responda DIRETO "
+    "e com precisão, citando o trecho do livro entre colchetes. Não socratize o que é "
+    "consulta — quem quer a definição quer a definição.\n"
+    "2. Pergunta conceitual, ou pedido de ajuda com um exercício, um modelo ou um "
+    "problema do próprio leitor: NÃO entregue a formulação pronta. Conduza por perguntas, "
+    "uma de cada vez, e ofereça dica em camadas — primeiro a mais leve. Devolva o "
+    "raciocínio dele para exame: 'você declarou x como a quantidade produzida; a "
+    "restrição que você escreveu está na mesma unidade dos dois lados?'\n"
+    "\n"
+    "AS PERGUNTAS QUE DESTRAVAM UM MODELO, nesta ordem:\n"
+    "- O que quem decide pode de fato ESCOLHER? (isso, e só isso, é variável de decisão)\n"
+    "- Qual é a ÚNICA medida a maximizar ou minimizar? Se aparecem duas, é multiobjetivo.\n"
+    "- O que LIMITA as combinações? Cada limite vira uma restrição, com unidades que "
+    "batem dos dois lados.\n"
+    "- O que é dado e não escolhido? (parâmetro, não variável)\n"
     "\n"
     "REGRAS INEGOCIÁVEIS:\n"
     "- Nunca resolva o exercício do leitor, mesmo se ele pedir várias vezes. Se insistir, "
     "explique que resolver por ele destruiria o valor do exercício, e ofereça a próxima dica.\n"
-    "- Nunca monte a Nuvem, a cadeia ou o plano do leitor por ele. Faça-o formular; "
-    "aponte o que não passa nos testes do capítulo e por quê.\n"
-    "- Não invente conceitos, fontes ou citações. Ancore tudo no texto do livro. "
-    "Se o livro não cobre o assunto, diga isso.\n"
+    "- Nunca escreva o modelo do leitor por ele. Faça-o formular; aponte onde a formulação "
+    "quebra e por quê.\n"
+    "- Não faça aritmética de cabeça e não invente números de desempenho. Se um número não "
+    "está no livro nem foi medido, diga que não sabe.\n"
+    "- Não invente conceitos, fontes ou citações. Ancore tudo no texto do livro. Se o livro "
+    "não cobre o assunto, diga isso — e, se for o caso, diga em que parte do mapa ele "
+    "moraria.\n"
     "- Uma pergunta por vez. Respostas curtas. O leitor deve falar mais que você.\n"
     "- Corrija erros de raciocínio de forma direta e sem rodeios, mas sempre sobre o "
     "argumento, nunca sobre a pessoa."
@@ -105,7 +117,7 @@ PERSONA = (
 def _system_prompt(chapter: Optional[int], mode: str, achados: list[dict],
                    goal: Optional[str] = None) -> str:
     caps = [c for c in capacidades(chapter, mode) if c["ativa"]]
-    lista = ", ".join(c["rotulo"] for c in caps) or "Tutor do livro"
+    lista = ", ".join(c["rotulo"] for c in caps) or "Tutor do handbook"
     obj = (f"\n\nObjetivo declarado do leitor: {goal}\n"
            "Conecte as respostas a este objetivo; ao traçar planos de estudo, "
            "sugira a ordem de capítulos e os exercícios que melhor o servem, "
@@ -125,10 +137,10 @@ def _system_prompt(chapter: Optional[int], mode: str, achados: list[dict],
 
 # ------------------------------------------------------------------ modelos
 
-# Snapshot de contexto — subconjunto do padrão APH (ver
-# estudos/003-protocolo-aph-para-exercicios.md). A página descreve o que o leitor
-# está vendo; o servidor resolve o que isso significa. Schema fechado de
-# propósito: campo desconhecido é rejeitado na borda.
+# Snapshot de contexto: a página descreve o que o leitor está vendo; o servidor
+# resolve o que isso significa. Schema fechado de propósito — campo desconhecido
+# é rejeitado na borda, para que o cliente não consiga forjar um exercício nem
+# alterar os critérios pelos quais será avaliado.
 class Tela(BaseModel):
     id: str
     route: str = ""
@@ -228,7 +240,7 @@ def _enviar_email_sugestao(texto: str, pagina: str, session_id: str) -> bool:
         return False
     try:
         msg = EmailMessage()
-        msg["Subject"] = f"[Teoria das Restrições] Sugestão de leitor ({pagina or 'site'})"
+        msg["Subject"] = f"[Pesquisa Operacional] Sugestão de leitor ({pagina or 'site'})"
         msg["From"] = config.SMTP_USER or "companion@livro"
         msg["To"] = config.SUGGESTION_EMAIL_TO
         msg.set_content(f"Sugestão recebida pelo companion do livro.\n\n"

@@ -67,8 +67,8 @@ sumario.partes.forEach((p, pi) =>
 );
 const hrefOutroIdioma = (slug) => (EN ? `../${parDe[slug] || "sumario"}.html` : `en/${parDe[slug] || "sumario"}.html`);
 
-const GITHUB_BASE = "https://github.com/GHDaru/theoryofconstraintlivebook/blob/main/";
-const SITE = "https://theoryofconstraintlivebook.vercel.app/";
+const GITHUB_BASE = "https://github.com/GHDaru/operationalresearchaibook/blob/main/";
+const SITE = "https://operationalresearchaibook.vercel.app/";
 const DOI = "";
 
 // Dicionário do chrome (spec 067). O conteúdo vem do Markdown; isto é só a moldura.
@@ -87,7 +87,7 @@ const T = EN
       capKicker: "Ch.",
       anterior: "← previous",
       proximo: "next →",
-      rodape: `Living book · generated from Markdown by our own engine · <a href="https://github.com/GHDaru/theoryofconstraintlivebook">source on GitHub</a>`,
+      rodape: `Living book · generated from Markdown by our own engine · <a href="https://github.com/GHDaru/operationalresearchaibook">source on GitHub</a>`,
       bibliografiaHtml: "bibliography.html",
       verCitacao: "see in the Bibliography",
       splashDesc: "An empirical study of the discipline of building the <em>scaffolding</em> around AI agents — theory, a benchmark of real harnesses, and a hands-on build from scratch.",
@@ -107,8 +107,8 @@ const T = EN
       atualizadoEm: "updated on",
       kickerEntrada: "Living book",
       comecar: "▶ Start from the beginning — 00",
-      pdfLivro: "pdf/theory-of-constraints.pdf",
-      mdLivro: "md/theory-of-constraints.md",
+      pdfLivro: "pdf/operations-research.pdf",
+      mdLivro: "md/operations-research.md",
       pdfLivroTitulo: "Full book as PDF",
       mdLivroTitulo: "Full book as Markdown (LLM-friendly)",
       continueLendo: "Continue reading",
@@ -117,7 +117,7 @@ const T = EN
         ["01-foundations.html", "Track · 1", "Foundations", "The book's vocabulary and thesis."],
         ["02-agent-loop.html", "Track · 2", "Capabilities", "The 16 components, one per chapter."],
         ["comparative.html", "Track · 3", "Benchmark", "Real harnesses, compared."],
-        ["https://github.com/GHDaru/theoryofconstraintlivebook/tree/main/harness-zero", "Track · 4", "Hands-on", "Build harness-zero, step by step."],
+        ["https://github.com/GHDaru/operationalresearchaibook/tree/main/harness-zero", "Track · 4", "Hands-on", "Build harness-zero, step by step."],
       ],
       partesCartao: new Set(["Opening", "Chapters by capability"]),
       pillsRotulo: "Benchmark · Apparatus · About",
@@ -142,11 +142,11 @@ const T = EN
       capKicker: "Cap.",
       anterior: "← anterior",
       proximo: "próximo →",
-      rodape: `Livro vivo · gerado do Markdown pelo motor próprio · <a href="https://github.com/GHDaru/theoryofconstraintlivebook">fonte no GitHub</a>`,
+      rodape: `Livro vivo · gerado do Markdown pelo motor próprio · <a href="https://github.com/GHDaru/operationalresearchaibook">fonte no GitHub</a>`,
       bibliografiaHtml: "bibliografia.html",
       verCitacao: "ver na Bibliografia",
-      splashDesc: "Um treinamento vivo em raciocínio rigoroso — a lógica que sustenta o diagnóstico, as ferramentas que dissolvem conflitos e o método que vira plano.",
-      splashAlt: "Capa de Teoria das Restrições: um diagrama de causa e efeito luminoso, em âmbar, sobre fundo azul-escuro com traços de blueprint.",
+      splashDesc: "O handbook vivo de Pesquisa Operacional — modelar com intenção e entender o algoritmo o suficiente para desconfiar dele. Fundamentos, métodos, módulos aplicados e a literatura corrente.",
+      splashAlt: "Capa de Pesquisa Operacional: um poliedro luminoso, em âmbar, sobre fundo azul-escuro com traços de blueprint.",
       entrarLivro: "Entrar no livro →",
       benchmarkBtn: "Glossário",
       guiaBtn: "Guia Editorial",
@@ -162,19 +162,19 @@ const T = EN
       atualizadoEm: "atualizado em",
       kickerEntrada: "Livro vivo",
       comecar: "▶ Começar do início — 00",
-      pdfLivro: "pdf/teoria-das-restricoes.pdf",
-      mdLivro: "md/teoria-das-restricoes.md",
+      pdfLivro: "pdf/pesquisa-operacional.pdf",
+      mdLivro: "md/pesquisa-operacional.md",
       pdfLivroTitulo: "Livro completo em PDF",
       mdLivroTitulo: "Livro completo em Markdown (bom para LLMs)",
       continueLendo: "Continue lendo",
       retomar: "Retomar ▶",
       trilha: [
-        ["01-sistema-e-restricao.html", "Módulo · 0", "A restrição", "O elo que decide a resistência do conjunto."],
-        ["05-por-que-ferramentas.html", "Módulo · 1", "Fundamentos lógicos", "Causa e efeito, pré-requisito, premissas, cadeias."],
-        ["10-nuvem.html", "Módulo · 2", "O que mudar", "A Nuvem e o problema que sempre volta."],
-        ["12-injecoes.html", "Módulo · 3 e 4", "Solução e plano", "Injeções e a análise de pré-requisitos."],
+        ["00-introducao.html", "Comece por aqui", "Introdução", "Para quem é, como se estuda, e o que o handbook exige de si mesmo."],
+        ["mapa-do-handbook.html", "O destino", "Mapa do handbook", "As vagas declaradas, em três camadas: núcleo, aplicados e fronteira."],
+        ["radar.html", "Como se atualiza", "Radar científico", "Artigo lido vira linha datada — com o que ele muda no livro."],
+        ["guia-editorial.html", "Como se escreve", "Guia Editorial", "O esqueleto de capítulo, os exercícios e a curadoria de vídeo."],
       ],
-      partesCartao: new Set(["Abertura", "Módulo 0 — A restrição", "Módulo 1 — Fundamentos lógicos", "Módulo 2 — O que mudar", "Módulo 3 — Para o que mudar", "Módulo 4 — Como causar a mudança"]),
+      partesCartao: new Set(["Abertura"]),
       pillsRotulo: "Aparato · Sobre",
       dataLocale: "pt-BR",
       sincOk: null,
@@ -188,21 +188,10 @@ const T = EN
 // capacidades (fonte-de-verdade do gating é o backend; aqui é só exibição).
 const COMPANION_BACKEND = sumario.companion_backend || "";
 const COMPANION_CAPS = [
-  { chave: "tutor", rotulo: "Tutor do livro", libera: 0 },
+  { chave: "tutor", rotulo: "Tutor do handbook", libera: 0 },
   { chave: "busca_livro", rotulo: "Busca no livro", libera: 0 },
-  { chave: "restricao", rotulo: "A restrição", libera: 1 },
-  { chave: "cinco_passos", rotulo: "Cinco passos", libera: 3 },
-  { chave: "tres_perguntas", rotulo: "As três perguntas", libera: 4 },
+  { chave: "mapa", rotulo: "Mapa do handbook", libera: 0 },
   { chave: "exercicios", rotulo: "Exercícios", libera: 1 },
-  { chave: "causa_efeito", rotulo: "Causa e efeito", libera: 6 },
-  { chave: "pre_requisito", rotulo: "Pré-requisito", libera: 7 },
-  { chave: "premissas", rotulo: "Premissas", libera: 8 },
-  { chave: "cadeias", rotulo: "Cadeias lógicas", libera: 9 },
-  { chave: "nuvem", rotulo: "A Nuvem", libera: 10 },
-  { chave: "conflito_recorrente", rotulo: "Conflitos recorrentes", libera: 11 },
-  { chave: "injecoes", rotulo: "Injeções", libera: 12 },
-  { chave: "apr", rotulo: "Análise de Pré-Requisitos", libera: 13 },
-  { chave: "aplicacao", rotulo: "Aplicação integrada", libera: 14 },
 ];
 const capituloDe = (titulo) => parseInt((String(titulo).match(/^\s*(\d+)/) || [])[1], 10) || 0;
 function companionSnippet(chapter) {
@@ -338,20 +327,30 @@ function marcarCallouts(html) {
 }
 
 // Siglas "abertas" (spec 023) — fonte única; o glossário mirroreia.
+// Siglas "abertas" — fonte única; o glossário espelha (livro/glossario.md).
+// Regra: só entram siglas cuja forma é inequívoca em prosa portuguesa. Siglas de
+// duas letras ambíguas (SA, TS, AG, CP, PI, PD) ficam de fora de propósito: o
+// motor casa por palavra inteira e as marcaria em falsos positivos.
 const SIGLAS = {
-  MCP: "Model Context Protocol", ACP: "Agent Client Protocol", A2A: "Agent-to-Agent",
-  MRTR: "Multi Round-Trip Requests", CIMD: "Client ID Metadata Documents", DCR: "Dynamic Client Registration",
-  LSP: "Language Server Protocol", RPC: "Remote Procedure Call",
-  MAST: "Multi-Agent System Failure Taxonomy", RAG: "Retrieval-Augmented Generation",
-  LLM: "Large Language Model", GPT: "Generative Pre-trained Transformer",
-  API: "Application Programming Interface", SDK: "Software Development Kit",
-  CLI: "Command-Line Interface", TUI: "Text (Terminal) User Interface",
-  IDE: "Integrated Development Environment", HCI: "Human-Computer Interaction",
-  HTTP: "HyperText Transfer Protocol", SSE: "Server-Sent Events", JSON: "JavaScript Object Notation",
-  DDD: "Domain-Driven Design", DOI: "Digital Object Identifier",
-  ORCID: "Open Researcher and Contributor ID", ISBN: "International Standard Book Number",
-  ICMJE: "International Committee of Medical Journal Editors", COPE: "Committee on Publication Ethics",
-  ICLR: "International Conference on Learning Representations", SWE: "Software Engineering",
+  PO: "Pesquisa Operacional", PL: "Programação Linear",
+  LP: "Linear Programming", MILP: "Mixed Integer Linear Programming",
+  MINLP: "Mixed Integer Nonlinear Programming", KKT: "Karush-Kuhn-Tucker",
+  VRP: "Vehicle Routing Problem", TSP: "Travelling Salesman Problem",
+  GRASP: "Greedy Randomized Adaptive Search Procedure",
+  LNS: "Large Neighborhood Search", ALNS: "Adaptive Large Neighborhood Search",
+  VNS: "Variable Neighborhood Search", ILS: "Iterated Local Search",
+  ACO: "Ant Colony Optimization", PSO: "Particle Swarm Optimization",
+  MDP: "Markov Decision Process", DEA: "Data Envelopment Analysis",
+  AHP: "Analytic Hierarchy Process",
+  TOPSIS: "Technique for Order of Preference by Similarity to Ideal Solution",
+  EOQ: "Economic Order Quantity", CPM: "Critical Path Method",
+  PERT: "Program Evaluation and Review Technique",
+  ML4CO: "Machine Learning for Combinatorial Optimization",
+  ML: "Machine Learning", RL: "Reinforcement Learning",
+  LLM: "Large Language Model", RAG: "Retrieval-Augmented Generation",
+  API: "Application Programming Interface", DOI: "Digital Object Identifier",
+  ISBN: "International Standard Book Number", ORCID: "Open Researcher and Contributor ID",
+  ADR: "Architecture Decision Record", DoD: "Definition of Done",
 };
 const RE_SIGLAS = new RegExp("\\b(" + Object.keys(SIGLAS).sort((a, b) => b.length - a.length).join("|") + ")\\b", "g");
 const TAGS_PROT = /^(pre|code|a|abbr|h[1-6]|script|style)$/i;
@@ -681,7 +680,7 @@ mkdirSync(resolve(SAIDA, "md"), { recursive: true });
     writeFileSync(resolve(SAIDA, "md", `${item.slug}.md`), bruto);
     partesMd.push(bruto.trim());
   }
-  const cabecalho = `# ${sumario.titulo}\n\n> ${sumario.subtitulo}\n>\n> ${versaoDoLivro()}${DOI ? ` · DOI ${DOI}` : ""} · fonte: https://github.com/GHDaru/theoryofconstraintlivebook · site: ${SITE}\n\n---\n\n`;
+  const cabecalho = `# ${sumario.titulo}\n\n> ${sumario.subtitulo}\n>\n> ${versaoDoLivro()}${DOI ? ` · DOI ${DOI}` : ""} · fonte: https://github.com/GHDaru/operationalresearchaibook · site: ${SITE}\n\n---\n\n`;
   writeFileSync(resolve(SAIDA, T.mdLivro), cabecalho + partesMd.join("\n\n---\n\n") + "\n");
 }
 

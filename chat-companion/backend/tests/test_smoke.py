@@ -45,11 +45,11 @@ def test_gating_progressive_hides_future_tools():
     # A busca no livro vale desde a capa: o tutor precisa citar a fonte já na
     # primeira pergunta, então o loop nasce ativo (cap. 0).
     assert capabilities.tools_ativas(0, "progressivo") == {"buscar_no_livro"}
-    # 'calcular' entra só com as cadeias lógicas (cap. 9)
-    assert "calcular" not in capabilities.tools_ativas(8, "progressivo")
-    assert "calcular" in capabilities.tools_ativas(9, "progressivo")
+    # O registro de tentativa só entra com o primeiro capítulo numerado.
+    assert "exercicio_registrar_tentativa" not in capabilities.tools_ativas(0, "progressivo")
+    assert "exercicio_registrar_tentativa" in capabilities.tools_ativas(1, "progressivo")
     # avançado libera tudo mesmo no cap. 0
-    assert {"calcular", "buscar_no_livro"} <= capabilities.tools_ativas(0, "avancado")
+    assert {"exercicio_registrar_tentativa", "buscar_no_livro"} <= capabilities.tools_ativas(0, "avancado")
 
 
 def test_capabilities_endpoint():
@@ -57,13 +57,13 @@ def test_capabilities_endpoint():
     j = r.json()
     assert j["loop_ativo"] is True
     ativos = {c["chave"] for c in j["capabilities"] if c["ativa"]}
-    # na capa: tutor e busca ativos; as ferramentas dos módulos, ainda não
-    assert {"tutor", "busca_livro"} <= ativos
-    assert "nuvem" not in ativos and "injecoes" not in ativos
-    # já no capítulo 10, a Nuvem entra — e as injeções (cap. 12) continuam fora
-    ativos10 = {c["chave"] for c in client.get(
-        "/capabilities", params={"chapter": 10, "mode": "progressivo"}).json()["capabilities"] if c["ativa"]}
-    assert "nuvem" in ativos10 and "injecoes" not in ativos10
+    # na capa: tutor, busca e mapa ativos; a prática, ainda não
+    assert {"tutor", "busca_livro", "mapa"} <= ativos
+    assert "exercicios" not in ativos
+    # a partir do primeiro capítulo numerado, a prática entra
+    ativos1 = {c["chave"] for c in client.get(
+        "/capabilities", params={"chapter": 1, "mode": "progressivo"}).json()["capabilities"] if c["ativa"]}
+    assert "exercicios" in ativos1
 
 
 def test_rate_limit_429():
@@ -145,7 +145,7 @@ def test_debug_bastidores():
     d = r.json()["debug"]
     assert d["tokens_estimados"] > 0 and d["janela_tokens"] > 0
     assert d["historico_msgs"] >= 1 and isinstance(d["trechos"], list)
-    assert "Tutor do livro" in d["capacidades_ativas"]
+    assert "Tutor do handbook" in d["capacidades_ativas"]
 
     with client.stream("POST", "/chat/stream",
                        json={"session_id": "t-debug2", "message": "e compactação?"}) as r:
@@ -196,25 +196,46 @@ def test_telemetry_publico_agregado():
 # Exercícios via chat: a página declara o exercício, o servidor resolve o
 # enunciado, o tutor avalia e a tentativa é registrada.
 
+# Estes são testes de MECANISMO, e mecanismo não pode depender de conteúdo
+# editorial: o registro de exercícios muda a cada rodada do livro, e um teste
+# ancorado num identificador real quebra sem que nada do backend tenha quebrado.
+# (Foi exatamente o que aconteceu quando este repositório trocou de livro.)
+# Por isso semeamos um exercício SINTÉTICO no índice em memória.
+EX_FIXTURE = {
+    "id": "cap07.exA", "capitulo": 7, "serie": "cap07", "variante": "A",
+    "tipo": "formular", "capacidade": "exercicios",
+    "titulo": "Formular um mix de produção",
+    "enunciado": "Uma fábrica produz dois itens com dois recursos escassos...",
+    "criterios": ["As variáveis de decisão estão declaradas com unidade",
+                  "A função objetivo maximiza margem, não receita",
+                  "Há uma restrição por recurso escasso"],
+    "erro_provavel": "Maximizar receita em vez de margem de contribuição.",
+    "resposta_guia": "Sejam x1 e x2 as quantidades a produzir...",
+}
+appmod._exercicios._por_id[EX_FIXTURE["id"]] = EX_FIXTURE
+EX_ID = EX_FIXTURE["id"]
+EX_CAP = EX_FIXTURE["capitulo"]
+
+
 def _snap(exercicio_id):
-    return {"screen": {"id": "capitulo.exercicio", "route": "/02-otimo-local"},
+    return {"screen": {"id": "capitulo.exercicio", "route": "/07-formulacao"},
             "selected_entity": {"type": "exercicio", "id": exercicio_id}}
 
 
 def test_exercicio_desconhecido_e_recusado_na_borda():
     """CA-1: o enunciado nunca vem do cliente — id inexistente para antes do modelo."""
     r = client.post("/chat", json={"session_id": "s-ex-1", "message": "oi",
-                                   "chapter": 2, "snapshot": _snap("cap99.ex99")})
+                                   "chapter": EX_CAP, "snapshot": _snap("cap99.ex99")})
     assert r.status_code == 400
     assert "desconhecido" in r.json()["detail"]
 
 
 def test_snapshot_com_campo_extra_e_rejeitado():
     """Schema fechado: campo desconhecido não passa na borda."""
-    mau = _snap("cap02.exA")
+    mau = _snap(EX_ID)
     mau["selected_entity"]["senha"] = "vazando"
     r = client.post("/chat", json={"session_id": "s-ex-2", "message": "oi",
-                                   "chapter": 2, "snapshot": mau})
+                                   "chapter": EX_CAP, "snapshot": mau})
     assert r.status_code == 422
 
 
@@ -232,12 +253,12 @@ def test_enunciado_entra_como_mensagem_de_sistema_propria():
     appmod._preparar_chat = espiao
     try:
         client.post("/chat", json={"session_id": "s-ex-3", "message": "aqui vai minha resposta",
-                                   "chapter": 2, "snapshot": _snap("cap02.exA")})
+                                   "chapter": EX_CAP, "snapshot": _snap(EX_ID)})
     finally:
         appmod._preparar_chat = original
     systems = [m for m in capturado["history"] if m["role"] == "system"]
     assert len(systems) >= 2, "persona e exercício devem ser mensagens distintas"
-    assert any("cap02.exA" in m["content"] and "Critérios de avaliação" in m["content"]
+    assert any(EX_ID in m["content"] and "Critérios de avaliação" in m["content"]
                for m in systems), "o enunciado e a rubrica devem chegar ao modelo"
     # a rubrica NUNCA vai junto do texto do leitor
     users = [m for m in capturado["history"] if m["role"] == "user"]
@@ -250,11 +271,11 @@ def test_acao_de_registro_so_existe_com_exercicio_em_foco():
     from types import SimpleNamespace
     req = SimpleNamespace(client=SimpleNamespace(host="1.2.3.4"))
 
-    sem = appmod.ChatIn(session_id="s-ex-4a", message="oi", chapter=2)
+    sem = appmod.ChatIn(session_id="s-ex-4a", message="oi", chapter=EX_CAP)
     assert "exercicio_registrar_tentativa" not in appmod._preparar_chat(sem, req)[3]
 
-    com = appmod.ChatIn(session_id="s-ex-4b", message="oi", chapter=2,
-                        snapshot=appmod.Snapshot(**_snap("cap02.exA")))
+    com = appmod.ChatIn(session_id="s-ex-4b", message="oi", chapter=EX_CAP,
+                        snapshot=appmod.Snapshot(**_snap(EX_ID)))
     assert "exercicio_registrar_tentativa" in appmod._preparar_chat(com, req)[3]
 
 
@@ -262,13 +283,13 @@ def test_registro_persiste_e_aparece_no_progresso():
     """CA-4: a tentativa vira traço consultável."""
     import app as appmod
     appmod._tools.contexto = {"session_id": "s-ex-5",
-                              "exercicio": {"id": "cap02.exA", "capitulo": 2}}
+                              "exercicio": {"id": EX_ID, "capitulo": EX_CAP}}
     out = appmod._tools.executar("exercicio_registrar_tentativa",
                                  {"veredito": "parcial", "resumo_feedback": "faltou a suficiência"},
                                  {"exercicio_registrar_tentativa"})
     assert "registrada" in out
     prog = client.get("/progresso", params={"session_id": "s-ex-5"}).json()["tentativas"]
-    assert len(prog) == 1 and prog[0]["exercicio_id"] == "cap02.exA"
+    assert len(prog) == 1 and prog[0]["exercicio_id"] == EX_ID
     assert prog[0]["veredito"] == "parcial"
 
 
@@ -288,18 +309,18 @@ def test_modelo_nao_registra_exercicio_de_outra_pagina():
     """O substituto barato do context_hash: comparar o id do exercício."""
     import app as appmod
     appmod._tools.contexto = {"session_id": "s-ex-7",
-                              "exercicio": {"id": "cap02.exA", "capitulo": 2}}
+                              "exercicio": {"id": EX_ID, "capitulo": EX_CAP}}
     out = appmod._tools.executar("exercicio_registrar_tentativa",
                                  {"exercicio_id": "cap09.ex01", "veredito": "aprovado"},
                                  {"exercicio_registrar_tentativa"})
-    assert out.startswith("erro:") and "cap02.exA" in out
+    assert out.startswith("erro:") and EX_ID in out
     assert client.get("/progresso", params={"session_id": "s-ex-7"}).json()["tentativas"] == []
 
 
 def test_veredito_invalido_recusado():
     import app as appmod
     appmod._tools.contexto = {"session_id": "s-ex-8",
-                              "exercicio": {"id": "cap02.exA", "capitulo": 2}}
+                              "exercicio": {"id": EX_ID, "capitulo": EX_CAP}}
     out = appmod._tools.executar("exercicio_registrar_tentativa",
                                  {"veredito": "genial"}, {"exercicio_registrar_tentativa"})
     assert out.startswith("erro:")
@@ -319,9 +340,9 @@ def test_esquecimento_apaga_o_progresso():
 
 def test_rota_de_exercicios_nao_expoe_a_rubrica():
     """O leitor não deve poder ler por quais critérios será avaliado."""
-    j = client.get("/exercicios", params={"capitulo": 2}).json()
+    j = client.get("/exercicios", params={"capitulo": EX_CAP}).json()
     ids = {e["id"] for e in j["exercicios"]}
-    assert ids == {"cap02.exA", "cap02.exB", "cap02.exC", "cap02.exD"}, ids
+    assert EX_ID in ids, ids
     for e in j["exercicios"]:
         assert "criterios" not in e
         assert "erro_provavel" not in e, "o mecanismo do erro é do tutor, não do leitor"

@@ -1,6 +1,6 @@
 # Design System do livro — componentes de tela
 
-> **O local da definição** (decisão registrada em [`adr/0006`](../adr/0006-design-system-componentes.md)): cada **entregável da metodologia** (esqueleto v3, Guia Editorial) corresponde a um **componente de tela nomeado**; a página de um capítulo é uma **composição** desses componentes. O motor (`build.mjs`) reconhece os entregáveis pelas convenções do Markdown (títulos de seção, blockquote de data, `sumario.json`) e aplica o componente — o **conteúdo nunca carrega HTML de apresentação**.
+> **O local da definição** (decisão registrada em `adr/0006`): cada **entregável da metodologia** (esqueleto v3, Guia Editorial) corresponde a um **componente de tela nomeado**; a página de um capítulo é uma **composição** desses componentes. O motor (`build.mjs`) reconhece os entregáveis pelas convenções do Markdown (títulos de seção, blockquote de data, `sumario.json`) e aplica o componente — o **conteúdo nunca carrega HTML de apresentação**.
 
 ## Princípios
 

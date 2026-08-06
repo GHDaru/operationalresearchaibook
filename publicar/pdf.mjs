@@ -1,5 +1,5 @@
 // Gera os PDFs do livro a partir do site já construído (docs/):
-//   docs/pdf/teoria-das-restricoes.pdf  — livro completo (capa + tudo)
+//   docs/pdf/pesquisa-operacional.pdf  — livro completo (capa + tudo)
 //   docs/pdf/<slug>.pdf                 — um por capítulo numerado (spec 045)
 // Uso: node build.mjs && node pdf.mjs
 // Nota (spec 043): o <article> das páginas de capítulo não tem mais <h1> nem
@@ -112,7 +112,7 @@ for (const parte of sumario.partes) {
   corpo += `<h1 class="parte">${parte.nome}</h1>`;
   for (const item of parte.itens) { if (item.arquivo) corpo += secao(item); }
 }
-await imprimir(docHtml(corpo, capaLivro), resolve(PDFS, EN ? "theory-of-constraints.pdf" : "teoria-das-restricoes.pdf"), sumario.titulo);
+await imprimir(docHtml(corpo, capaLivro), resolve(PDFS, EN ? "operations-research.pdf" : "pesquisa-operacional.pdf"), sumario.titulo);
 console.log(`✓ PDF do livro [${EN ? "en" : "pt"}]: ${EN ? "docs/en" : "docs"}/pdf/`);
 
 // 2) Um PDF por capítulo numerado

@@ -15,3 +15,7 @@ harness-zero/**/sessoes.db
 harness-zero/**/auditoria.jsonl
 harness-zero/**/skills/pendentes/
 harness-zero/**/skills/aprovadas/
+
+# materiais de terceiros — nunca versionados (constituição, Princípio X)
+materiais/*
+!materiais/README.md

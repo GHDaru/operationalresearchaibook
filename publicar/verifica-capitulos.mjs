@@ -21,8 +21,8 @@ const slugDe = (arquivo) => basename(arquivo).replace(/\.md$/, "").toLowerCase()
 const RE_CAPTURA = EN ? /Content revised in/ : /Conteúdo revisado em/;
 const RE_LEITURA = EN ? /^###\s+Executive summary/m : /^###\s+Leitura executiva/m;
 const MIN_LEITURA = EN ? "min read" : "min de leitura";
-const MD_LIVRO = EN ? "theory-of-constraints.md" : "teoria-das-restricoes.md";
-const PDF_LIVRO = EN ? "theory-of-constraints.pdf" : "teoria-das-restricoes.pdf";
+const MD_LIVRO = EN ? "operations-research.md" : "pesquisa-operacional.md";
+const PDF_LIVRO = EN ? "operations-research.pdf" : "pesquisa-operacional.pdf";
 
 const falhas = [];
 let capitulos = 0, aparato = 0;
@@ -79,10 +79,20 @@ if (!EN) {
   if (!existsSync(gPath)) falhas.push("assets/grafo.json ausente");
   else {
     const g = JSON.parse(readFileSync(gPath, "utf8"));
-    const caps = g.nos.filter((n) => n.tipo === "capitulo").length;
-    if (caps !== 15) falhas.push(`grafo: esperados 15 capítulos, há ${caps}`);
-    if (g.nos.length < 15) falhas.push(`grafo: só ${g.nos.length} nós (<15)`);
-    if (g.arestas.length < 10) falhas.push(`grafo: só ${g.arestas.length} arestas (<10)`);
+    // O que se verifica é INVARIANTE, não estado. A checagem anterior exigia
+    // exatamente 15 capítulos e 10 arestas — números que descreviam o livro de
+    // origem e passariam a mentir assim que ele crescesse ou encolhesse.
+    //
+    // Os invariantes reais do gerador são dois: (1) o grafo poda nós sem aresta,
+    // logo todo nó publicado precisa aparecer em alguma aresta; (2) nenhum nó de
+    // capítulo pode existir sem capítulo correspondente no sumário.
+    const idsCap = new Set(itens.map((i) => (i.titulo.match(/^\s*(\d+)\s*—/) || [])[1]).filter(Boolean).map((n) => "cap-" + n));
+    const emAresta = new Set(g.arestas.flatMap((a) => [a.de, a.para]));
+    for (const n of g.nos) if (!emAresta.has(n.id)) falhas.push(`grafo: nó "${n.id}" sem aresta (a poda deveria tê-lo removido)`);
+    for (const n of g.nos) if (n.tipo === "capitulo" && !idsCap.has(n.id)) falhas.push(`grafo: nó de capítulo "${n.id}" não existe no sumário`);
+    // Com dois ou mais capítulos publicados, um grafo vazio significa extração
+    // quebrada — e não livro sem relações.
+    if (capitulos > 1 && !g.arestas.length) falhas.push(`grafo: nenhuma aresta com ${capitulos} capítulos publicados — extração quebrada`);
   }
 } else if (!existsSync(resolve(RAIZ, "docs/assets/grafo.en.json"))) {
   falhas.push("assets/grafo.en.json ausente (remapeamento EN)");

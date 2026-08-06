@@ -23,7 +23,17 @@ const CAPACIDADES = new Map(
 
 const falhas = [];
 const erro = (m) => falhas.push(m);
-if (!exercicios.length) erro("registro vazio — o portão não está medindo nada");
+// Registro vazio só é aceitável enquanto o livro não publicou nenhum capítulo
+// numerado além da abertura (capítulo 00). Publicado o primeiro capítulo de
+// método, o portão volta a exigir registro — sem que ninguém precise lembrar de
+// reativá-lo. A condição é derivada do sumário, não de uma data ou de um
+// comentário pedindo boa vontade.
+const sumarioPub = JSON.parse(readFileSync(resolve(AQUI, "sumario.json"), "utf8"));
+const CAPS_NUMERADOS = sumarioPub.partes.flatMap((p) => p.itens)
+  .map((i) => (i.titulo || "").match(/^\s*(\d+)\s*—/))
+  .filter(Boolean).map((m) => Number(m[1])).filter((n) => n > 0);
+if (!exercicios.length && CAPS_NUMERADOS.length)
+  erro(`registro vazio, mas o sumário publica ${CAPS_NUMERADOS.length} capítulo(s) numerado(s) — Princípio I exige prática`);
 if (!CAPACIDADES.size) erro("não consegui ler capabilities.py — o portão não está medindo nada");
 
 // 1. Cada exercício, isolado.
@@ -74,7 +84,6 @@ for (const serie of new Set(exercicios.map((e) => e.serie)))
 //    o que está na lista é conhecido; o que não está e aparecer, falha o build.
 const SEM_BATERIA_DECLARADO = new Set([
   "00-introducao",       // abertura — a interação prevista é "ponto de conversa", ainda não construída
-  "05-por-que-ferramentas", // herdado da edição 0.1; entra na moderação editorial
 ]);
 const paginas = [{ dir: resolve(RAIZ, "livro"), arq: "00-introducao.md" },
                  ...arquivosCap.map((f) => ({ dir: capitulos, arq: f }))];

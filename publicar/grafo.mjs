@@ -1,51 +1,44 @@
-// Knowledge Graph do livro (spec 057) — extração DETERMINÍSTICA, sem LLM.
-// Nós: capítulos, harnesses do corpus, conceitos-chave, etapas do harness-zero.
+// Knowledge Graph do handbook — extração DETERMINÍSTICA, sem modelo de linguagem.
+// Nós: capítulos, conceitos-chave de Pesquisa Operacional (PO) e etapas do po-zero.
 // Arestas: menções reais no texto (peso = nº de ocorrências) — evidência verificável.
 // Chamado pelo build.mjs a cada build ⇒ o grafo acompanha toda mudança do livro.
+//
+// Nós sem nenhuma aresta são PODADOS. Isso é desenho, não defeito: um grafo que
+// mostra nó solto sugere relação que o texto não tem. Enquanto o handbook não
+// publicar capítulos de método, o grafo é legitimamente vazio.
 
 import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-// Os 18 sistemas do corpus (apêndice do estudo; 16 originais + ext-1), com variantes de grafia.
-const HARNESSES = [
-  // "Pi" isolado colide com π/inglês; casar só a grafia exata com fronteiras estritas
-  // e o nome composto do Grok Build.
-  { id: "grok-build", rotulo: "Grok Build", re: /\bGrok\s+Build\b/g },
-  { id: "pi", rotulo: "Pi", re: /(?<![\wπ])Pi(?![\w])/g },
-  { id: "opencode", rotulo: "opencode", re: /\bopencode\b/gi },
-  { id: "gemini-cli", rotulo: "gemini-cli", re: /\bgemini-cli\b/gi },
-  { id: "openharness", rotulo: "OpenHarness", re: /\bOpenHarness\b/gi },
-  { id: "codex-cli", rotulo: "Codex CLI", re: /\bCodex(?:\s+CLI)?\b/g },
-  { id: "goose", rotulo: "Goose", re: /\bGoose\b/g },
-  { id: "aider", rotulo: "Aider", re: /\bAider\b/gi },
-  { id: "openhands", rotulo: "OpenHands", re: /\bOpenHands\b/g },
-  { id: "openclaw", rotulo: "OpenClaw", re: /\bOpenClaw\b/g },
-  { id: "hermes", rotulo: "Hermes", re: /\bHermes(?:\s+Agent)?\b/g },
-  { id: "ironclaw", rotulo: "IronClaw", re: /\bIronClaw\b/g },
-  { id: "ohmo", rotulo: "ohmo", re: /\bohmo\b/gi },
-  { id: "n8n", rotulo: "n8n", re: /\bn8n\b/gi },
-  { id: "langgraph", rotulo: "LangGraph", re: /\bLangGraph\b/gi },
-  { id: "crewai", rotulo: "CrewAI", re: /\bCrewAI\b/gi },
-  { id: "agents-sdk", rotulo: "OpenAI Agents SDK", re: /\b(?:OpenAI\s+)?Agents\s+SDK\b/g },
-  { id: "software-agent-sdk", rotulo: "software-agent-sdk", re: /\bsoftware-agent-sdk\b/gi },
-];
-
-// Conceitos/protocolos com página própria de referência (glossário).
+// Conceitos-chave com página de referência no glossário. A régua para entrar
+// aqui: o conceito precisa ATRAVESSAR capítulos — é isso que faz aresta. Termo
+// que só existe dentro de um capítulo não é nó de grafo, é conteúdo dele.
 const CONCEITOS = [
-  { id: "mcp", rotulo: "MCP", re: /\bMCP\b/g },
-  { id: "a2a", rotulo: "A2A", re: /\bA2A\b/g },
-  { id: "acp", rotulo: "ACP‑Zed/IBM", re: /\bACP\b/g },
-  { id: "lsp", rotulo: "LSP", re: /\bLSP\b/g },
-  { id: "rag", rotulo: "RAG", re: /\bRAG\b/g },
-  { id: "mast", rotulo: "MAST", re: /\bMAST\b/g },
+  { id: "programacao-linear", rotulo: "Programação Linear", re: /\b(?:programação\s+linear|\bPL\b)/gi },
+  { id: "simplex", rotulo: "Simplex", re: /\bSimplex\b/gi },
+  { id: "dualidade", rotulo: "Dualidade", re: /\b(?:dualidade|dual|problema\s+dual)\b/gi },
+  { id: "preco-sombra", rotulo: "Preço-sombra", re: /\bpreços?[-\s]sombra\b/gi },
+  { id: "sensibilidade", rotulo: "Análise de sensibilidade", re: /\banálise\s+de\s+sensibilidade\b/gi },
+  { id: "programacao-inteira", rotulo: "Programação Inteira", re: /\b(?:programação\s+inteira|MILP|MINLP)\b/gi },
+  { id: "branch-and-bound", rotulo: "Branch and Bound", re: /\bbranch[-\s]and[-\s]bound\b/gi },
+  { id: "relaxacao", rotulo: "Relaxação", re: /\brelaxaç(?:ão|ões)\b/gi },
+  { id: "limitante", rotulo: "Limitante", re: /\blimitantes?\b/gi },
+  { id: "rede", rotulo: "Redes e fluxos", re: /\b(?:fluxo\s+(?:máximo|de\s+custo\s+mínimo)|caminho\s+mínimo|corte\s+mínimo)\b/gi },
+  { id: "heuristica", rotulo: "Heurística", re: /\bheurísticas?\b/gi },
+  { id: "metaheuristica", rotulo: "Metaheurística", re: /\bmeta[-\s]?heurísticas?\b/gi },
+  { id: "busca-local", rotulo: "Busca local", re: /\b(?:busca\s+local|vizinhança)\b/gi },
+  { id: "convexidade", rotulo: "Convexidade", re: /\bconvexid(?:ade|as?)|convexos?\b/gi },
+  { id: "incerteza", rotulo: "Otimização sob incerteza", re: /\b(?:programação\s+estocástica|otimização\s+robusta|cenários?)\b/gi },
+  { id: "markov", rotulo: "Cadeias de Markov", re: /\bMarkov\b/gi },
+  { id: "filas", rotulo: "Teoria de filas", re: /\bteoria\s+de\s+filas\b/gi },
+  { id: "programacao-dinamica", rotulo: "Programação Dinâmica", re: /\bprogramação\s+dinâmica\b/gi },
+  { id: "solver", rotulo: "Solver", re: /\bsolvers?\b/gi },
+  { id: "modelagem", rotulo: "Modelagem", re: /\b(?:variáveis?\s+de\s+decisão|função\s+objetivo|região\s+viável)\b/gi },
 ];
 
-const ETAPAS = [
-  "00 setup", "01 loop", "02 tools", "03 contexto", "04 sessões", "05 compactação",
-  "06 permissões", "07 MCP", "08 plan", "09 subagentes", "10 evals", "11 hooks", "12 skills",
-];
-
-const GH = "https://github.com/GHDaru/harness_engineering/tree/main/harness-zero";
+// Etapas do po-zero. O texto as cita como "etapa N" na seção de código.
+const MAX_ETAPA = 20;
+const GH = "https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero";
 
 function contar(re, texto) {
   const m = texto.match(re);
@@ -62,12 +55,11 @@ export function gerarGrafo(itens, RAIZ, versao) {
     const num = c.titulo.match(/^\s*(\d+)/)[1];
     nos.push({ id: "cap-" + num, tipo: "capitulo", rotulo: c.titulo, url: c.slug + ".html" });
   }
-  for (const h of HARNESSES) nos.push({ id: h.id, tipo: "harness", rotulo: h.rotulo, url: "apendice-estudo.html" });
   for (const co of CONCEITOS) nos.push({ id: co.id, tipo: "conceito", rotulo: co.rotulo, url: "glossario.html" });
-  ETAPAS.forEach((e, i) => {
+  for (let i = 0; i <= MAX_ETAPA; i++) {
     const n = String(i).padStart(2, "0");
-    nos.push({ id: "etapa-" + n, tipo: "etapa", rotulo: "etapa " + e, url: GH });
-  });
+    nos.push({ id: "etapa-" + n, tipo: "etapa", rotulo: "etapa " + n + " · po-zero", url: GH });
+  }
 
   for (const c of capitulos) {
     const caminho = resolve(RAIZ, c.arquivo);
@@ -81,18 +73,17 @@ export function gerarGrafo(itens, RAIZ, versao) {
     const porCap = {};
     for (const m of texto.matchAll(/\bcap(?:ítulos?|s?\.)\s*(\d{1,2})\b/gi)) {
       const alvo = String(parseInt(m[1], 10)).padStart(2, "0");
-      if (alvo !== num && capitulos.some((x) => x.titulo.startsWith(alvo))) porCap[alvo] = (porCap[alvo] || 0) + 1;
+      if (alvo !== num && capitulos.some((x) => x.titulo.trim().startsWith(alvo))) porCap[alvo] = (porCap[alvo] || 0) + 1;
     }
     for (const alvo of Object.keys(porCap)) addAresta(id, "cap-" + alvo, porCap[alvo]);
 
-    for (const h of HARNESSES) addAresta(id, h.id, contar(h.re, texto));
     for (const co of CONCEITOS) addAresta(id, co.id, contar(co.re, texto));
 
-    // capítulo → etapa ("etapa N" — tipicamente na Mão na massa)
+    // capítulo → etapa do po-zero ("etapa N", tipicamente na seção de código)
     const porEtapa = {};
     for (const m of texto.matchAll(/\betapas?\s+(\d{1,2})\b/gi)) {
       const n = String(parseInt(m[1], 10)).padStart(2, "0");
-      if (parseInt(n, 10) <= 12) porEtapa[n] = (porEtapa[n] || 0) + 1;
+      if (parseInt(n, 10) <= MAX_ETAPA) porEtapa[n] = (porEtapa[n] || 0) + 1;
     }
     for (const n of Object.keys(porEtapa)) addAresta(id, "etapa-" + n, porEtapa[n]);
   }

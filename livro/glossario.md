@@ -1,134 +1,104 @@
 # Glossário
 
-> **Conteúdo revisado em 2026-08** · os termos do método, com definição e contexto.
-
-Termos em ordem alfabética. Entre parênteses, o capítulo em que o conceito é tratado.
-
----
-
-**Cadeia lógica** *(cap. 09)* — Sequência de conexões em que o efeito de um elo é a causa do seguinte. Cada elo deve resistir ao teste isoladamente; o efeito de um elo deve ser literalmente a causa do próximo, sem reformulação.
-
----
-
-**Capacidade de proteção** *(cap. 02)* — Folga deliberada nos recursos que **não** são a restrição, para absorver a variação do dia a dia e manter a restrição sempre alimentada. Ociosidade fora da restrição não é desperdício: é o que impede que uma oscilação qualquer pare o elo que decide o resultado.
-
----
-
-**Causa conjunta** *(cap. 09)* — Situação em que um efeito só ocorre com a presença simultânea de duas ou mais causas. Remover qualquer uma delas quebra o efeito — o que multiplica as alternativas de intervenção.
-
----
-
-**Causa e efeito, lógica de** *(cap. 06)* — Conexão que afirma que uma entidade **produz** outra. Estrutura: "se… então…". Exige suficiência: dada a causa, o efeito ocorre sem que mais nada precise ser providenciado.
-
----
-
-**Cinco passos de focalização** *(cap. 03)* — O ciclo de melhoria contínua da TOC: identificar a restrição, explorá-la, subordinar tudo o mais a ela, elevá-la e — se ela foi quebrada — voltar ao primeiro passo, sem deixar a inércia virar a nova restrição. É ciclo, não lista.
-
----
-
-**Conflito** *(cap. 10)* — Situação em que duas ações se excluem, ambas atendendo necessidades legítimas. Na Nuvem, o conflito está sempre entre as ações (D e D'), nunca entre as necessidades (B e C).
-
----
-
-**Despesa operacional** *(cap. 02)* — Todo o dinheiro que o sistema gasta para transformar inventário em ganho. É uma das três grandezas com que Goldratt propôs medir o sistema inteiro, em lugar da eficiência de cada parte (*A Meta*, 1984).
-
----
-
-**Efeito órfão** *(cap. 09)* — Defeito de cadeia em que um efeito aparece sem causa que o produza; costuma vir da experiência de quem escreve, não do raciocínio registrado.
-
----
-
-**Eficiência local** *(cap. 02)* — Medida do quanto uma parte do sistema está ocupada, isolada das demais. Num sistema interdependente ela induz comportamento previsivelmente ruim: cada área maximiza o próprio número e o resultado do conjunto piora.
-
----
-
-**Elevar** *(cap. 03)* — Quarto passo: aumentar a capacidade da restrição, normalmente com investimento. Vem **depois** de explorar, porque comprar capacidade antes de usar bem a que existe costuma comprar o desperdício junto.
-
----
-
-**Entidade** *(cap. 06)* — Afirmação completa, que pode ser verdadeira ou falsa, e independente das demais. "Comunicação" não é entidade; "as áreas não compartilham a fila de pedidos" é.
-
----
-
-**Explorar** *(cap. 03)* — Segundo passo: tirar o máximo da restrição como ela está hoje, sem investimento. Regra dupla: nada que possa ser feito fora dela deve ocupá-la, e nada que ela produza deve deixar de virar resultado.
-
----
-
-**Ganho** *(cap. 02)* — A taxa em que o sistema gera dinheiro pelas vendas, descontado o que se pagou pelo que foi vendido. Junto com o inventário e a despesa operacional, forma o trio com que Goldratt propôs medir o sistema em relação ao objetivo (*A Meta*, 1984). Repare que é uma **taxa**, não um estoque: produzir sem vender não gera ganho.
-
----
-
-**Gargalo** *(cap. 01)* — Recurso cuja capacidade é igual ou menor que a demanda colocada sobre ele. É um conceito de **capacidade**, e por isso mais estreito que restrição: toda restrição física costuma ser um gargalo, mas uma restrição de política ou de mercado não é gargalo nenhum.
-
----
-
-**Injeção** *(cap. 12)* — **Estado** que, se fosse verdade agora, faria o problema deixar de existir. Nunca uma ação: formulada como estado, mantém aberto o leque de implementações.
-
----
-
-**Inventário** *(cap. 02)* — Todo o dinheiro que o sistema investiu em comprar aquilo que pretende vender. Peça cortada antes da hora aumenta o inventário sem aumentar o ganho — é o efeito exato do ótimo local sobre as três grandezas (*A Meta*, 1984).
-
----
-
-**Loop (conflito recorrente)** *(cap. 11)* — Estrutura em que dois comportamentos mutuamente exclusivos se alternam, cada um adotado como correção da violação de objetivo causada pelo outro. Autossustentável: não requer força externa para continuar girando.
-
----
-
-**Necessidade** *(cap. 10)* — Na Nuvem, o que se perde caso a ação correspondente não seja executada. Necessidades são legítimas e devem ambas ser atendidas.
-
----
-
-**Nuvem (Evaporating Cloud)** *(cap. 10)* — Ferramenta que estrutura um dilema em cinco entidades: objetivo comum (A), duas necessidades (B, C) e duas ações que se excluem (D, D'). Todas as conexões são de pré-requisito.
-
----
-
-**Objetivo intermediário (OI)** *(cap. 13)* — Estado concluído que supera um obstáculo específico. Formulado como estado, não como tarefa, para que a pergunta "isto já é verdade?" tenha resposta objetiva.
-
----
-
-**Obstáculo** *(cap. 13)* — O que impede um objetivo de já ser verdade hoje. Matéria-prima do plano, não motivo de desânimo.
-
----
-
-**Ótimo local** *(cap. 02)* — Resultado de otimizar uma parte do sistema tomada isoladamente. Como o ganho obedece à aritmética da corrente e não à da soma, o ótimo de cada parte não produz o ótimo do todo — e frequentemente o destrói.
-
-
----
-
-**Pré-requisito, lógica de** *(cap. 07)* — Conexão que afirma que uma entidade é **condição** para outra. Estrutura: "para… é necessário…". Testa-se pela negativa: sem a condição, o objetivo é impossível?
-
----
-
-**Premissa** *(cap. 08)* — Afirmação não declarada que precisa ser verdadeira para que uma conexão se sustente. Invisível a quem a sustenta. Classifica-se em sempre verdadeira, verdadeira em certas condições (a categoria valiosa) e falsa.
-
----
-
-**Processos de Raciocínio** *(cap. 04)* — O conjunto de ferramentas lógicas da TOC — a Nuvem, os conflitos recorrentes, as injeções e a Análise de Pré-Requisitos — desenvolvido para responder às três perguntas da mudança. São o assunto dos módulos 1 a 4 deste livro (*Não é Sorte*, 1994; Dettmer, 2007).
-
----
-
-**Restrição** *(cap. 01)* — O que limita o desempenho do sistema **em relação ao seu objetivo**. É relativa ao objetivo declarado, existe sempre (se não existisse, o ganho seria infinito), e não é defeito a eliminar: eliminá-la apenas a desloca para outro lugar. Classifica-se em física, de mercado ou de política — a primeira se descobre medindo; a última, raciocinando.
-
----
-
-**Salto lógico** *(cap. 09)* — Defeito de cadeia em que faltam elos intermediários. Sintoma: concorda-se com o início e com o fim, sem conseguir explicar o percurso.
-
----
-
-**Sistema** *(cap. 01)* — Conjunto de partes interdependentes que produzem um resultado comum, com um objetivo declarado pelo dono do sistema — não pelo método. A interdependência é o que transforma a aritmética da soma na aritmética da corrente.
-
----
-
-**Sistema 1 / Sistema 2** *(cap. 05)* — Na formulação de Daniel Kahneman, os dois modos de operação do pensamento: o automático e rápido (1) e o deliberado e custoso (2). As ferramentas de raciocínio existem para forçar a entrada do Sistema 2 onde as heurísticas do Sistema 1 falham de forma sistemática.
-
----
-
-**Subordinar** *(cap. 03)* — Terceiro passo, e o mais pulado: alinhar todo o resto ao ritmo da restrição, o que exige que partes não-restritivas operem **abaixo** da própria capacidade. Falha quando não há regra explícita que proteja quem se sacrifica pelo todo — porque quem se sacrifica aparece pior no relatório.
-
----
-
-**Três perguntas da mudança** *(cap. 04)* — O que mudar? Para o que mudar? Como causar a mudança? Toda melhoria responde às três, e responder a uma só produz desfechos previsivelmente ruins. Os módulos 2, 3 e 4 deste livro são, um a um, as respostas a elas.
-
----
-
-**Violação de objetivo** *(cap. 11)* — No loop, o efeito negativo ao final de uma cadeia, forte o bastante para gerar pressão de mudança para o comportamento oposto.
+> **Conteúdo revisado em 2026-08** · os termos e as siglas do handbook, abertos.
+
+Política: **toda sigla é apresentada por extenso na primeira ocorrência de cada documento**
+(constituição, Princípio IX). Este glossário é a rede de segurança — e o espelho do mapa de
+siglas do motor (`publicar/build.mjs`), que envolve cada sigla conhecida em `<abbr>` para que
+passar o mouse revele o significado em qualquer ocorrência.
+
+Ao introduzir uma sigla nova, adicione-a **nos dois lugares**.
+
+## Siglas
+
+| Sigla | Por extenso | O que é |
+|---|---|---|
+| **PO** | Pesquisa Operacional | O campo: métodos quantitativos para decisão em sistemas |
+| **PL** | Programação Linear | Otimização com objetivo e restrições lineares em variáveis contínuas |
+| **PI** | Programação Inteira | Otimização em que variáveis são obrigadas a assumir valores inteiros |
+| **LP** | *Linear Programming* | O mesmo que PL, na literatura em inglês |
+| **MILP** | *Mixed Integer Linear Programming* | Programação linear inteira mista: variáveis contínuas e inteiras no mesmo modelo |
+| **MINLP** | *Mixed Integer Nonlinear Programming* | O caso não linear da anterior; sem garantia geral de ótimo global |
+| **B&B** | *Branch and Bound* | Enumeração com poda por limitantes: o algoritmo exato padrão da PI |
+| **B&C** | *Branch and Cut* | *Branch and bound* com planos de corte gerados durante a busca |
+| **KKT** | Karush-Kuhn-Tucker | As condições necessárias de otimalidade em problemas com restrições |
+| **VRP** | *Vehicle Routing Problem* | Problema de roteamento de veículos, e sua família de variantes |
+| **TSP** | *Travelling Salesman Problem* | Problema do caixeiro-viajante |
+| **CP** | *Constraint Programming* | Programação por restrições: paradigma de propagação e busca |
+| **SA** | *Simulated Annealing* | Metaheurística de trajetória inspirada no recozimento de metais |
+| **TS** | *Tabu Search* | Busca Tabu: busca local com memória de curto prazo |
+| **ILS** | *Iterated Local Search* | Busca local iterada com perturbação |
+| **VNS** | *Variable Neighborhood Search* | Busca em vizinhança variável |
+| **GRASP** | *Greedy Randomized Adaptive Search Procedure* | Construção gulosa aleatorizada seguida de busca local |
+| **LNS** | *Large Neighborhood Search* | Busca em vizinhança grande: destrói e repara parte da solução |
+| **ALNS** | *Adaptive Large Neighborhood Search* | LNS com pesos adaptativos entre operadores |
+| **ACO** | *Ant Colony Optimization* | Otimização por colônia de formigas |
+| **PSO** | *Particle Swarm Optimization* | Otimização por enxame de partículas |
+| **AG** | Algoritmo Genético | Metaheurística populacional baseada em seleção, cruzamento e mutação |
+| **MDP** | *Markov Decision Process* | Processo de decisão de Markov |
+| **PD** | Programação Dinâmica | Decomposição recursiva por estágios e estados |
+| **DEA** | *Data Envelopment Analysis* | Análise Envoltória de Dados: eficiência relativa entre unidades |
+| **AHP** | *Analytic Hierarchy Process* | Método multicritério por comparação par a par |
+| **TOPSIS** | *Technique for Order of Preference by Similarity to Ideal Solution* | Método multicritério por distância ao ideal |
+| **EOQ** | *Economic Order Quantity* | Lote econômico de compra |
+| **CPM** | *Critical Path Method* | Método do caminho crítico |
+| **PERT** | *Program Evaluation and Review Technique* | Avaliação de projetos com duração probabilística |
+| **ML4CO** | *Machine Learning for Combinatorial Optimization* | Uso de aprendizado de máquina em otimização combinatória |
+| **ML** | *Machine Learning* | Aprendizado de máquina |
+| **RL** | *Reinforcement Learning* | Aprendizado por reforço |
+| **LLM** | *Large Language Model* | Modelo de linguagem de grande porte |
+| **RAG** | *Retrieval-Augmented Generation* | Geração com recuperação de trechos da fonte |
+| **DoD** | *Definition of Done* | Os critérios que definem "pronto", verificáveis |
+| **ADR** | *Architecture Decision Record* | Registro de decisão de arquitetura |
+| **DOI** | *Digital Object Identifier* | Identificador persistente de publicação |
+| **ISBN** | *International Standard Book Number* | Identificador de livro |
+| **API** | *Application Programming Interface* | Interface de programação de aplicações |
+
+## Termos
+
+**Variável de decisão.** O que o modelo pode escolher. Se algo no problema não pode ser
+escolhido por quem decide, não é variável de decisão — é parâmetro.
+
+**Função objetivo.** A medida única que o modelo maximiza ou minimiza. Um modelo com dois
+objetivos genuínos não tem função objetivo: tem um problema multiobjetivo.
+
+**Restrição.** O que limita as combinações admissíveis. Restrição que nunca é violada em
+nenhuma solução plausível é restrição redundante — custa tempo de solver e não muda a resposta.
+
+**Região viável.** O conjunto de soluções que satisfazem todas as restrições. Vazia significa
+modelo inviável, e quase sempre é erro de formulação, não do mundo.
+
+**Folga.** A distância entre o lado esquerdo e o direito de uma restrição na solução. Folga
+zero significa restrição **ativa** — é ela que está segurando o resultado.
+
+**Preço-sombra.** Quanto o valor ótimo melhora por unidade adicional do recurso de uma
+restrição ativa. Vale **apenas dentro de uma faixa**, e ler fora dela é o erro clássico de
+interpretação.
+
+**Dualidade.** A cada modelo de otimização corresponde um modelo espelho cujas variáveis são
+os preços das restrições do original. Não é curiosidade teórica: é o que dá interpretação
+econômica à resposta e sustenta boa parte dos algoritmos.
+
+**Relaxação.** Uma versão mais permissiva do problema — tipicamente removendo a exigência de
+integralidade. Sua solução é um **limitante** para a do problema original, e é assim que se
+mede quão boa é uma solução sem conhecer o ótimo.
+
+**Limitante (*bound*).** Um valor que garantidamente limita o ótimo por cima ou por baixo. É o
+que permite dizer "esta solução está a no máximo 2% do ótimo" — a única forma honesta de
+declarar qualidade sem o ótimo em mãos.
+
+**Heurística.** Método que busca boa solução sem garantia de otimalidade. Não é o método dos
+preguiçosos: é o método de quem escolheu qualidade suficiente em tempo aceitável.
+
+**Metaheurística.** Estratégia geral que orquestra heurísticas de busca, aplicável a famílias
+de problemas. Divide-se em métodos de **trajetória** (uma solução por vez) e **populacionais**.
+
+**Instância.** Um caso concreto de um problema, com dados. Algoritmo não é rápido ou lento em
+abstrato — é rápido ou lento **num conjunto de instâncias declarado**.
+
+**Solver.** O programa que resolve o modelo. Neste handbook, a trilha padrão usa solver aberto:
+custo zero é requisito, não preferência.
+
+**Cláusula de expiração.** A declaração, num capítulo da camada de fronteira, da data a partir
+da qual sua afirmação precisa ser reverificada. Sem ela, um capítulo de fronteira não é
+publicável.

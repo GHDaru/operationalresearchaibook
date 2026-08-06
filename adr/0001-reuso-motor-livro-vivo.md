@@ -1,50 +1,41 @@
-# ADR 0001 — Reusar o motor do livro *Engenharia de Harness*
+# ADR 0001 — Reúso do motor de livro vivo
 
-- **Status:** aceito
-- **Data:** 2026-08-01
-- **Rodada:** 2 (`specs/001-clone-motor-livro`)
-- **Decisor:** Gilsiley Darú
+**Data:** 2026-08-06 · **Status:** aceito
 
 ## Contexto
 
-O projeto precisa de um livro vivo publicado, com chat tutor e objetos interativos. O estudo da Rodada 1 (`estudos/001-estudo-educacional-e-roadmap.md`) apurou que o livro *Engenharia de Harness*, do mesmo autor, já opera em produção com exatamente essa máquina: motor próprio Markdown → HTML + PDF, tema, ilhas React, chat com RAG e gating por capítulo, e CI de publicação no GitHub Pages. O código é MIT.
+O handbook de Pesquisa Operacional (PO) precisa de site navegável, geração de PDF, portões de
+qualidade por página, exercícios com correção no servidor e tutor com *Retrieval-Augmented
+Generation* (RAG) sobre o próprio texto. Construir isso do zero levaria a rodada inteira e não
+entregaria nenhum conteúdo.
 
-A alternativa era construir do zero — o que repetiria trabalho já validado e adiaria em várias rodadas o momento em que o autor veria o livro no ar.
+O mesmo autor já possui esse motor, escrito para o livro *Engenharia de Harness* e adaptado
+para o livro *Teoria das Restrições*, sob licença MIT.
 
 ## Decisão
 
-**Clonar o motor inteiro e trocar o conteúdo**, adaptando apenas os pontos de identidade (sumário, strings, URLs, capacidades do tutor, assets).
-
-Consequências diretas do desenho herdado que foram mantidas de propósito:
-
-- **Estrutura declarativa** — o livro cresce editando `publicar/sumario.json`; o motor não muda.
-- **Gating por capítulo** — a mecânica que no livro original liberava capacidades técnicas passa a ser a **trilha pedagógica progressiva** (o *fading* do 4C/ID).
-- **Ilhas React** como mecanismo dos objetos interativos, em vez de introduzir um framework de front.
+**Reusar o motor**, clonando o repositório do livro *Teoria das Restrições* e refundando o
+conteúdo. O motor entra como está; o conteúdo, a governança e o aparato são reescritos para PO.
 
 ## Alternativas avaliadas
 
 | Alternativa | Por que não |
 |---|---|
-| Construir motor próprio do zero | Repetiria trabalho validado; atrasaria o feedback do autor em várias rodadas; sem ganho identificável |
-| Plataforma de curso pronta (LMS) | Não entrega livro vivo versionado em Markdown nem tutor com RAG sobre o próprio texto; prende o conteúdo |
-| Evoluir o protótipo LearnAI | Estudado na Rodada 1: sem persistência, sem auth, trilha travada em 3 módulos. Serve como **fonte de design** (loop pedagógico, modelo de dados), não como base de código |
-| Site estático genérico (Docusaurus, MkDocs) | Resolveria a publicação, mas não traz chat, gating nem o portão de qualidade por página — que é o que garante consistência editorial |
+| Motor novo, sob medida para PO | Custo alto, benefício nenhum: o que PO exige a mais (notação matemática, blocos de código) o motor já suporta via Markdown |
+| Gerador de site pronto (MkDocs, Docusaurus) | Nenhum deles traz os portões de qualidade que sustentam os princípios — rubrica não publicada, exercício órfão, referência quebrada — e é neles que está o valor |
+| Escrever em plataforma fechada | Perde versionamento, perde o ciclo de especificação, perde os portões |
 
 ## Consequências
 
-**Positivas**
+**Boas.** A rodada de fundação entrega mapa, aparato e site publicável. A estrutura declarativa
+(`publicar/sumario.json`) sustenta diretamente a promessa da camada de módulos aplicados:
+capítulo novo é arquivo novo mais uma linha, sem tocar no motor.
 
-- Livro no ar em uma rodada, com PDF, busca, tema claro/escuro, telemetria e consentimento LGPD já resolvidos.
-- Portão de qualidade por página (`verifica-capitulos.mjs`) força consistência editorial desde o primeiro capítulo.
-- O tutor nasce com RAG sobre o texto do próprio livro.
+**Ruins, e assumidas.** O repositório nasceu carregando conteúdo de outro livro, que precisou
+ser removido nesta mesma rodada — e alguns pontos do motor estavam acoplados àquele conteúdo
+(nome do livro nos artefatos de download, mapa de siglas, contagem fixa de capítulos no portão
+do grafo). Esses acoplamentos foram corrigidos aqui; outros podem aparecer, e cada um vira
+correção de raia leve quando aparecer.
 
-**Negativas e dívidas assumidas**
-
-- **Acoplamento a um motor não documentado como produto.** Mitigação: o build e a verificação por página são o portão que denuncia quebra.
-- **Espelho duplicado de capacidades** (`capabilities.py` ↔ `COMPANION_CAPS` em `build.mjs`). Herdado do original. Mitigação por ora: nota no `CLAUDE.md`. Unificar num JSON compartilhado quando o custo aparecer.
-- **RAG lexical, não vetorial.** Suficiente para o tamanho atual do livro; a troca é local (`BookIndex.buscar`).
-- **PT-only na v1.** O motor é bilíngue e a máquina EN permanece intacta, desativada por ausência do `sumario.en.json`.
-
-**Corrigido em relação ao original**
-
-- O corpus do tutor passa a ser **regerado no CI** a cada build. No livro original ele era gerado à mão e commitado, podendo ficar defasado em relação ao texto.
+**Herança de licença.** O código permanece MIT, com o crédito de origem preservado em
+`LICENSE-CODE`.

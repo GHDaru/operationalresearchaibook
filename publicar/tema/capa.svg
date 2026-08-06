@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536" width="1024" height="1536" role="img"
-     aria-label="Capa de Teoria das Restrições: uma corrente vertical de elos azuis com um único elo em âmbar — a restrição, o elo que determina a resistência do conjunto — sobre fundo azul-escuro com traços de blueprint.">
+     aria-label="Capa de Pesquisa Operacional: um poliedro convexo azul — a região viável — com os vértices marcados e o vértice ótimo destacado em âmbar, sobre fundo azul-escuro com traços de blueprint.">
   <defs>
     <linearGradient id="fundo" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0b1526"/>
@@ -33,33 +33,53 @@
   </g>
 
   <!-- Título -->
-  <text x="92" y="196" fill="#eef3fb" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="1">TEORIA DAS</text>
-  <text x="92" y="292" fill="#eef3fb" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="1">RESTRIÇÕES</text>
-  <path d="M 92 330 H 560" stroke="#e0a24a" stroke-width="4"/>
-  <text x="92" y="384" fill="#9db4d6" font-family="Georgia, 'Times New Roman', serif" font-size="30">Um livro vivo sobre pensar com rigor</text>
+  <text x="92" y="196" fill="#eef3fb" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="1">PESQUISA</text>
+  <text x="92" y="292" fill="#eef3fb" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="1">OPERACIONAL</text>
+  <path d="M 92 330 H 640" stroke="#e0a24a" stroke-width="4"/>
+  <text x="92" y="384" fill="#9db4d6" font-family="Georgia, 'Times New Roman', serif" font-size="30">Um handbook vivo sobre decidir com método</text>
 
-  <!-- A corrente: cinco elos verticais, o do meio em âmbar (a restrição) -->
+  <!-- A região viável: um poliedro convexo com os vértices marcados e o ótimo
+       em âmbar. É a imagem canônica da Programação Linear — o ótimo mora num
+       canto, e é para lá que a direção do objetivo empurra. -->
   <g transform="translate(470, 850)">
-    <g fill="none" stroke="#5c86c4" stroke-width="15" opacity=".92">
-      <ellipse cx="0" cy="-268" rx="60" ry="94"/>
-      <ellipse cx="0" cy="-134" rx="60" ry="94"/>
-      <ellipse cx="0" cy="134" rx="60" ry="94"/>
-      <ellipse cx="0" cy="268" rx="60" ry="94"/>
+    <!-- eixos -->
+    <g stroke="#5c86c4" stroke-width="3" opacity=".5" fill="none">
+      <path d="M -300 250 H 300"/>
+      <path d="M -300 250 V -300"/>
     </g>
 
-    <!-- O elo restritivo: mais fino, em âmbar, com brilho -->
+    <!-- o poliedro -->
+    <path d="M -240 250 L -240 -40 L -110 -190 L 110 -190 L 240 -20 L 240 250 Z"
+          fill="#5c86c4" fill-opacity=".14" stroke="#5c86c4" stroke-width="6" stroke-linejoin="round"/>
+
+    <!-- vértices: candidatos a ótimo -->
+    <g fill="#8fb2e6">
+      <circle cx="-240" cy="-40" r="11"/>
+      <circle cx="-110" cy="-190" r="11"/>
+      <circle cx="240" cy="-20" r="11"/>
+      <circle cx="-240" cy="250" r="11"/>
+      <circle cx="240" cy="250" r="11"/>
+    </g>
+
+    <!-- direção do objetivo -->
+    <g stroke="#8fb2e6" stroke-width="3" opacity=".65" fill="none" stroke-dasharray="9 11">
+      <path d="M -250 120 L 250 -110"/>
+      <path d="M -250 40 L 250 -190"/>
+    </g>
+
+    <!-- o vértice ótimo -->
     <g filter="url(#glow)">
-      <ellipse cx="0" cy="0" rx="60" ry="94" fill="none" stroke="#e0a24a" stroke-width="8"/>
+      <circle cx="110" cy="-190" r="19" fill="none" stroke="#e0a24a" stroke-width="8"/>
     </g>
 
-    <!-- Marcação técnica apontando o elo -->
+    <!-- marcação técnica apontando o ótimo -->
     <g stroke="#e0a24a" stroke-width="2" fill="none" opacity=".85">
-      <path d="M 86 0 H 224"/>
-      <circle cx="86" cy="0" r="5" fill="#e0a24a" stroke="none"/>
+      <path d="M 136 -190 H 224"/>
+      <circle cx="136" cy="-190" r="5" fill="#e0a24a" stroke="none"/>
     </g>
-    <text x="240" y="-8" fill="#e0a24a" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="26">a restrição</text>
-    <text x="240" y="28" fill="#7d94b8" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="19">o elo mais fraco</text>
-    <text x="240" y="54" fill="#7d94b8" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="19">define o todo</text>
+    <text x="240" y="-198" fill="#e0a24a" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="26">o ótimo</text>
+    <text x="240" y="-162" fill="#7d94b8" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="19">está sempre</text>
+    <text x="240" y="-136" fill="#7d94b8" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="19">num vértice</text>
   </g>
 
   <!-- Créditos -->

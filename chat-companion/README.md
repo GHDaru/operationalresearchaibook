@@ -2,7 +2,7 @@
 
 O **companion** é o assistente do livro vivo *Engenharia de Harness*: aparece desde a capa, ajuda o leitor e mostra, a cada capítulo, **quais capacidades tem naquele momento**. Este diretório é o **backend** — um serviço FastAPI que **é o harness-zero rodando em produção** (reusa `LLMPort` e o loop de tool-calling). O **widget** (front-end no site) é uma feature à parte.
 
-> Feita pelo ciclo oficial do spec-kit: [`specs/016-chat-companion-backend/`](../specs/016-chat-companion-backend/).
+> Feita pelo ciclo oficial do spec-kit: `specs/016-chat-companion-backend/`.
 
 ## Arquitetura em uma imagem
 

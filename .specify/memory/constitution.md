@@ -1,16 +1,16 @@
-# Constituição — livro vivo *Teoria das Restrições*
+# Constituição — handbook vivo *Pesquisa Operacional*
 
 > Fonte de verdade das convenções deste repositório. Prevalece sobre qualquer outra
 > prática. **Todo agente e humano DEVE ler este documento antes de qualquer trabalho.**
-> Emendas via ADR + bump de versão.
+> Emendas via Architecture Decision Record (ADR) + bump de versão.
 >
-> **Versão:** 1.1.0 · **Ratificada:** 2026-08-01
+> **Versão:** 1.0.0 · **Ratificada:** 2026-08-06
 >
 > Esta constituição **herda** a metodologia [Maestro](https://github.com/GHDaru/maestro)
-> (`docs/governance/principios-maestro.md`), cujos sete princípios valem aqui integralmente.
-> Os princípios abaixo são os **específicos deste livro** — o que a metodologia genérica não
-> cobre. Em caso de conflito, o Maestro prevalece nas questões de processo; esta
-> constituição prevalece nas questões de conteúdo e forma do livro.
+> (`docs/governance/principles.md`), cujos oito princípios valem aqui integralmente. Os
+> princípios abaixo são os **específicos deste handbook** — o que a metodologia genérica não
+> cobre. Em caso de conflito, o Maestro prevalece nas questões de processo; esta constituição
+> prevalece nas questões de conteúdo e forma do livro.
 
 ---
 
@@ -18,136 +18,145 @@
 
 ### I. É um treino, não uma leitura (NÃO-NEGOCIÁVEL)
 
-A unidade de valor deste livro não é o capítulo lido — é a habilidade exercitada. **Todo
-capítulo numerado tem prática com devolutiva**, e um capítulo que explica bem sem fazer o
-leitor praticar está **incompleto**, por melhor que esteja escrito.
+A unidade de valor não é o capítulo lido — é a habilidade exercitada. **Todo capítulo
+numerado tem prática com devolutiva.** Um capítulo que explica bem e não faz o leitor
+modelar está **incompleto**, por melhor que esteja escrito.
 
 Consequências verificáveis:
 
-- Todo capítulo numerado tem seção de prática e seção "Mão na massa" (aplicação ao contexto
-  do próprio leitor).
-- A devolutiva **explica o porquê**; dizer "errado" não é devolutiva.
-- O erro é barato e repetível: o leitor pode errar sem custo e refazer.
+- Mínimo de **3 exercícios** e **1 vídeo** por capítulo numerado.
+- Todo exercício rastreia a um objetivo de aprendizagem declarado no próprio capítulo.
+- A devolutiva **explica o conceito**; dizer "errado" não é devolutiva.
+- A correção mora no **servidor**, nunca no HTML publicado.
 
-### II. Bilíngue por padrão — PT e EN (NÃO-NEGOCIÁVEL)
+### II. Modelar antes de resolver (NÃO-NEGOCIÁVEL)
 
-**O livro existe sempre em português e em inglês.** O português é a fonte canônica; o inglês
-é artefato derivado, e nenhum dos dois é opcional.
+O erro caro em Pesquisa Operacional (PO) quase nunca é aritmético — é de formulação. Por
+isso a ordem de exposição é **intuição → matemática → código**, sempre, e o capítulo começa
+pelo **problema que o método resolve**, não pelo método.
+
+Consequências:
+
+1. Nenhuma fórmula aparece antes da intuição que a motiva.
+2. Todo método novo é apresentado com **pelo menos um modelo mal formulado** e o que ele
+   produz — o erro é material didático, não constrangimento.
+3. Todo capítulo de método responde explicitamente: *quando este método não serve?*
+
+### III. Evidência acima de retórica
+
+Afirmação empírica exige **experimento reproduzível** (script + instância + semente +
+versão de biblioteca e solver), ou citação verificada, ou não é afirmada.
+
+- **Nenhum número sem procedência.** Nem "cerca de 10× mais rápido", nem "costuma convergir".
+- Comparação de algoritmos declara instâncias, *baseline* e critério de parada. Comparação
+  sem isso não é resultado, é anedota.
+- Nenhuma URL ou identificador de objeto digital (DOI) inventado. Fonte não confirmada é
+  marcada `⏳` e não sustenta afirmação.
+
+### IV. A fonte-base é o experimento executável
+
+O handbook nasce de código que roda **em CPU, sem licença paga**. A construção prática
+`po-zero` acompanha o livro: uma etapa por capítulo de método. Resultado publicado tem
+artefato que o regenera.
+
+Custo zero é **requisito**, não preferência: solver aberto na trilha padrão. Solver comercial
+pode aparecer como comparação, nunca como dependência.
+
+### V. Arquitetura em três camadas (NÃO-NEGOCIÁVEL)
+
+O handbook é **núcleo + módulos aplicados + fronteira**, e as três envelhecem em ritmos
+diferentes ([Mapa do handbook](../../livro/mapa-do-handbook.md)).
+
+| Camada | Regra que a governa |
+|---|---|
+| **Núcleo** | Muda por janela de revisão, não por notícia. Tema de fronteira não entra aqui. |
+| **Aplicados** | Cresce **por adição**: módulo novo não altera módulo existente. |
+| **Fronteira** | **Cláusula de expiração obrigatória** em todo capítulo. |
+
+Um tema sobe de fronteira para núcleo quando resiste a **duas janelas de revisão** sem ser
+refutado. A promoção é decisão do autor e vira ADR.
+
+### VI. Atualização científica por Radar, não por boa vontade
+
+Artigo científico entra no livro por um mecanismo, não por lembrança. O **Radar**
+(`radar/RADAR.md`) registra cada artigo lido com data, veredito e **o que ele muda no livro**.
+
+- Linha do Radar que altera uma recomendação **dispara revisão** do capítulo afetado, sem
+  esperar a janela.
+- Artigo citado em capítulo sem passar pelo Radar é dívida a corrigir, não atalho.
+- O Radar é datado e append-only: registro não se reescreve.
+
+### VII. Livro vivo: datado, versionado e reescrito
+
+Nenhuma versão é final. Todo capítulo carrega a data de captura no cabeçalho; toda mudança
+relevante entra no `livro/HISTORICO.md` com a edição, a data e o modelo de IA usado.
+
+Distinguem-se três datas: a do **evento** (imutável), a da **captura** (quando fotografamos)
+e a do **experimento** (quando o número foi medido, com a versão da biblioteca e do solver).
+
+### VIII. Português como fonte canônica; inglês como dívida declarada
+
+O português é a língua-fonte do handbook. O par em inglês é **objetivo declarado, não portão
+de entrega** — a prioridade da fase atual é cobrir o corpo de conhecimento.
 
 Regras:
 
-1. **Nenhum capítulo é dado por pronto sem o par EN.** Publicar conteúdo só em PT é dívida,
-   não entrega.
-2. **Tradução velha nunca finge ser atual.** Cada fonte EN carrega o hash da fonte PT que
-   traduziu; o motor compara e exibe o selo de sincronia (em dia / atrasado). Selo atrasado é
-   visível ao leitor, com o aviso de que o conteúdo mais recente está na versão PT.
-3. **Sincronia é parte da Definition of Done.** Uma rodada que altera conteúdo PT e não
-   atualiza o EN correspondente não fecha — ou atualiza, ou registra explicitamente a
-   defasagem no `HISTORICO.md` com prazo.
-4. Os objetos interativos e o tutor seguem a mesma regra: textos de interface e devolutivas
-   existem nos dois idiomas.
+1. Um capítulo é dado por pronto em português. A ausência do par em inglês é **dívida
+   registrada** no `HISTORICO.md`, não omissão silenciosa.
+2. Quando o par existir, tradução velha **nunca finge ser atual**: a fonte em inglês carrega
+   o hash da fonte em português, e o selo de sincronia é visível ao leitor.
+3. Termos técnicos consagrados ficam sem tradução forçada (*branch and bound*, *big-M*,
+   *solver*, *scheduling*); traduzidos quando a prática já traduziu (restrição, viabilidade,
+   dualidade).
 
-### III. Conteúdo autoral, com fonte oficial rastreável
+Justificativa e alternativas avaliadas: [ADR 0002](../../adr/0002-portugues-primeiro.md).
 
-O texto publicado é **autoral**. Materiais de estudo de terceiros não são reproduzidos —
-ficam em repositório privado. Toda afirmação sobre um conceito da Teoria das Restrições é
-rastreável a uma obra na bibliografia, citada na primeira ocorrência. Formulação autoral é
-sinalizada como tal.
+### IX. Comunicação inteligível (herdado do Maestro, Princípio VIII)
 
-### IV. Livro vivo: datado, versionado e reescrito
+**Lei de Ferro:** em **toda resposta, documento ou artefato**, a **primeira ocorrência** de
+uma sigla é escrita por extenso, com a abreviação entre parênteses. A contagem reinicia a
+cada documento — o leitor de hoje não tem obrigação de ter lido o de ontem.
 
-Nenhuma versão é final. Todo capítulo carrega a data da última revisão; toda mudança
-relevante entra no `HISTORICO.md` com a edição, a data e o modelo de IA usado. Conteúdo
-sem data é conteúdo sem prazo de validade declarado — e portanto não publicável.
+Não vale como desculpa: "todo mundo conhece essa sigla" · "eu já expliquei antes" · "é jargão
+da área". Jargão órfão é o que produz o amontoado. Termo novo entra também no
+`livro/glossario.md`.
 
-### V. O tutor treina, não substitui o raciocínio (NÃO-NEGOCIÁVEL)
+### X. Direitos autorais e materiais de terceiros
 
-O tutor de IA conduz por perguntas e **nunca resolve o exercício do leitor**, mesmo sob
-insistência. Responde direto apenas o que é consulta (definição, referência, localização no
-texto); tudo que é conceitual ou é trabalho do leitor recebe dica em camadas.
+O texto publicado é **autoral**. Livros-texto e materiais de estudo de terceiros **não são
+reproduzidos neste repositório** — nem em trechos longos, nem como arquivo, nem como imagem.
 
-Esta regra não é preferência de estilo: a evidência disponível indica que um assistente que
-entrega a resposta pronta **piora** a aprendizagem, enquanto um tutor com scaffolding a
-melhora substancialmente. O guardrail é o que separa os dois casos.
+- As obras são citadas por fonte oficial na `livro/bibliografia.md`.
+- Materiais de estudo do autor ficam **fora do versionamento** (ver `materiais/README.md`).
+- Mapeamento capítulo-a-capítulo com livros-base é **metadado bibliográfico** (autor, obra,
+  edição, capítulo, páginas) e pode ser versionado. **Conteúdo, não.**
 
-O tutor também respeita a **trilha progressiva**: no modo progressivo, só oferece o que o
-livro já ensinou até o capítulo em que o leitor está, e explica de qual capítulo vem o que
-ainda não foi liberado.
+### XI. Definition of Done verificável — "prove, não declare"
 
-### VI. O processo é o Maestro, e ele comanda (NÃO-NEGOCIÁVEL)
+"Pronto" exige evidência anexada. Sem saída colada, não está pronto:
 
-A metodologia [Maestro](https://github.com/GHDaru/maestro) não é referência de consulta:
-é a **regra vigente** deste repositório, e está **instalada** aqui.
+```bash
+cd publicar && npm run build                        # site + portões de qualidade
+cd chat-companion/backend && python -m pytest -q    # backend do tutor
+```
 
-1. **Skills instaladas comandam, não sugerem.** As skills do Maestro vivem em
-   `.claude/skills/` e cada uma carrega sua *Iron Law*. Antes de agir, verifique se
-   alguma se aplica; havendo chance razoável, **siga-a**:
-
-   | Skill | Quando dispara |
-   |---|---|
-   | `constitution-check` | ao escrever ou revisar um `plan.md` |
-   | `dod-verificavel` | ao escrever critérios de aceite (transforma julgamento em check) |
-   | `diagnostico-antes-do-fix` | **SEMPRE** antes de propor correção de qualquer bug |
-   | `combater-amontoado` | ao revisar texto denso |
-   | `anti-padroes` | ao desenhar fluxo ou revisar trabalho de agente |
-
-   Os comandos (`.claude/commands/`) e os agentes (`.claude/agents/`) do Maestro
-   acompanham as skills.
-
-2. **Uma spec por rodada, uma branch por rodada.** Registro em `specs/NNN-nome/`.
-   Mudança de escopo volta à spec antes de virar conteúdo ou código.
-
-3. **Raias proporcionais ao risco:** *leve* (typo, link — o commit é o artefato),
-   *plena* (capítulo, feature — spec completa), *infra* (deploy, banco, migração —
-   sempre plena, com gates de reversibilidade).
-
-4. **Gates humanos inegociáveis:** o autor aprova a spec, o plan, o merge e qualquer
-   deploy. Nenhum é delegável a agente.
-
-5. **Quem executa não verifica.** A revisão final passa por agente em contexto fresco.
-
-6. **Prove, não declare.** "Pronto" exige evidência anexada — saída de build, de teste,
-   captura de tela. Afirmar que funciona não é evidência.
-
-**Sincronia.** As skills são cópia do repositório do Maestro. Quando ele evoluir,
-ressincronize com `scripts/sync-maestro.sh` — divergência silenciosa entre a regra
-publicada e a instalada é o pior dos dois mundos. O modo `--check` do mesmo script
-transforma isso em portão: ele acusa divergência e sai com erro.
-
-### VII. Estrutura declarativa e crescimento por adição
-
-O livro cresce editando o sumário e criando o arquivo — nunca alterando o motor. Módulos são
-fronteiras: um módulo novo não deve exigir mudança nos existentes. Objetos interativos são
-ilhas isoladas, com *progressive enhancement* obrigatório (sem JavaScript, o conteúdo
-estático permanece legível).
-
-### VIII. Acessibilidade e custo zero na trilha padrão
-
-O livro é lido de graça, sem cadastro. O tutor opera com endpoint gratuito, com opção de
-chave própria (BYOK) para quem quiser mais qualidade. Nenhum segredo em arquivo, commit ou
-texto — credenciais só em `.env` fora do versionamento.
+Além disso: histórico atualizado, fontes verificadas, e **revisão por agente em contexto
+fresco** — quem executa não verifica (Maestro, Princípio II).
 
 ---
 
-## Portões de qualidade (verificáveis)
-
-Uma rodada não fecha sem **evidência anexada** ("prove, não declare"):
-
-| Portão | Comando | O que garante |
-|---|---|---|
-| Build do site | `cd publicar && npm run build` | Markdown válido, links internos íntegros, sumário completo |
-| Template por página | incluso no build | Hero, numeração, tempo de leitura, downloads e datação em cada capítulo |
-| Sincronia PT↔EN | incluso no build (passada EN) | Princípio II: nenhuma tradução defasada sem selo |
-| Testes do tutor | `cd chat-companion/backend && python -m pytest -q` | Gating por módulo e contratos das rotas |
-
 ## Governança
 
-Esta constituição prevalece neste repositório. Emendas sobem versão semântica (MAJOR:
-remoção ou redefinição de princípio; MINOR: princípio novo ou expansão; PATCH: clarificação)
-e são registradas em ADR.
+Esta constituição prevalece. Emendas sobem a versão semântica (MAJOR: remoção ou redefinição;
+MINOR: princípio novo ou expansão; PATCH: esclarecimento) e são registradas em ADR.
 
-O processo está no Princípio VI e nas skills instaladas em `.claude/skills/`.
+**Gates humanos inegociáveis:** o autor aprova a especificação, o plano (Constitution Check),
+o merge e qualquer publicação. Nenhum deles é delegável a agente.
 
-**Histórico:** 1.0.0 (2026-08-01) — fundação, com o princípio bilíngue (II) ratificado na
-Rodada 3 · 1.1.0 (2026-08-01) — o Maestro vira princípio próprio (VI), com as skills
-instaladas declaradas como regra que comanda; renumeração dos princípios seguintes.
+**Raias de trabalho:**
+
+| Raia | O que é | O que exige |
+|---|---|---|
+| *leve* | Typo, link quebrado, ajuste de redação | O commit é o artefato |
+| *plena* | Capítulo novo, módulo, feature | Especificação completa em `specs/NNN-nome/` |
+| *infra* | Deploy, migração, banco | Sempre plena, com gates de reversibilidade |

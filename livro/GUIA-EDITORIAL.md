@@ -1,82 +1,186 @@
-# Guia Editorial
+# Guia Editorial — regras operacionais do handbook
 
-> **Conteúdo revisado em 2026-08** · como este livro é escrito — método e regras.
+> **Conteúdo revisado em 2026-08** · versão operacional das orientações pedagógicas. A lei
+> está na [constituição](../.specify/memory/constitution.md); este guia é o que se consulta
+> **enquanto escreve**.
 
-Este documento é a regra de escrita do livro. Vale para o autor humano e para os agentes de IA que o apoiam.
+## 1. O framework pedagógico em quatro linhas
 
-## 1. O que este livro é
+| Framework | O que dita no handbook |
+|---|---|
+| **Backward Design** | Todo capítulo se projeta de trás para frente: objetivos → evidências (exercícios) → só então o conteúdo |
+| **4C/ID** | Etapas do `po-zero` = tarefas inteiras; capítulos = informação de apoio; boxes no código = *just-in-time*; exercícios = treino de parte |
+| **Diátaxis** | Quatro tipos de texto, nunca misturados na mesma seção: capítulo = *explanation*, `po-zero` = *tutorial*, banco e fichas = *reference*, receitas = *how-to* |
+| **Carga Cognitiva** | *Worked example* antes do exercício; exercícios são "complete", não "crie do zero"; o andaime diminui capítulo a capítulo; uma ideia nova por vez |
 
-Um **treinamento** em forma de livro vivo. A unidade de valor não é o capítulo lido, é a habilidade exercitada. Toda decisão editorial se subordina a isso.
+## 2. Esqueleto de capítulo (obrigatório)
 
-Consequência prática: um capítulo que explica bem mas não faz o leitor praticar está incompleto, por melhor que esteja escrito.
+A ordem não é decorativa: ela é o Backward Design tornado sumário.
 
-## 2. Método pedagógico
+1. **Objetivos de aprendizagem** — 3 a 5, com verbos de Bloom (formular, comparar,
+   implementar, avaliar), numerados `**O1.**`, `**O2.**`… Os identificadores são reais: cada
+   exercício aponta para um deles, e o build falha se apontar para um que não existe.
+2. **O problema** — por que este assunto existe. **Comece pelo erro que alguém comete sem
+   ele**, de preferência um erro de modelagem com consequência visível.
+3. **A intuição** — o método em linguagem natural e, quando possível, em geometria. Nenhuma
+   fórmula ainda.
+4. **A matemática** — a formulação, o teorema, a demonstração quando ela ensina. Notação
+   declarada antes do uso.
+5. **O algoritmo** — o método passo a passo, com um exemplo pequeno percorrido à mão
+   (*worked example*).
+6. **O código** — a etapa do `po-zero`: implementação didática ao lado do solver de mercado,
+   com os números do capítulo regeneráveis por script.
+7. **Quando não serve** — obrigatório (constituição, Princípio II). Os limites do método, o
+   que o degrada, e qual família de método assume dali em diante.
+8. **Fundamentos científicos** — 2 a 4 artigos *traduzidos para decisões* ("o resultado X
+   significa que, na prática, você deve Y"); ponteiro para a [bibliografia](bibliografia.md) e
+   para o [Radar](../radar/RADAR.md).
+9. **Pratique** — os exercícios (mínimo 3). Ver §4.
+10. **Assista** — os vídeos curados (mínimo 1). Ver §5.
+11. **Síntese + "o que levar"** — leitura executiva e as ideias exportáveis para o trabalho do
+    leitor.
+12. **Verificação** — 2 a 3 perguntas abertas que testam exatamente os objetivos do item 1.
 
-Quatro referenciais se combinam, cada um respondendo a uma pergunta diferente.
+Capítulos da camada de **fronteira** acrescentam **O estado da arte**, com a *cláusula de
+expiração* explícita (constituição, Princípio V).
 
-**Desenho retroativo (*backward design*)** — define **o que medir**. Escreve-se primeiro a evidência de domínio (o que o leitor deve conseguir fazer), depois a prática que produz essa evidência, e só então o texto. Por isso todo capítulo abre com objetivos de aprendizagem formulados com verbos verificáveis.
+### 2.1 Cabeçalho obrigatório
 
-**Tarefas-íntegras com apoio decrescente (4C/ID)** — define **a sequência**. O leitor trabalha problemas completos desde cedo, com apoio que diminui: no capítulo 01 o exercício vem com alternativas e devolutiva; no capítulo 14 ele traz o próprio problema e se autoavalia.
+```markdown
+# 09 — O método Simplex
 
-**Arquitetura de conteúdo (Diátaxis)** — separa os quatro modos: tutorial (as lições), receita (o "mão na massa"), referência (glossário e bibliografia) e explicação (o "porquê" de cada seção). Não misturar modos na mesma seção é o que mantém os capítulos legíveis.
+> **Conteúdo revisado em 2026-08** · última revisão 2026-08-20 · [histórico](HISTORICO.md)
+```
 
-**Carga cognitiva** — governa o tamanho. Um assunto por seção; exemplo antes da abstração; nada de nota de rodapé que exija manter duas ideias na cabeça ao mesmo tempo.
+O selo diz ao leitor se o conteúdo está fresco — o que a data de um evento citado no corpo não
+faz.
 
-A evidência que sustenta a escolha por prática intercalada (em vez de leitura ou vídeo contínuos) está documentada no estudo que originou o projeto, em `estudos/`.
+## 3. Regras de escrita permanentes
 
-## 3. Estrutura obrigatória de capítulo
+- **Intuição → matemática → código**, nessa ordem. Uma fórmula que aparece antes da intuição é
+  carga cognitiva pura (constituição, Princípio II).
+- **Nenhum número sem procedência.** Nem "cerca de 10× mais rápido", nem "converge em poucas
+  iterações". Ou mede com um script do `po-zero`, ou cita, ou não afirma.
+- **Toda comparação de algoritmos declara** instâncias, *baseline*, critério de parada,
+  máquina, semente e versão de solver. Sem isso não é resultado, é anedota.
+- **Todo método declara quando não serve.** Um capítulo que só elogia o próprio método está
+  incompleto.
+- **Uma ideia nova por seção.** Se a seção precisa de duas, são duas seções.
+- **Notação antes do uso.** Símbolo novo é apresentado onde aparece pela primeira vez, e
+  entra no [glossário](glossario.md) se atravessar capítulos.
+- Termos técnicos consagrados sem tradução forçada (*branch and bound*, *big-M*, *solver*,
+  *scheduling*, *benchmark*); traduzidos quando a prática já traduziu (restrição, viabilidade,
+  dualidade, folga).
+- Tabelas para fatos enumeráveis; explicação vive na prosa, não nas células.
 
-Todo capítulo numerado segue este esqueleto:
+## 4. Como se escreve um exercício
 
-1. **Título** e linha de datação (`> **Conteúdo revisado em AAAA-MM** · [histórico]`).
-2. **Objetivos de aprendizagem** — 3 a 4 itens, verbo verificável em negrito.
-3. **O problema** — a dor concreta que justifica o capítulo. Nunca começar pela definição.
-4. **O conceito** — a exposição, com exemplo antes da abstração.
-5. **Prática** — exercício, preferencialmente interativo.
-6. **Erros comuns** — os modos de falha observados, cada um com o sinal que o denuncia.
-7. **Mão na massa** — aplicação ao contexto do próprio leitor, encadeada com os capítulos vizinhos.
-8. **Leitura executiva** — parágrafo final que resume o capítulo para quem já sabe.
+A mecânica está em [`BANCO-DE-EXERCICIOS.md`](BANCO-DE-EXERCICIOS.md). As regras editoriais:
 
-Páginas de aparato (glossário, bibliografia, histórico, este guia) não seguem o esqueleto.
+- **Todo exercício rastreia até um objetivo** do capítulo. Sem isso, o build falha.
+- **A devolutiva é obrigatória e explica o conceito** — não apenas nomeia a resposta certa.
+  Escreva-a pensando em quem errou, não em quem acertou.
+- **Aponte a âncora da seção** que resolve a dúvida. É o gesto mais útil do livro.
+- **Errar é parte do ciclo**: o gabarito só é revelado na segunda tentativa. Escreva o
+  enunciado sabendo que o leitor vai tentar de novo.
+- **Distratores plausíveis.** Uma alternativa errada que ninguém marcaria não ensina nada. As
+  melhores capturam um **mal-entendido real de modelagem** — confundir restrição com objetivo,
+  ler preço-sombra fora da faixa de validade, tratar variável inteira como contínua
+  arredondada.
+- Ordem de dificuldade dentro do capítulo: reconhecimento → formulação → julgamento.
+- Exercício de código é sempre ***completion problem***: complete a lacuna, não escreva do
+  zero. Criar do zero é trabalho da etapa do `po-zero`.
 
-## 4. Regras de escrita
+### 4.1 O exercício típico de PO
 
-**Português com termos técnicos consagrados.** Não se traduz à força o que a área usa em outra língua (*Evaporating Cloud*); traduz-se o que já tem forma corrente em português (Nuvem, injeção, objetivo intermediário). Na primeira ocorrência, os dois.
+Em Pesquisa Operacional (PO) o exercício mais valioso quase nunca é "calcule". É um destes:
 
-**Frase curta, voz ativa, exemplo concreto.** Exemplos vêm de situações de trabalho reconhecíveis — prazo, fila, cliente, equipe — e não de abstrações genéricas.
+| Tipo | O que treina |
+|---|---|
+| **Formular** | Dada a situação em prosa, escrever variáveis, objetivo e restrições |
+| **Diagnosticar o modelo** | Dado um modelo errado e sua saída, achar o erro de formulação |
+| **Ler a saída** | Dada a solução do solver, dizer o que ela autoriza a decidir — e o que não |
+| **Escolher o método** | Dada a instância, dizer qual família serve e por quê |
+| **Julgar um resultado** | Dado um trecho de artigo, dizer se a comparação sustenta a conclusão |
 
-**Sem promessa de resultado.** O livro descreve o que a ferramenta faz e em que condições. Não promete transformação.
+## 5. Como se escolhe um vídeo
 
-**Sem jargão órfão.** Todo termo do método aparece no glossário. Um termo usado sem definição prévia é defeito.
+- **Um vídeo entra por aquilo que o texto não faz bem.** Geometria animada, o ritmo de uma
+  derivação no quadro, o som de alguém pensando em voz alta. Se o vídeo só repete o capítulo,
+  ele não entra — repetição não é reforço, é ruído.
+- Declare **autor, duração e o que ele resolve**. O campo de justificativa é obrigatório.
+- **Gratuito e estável.** Vídeo atrás de *paywall* não entra: custo zero é requisito.
+- **Reconfira os links na janela trimestral.** Link morto é dívida do livro, não do leitor.
+- **Fachada por padrão.** O player só pede o vídeo ao servidor de origem depois do clique.
+- A curadoria e as fontes autorizadas estão na [Videoteca](videoteca.md).
 
-**Uma ideia por parágrafo.** Se o parágrafo tem dois assuntos, são dois parágrafos.
+## 6. Como um artigo científico entra no livro
 
-## 5. Regras de conteúdo e fontes
+Pela porta do [Radar](../radar/RADAR.md), nunca por menção solta (constituição, Princípio VI).
 
-**Toda afirmação sobre um conceito da TOC é rastreável.** A fonte primária vai na [Bibliografia](bibliografia.md) e é citada no texto na primeira ocorrência do conceito. Formulação autoral é sinalizada como tal.
+1. **Ler e fichar** — o artigo vira uma linha datada no Radar, com veredito e o que ele muda.
+2. **Traduzir para decisão** — a seção "Fundamentos científicos" do capítulo não resume o
+   artigo; diz o que o leitor deve **fazer diferente** por causa dele.
+3. **Verificar a fonte** — DOI ou URL conferido. Fonte não confirmada é marcada `⏳` e **não
+   sustenta afirmação**.
+4. **Sincronizar** — a entrada correspondente entra na [bibliografia](bibliografia.md).
 
-**Materiais de terceiros não são reproduzidos.** Materiais de estudo do autor ficam em repositório privado; o livro publicado é texto autoral que os referencia por fonte oficial.
+Artigo que muda uma recomendação publicada **dispara revisão do capítulo**, sem esperar a
+janela trimestral.
 
-**Nenhum segredo em arquivo ou commit.** Credenciais apenas em `.env` fora do versionamento.
+## 7. Datação, histórico e expiração
 
-**Datação obrigatória.** Todo capítulo carrega a data da última revisão, e toda mudança relevante entra no [Histórico](HISTORICO.md).
+1. Todo capítulo declara a data de captura no cabeçalho.
+2. Distinguem-se três datas: do **evento** (imutável), da **captura** (quando fotografamos) e
+   do **experimento** (quando o número foi medido, com a versão da biblioteca e do solver).
+3. Toda edição atualiza o [`HISTORICO.md`](HISTORICO.md), com a versão do modelo de IA usada.
+4. Capítulo da camada de fronteira declara **cláusula de expiração**.
 
-## 6. Objetos interativos
+Regra de escrita associada: quando uma afirmação for sensível ao tempo ("hoje", "ainda não",
+"o consenso atual"), ela está implicitamente sob a data de captura do cabeçalho. Evite
+absolutos atemporais ("nunca", "sempre") — exceto os que de fato não expiram, que em PO
+costumam ser teoremas.
 
-Objetos interativos são o mecanismo central da prática. Regras:
+## 8. Revisão em duas camadas
 
-- **Progressive enhancement.** Sem JavaScript, a página mostra o mesmo conteúdo em forma estática. Um objeto que deixa a página vazia quando falha é defeito.
-- **Devolutiva imediata e explicativa.** Não basta dizer "errado" — o objeto explica por quê, na linguagem do capítulo.
-- **Erro barato.** O leitor deve poder errar sem custo e repetir à vontade.
-- **Um objetivo por objeto.** Objeto que exercita duas coisas ao mesmo tempo não ensina nenhuma.
+Antes do *copyedit* de superfície, um passo de **revisão *developmental***: re-ver estrutura e
+sentido. O argumento fecha? A ordem serve ao leitor? Há redundância ou lacuna? Os exercícios
+testam mesmo os objetivos declarados, ou testam o que foi fácil de perguntar?
 
-Implementação: ilhas React em `publicar/viz/`, montadas em `<div data-viz="...">`.
+"Escrever é reescrever." Nenhum trecho novo é publicado sem esse passo — e **quem escreveu não
+revisa** (Maestro, Princípio II): a revisão final passa por agente em contexto fresco.
 
-## 7. Processo
+## 9. Siglas e glossário (política)
 
-O livro segue a metodologia **Maestro**: a especificação é a fonte de verdade, os agentes executam, o humano decide, aprova e verifica.
+- **Toda sigla é apresentada por extenso na 1ª ocorrência** de cada documento — "*Mixed
+  Integer Linear Programming* (MILP)" — e dali em diante o texto pode usar só a sigla. A
+  contagem reinicia a cada documento.
+- O motor reforça isso: envolve automaticamente cada sigla conhecida em `<abbr>`, de modo que
+  passar o mouse revela o significado em qualquer ocorrência. O mapa vive em
+  `publicar/build.mjs` e é espelhado no [glossário](glossario.md).
+- Ao introduzir uma sigla nova, adicione-a **nos dois lugares**.
 
-- Uma **spec por rodada**, cada rodada em sua **própria branch** (`NNN-nome`), com registro em `specs/NNN-nome/`.
-- Decisões relevantes viram **ADR** em `adr/`.
-- Portões verificáveis antes de concluir: build do site verde, verificação por página verde, testes do chat verdes. Vale a regra "prove, não declare" — a evidência é anexada, não afirmada.
-- O merge na `main` é o que publica.
+## 10. Fluxo repetível para um contribuidor
+
+1. **Abrir o tema** — pesquisa dupla (científica + prática de indústria), verificada por busca
+   cruzada; registrar lacunas honestamente.
+2. **Definir os objetivos primeiro** e, logo em seguida, **os exercícios** — antes de escrever
+   o corpo. Se você não consegue escrever o exercício, o objetivo está vago.
+3. **Reunir a evidência** — rodar o experimento no `po-zero`; anotar semente, versões e
+   números.
+4. **Escrever** — no esqueleto da §2, um tipo de texto por seção.
+5. **Revisar (developmental)** — §8.
+6. **Verificar fontes** — nenhuma URL ou DOI inventado; não confirmado marcado `⏳`;
+   sincronizar bibliografia e Radar.
+7. **Gate de build** — `npm run build` (em `publicar/`) verde.
+8. **Datar** — selo no capítulo e entrada no `HISTORICO.md`.
+
+## 11. Cadência do livro vivo
+
+- **Janela trimestral**: reconferir vídeos, reexecutar os experimentos do `po-zero` com as
+  versões correntes de biblioteca e solver, atualizar as datas de revisão.
+- **Gatilho extraordinário**: qualquer evento que invalide uma recomendação publicada — um
+  resultado replicado que derruba uma prática, um solver que muda de comportamento, uma
+  biblioteca descontinuada — dispara revisão pontual do capítulo afetado.
+- **Gatilho por telemetria**: exercício com taxa de acerto muito baixa e volume relevante é
+  sinal de que **o texto** está mal escrito. Ele entra na fila de revisão.

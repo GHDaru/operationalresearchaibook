@@ -1,7 +1,7 @@
 name: CI do livro (build, testes e PDFs)
 
 # Portão de qualidade: roda os testes do tutor, regenera o corpus e prova que o
-# site e os PDFs constroem. NÃO publica — a publicação é do Vercel (ADR 0002),
+# site e os PDFs constroem. NÃO publica — a publicação é do Vercel,
 # que constrói o mesmo motor com SEM_PDF=1. O docs/ é gerado, não versionado.
 
 on:
@@ -67,7 +67,7 @@ jobs:
       - name: Limpar temporário de impressão
         run: rm -f docs/_print.html
       # Verifica também o modo do Vercel (sem Chromium, portanto sem PDFs):
-      # os dois caminhos de build precisam ficar verdes (ADR 0002).
+      # os dois caminhos de build precisam ficar verdes (o Vercel constrói com SEM_PDF=1).
       - name: Verificar o build do Vercel (SEM_PDF)
         run: SEM_PDF=1 node build.mjs && SEM_PDF=1 node verifica-capitulos.mjs
         working-directory: publicar

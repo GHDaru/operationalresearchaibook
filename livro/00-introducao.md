@@ -2,67 +2,71 @@
 
 > **Conteúdo revisado em 2026-08** · edição inaugural · [histórico](HISTORICO.md)
 
-## Um treino, não uma leitura
+## O problema que este handbook resolve
 
-Quase todo mundo já saiu de uma reunião com a sensação de que o problema discutido não era o problema real. A conversa girou em torno de sintomas, cada área defendeu a sua parte, alguém propôs uma solução que já tinha sido tentada antes, e a decisão final foi adiada — ou tomada no impulso.
+Há dois jeitos de sair mal de um curso de Pesquisa Operacional (PO).
 
-Isso não acontece por falta de inteligência. Acontece porque raciocinar sobre sistemas complexos **sob pressão** é uma habilidade específica, e habilidade se treina. É exatamente o que este livro propõe: um treino.
+O primeiro é sair sabendo **executar** e não sabendo **modelar**: pivotear um quadro do Simplex à mão sem conseguir olhar para uma operação real e dizer o que é variável de decisão. Esse aluno passa na prova e trava no primeiro problema que ninguém formulou para ele.
 
-A analogia é direta. Ninguém fica em forma lendo sobre exercício. O corpo muda quando você levanta o peso. O raciocínio funciona igual: você não vai pensar melhor porque leu a definição de uma ferramenta — vai pensar melhor porque **usou** a ferramenta em problemas de verdade, errou, recebeu correção e repetiu.
+O segundo é sair sabendo **chamar o solver** e não sabendo o que ele faz: escrever quinze linhas de Python, receber um número e não ter como distinguir um modelo certo de um modelo que responde à pergunta errada com quatro casas decimais. Esse aluno é produtivo até o dia em que o resultado é absurdo — e aí não tem por onde começar a procurar.
 
-Por isso este livro é feito de prática intercalada. A cada conceito, um exercício. A cada exercício, uma devolutiva. E, ao final de cada módulo, a aplicação ao seu próprio contexto — porque o problema que interessa é o seu.
+Este handbook existe para o meio: **modelar com intenção e entender o algoritmo o suficiente para desconfiar dele**. É por isso que cada método aparece três vezes — a intuição, a matemática e o código — e nessa ordem.
 
-## Por onde começamos: a restrição
+## Para quem é
 
-Toda organização é um sistema — partes que dependem umas das outras para produzir um resultado comum. E todo sistema tem um ponto que determina o quanto ele consegue entregar: a **restrição**. Como numa corrente, é o elo mais fraco que decide a resistência do conjunto, por mais fortes que sejam os outros.
+Para quem está aprendendo PO em curso de graduação e para quem já trabalha com decisão e quer a fundamentação que faltou. O pré-requisito honesto é álgebra linear básica e alguma familiaridade com programação; onde for preciso mais do que isso, o texto avisa e ensina.
 
-Essa constatação simples tem uma consequência incômoda: **melhorar o que não é a restrição não melhora o resultado**. Trabalho, dinheiro e boa vontade gastos fora do elo certo produzem movimento sem ganho — e é isso que explica por que tantas iniciativas competentes terminam sem efeito visível.
+Ele também é o **corpo de conhecimento de uma disciplina real** — o que o autor aplica com os próprios alunos. Isso tem uma consequência boa para quem lê de fora: o material é testado em sala, e o que não funciona é reescrito.
 
-Os quatro primeiros capítulos tratam disso. O que é um sistema e onde está a restrição; por que otimizar cada parte piora o todo; os cinco passos que organizam a melhoria em torno do elo certo; e as três perguntas que toda mudança precisa responder.
+## As três camadas
 
-## Depois: como pensar com rigor
+O handbook não é uma lista de capítulos. São três camadas que envelhecem em ritmos diferentes, e essa é a decisão de projeto mais importante do livro:
 
-As três perguntas são estas:
+- **O núcleo** — fundamentos, programação linear, redes, programação inteira, metaheurísticas, otimização não linear, otimização sob incerteza, modelos probabilísticos e decisão. É a base em que os livros-texto de referência concordam. Muda devagar, de propósito.
+- **Os módulos aplicados** — um por domínio: cadeia de suprimentos, roteamento, produção, energia, saúde, finanças e assim por diante. Cada um é fechado em si e entra sem mexer nos outros. **Esta camada cresce indefinidamente.**
+- **A fronteira** — o que está se movendo agora: aprendizado de máquina dentro de solvers, aprendizado orientado à decisão, modelos de linguagem como modeladores. Aqui todo capítulo carrega **cláusula de expiração**.
 
-1. **O que mudar?** — qual é o problema de raiz, não o sintoma.
-2. **Para o que mudar?** — que solução dissolve o problema em vez de administrá-lo.
-3. **Como causar a mudança?** — como sair do papel sem que o plano trave.
+A separação existe para sustentar duas promessas que normalmente se atrapalham: fundamentação sedimentada **e** atualização científica constante. O truque é não deixar o que muda toda semana morar no lugar onde o aluno aprende a base.
 
-Responder a elas com honestidade exige uma disciplina de raciocínio que quase ninguém treina. É por isso que o Módulo 1 volta ao básico — as duas conexões lógicas, as premissas e as cadeias — antes de qualquer ferramenta.
+O mapa inteiro, com as vagas já declaradas, está em [Mapa do handbook](mapa-do-handbook.md).
 
-Quem pula essa base constrói diagramas bonitos que não resistem a um questionamento. Quem a domina consegue, mesmo sem desenhar nada, ouvir uma frase numa reunião e perceber que ali há uma inversão de causa, um pré-requisito disfarçado de solução, ou uma premissa que ninguém verificou.
+## Como se estuda por ele
 
-## Como o livro está organizado
+Cada capítulo é um ciclo fechado, sempre na mesma ordem: **objetivos de aprendizagem → o problema → intuição → matemática → código → prática com devolutiva → vídeo → síntese → verificação**.
 
-O livro é modular. Cada módulo é uma unidade completa: conceito, prática, erros comuns, aplicação ao seu contexto.
+Três coisas valem a pena saber antes de começar:
 
-- **Abertura** (capítulo 00): este capítulo.
-- **Módulo 0 — A restrição** (01–04): o sistema, o ótimo local, os cinco passos de focalização e as três perguntas. É a teoria que dá propósito a tudo o que vem depois.
-- **Módulo 1 — Fundamentos lógicos** (05–09): por que ferramentas de raciocínio existem, as duas conexões, as premissas e as cadeias. A gramática comum das ferramentas.
-- **Módulo 2 — O que mudar** (10–11): a Nuvem, para dilemas; e o loop dos problemas que sempre voltam.
-- **Módulo 3 — Para o que mudar** (12): Injeções — gerar soluções quebrando premissas.
-- **Módulo 4 — Como causar a mudança** (13–14): a Análise de Pré-Requisitos, para transformar a solução em plano, e a aplicação integrada.
+1. **Os exercícios corrigem.** A resposta vai ao servidor, que avalia, explica o porquê e devolve você à seção certa. Na primeira tentativa errada ele explica o conceito; só na segunda revela o esperado. Errar faz parte do desenho.
+2. **Os vídeos são escolhidos pelo que o texto não faz bem.** Geometria animada, uma derivação no ritmo do quadro. Vídeo que só repete o capítulo não entra.
+3. **Há código que roda.** A construção prática `po-zero` acompanha o livro: modelos em Python que resolvem os problemas do capítulo, com implementações didáticas dos algoritmos ao lado de solvers de mercado. Tudo em CPU, sem licença paga.
 
-Note o desenho: os módulos 2, 3 e 4 são, um a um, as respostas às três perguntas do Módulo 0.
+## O que o handbook exige de si mesmo
+
+Quatro compromissos que valem como regra, não como intenção:
+
+- **Nenhum número sem procedência.** Ou é medido por um experimento do `po-zero`, com semente e versão declaradas, ou é citado, ou não é afirmado.
+- **Toda afirmação sobre o estado da arte é datada.** O selo no topo de cada capítulo diz quando aquilo foi verdade.
+- **Capítulo sem prática com devolutiva está incompleto**, por melhor que esteja escrito.
+- **Artigo científico entra pelo Radar**, datado, com o registro do que ele muda no livro — e não por menção solta no texto.
 
 ## Um livro vivo
 
-Este livro não tem versão final. Cada capítulo traz a data da última revisão, e o [histórico](HISTORICO.md) registra o que mudou a cada edição. Conforme material novo entra e a prática mostra o que funciona, o texto é reescrito.
+Nenhuma versão é final. Cada capítulo traz a data da última revisão e o [histórico](HISTORICO.md) registra o que mudou a cada edição. Conforme a literatura avança e a prática em sala mostra o que não funciona, o texto é reescrito.
 
-Isso tem uma consequência prática para você: se algo aqui não estiver claro, o problema provavelmente é do texto, não seu. O canal de sugestões existe justamente para isso.
+Isso tem uma consequência para você: se algo aqui não estiver claro, a hipótese de trabalho é que **o texto está mal escrito**, não que você não entendeu. Exercício com taxa de acerto muito baixa entra na fila de revisão do capítulo — o erro do leitor é o sinal que corrige o livro.
 
 ## Nota de autoria e método
 
-Este livro é **co-escrito com um agente de IA** sob autoria, curadoria e responsabilidade humanas. O agente pesquisa, redige e executa o ciclo de produção; o autor humano define o escopo, decide, verifica cada fonte e responde pelo conteúdo. Seguindo as políticas editoriais de autoria vigentes, a IA **não** é listada como autora — não pode ser responsável — e seu uso é divulgado aqui, na abertura.
+Este handbook é **co-escrito com um agente de IA** sob autoria, curadoria e responsabilidade humanas. O agente pesquisa, redige e executa o ciclo de produção; o autor humano define o escopo, decide, verifica cada fonte e responde pelo conteúdo. Seguindo as políticas editoriais de autoria vigentes, a IA **não** é listada como autora — não pode ser responsável — e seu uso é divulgado aqui, na abertura.
 
-O método completo está no [Guia Editorial](GUIA-EDITORIAL.md).
+O processo de produção segue a metodologia [Maestro](https://github.com/GHDaru/maestro): a especificação é a fonte de verdade, os agentes executam, o humano decide, aprova e verifica. As regras de escrita estão no [Guia Editorial](GUIA-EDITORIAL.md).
 
 ## Sobre as fontes
 
-O corpo de conhecimento da Teoria das Restrições foi desenvolvido por **Eliyahu M. Goldratt** e sistematizado ao longo de décadas por praticantes e pesquisadores. Este livro é uma exposição autoral desse corpo, escrita para o leitor de língua portuguesa, e **cita as obras originais** sempre que apresenta um conceito.
+O texto é **autoral**. Os livros-texto que fundamentam o campo são citados por fonte oficial na [Bibliografia](bibliografia.md), e materiais de terceiros não são reproduzidos aqui.
 
-Nada aqui substitui a leitura das fontes primárias — em especial *A Meta*, que é onde a maioria das pessoas encontra essas ideias pela primeira vez. A lista completa está na [Bibliografia](bibliografia.md).
+Nada neste handbook substitui as obras de referência. Ele se propõe a outra coisa: ser o caminho praticado, datado e conectado à literatura corrente que um livro-texto impresso, por natureza, não consegue ser.
 
 ### Leitura executiva
 
-Este é um livro de treino, não de leitura passiva: cada conceito vem com prática e devolutiva. Começamos pela **restrição** (Módulo 0, capítulos 01–04) — o que limita um sistema, por que otimizar as partes piora o todo, os cinco passos de focalização e as três perguntas de toda mudança. Só então vem a lógica (Módulo 1, capítulos 05–09), porque as ferramentas da TOC se apoiam em dois tipos de conexão e na capacidade de ver premissas. Os três módulos seguintes são, um a um, as respostas às três perguntas: *o que mudar* (10–11), *para o que mudar* (12) e *como causar a mudança* (13–14). O livro é vivo: datado, versionado e reescrito conforme evolui.
+Este é um handbook de Pesquisa Operacional construído para o meio-termo que os cursos costumam perder: **modelar com intenção e entender o algoritmo o suficiente para desconfiar dele**. Cada método aparece como intuição, depois matemática, depois código. A estrutura tem três camadas com ritmos próprios — um núcleo estável de fundamentos e métodos, uma camada de módulos aplicados que cresce por adição, e uma camada de fronteira com cláusula de expiração obrigatória. Os exercícios são corrigidos no servidor, com devolutiva que explica; os vídeos entram pelo que o texto não faz bem; e a construção prática `po-zero` garante que todo número afirmado tenha um script que o regenera. É um livro vivo: datado, versionado e reescrito conforme a literatura avança e a sala de aula mostra o que não funciona.
