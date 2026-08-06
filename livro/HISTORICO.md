@@ -57,7 +57,36 @@ conformidade em três pontos, e a distância é registrada aqui em vez de escond
 | Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | Rodada de Programação Linear |
 | `po-zero` sem etapas: só o esqueleto e a decisão de pilha | IV | Rodada de Programação Linear |
 | Par em inglês inexistente | VIII | Após o núcleo, conforme roadmap |
-| Livros-base ainda não mapeados na bibliografia | X | Quando o autor anexar as obras |
+| Livros-base ainda não mapeados na bibliografia | X | ✅ fechada em 2026-08-06 — ver edição 0.2 |
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.2 — 2026-08-06 · Livros-base mapeados
+
+Os dois livros didáticos que o autor adota com os alunos foram registrados e mapeados contra o
+[Mapa do handbook](mapa-do-handbook.md).
+
+**Entrou:**
+
+- **Ficha bibliográfica** das duas obras — Lachtermacher, *Pesquisa Operacional na Tomada de
+  Decisões* (Elsevier/Campus, 224 p.) e Arenales, Armentano, Morabito & Yanasse, *Pesquisa
+  Operacional* (Elsevier, 2007, 542 p.) — com a estrutura declarada de cada uma.
+- **Tabela de correspondência** entre as partes do handbook e as unidades de cada obra, para
+  que o aluno transite entre o handbook e o livro impresso sem se perder.
+
+**O achado que vale como decisão editorial:** as duas obras juntas cobrem bem as Partes I a IV,
+VI e VIII, e **não cobrem as Partes V, VII e XI** — metaheurísticas, otimização sob incerteza e
+fronteira. É a maior contribuição própria do handbook, e confirma o recorte que o
+[estudo do corpo de conhecimento](../estudos/001-corpo-de-conhecimento-po.md) havia feito
+*antes* de as obras serem consultadas.
+
+**Duas consequências para a rodada de Programação Linear:** o handbook mantém dualidade logo
+após o Simplex (como Arenales, não como Lachtermacher), e promove casos especiais e
+degenerescência a capítulo próprio — assunto que nenhuma das duas obras trata em separado.
+
+**Direitos autorais.** Só metadados e correspondência foram versionados. Nenhum trecho, figura
+ou enunciado das obras entrou no repositório (Princípio X).
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.

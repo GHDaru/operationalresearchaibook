@@ -22,14 +22,70 @@ compatibilidade** do handbook: cada vaga do [Mapa](mapa-do-handbook.md) recebe a
 correspondência com eles, para que um aluno consiga transitar entre o handbook e o livro
 impresso sem se perder.
 
-> **⏳ Aguardando anexo.** Os dois livros ainda não foram registrados. Quando forem, esta
-> seção recebe: autor, título, edição, editora, ano, ISBN e o **mapa de correspondência**
-> entre as vagas do handbook e as unidades de cada obra.
->
-> **O que entra no repositório:** apenas metadados bibliográficos e a tabela de
-> correspondência. **O que não entra:** o texto, as figuras, os exercícios ou o arquivo das
-> obras — em nenhuma hipótese (constituição, Princípio X; ver
-> [`materiais/README.md`](../materiais/README.md)).
+> **O que está registrado aqui:** metadados bibliográficos e a tabela de correspondência —
+> só isso. **O que não está, e nunca estará:** o texto, as figuras, os exercícios ou o arquivo
+> das obras (constituição, Princípio X; ver [`materiais/README.md`](../materiais/README.md)).
+
+✓ **LACHTERMACHER, Gerson.** *Pesquisa Operacional na Tomada de Decisões*. Rio de Janeiro:
+Elsevier/Campus. Edição revista e atualizada, 4ª tiragem. 224 p. — Voltado a Administração,
+Economia e Engenharia, com foco declarado em **modelagem prática em planilha eletrônica**. É
+o registro que introduz o Simplex por exemplos antes das formas canônicas, e o que traz os
+relatórios de sensibilidade do Excel como objeto de leitura.
+
+✓ **ARENALES, Marcos; ARMENTANO, Vinícius Amaral; MORABITO, Reinaldo; YANASSE, Horacio
+Hideki.** *Pesquisa Operacional: para cursos de engenharia*. Rio de Janeiro: Elsevier, 2007.
+542 p. — A referência brasileira de maior profundidade. Cobre otimização linear, discreta,
+em redes, programação dinâmica determinística e estocástica, e sistemas de filas, com forte
+peso em **modelagem aplicada** e nos problemas clássicos da área.
+
+### Estrutura das duas obras
+
+| | Lachtermacher (224 p.) | Arenales et al. (542 p.) |
+|---|---|---|
+| 1 | Introdução a *Management Sciences* — modelagem, decisão, planilhas (p. 1) | Introdução à pesquisa operacional (p. 1) |
+| 2 | Programação Linear — gráfica, analítica, teoremas, forma tabular, não-padrão (p. 19) | Otimização linear — aplicações, forma padrão, resolução gráfica, teoria básica e Simplex, Simplex em tabelas, solução inicial, programação de metas, dualidade e sensibilidade, teoria de jogos (p. 15) |
+| 3 | Utilização de PL no mundo real — solver, aplicações (p. 51) | Otimização discreta — relaxação linear, modelagem binária, problemas clássicos, logística, produção, *branch-and-bound*, Gomory, *branch-and-cut* (p. 163) |
+| 4 | O problema dual e a análise de sensibilidade — relatórios, custo reduzido, ótimos múltiplos, degeneração (p. 85) | Otimização em redes — grafos, caminho mínimo, caminho máximo, árvore geradora mínima, fluxos (p. 289) |
+| 5 | Problemas de rede — transporte, escala de produção, distribuição, menor caminho, fluxo máximo (p. 119) | Programação dinâmica determinística (p. 375) |
+| 6 | Programação inteira — *branch and bound* (p. 155) | Programação dinâmica estocástica — processos markovianos de decisão (p. 407) |
+| 7 | Programação não linear — côncava, convexa, quadrática (p. 171) | Sistemas de filas e otimização (p. 433) |
+| Ap. | A — Programação Linear com Lindo (p. 195) | Elementos de sistemas de equações lineares (p. 501) |
+
+### Correspondência com o Mapa do handbook
+
+Leitura: a coluna do livro indica **onde o aluno encontra o mesmo assunto** na obra impressa.
+Traço (—) significa que a obra não cobre a vaga — e é exatamente aí que o handbook agrega.
+
+| Parte do handbook | Lachtermacher | Arenales et al. |
+|---|---|---|
+| **I — Fundamentos** | Unidade 1 | Unidade 1 |
+| **II — Programação Linear** | Unidades 2, 3 e 4 | Unidade 2 |
+| **III — Redes e Fluxos** | Unidade 5 | Unidade 4 |
+| **IV — Programação Inteira** | Unidade 6 (introdutório) | Unidade 3 |
+| **V — Heurísticas e Metaheurísticas** | — | — (cobertura marginal) |
+| **VI — Otimização Não Linear** | Unidade 7 | — |
+| **VII — Otimização sob Incerteza** | — | — |
+| **VIII — Modelos Probabilísticos e Dinâmicos** | — | Unidades 5, 6 e 7 |
+| **IX — Decisão, Jogos e Multicritério** | — | parte da Unidade 2 (teoria de jogos) |
+| **X — Módulos Aplicados** | Unidade 3 (aplicações) | Unidades 2 e 3 (mistura, corte, transporte, produção, roteamento, localização) |
+| **XI — Fronteira** | — | — |
+
+**O que essa tabela revela, e que vale como decisão editorial:** as duas obras juntas cobrem
+bem as Partes I a IV, VI e VIII. **As Partes V, VII e XI — metaheurísticas, otimização sob
+incerteza e fronteira — não têm cobertura em nenhuma das duas.** É a maior contribuição
+própria do handbook, e confirma o recorte feito no
+[estudo do corpo de conhecimento](../estudos/001-corpo-de-conhecimento-po.md) antes de as
+obras serem consultadas.
+
+Duas observações para a rodada de Programação Linear:
+
+1. **A ordem do Lachtermacher separa dualidade de Simplex** (unidades 2 e 4, com as aplicações
+   no meio); a do Arenales trata as duas na mesma unidade. O handbook segue a segunda —
+   dualidade logo após o Simplex — porque a leitura econômica do preço-sombra é o que dá
+   sentido ao algoritmo.
+2. **Nenhuma das duas obras tem capítulo sobre casos especiais e degenerescência.** No
+   Lachtermacher o assunto aparece diluído na unidade de sensibilidade. O handbook o promove a
+   capítulo próprio, porque é onde o aluno descobre que o problema está no **modelo**.
 
 ## Obras de referência do campo
 
