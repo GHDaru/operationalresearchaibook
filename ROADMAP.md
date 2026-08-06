@@ -26,33 +26,51 @@ Três critérios, nesta prioridade:
 mapa do handbook com as 77 vagas; aparato editorial (guia, bibliografia, videoteca, glossário,
 Radar); motor religado.
 
-## Rodada 002 — Parte II: Programação Linear 🚧
+## A cadência: uma rodada por capítulo
 
-**A próxima.** É o coração do handbook e o que o autor aplica com os alunos.
+**Decisão do autor (2026-08-06): cada capítulo é uma rodada Maestro completa** —
+`specify → clarify → plan → tasks → implement`, com sua pasta em `specs/NNN-nome/` e gate
+humano no fim.
 
-Escopo: os nove capítulos da Parte II — formulação, geometria, Simplex, casos especiais e
-degenerescência, Simplex revisado, dualidade, análise de sensibilidade, pontos interiores e
-modelagem aplicada.
+A razão é a mesma que faz o Maestro existir: o gate humano só é útil quando cabe na cabeça de
+quem revisa. Uma Parte inteira num único gate vira carimbo. Um capítulo por rodada mantém a
+especificação pequena o bastante para ser lida de verdade — e o custo é baixo, porque o
+esqueleto de capítulo já está fixado no [Guia Editorial](livro/GUIA-EDITORIAL.md).
 
-Cada capítulo entrega, sem exceção:
+**Definition of Done de toda rodada de capítulo**, sem exceção:
 
-- Objetivos de aprendizagem numerados, com exercícios que rastreiam a eles.
-- Mínimo de **3 exercícios** com devolutiva explicativa e **1 vídeo** curado.
-- A etapa correspondente do `po-zero`, com os números do capítulo regeneráveis por script.
+- Objetivos de aprendizagem numerados, com **cada exercício rastreando a um deles**.
+- Mínimo de **3 exercícios** com devolutiva que explica, e **1 vídeo** curado.
+- A etapa correspondente do `po-zero`, com os números do capítulo **regeneráveis por script**.
+- A seção **"quando não serve"** — obrigatória (constituição, Princípio II).
+- Build verde, testes verdes, histórico atualizado, revisão em contexto fresco.
 
-**Decisão pendente do autor:** a Parte II sai em uma rodada única ou em duas
-(formulação+geometria+Simplex, depois dualidade+sensibilidade+avançados)? A recomendação é
-**duas** — uma parte inteira numa rodada só é grande demais para um gate humano útil.
+## Rodadas 002 a 010 — Parte II: Programação Linear 🚧
 
-## Rodada 003 — Parte I: Fundamentos
+O coração do handbook e o que o autor aplica com os alunos. Uma rodada por capítulo, nesta
+ordem:
+
+| Rodada | Capítulo | Por que aqui |
+|---|---|---|
+| 002 | 07 — Formulação de modelos lineares | O capítulo mais praticado do livro. Sem ele, nada do resto tem sobre o que operar |
+| 003 | 08 — A geometria da Programação Linear | Dá a intuição que o Simplex vai formalizar |
+| 004 | 09 — O método Simplex | O algoritmo por dentro, com a implementação didática do `po-zero` |
+| 005 | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
+| 006 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
+| 007 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
+| 008 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa |
+| 009 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes |
+| 010 | 15 — Modelagem aplicada em PL | O repertório de padrões, fechando a Parte II |
+
+## Rodada 011 em diante — Parte I: Fundamentos
 
 Escrita **depois** da PL, de propósito. Um capítulo de fundamentos escrito antes de existir
 qualquer método concreto vira abstração; escrito depois, ele pode apontar para o que o leitor
-já viu.
+já viu. Seis capítulos, seis rodadas.
 
-Inclui a instalação e o esqueleto do `po-zero`.
+Inclui a consolidação do `po-zero` como trilha completa.
 
-## Rodada 004 — Primeiro módulo aplicado
+## Depois: o primeiro módulo aplicado
 
 O primeiro da Parte X, escolhido pelo autor em função da turma. É a rodada que **prova a
 promessa evolutiva**: um módulo aplicado deve entrar sem tocar em nenhum capítulo existente.
@@ -61,22 +79,24 @@ Se tocar, a arquitetura está errada e o problema é de motor, não de conteúdo
 Candidatos naturais, por proximidade com a PL: cadeia de suprimentos e projeto de rede;
 planejamento e programação da produção; gestão de estoques.
 
-## Rodada 005 — Parte III: Redes e Fluxos
-
-Puxa diretamente da PL (fluxo de custo mínimo é PL com estrutura) e destrava boa parte dos
-módulos aplicados.
-
 ## Backlog priorizado
 
 | Ordem | Item | Por quê |
 |---|---|---|
-| 6 | Parte IV — Programação Inteira | Onde mora a modelagem que a indústria usa |
-| 7 | Parte V — Heurísticas e Metaheurísticas | Pedido explícito do autor; módulo inteiro |
-| 8 | Segundo e terceiro módulos aplicados | Consolidar a cadência de crescimento por adição |
-| 9 | Parte VIII — Modelos probabilísticos | Filas e simulação; cobertura que os livros-texto dão e os cursos cortam |
-| 10 | Parte XI — Fronteira | Só depois do núcleo firme: fronteira sem base é hype |
-| 11 | Partes VI, VII, IX | Não linear, incerteza, decisão multicritério |
-| 12 | Par em inglês do núcleo | Dívida declarada na constituição (Princípio VIII) |
+| 1 | Parte III — Redes e Fluxos | Puxa diretamente da PL (fluxo de custo mínimo é PL com estrutura) |
+| 2 | Parte IV — Programação Inteira | Onde mora a modelagem que a indústria usa |
+| 3 | Parte V — Heurísticas e Metaheurísticas | Pedido explícito do autor, e **lacuna das duas obras-base** |
+| 4 | Segundo e terceiro módulos aplicados | Consolidar a cadência de crescimento por adição |
+| 5 | Parte VIII — Modelos probabilísticos | Filas e simulação; cobertura que os livros-texto dão e os cursos cortam |
+| 6 | Parte VII — Otimização sob incerteza | **Lacuna das duas obras-base** |
+| 7 | Parte XI — Fronteira | **Lacuna das duas obras-base**, mas só depois do núcleo firme: fronteira sem base é hype |
+| 8 | Partes VI e IX | Não linear, decisão multicritério |
+| 9 | Par em inglês do núcleo | Dívida declarada na constituição (Princípio VIII) |
+
+> As três lacunas marcadas acima — metaheurísticas, incerteza e fronteira — são o que
+> [a bibliografia](livro/bibliografia.md) mostrou que **nenhuma das duas obras-base cobre**.
+> São a maior contribuição própria do handbook, e por isso não podem cair no fim da fila para
+> sempre.
 
 ## Trabalho contínuo (não é rodada)
 
@@ -91,9 +111,16 @@ módulos aplicados.
 
 ## Decisões em aberto
 
-1. **Mapeamento dos livros-base.** Assim que os dois livros didáticos de referência forem
-   anexados, cada vaga do mapa ganha a correspondência capítulo-a-capítulo na
-   [bibliografia](livro/bibliografia.md). Só metadado bibliográfico é versionado — conteúdo,
-   não (constituição, Princípio X).
-2. **Granularidade das rodadas de conteúdo.** Ver a decisão pendente da rodada 002.
-3. **Prioridade dentro da Parte X.** Depende da turma; decisão do autor.
+1. **Prioridade dentro da Parte X.** Qual módulo aplicado vem primeiro depende da turma;
+   decisão do autor.
+2. **Ordem interna das Partes VI a IX.** Filas antes ou depois de programação dinâmica é
+   discussão em aberto, e não foi testada com alunos.
+
+## Decisões fechadas
+
+| Data | Decisão | Onde |
+|---|---|---|
+| 2026-08-06 | Mapa do handbook aprovado pelo autor | [Mapa](livro/mapa-do-handbook.md) |
+| 2026-08-06 | Livros-base mapeados: as duas obras **não cobrem** as Partes V, VII e XI | [Bibliografia](livro/bibliografia.md) · edição 0.2 |
+| 2026-08-06 | **Uma rodada Maestro por capítulo** | Este documento |
+| 2026-08-06 | Materiais de terceiros em repositório privado separado; histórico purgado | [ADR 0005](adr/0005-materiais-em-repositorio-privado.md) |

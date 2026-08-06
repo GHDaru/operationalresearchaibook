@@ -42,8 +42,16 @@ a licença de **redistribuí-lo** — e um repositório público é redistribui�
 2. **Neste diretório, ignorado pelo Git** — `materiais/` está no `.gitignore` (exceto este
    `README.md`). Serve para trabalhar com os arquivos localmente sem risco de commit acidental.
 
-Se algum dia for necessário um repositório privado para materiais de estudo, ele é **outro
-repositório**, privado, e nada dele é espelhado aqui.
+Um repositório privado separado para materiais de estudo **já é a decisão vigente** — mesmo
+padrão do livro *Teoria das Restrições*, que mantém os seus fora do repositório publicado. Ele
+é **outro repositório**, privado, e nada dele é espelhado aqui.
+
+> **Precedente registrado.** Em 2026-08-06 dois livros-texto em PDF chegaram a ser commitados
+> na branch padrão deste repositório, que é público. Foram purgados do histórico, e a decisão
+> — com o que se perde e o que não se desfaz — está no
+> [ADR 0005](../adr/0005-materiais-em-repositorio-privado.md). A reescrita mudou os
+> identificadores de todos os commits: clones anteriores àquela data divergem e precisam ser
+> refeitos.
 
 ## Como anexar um livro-base ao projeto, na prática
 
