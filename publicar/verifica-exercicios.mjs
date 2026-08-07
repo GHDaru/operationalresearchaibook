@@ -37,7 +37,7 @@ if (!exercicios.length && CAPS_NUMERADOS.length)
 if (!CAPACIDADES.size) erro("não consegui ler capabilities.py — o portão não está medindo nada");
 
 // 1. Cada exercício, isolado.
-const OBRIGATORIOS = ["id", "capitulo", "serie", "variante", "tipo", "capacidade", "titulo", "enunciado"];
+const OBRIGATORIOS = ["id", "capitulo", "serie", "variante", "tipo", "capacidade", "titulo", "enunciado", "objetivo"];
 const vistos = new Set();
 for (const e of exercicios) {
   const id = e.id || "(sem id)";
@@ -78,6 +78,30 @@ const marcadores = new Set(
 );
 for (const serie of new Set(exercicios.map((e) => e.serie)))
   if (!marcadores.has(serie)) erro(`série "${serie}" tem exercício mas nenhum capítulo a monta (data-bateria ausente)`);
+
+// 2b. Todo exercício rastreia a um objetivo QUE EXISTE no capítulo que o monta.
+//
+//     A constituição (Princípio I) exige o rastreio, e o Guia Editorial diz que
+//     "o build falha se apontar para um que não existe". Até aqui isso era prosa:
+//     nada media. Um objetivo escrito errado — ou renumerado no capítulo e
+//     esquecido no registro — passava calado, e o leitor recebia devolutiva
+//     apontando para um objetivo inexistente.
+const capituloDaSerie = new Map();
+for (const f of arquivosCap) {
+  const texto = readFileSync(resolve(capitulos, f), "utf8");
+  for (const m of texto.matchAll(/data-bateria="([^"]+)"/g)) capituloDaSerie.set(m[1], { arq: f, texto });
+}
+for (const e of exercicios) {
+  const cap = capituloDaSerie.get(e.serie);
+  if (!cap) continue; // já reportado acima
+  if (!/^O\d+$/.test(String(e.objetivo || ""))) {
+    erro(`${e.id}: objetivo "${e.objetivo}" fora do padrão ON (O1, O2, …)`);
+    continue;
+  }
+  // O capítulo declara os objetivos como "**O1.**" na seção de objetivos.
+  if (!new RegExp(`\\*\\*${e.objetivo}\\.\\*\\*`).test(cap.texto))
+    erro(`${e.id}: objetivo "${e.objetivo}" não é declarado em ${cap.arq}`);
+}
 
 // 3. Princípio I (não-negociável): capítulo numerado sem prática com devolutiva
 //    está incompleto. A dívida atual é declarada aqui, em código, e não em prosa:

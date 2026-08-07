@@ -1,1 +1,83 @@
-[]
+[
+  {
+    "id": "cap07.exA",
+    "capitulo": 7,
+    "serie": "cap07",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "formulacao",
+    "dificuldade": "facil",
+    "titulo": "Separar o que se decide do que se aceita",
+    "enunciado": "Uma padaria produz pão francês e pão de forma. A dona descreve a semana assim:\n\n> \"Tenho 60 horas de forno e 90 kg de farinha. O pão francês me deixa R$ 1,20 de margem por unidade e o de forma, R$ 3,00. Consigo vender no máximo 400 pães de forma — mais que isso encalha. Queria saber quanto fazer de cada um para ganhar o máximo possível na semana.\"\n\nClassifique **cada um** dos itens abaixo como **variável de decisão**, **parâmetro** ou **nem um nem outro**, e justifique em uma frase o critério que você usou:\n\n1. A quantidade de pão francês a produzir na semana\n2. As 60 horas de forno\n3. A margem de R$ 3,00 por pão de forma\n4. O lucro total da semana\n5. O limite de 400 pães de forma\n\nAtenção ao item 4: ele é o mais escorregadio da lista.",
+    "criterios": [
+      "Os itens 1 é classificado como variável de decisão, e os itens 2, 3 e 5 como parâmetros",
+      "O item 4 (lucro total) é identificado como **nem um nem outro**: é consequência do modelo, e aparece como função objetivo, não como variável nem como dado",
+      "O critério declarado para separar variável de parâmetro é o de decisão — quem decide pode escolher a quantidade, mas não escolhe as horas de forno disponíveis nem a margem unitária",
+      "A resposta não confunde o limite de demanda (parâmetro, lado direito de uma restrição) com uma variável"
+    ],
+    "erro_provavel": "Classificar o lucro total como variável de decisão. É o erro mais comum e o mais revelador: quem o comete está tratando o resultado como algo que se escolhe, e não como consequência das escolhas. Lucro não é decidido — ele **decorre** de quanto se produz de cada produto. No modelo, ele é a função objetivo. O sintoma prático de quem carrega esse erro é escrever restrições sobre o lucro em vez de sobre os recursos.",
+    "resposta_guia": "Variável de decisão: item 1 (quantidade de pão francês), porque a dona pode assinar embaixo dessa quantidade amanhã. Parâmetros: itens 2, 3 e 5 — horas de forno, margem unitária e teto de demanda entram no modelo como dados e não são escolhidos por ele. Nem um nem outro: item 4, o lucro total, que é consequência das variáveis e aparece como função objetivo. O critério é sempre o mesmo: se ninguém pode mudar aquilo por decisão, não é variável."
+  },
+  {
+    "id": "cap07.exB",
+    "capitulo": 7,
+    "serie": "cap07",
+    "variante": "B",
+    "tipo": "formular",
+    "objetivo": "O2",
+    "capacidade": "formulacao",
+    "dificuldade": "media",
+    "titulo": "Formular o modelo completo, com as unidades conferidas",
+    "enunciado": "Continuando a padaria do exercício anterior:\n\n- **Pão francês:** margem R$ 1,20/unid · 0,05 h de forno/unid · 0,10 kg de farinha/unid\n- **Pão de forma:** margem R$ 3,00/unid · 0,20 h de forno/unid · 0,50 kg de farinha/unid\n- **Disponível na semana:** 60 h de forno · 90 kg de farinha\n- **Demanda máxima de pão de forma:** 400 unid/semana\n\nEscreva o modelo completo: variáveis com unidade declarada, função objetivo e todas as restrições.\n\nPara cada restrição, mostre a **conferência de unidades** dos dois lados — é isso que está sendo avaliado aqui, tanto quanto o modelo em si.",
+    "criterios": [
+      "As variáveis estão declaradas com unidade explícita (unidades por semana de cada produto), e não apenas nomeadas",
+      "A função objetivo maximiza margem de contribuição, com coeficientes 1,20 e 3,00 em reais por unidade",
+      "Há uma restrição por recurso escasso (forno e farinha) e uma de demanda máxima para o pão de forma, com os lados direitos corretos",
+      "A conferência de unidades é mostrada em pelo menos uma restrição de recurso: (h/unid) × (unid/semana) = h/semana, contra h/semana disponíveis",
+      "A não-negatividade das duas variáveis está declarada"
+    ],
+    "erro_provavel": "Esquecer a não-negatividade, ou tratá-la como formalidade e não escrevê-la. Sem ela, o solver pode atribuir quantidade negativa a um produto para liberar forno e farinha e inflar o objetivo — devolvendo um ótimo matematicamente correto e fisicamente impossível. Outro erro frequente é escrever a restrição de demanda sobre os dois produtos, quando o enunciado limita apenas o pão de forma: restrição a mais é restrição inventada, e ela corta soluções legítimas em silêncio.",
+    "resposta_guia": "Sejam x1 = pães franceses por semana e x2 = pães de forma por semana, ambos em unidades por semana. Maximizar 1,20·x1 + 3,00·x2 (reais por semana). Sujeito a: 0,05·x1 + 0,20·x2 ≤ 60 (forno, h/semana — a conferência: h/unid × unid/semana = h/semana, contra h/semana disponíveis); 0,10·x1 + 0,50·x2 ≤ 90 (farinha, kg/semana); x2 ≤ 400 (demanda, unid/semana); x1 ≥ 0 e x2 ≥ 0. Note que a restrição de demanda incide só sobre x2, porque o enunciado só limitou o pão de forma."
+  },
+  {
+    "id": "cap07.exC",
+    "capitulo": 7,
+    "serie": "cap07",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "capacidade": "formulacao",
+    "dificuldade": "dificil",
+    "titulo": "Achar o erro num modelo que rodou e devolveu ótimo",
+    "enunciado": "Uma metalúrgica quer decidir quanto produzir de dois perfis, A e B, no mês. Um analista entrega este modelo e a saída do solver:\n\n```\nmaximizar  480 x_A + 300 x_B\nsujeito a\n  6 x_A + 3 x_B <= 1200      (prensa, horas/mês)\n  2 x_A + 5 x_B <= 900       (solda, horas/mês)\n  x_A, x_B >= 0\n\nsolver: Optimal\nplano:  x_A = 200 ; x_B = 0\nuso:    prensa 1200 h (folga 0) ; solda 400 h (folga 500)\n```\n\nO gerente de produção reage: *\"Isso não pode estar certo. A solda é o nosso gargalo há dois anos — vive parada de madrugada para dar conta. E a gente **tem** contrato de 80 unidades de B por mês com um cliente.\"*\n\nO modelo rodou e devolveu ótimo. Diga **o que está errado nele** e o que a saída já denunciava antes mesmo de o gerente falar.",
+    "criterios": [
+      "Identifica que falta a restrição de contrato mínimo do perfil B (x_B ≥ 80): o modelo não conhece uma obrigação real, e por isso zera B livremente",
+      "Lê a folga como sintoma: 500 horas de folga na solda contradizem a afirmação de que ela é o gargalo, e essa contradição entre modelo e operação é o sinal de que falta informação no modelo",
+      "A resposta ataca a formulação, e não o solver nem a aritmética — o plano é de fato ótimo para o modelo escrito",
+      "Distingue o que é erro de modelagem (restrição ausente) do que é apenas surpresa do gerente, sem assumir que toda intuição da operação está certa"
+    ],
+    "erro_provavel": "Concluir que os coeficientes 480 e 300 estão trocados, ou que o solver falhou. Nenhum dos dois: o plano é ótimo para o modelo que foi escrito. O erro é de **omissão** — falta a restrição de contrato mínimo. É o tipo de erro que nenhum portão automático pega, porque o modelo está sintaticamente perfeito e numericamente correto; ele só não descreve a fábrica. Outro desvio comum é aceitar a fala do gerente como prova de que a solda é gargalo: o que a folga mostra é que, **no plano proposto**, ela não é — e a divergência é justamente o que precisa ser investigado.",
+    "resposta_guia": "Falta a restrição x_B ≥ 80, o contrato mínimo. Sem ela, o modelo é livre para zerar B, e como A paga melhor por hora de prensa, ele zera. A saída já denunciava: 500 horas de folga num recurso que a operação chama de gargalo é contradição entre modelo e realidade — ou o modelo está incompleto, ou a crença da operação está errada, e nos dois casos é preciso investigar antes de decidir. Aqui é o modelo: com a restrição de contrato incluída, B entra no plano, a solda passa a ser exigida e o retrato bate com a fábrica. O solver não errou; ele respondeu com precisão a um modelo que não descrevia o problema."
+  },
+  {
+    "id": "cap07.exD",
+    "capitulo": 7,
+    "serie": "cap07",
+    "variante": "D",
+    "tipo": "formular",
+    "objetivo": "O4",
+    "capacidade": "formulacao",
+    "dificuldade": "dificil",
+    "titulo": "Formular uma decisão da sua própria operação",
+    "enunciado": "Agora o seu contexto.\n\nPense em **uma decisão recorrente** da sua área — de quanto produzir, de como alocar pessoas, de quanto comprar, de onde atender cada cliente. Uma decisão que alguém toma de fato, com alguma frequência.\n\nEscreva:\n\n1. **As variáveis de decisão**, com unidade declarada. O que quem decide pode de fato escolher?\n2. **A única medida** a maximizar ou minimizar. Se você escrever duas, diga qual você escolheria se fosse obrigado — e o que se perde nessa escolha.\n3. **As restrições**, uma por limite, com as unidades conferidas dos dois lados.\n4. **Uma hipótese da Programação Linear que o seu problema quebra** — proporcionalidade, aditividade ou divisibilidade — e o que isso significa na prática para o seu caso.\n\nO item 4 é o mais importante. Quase toda decisão real quebra pelo menos uma das três, e reconhecer qual é o que separa quem usa o método de quem aplica fórmula.",
+    "criterios": [
+      "As variáveis de decisão são coisas que a pessoa descrita pode de fato escolher, com unidade declarada — e não indicadores, metas ou consequências",
+      "Há uma única função objetivo; se o leitor identifica duas medidas, ele escolhe uma explicitamente e nomeia o que se perde",
+      "Cada restrição corresponde a um limite real do contexto, com unidades coerentes dos dois lados",
+      "O item 4 nomeia uma das três hipóteses e explica de forma concreta como o problema do leitor a quebra — não em abstrato",
+      "O conjunto é coerente: as restrições limitam as variáveis declaradas, e o objetivo é função delas"
+    ],
+    "erro_provavel": "Escolher uma decisão grande demais — \"a estratégia da área para o ano\" — em que nada é escolhível de forma direta e tudo é consequência de outra coisa. Formulação começa em decisão concreta e recorrente. O segundo desvio comum é pular o item 4 ou responder que o problema não quebra nenhuma hipótese: se for uma decisão real, quase certamente quebra a divisibilidade (pessoas, veículos e lotes não são fracionários) ou a proporcionalidade (há setup, desconto por volume ou ganho de escala em algum lugar)."
+  }
+]

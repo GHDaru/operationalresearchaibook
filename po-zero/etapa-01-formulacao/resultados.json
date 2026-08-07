@@ -1,0 +1,48 @@
+{
+  "instancia": "instancias/moveis.json",
+  "versoes": {
+    "python": "3.11.15",
+    "pulp": "3.3.2",
+    "solver": "HiGHS (via PuLP)",
+    "sistema": "Linux"
+  },
+  "determinismo": "sem aleatoriedade — nenhuma semente é usada",
+  "modelo_correto_margem": {
+    "status": "Optimal",
+    "plano": {
+      "mesa": 30.0,
+      "estante": 40.0
+    },
+    "margem_total_reais": 13800.0,
+    "receita_total_reais": 47000.0,
+    "uso_dos_recursos": {
+      "marcenaria_h": 240.0,
+      "acabamento_h": 180.0
+    },
+    "folga_dos_recursos": {
+      "marcenaria_h": 0.0,
+      "acabamento_h": 0.0
+    }
+  },
+  "modelo_errado_receita": {
+    "status": "Optimal",
+    "plano": {
+      "mesa": 60.0,
+      "estante": 0.0
+    },
+    "margem_total_reais": 13200.0,
+    "receita_total_reais": 54000.0,
+    "uso_dos_recursos": {
+      "marcenaria_h": 240.0,
+      "acabamento_h": 120.0
+    },
+    "folga_dos_recursos": {
+      "marcenaria_h": 0.0,
+      "acabamento_h": 60.0
+    }
+  },
+  "custo_do_erro": {
+    "margem_perdida_reais_por_mes": 600.0,
+    "leitura": "O modelo que maximiza receita é viável e ótimo — para a pergunta errada. Seguir o plano dele custa esta margem por mês."
+  }
+}

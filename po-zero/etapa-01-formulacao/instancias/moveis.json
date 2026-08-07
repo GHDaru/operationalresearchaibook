@@ -1,0 +1,24 @@
+{
+  "ficha": {
+    "nome": "Marcenaria São Bento — mix de produção mensal",
+    "origem": "Instância didática autoral, construída para o capítulo 07 do handbook. Não representa uma empresa real.",
+    "licenca": "Mesma licença do texto do livro (ver LICENSE).",
+    "limitacoes": [
+      "Dois produtos e dois recursos: pequena o bastante para ser resolvida à mão nos capítulos 08 e 09.",
+      "Margens e tempos são plausíveis, mas arbitrados. Nenhum número aqui é medição de campo.",
+      "Um único período. Estoque, sazonalidade e prazos de entrega ficam fora por desenho."
+    ],
+    "reaproveitamento": "Esta mesma instância é retomada nos capítulos 08 (geometria) e 09 (Simplex), de propósito: o leitor vê o mesmo problema por três lentes."
+  },
+  "produtos": {
+    "mesa":    {"margem_reais": 220, "preco_reais": 900, "marcenaria_h": 4, "acabamento_h": 2},
+    "estante": {"margem_reais": 180, "preco_reais": 500, "marcenaria_h": 3, "acabamento_h": 3}
+  },
+  "recursos": {
+    "marcenaria_h": 240,
+    "acabamento_h": 180
+  },
+  "demanda_maxima": {
+    "estante": 50
+  }
+}

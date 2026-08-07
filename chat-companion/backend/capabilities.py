@@ -36,6 +36,9 @@ REGISTRO = [
     {"chave": "exercicios", "rotulo": "Exercícios", "libera": 1,
      "tools": ("exercicio_registrar_tentativa",),
      "descricao": "Conduzo o exercício da página, avalio sua resposta pelos critérios e registro a tentativa."},
+    {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
+     "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
+                  "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},
 ]
 
 MODOS = ("avancado", "progressivo")

@@ -53,12 +53,20 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 
 | Capítulo | Vídeo | Autor | Duração |
 |---|---|---|---|
-| — | *ainda não há capítulo de método publicado* | — | — |
+| 07 — Formulação de modelos lineares | ⏳ *em confirmação* | ⏳ | ⏳ |
 
-> O handbook está na rodada de fundação: o mapa e o aparato existem, os capítulos de método
-> vêm a seguir. Cada capítulo recebe o seu vídeo quando sua rodada for implementada — mínimo
-> de 1 por capítulo, como manda a constituição (Princípio I). O inventário de cobertura por
-> capítulo é tarefa declarada da rodada de Programação Linear.
+> **A dívida do capítulo 07, dita por extenso.** A curadoria aponta para material aberto sobre
+> modelagem de planejamento da produção em Programação Linear, mas **a conferência de autoria e
+> duração na fonte não foi feita** — o ambiente de produção deste handbook não consegue ler o
+> YouTube de forma automatizada, e a política desta página exige autor e duração declarados.
+>
+> Publicar um crédito não verificado seria pior do que publicar a lacuna: violaria o Princípio
+> III (evidência acima de retórica) e a regra de atribuição desta própria página. Então o
+> capítulo declara `⏳` e segue.
+>
+> **Fecha assim:** o autor indica o vídeo dentro do canal parceiro — a primeira escolha, porque
+> o uso está autorizado — ou aprova uma alternativa aberta. A entrada aqui e o bloco "Assista"
+> do capítulo são atualizados na mesma edição.
 
 ## Marcar como assistido
 

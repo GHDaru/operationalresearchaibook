@@ -54,8 +54,8 @@ conformidade em três pontos, e a distância é registrada aqui em vez de escond
 
 | Dívida | Princípio | Quando fecha |
 |---|---|---|
-| Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | Rodada de Programação Linear |
-| `po-zero` sem etapas: só o esqueleto e a decisão de pilha | IV | Rodada de Programação Linear |
+| Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | 🟡 parcial em 2026-08-06 — o capítulo 07 e seus exercícios saíram; o vídeo segue em confirmação (edição 0.3) |
+| `po-zero` sem etapas: só o esqueleto e a decisão de pilha | IV | ✅ fechada em 2026-08-06 — etapa 01 no ar (edição 0.3) |
 | Par em inglês inexistente | VIII | Após o núcleo, conforme roadmap |
 | Livros-base ainda não mapeados na bibliografia | X | ✅ fechada em 2026-08-06 — ver edição 0.2 |
 
@@ -87,6 +87,50 @@ degenerescência a capítulo próprio — assunto que nenhuma das duas obras tra
 
 **Direitos autorais.** Só metadados e correspondência foram versionados. Nenhum trecho, figura
 ou enunciado das obras entrou no repositório (Princípio X).
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.3 — 2026-08-06 · Capítulo 07: formulação de modelos lineares
+
+O primeiro capítulo de método do handbook, e a primeira vez que a máquina inteira — texto,
+exercícios corrigidos no servidor e código reproduzível — roda de ponta a ponta.
+
+**Entrou:**
+
+- **Capítulo 07 — Formulação de modelos lineares**, abertura da Parte II. Estrutura o trabalho
+  em quatro perguntas (o que se escolhe, qual a única medida, o que limita, o que é dado) e
+  abre por um erro real: uma marcenaria que maximiza receita em vez de margem.
+- **Quatro exercícios** (`cap07`), em dificuldade crescente — reconhecer, formular, diagnosticar
+  e aplicar ao próprio contexto —, cada um rastreando a um objetivo de aprendizagem.
+- **`po-zero/etapa-01-formulacao`** — as duas formulações lado a lado, resolvidas com HiGHS.
+  `experimento.py` regenera `resultados.json` byte a byte, com versões declaradas.
+- **Capacidade `formulacao`** no tutor, liberada no capítulo 07.
+- **Marcador de vaga declarada** na navegação: as partes mostram o que ainda não foi escrito
+  como cartão tracejado apontando para o Mapa, em vez de omitir. O livro passa a publicar fora
+  da ordem do mapa, e diz isso ao leitor.
+
+**Os números do capítulo, e de onde vêm.** O plano que maximiza margem produz 30 mesas e 40
+estantes (R$ 13.800/mês); o que maximiza receita produz 60 mesas e nenhuma estante, fatura mais
+(R$ 54.000) e entrega R$ 13.200 de margem — R$ 600 a menos por mês, deixando 60 horas de
+acabamento paradas. Todos saem de `po-zero/etapa-01-formulacao/experimento.py`.
+
+**Portões reforçados nesta rodada:**
+
+- **Rastreio exercício → objetivo agora é verificado.** O Guia Editorial dizia que "o build
+  falha se o exercício apontar para um objetivo que não existe"; até aqui isso era prosa e nada
+  media. Agora o portão confere que o objetivo está declarado no capítulo que monta a bateria —
+  e foi provado quebrando-o de propósito.
+- **O portão de rubrica pegou um vazamento real**: o exemplo de sintaxe do Banco de Exercícios
+  compartilhava os primeiros 40 caracteres de um critério do `cap07.exB`. O exemplo foi
+  reescrito com texto que ninguém escreveria de verdade, e o motivo ficou registrado lá.
+
+**Dívida declarada.** Duas, ambas do próprio capítulo:
+
+| Dívida | Princípio | Quando fecha |
+|---|---|---|
+| Vídeo do capítulo 07 sem autoria e duração conferidas | I | Quando o autor indicar o vídeo do canal parceiro |
+| Sem artigos científicos na seção de fundamentos — a varredura de literatura sobre ensino de formulação não foi feita | III | Fila do Radar |
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.

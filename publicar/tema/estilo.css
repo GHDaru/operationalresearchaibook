@@ -279,6 +279,11 @@ table.viz-heat { border-collapse: collapse; width: 100%; font-size: .9rem; displ
 .ent-card { display: block; background: var(--sidebar); border: 1px solid var(--line); border-radius: 11px;
   padding: .8rem .85rem; text-decoration: none; color: var(--fg); transition: border-color .12s, transform .12s; }
 .ent-card:hover { border-color: var(--prat); transform: translateY(-2px); }
+/* Vaga declarada: capítulo que existe no Mapa e ainda não foi escrito. Marcado
+   com borda tracejada e sem elevação no hover — parece o que é, um lugar
+   reservado, e não conteúdo publicado. */
+.ent-card-vaga { border-style: dashed; opacity: .72; }
+.ent-card-vaga:hover { transform: none; opacity: 1; }
 .ent-badge { display: inline-grid; place-items: center; min-width: 28px; height: 28px; border-radius: 7px;
   background: rgba(224,162,74,.14); color: var(--prat); font-weight: 700; font-size: .82rem;
   border: 1px solid rgba(224,162,74,.28); margin-bottom: .5rem; font-variant-numeric: tabular-nums; }

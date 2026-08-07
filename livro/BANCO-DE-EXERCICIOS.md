@@ -50,23 +50,31 @@ Cada exercício é um objeto em `livro/exercicios.json`:
 
 ```json
 {
-  "id": "cap07.exA",
-  "capitulo": 7,
-  "serie": "cap07",
+  "id": "cap99.exA",
+  "capitulo": 99,
+  "serie": "cap99",
   "variante": "A",
   "tipo": "formular",
-  "capacidade": "formulacao_linear",
-  "titulo": "Formular um problema de mix de produção",
-  "enunciado": "Uma fábrica produz dois itens...",
+  "objetivo": "O2",
+  "capacidade": "formulacao",
+  "titulo": "TITULO CURTO, EXIBIDO NO CARTAO",
+  "enunciado": "O TEXTO DO PROBLEMA. Markdown e aceito.",
   "criterios": [
-    "As variáveis de decisão são as quantidades a produzir de cada item, e estão declaradas com unidade",
-    "A função objetivo maximiza margem de contribuição, não receita",
-    "Há uma restrição por recurso escasso, com o lado direito na mesma unidade do lado esquerdo"
+    "PRIMEIRO CRITERIO — um fato verificavel da resposta, nao uma impressao",
+    "SEGUNDO CRITERIO — outro fato verificavel",
+    "TERCEIRO CRITERIO — de 3 a 5 no total"
   ],
-  "erro_provavel": "Maximizar receita em vez de margem...",
-  "resposta_guia": "Sejam x1 e x2 as quantidades..."
+  "erro_provavel": "O MAL-ENTENDIDO COMUM, e por que ele esta errado.",
+  "resposta_guia": "A RESPOSTA DE REFERENCIA, para o tutor julgar equivalencia."
 }
 ```
+
+> **Por que o exemplo está em caixa-alta, com um capítulo que não existe.** Há um portão que
+> procura, nas páginas publicadas, os 40 primeiros caracteres normalizados de cada campo de
+> rubrica. Um exemplo de documentação escrito com texto realista **colide** com a rubrica de um
+> exercício real e derruba o build — corretamente, porque nesse ponto o leitor conseguiria
+> inferir a rubrica lendo esta página. Aconteceu na primeira vez que este documento e um
+> capítulo real coexistiram. Exemplo de sintaxe usa texto que ninguém escreveria de verdade.
 
 ### Campos
 
@@ -80,6 +88,7 @@ Cada exercício é um objeto em `livro/exercicios.json`:
 | `capacidade` | sim | A chave em `chat-companion/backend/capabilities.py`. O portão confere que existe **e que já foi liberada** no capítulo do exercício |
 | `titulo` | sim | Nome curto, exibido no cartão |
 | `enunciado` | sim | O texto do problema. Markdown é aceito |
+| `objetivo` | sim | O `O1`/`O2`… declarado na seção de objetivos do capítulo. **O portão confere que ele existe lá** |
 | `criterios` | sim | **De 3 a 5** critérios de aceite. Menos que 3 não avalia; mais que 5 não é rubrica, é gabarito disfarçado |
 | `erro_provavel` | recomendado | O mal-entendido comum, e por que ele está errado. É o que produz devolutiva útil |
 | `resposta_guia` | ver abaixo | A resposta de referência, que permite ao tutor julgar equivalência de raciocínio |

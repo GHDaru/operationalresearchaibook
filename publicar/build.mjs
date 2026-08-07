@@ -174,7 +174,7 @@ const T = EN
         ["radar.html", "Como se atualiza", "Radar científico", "Artigo lido vira linha datada — com o que ele muda no livro."],
         ["guia-editorial.html", "Como se escreve", "Guia Editorial", "O esqueleto de capítulo, os exercícios e a curadoria de vídeo."],
       ],
-      partesCartao: new Set(["Abertura"]),
+      partesCartao: new Set(["Abertura", "Parte I — Fundamentos", "Parte II — Programação Linear"]),
       pillsRotulo: "Aparato · Sobre",
       dataLocale: "pt-BR",
       sincOk: null,
@@ -192,6 +192,7 @@ const COMPANION_CAPS = [
   { chave: "busca_livro", rotulo: "Busca no livro", libera: 0 },
   { chave: "mapa", rotulo: "Mapa do handbook", libera: 0 },
   { chave: "exercicios", rotulo: "Exercícios", libera: 1 },
+  { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
 ];
 const capituloDe = (titulo) => parseInt((String(titulo).match(/^\s*(\d+)/) || [])[1], 10) || 0;
 function companionSnippet(chapter) {
@@ -714,10 +715,15 @@ if (!EN) {
 writeFileSync(resolve(SAIDA, "index.html"), paginaSplash());
 
 // sumario.html = a EXPERIÊNCIA DE ENTRADA (spec 021), por idioma.
+// O cartão aceita item SEM arquivo (`externo`). É o que permite ao livro publicar
+// fora da ordem do mapa sem enganar o leitor: uma vaga declarada aparece como
+// cartão marcado, apontando para o Mapa do handbook, em vez de sumir da parte —
+// o que faria a lacuna parecer descuido em vez de plano.
 const cartaoEnt = (i) => {
-  const s = slugDe(i.arquivo);
   const { num, texto } = dividirTitulo(i.titulo);
-  return `<a class="ent-card" href="${s}.html">${num ? `<span class="ent-badge">${num}</span>` : ""}<span class="ent-ct">${texto}</span>${i.teaser ? `<span class="ent-cd">${i.teaser}</span>` : ""}</a>`;
+  const href = i.arquivo ? `${slugDe(i.arquivo)}.html` : i.externo;
+  const classe = i.arquivo ? "ent-card" : "ent-card ent-card-vaga";
+  return `<a class="${classe}" href="${href}">${num ? `<span class="ent-badge">${num}</span>` : ""}<span class="ent-ct">${texto}</span>${i.teaser ? `<span class="ent-cd">${i.teaser}</span>` : ""}</a>`;
 };
 const pillEnt = (i) =>
   i.arquivo
