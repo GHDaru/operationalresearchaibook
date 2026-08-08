@@ -1,7 +1,15 @@
 # Spec 002 — Capítulo 07: Formulação de modelos lineares
 
 **Rodada:** 002 · **Raia:** plena · **Branch:** `claude/handbook-pesquisa-operacional-ucbbpu`
-· **Data:** 2026-08-06 · **Status:** aguardando aprovação do autor
+· **Versão:** 2 · **Data:** 2026-08-06 · **Status:** revisada, aguardando aprovação do autor
+
+> **Por que há uma versão 2.** A versão 1 desta spec listava, em *clarify*, a pergunta "qual o
+> domínio do exemplo condutor?". O capítulo foi implementado **antes** de ela ser respondida —
+> os gates de aprovação da spec e do plano foram encurtados, e o capítulo nasceu com um exemplo
+> genérico de marcenaria. O autor então forneceu o exemplo que usa em sala. Esta versão o
+> incorpora, e o capítulo será **refeito** em cima dela.
+>
+> O registro fica: o processo não é cerimônia. O gate existia exatamente para isso.
 
 ## O quê
 
@@ -58,19 +66,92 @@ Vão para o capítulo e **cada exercício rastreia a um deles**:
 - **O3.** *Diagnosticar* erros clássicos de formulação a partir do modelo e da sua saída.
 - **O4.** *Avaliar* quando a formulação linear não serve, e o que assume dali em diante.
 
+## O exemplo condutor: montagem de computadores (MRP inverso)
+
+O exemplo é do autor, usado em sala. Ele substitui a marcenaria da versão 1 e passa a ser o
+caso único do capítulo, da abertura ao `po-zero`.
+
+**A situação.** Último dia do mês numa montadora. Tudo que entrar no estoque é vendido — a
+demanda não é restrição. Dois produtos:
+
+| Produto | Lucro | CPU | Memória |
+|---|---|---|---|
+| **Tipo 1** | R$ 100 | 1 | 16 GB = **1 pente** |
+| **Tipo 2** | R$ 150 | 1 | 32 GB = **2 pentes** |
+
+É *MRP inverso*: em vez de partir da demanda e explodir a lista de materiais para saber o que
+comprar, parte-se do **estoque que existe** e pergunta-se o que dá para montar.
+
+### A narrativa em três etapas
+
+A força do exemplo está na ordem em que ele é revelado. Cada etapa instala uma ideia e deixa
+uma pergunta aberta.
+
+**Etapa 1 — sem restrição nenhuma.** Quanto se ganha? *Infinito.* O modelo é **ilimitado**, e a
+lição chega antes de qualquer fórmula: **um sistema sem restrição não é um sistema modelável**.
+Todo sistema real tem pelo menos uma — ponte natural com a Teoria das Restrições, e um começo
+mais honesto do que apresentar restrições como burocracia do método.
+
+**Etapa 2 — só a CPU.** 10 CPUs em estoque, memória infinita. Cada máquina usa exatamente uma
+CPU, então a intuição responde na hora: **10 do Tipo 2, R$ 1.500**. E está certo.
+
+Aqui vem a pergunta que sustenta o resto da Parte II: *você tem certeza? Como prova?* A
+intuição acertou — mas não sabe dizer **por quê**, nem daria a resposta certa num caso um pouco
+maior. A pergunta fica **em suspenso, declarada como promessa**: a geometria mostra por que
+basta olhar os vértices, e a dualidade entrega o certificado.
+
+**Etapa 3 — entra a memória.** 12 pentes de 16 GB. Agora o aluno propõe um plano que respeite
+as duas restrições, e só depois se confere.
+
+$$
+\begin{aligned}
+\text{maximizar} \quad & 100\,x_1 + 150\,x_2 \\
+\text{sujeito a} \quad & x_1 + x_2 \le 10 && \text{(CPUs)} \\
+& x_1 + 2\,x_2 \le 12 && \text{(pentes de 16 GB)} \\
+& x_1,\, x_2 \ge 0
+\end{aligned}
+$$
+
+### Por que este exemplo é bom: as duas intuições se contradizem, e as duas erram
+
+| Plano | CPUs | Pentes | Lucro |
+|---|---|---|---|
+| 10 do Tipo 1 | 10/10 | 10/12 | R$ 1.000 |
+| 6 do Tipo 2 | 6/10 | 12/12 | R$ 900 |
+| **8 do Tipo 1 + 2 do Tipo 2** | **10/10** | **12/12** | **R$ 1.100** |
+
+E as duas heurísticas gulosas que o aluno naturalmente inventa **apontam para lados opostos**:
+
+- **Lucro por CPU** — Tipo 2 (R$ 150) contra Tipo 1 (R$ 100) → *"faça o Tipo 2"*. Dá R$ 900.
+- **Lucro por pente** — Tipo 1 (R$ 100) contra Tipo 2 (R$ 75) → *"faça o Tipo 1"*. Dá R$ 1.000.
+
+Nenhuma das duas chega em R$ 1.100. **O ótimo é uma mistura, e nenhuma regra de bolso o
+encontra.** É a demonstração mais barata que existe de por que o método precisa existir — e ela
+cabe em dois produtos e duas restrições.
+
+> Números conferidos com HiGHS antes de entrarem nesta spec. Viram `po-zero/etapa-01-formulacao`
+> na implementação, com `resultados.json` regenerável.
+
 ## Decisões de conteúdo
 
-1. **O capítulo começa por um erro.** O *worked example* de abertura é um modelo que maximiza
-   **receita** em vez de margem de contribuição — erro real, comum, e cuja saída parece
-   plausível. É o que instala a desconfiança que o handbook quer treinar.
-2. **A pergunta-âncora é "o que quem decide pode escolher?".** Ela separa variável de
-   parâmetro e resolve, sozinha, a maioria dos erros de formulação de iniciante.
-3. **Unidades são tratadas como ferramenta de verificação**, não como formalismo. Restrição com
-   unidades incoerentes dos dois lados é o erro mais barato de pegar e o mais caro de deixar
-   passar.
-4. **O solver é caixa-preta neste capítulo, e isso é dito ao leitor** — com a promessa
-   explícita de que os capítulos 08 a 11 abrem a caixa. Prometer e cumprir é o que separa
-   sequência didática de omissão.
+1. **O capítulo segue a narrativa em três etapas**, não a exposição direta do modelo. O
+   ilimitado vem primeiro, de propósito.
+2. **A pergunta "como provar?" é declarada como promessa**, com o capítulo dizendo qual capítulo
+   futuro a paga. Prometer e cumprir é o que separa sequência didática de omissão.
+3. **As duas heurísticas gulosas são apresentadas e refutadas com números.** É o coração do
+   capítulo, e substitui o erro receita-versus-margem da versão 1.
+4. **A pergunta-âncora continua sendo "o que quem decide pode escolher?"** — ela é o que separa
+   variável de parâmetro, e o exemplo a exercita bem (o estoque é dado, a montagem é escolha).
+5. **O solver segue caixa-preta neste capítulo**, com a dívida dita ao leitor.
+
+## O que muda em relação ao que já está implementado
+
+| Artefato | O que acontece |
+|---|---|
+| `livro/capitulos/07-formulacao.md` | **Reescrito** em cima do novo exemplo condutor |
+| `po-zero/etapa-01-formulacao/` | Instância e modelos **refeitos**: três etapas (ilimitado, uma restrição, duas), mais as duas heurísticas gulosas para refutação numérica |
+| `cap07.exA` a `exD` | **Mantidos.** Usam padaria e metalúrgica de propósito: exercitar em contexto diferente do exemplo condutor é transferência, não inconsistência |
+| Sumário, capacidade do tutor, portões | Sem mudança |
 
 ## Critérios de aceite
 
@@ -98,18 +179,18 @@ Vão para o capítulo e **cada exercício rastreia a um deles**:
 
 Três decisões que mudam o resultado e que não cabe a mim tomar:
 
-1. **O domínio do exemplo condutor.** O capítulo inteiro se apoia num caso único, retomado da
-   abertura ao `po-zero`. Ele deve sair da sua prática (planejamento e cadeia de suprimentos) ou
-   de um domínio neutro de fábrica? Um caso reconhecível pela sua turma vale mais do que um
-   genérico — mas só você sabe qual é.
+1. ~~O domínio do exemplo condutor.~~ **Respondido:** montagem de computadores, MRP inverso.
 2. **O livro passa a publicar fora de ordem.** Com o capítulo 07 no ar e as vagas 01 a 06
    ainda vazias, o sumário salta de 00 para 07. Proponho um **marcador visível de vaga
    declarada** na navegação, para o leitor entender que é ordem do mapa e não conteúdo
    faltando por descuido. Confirma?
-3. **O vídeo.** A primeira escolha é o canal do João Sarubbi, cujo uso está autorizado. Não
-   consigo inventariar o canal daqui (o YouTube bloqueia a leitura automatizada). **Você indica
-   o vídeo de formulação/modelagem**, ou prefere que eu proponha uma alternativa aberta —
-   DCC035/UFMG — e você troque depois?
+3. **O vídeo.** Segue aberto. A primeira escolha é o canal do João Sarubbi, cujo uso está
+   autorizado, mas o YouTube bloqueia leitura automatizada daqui e a Videoteca exige autor e
+   duração conferidos. **Você indica o vídeo**, ou aprova uma alternativa aberta.
+4. **Confirmação do exemplo.** Os números acima batem com o que você usa em sala? Em especial:
+   o Tipo 2 leva **dois pentes de 16 GB** (e não um pente de 32 GB), que é o que faz a
+   restrição de memória ser `x1 + 2·x2 ≤ 12`. Se na sua versão os pentes de 32 GB são um item
+   separado de estoque, o modelo muda.
 
 ## Riscos
 
