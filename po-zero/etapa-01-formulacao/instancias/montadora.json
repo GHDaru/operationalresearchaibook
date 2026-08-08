@@ -1,0 +1,29 @@
+{
+  "ficha": {
+    "nome": "Montadora — último dia do mês, MRP inverso",
+    "origem": "Exemplo do autor, usado em sala. Instância didática autoral; não representa empresa real.",
+    "licenca": "Mesma licença do texto do livro (ver LICENSE).",
+    "limitacoes": [
+      "Dois produtos e dois componentes: pequena o bastante para ser resolvida à mão no capítulo de geometria e no do Simplex.",
+      "Um único período, e tudo que entra no estoque é vendido — a demanda não é restrição, por desenho.",
+      "Lucros e estoques são arbitrados para que o ótimo seja uma mistura. Nenhum número aqui é medição de campo."
+    ],
+    "reaproveitamento": "A mesma instância atravessa os capítulos de formulação, geometria e Simplex. O leitor vê o mesmo problema por três lentes."
+  },
+  "componentes": {
+    "cpu": {"estoque": 10, "rotulo": "CPUs"},
+    "pente16": {"estoque": 12, "rotulo": "pentes de memória de 16 GB"}
+  },
+  "produtos": {
+    "tipo1": {
+      "rotulo": "Tipo 1 (16 GB)",
+      "lucro_reais": 100,
+      "lista_de_materiais": {"cpu": 1, "pente16": 1}
+    },
+    "tipo2": {
+      "rotulo": "Tipo 2 (32 GB)",
+      "lucro_reais": 150,
+      "lista_de_materiais": {"cpu": 1, "pente16": 2}
+    }
+  }
+}

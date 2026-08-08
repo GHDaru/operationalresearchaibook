@@ -1,7 +1,7 @@
 # Spec 002 — Capítulo 07: Formulação de modelos lineares
 
 **Rodada:** 002 · **Raia:** plena · **Branch:** `claude/handbook-pesquisa-operacional-ucbbpu`
-· **Versão:** 2 · **Data:** 2026-08-06 · **Status:** revisada, aguardando aprovação do autor
+· **Versão:** 2 · **Data:** 2026-08-06 · **Status:** implementada na rodada 003 (os dois capítulos compartilham a instância e saíram juntos)
 
 > **Por que há uma versão 2.** A versão 1 desta spec listava, em *clarify*, a pergunta "qual o
 > domínio do exemplo condutor?". O capítulo foi implementado **antes** de ela ser respondida —

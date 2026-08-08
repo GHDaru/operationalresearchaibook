@@ -1,5 +1,5 @@
 {
-  "instancia": "instancias/moveis.json",
+  "instancia": "instancias/montadora.json",
   "versoes": {
     "python": "3.11.15",
     "pulp": "3.3.2",
@@ -7,42 +7,108 @@
     "sistema": "Linux"
   },
   "determinismo": "sem aleatoriedade — nenhuma semente é usada",
-  "modelo_correto_margem": {
-    "status": "Optimal",
-    "plano": {
-      "mesa": 30.0,
-      "estante": 40.0
+  "etapa_1_sem_restricao": {
+    "descricao": "Nenhum componente limita.",
+    "resultado": {
+      "status": "Unbounded",
+      "plano": null,
+      "lucro_total_reais": null
     },
-    "margem_total_reais": 13800.0,
-    "receita_total_reais": 47000.0,
-    "uso_dos_recursos": {
-      "marcenaria_h": 240.0,
-      "acabamento_h": 180.0
-    },
-    "folga_dos_recursos": {
-      "marcenaria_h": 0.0,
-      "acabamento_h": 0.0
-    }
+    "licao": "Ilimitado. Um sistema sem restrição não é modelável — e a restrição não é burocracia do método, é o que torna a pergunta respondível."
   },
-  "modelo_errado_receita": {
-    "status": "Optimal",
-    "plano": {
-      "mesa": 60.0,
-      "estante": 0.0
+  "etapa_2_so_cpu": {
+    "descricao": "10 CPUs, memória infinita.",
+    "resultado": {
+      "status": "Optimal",
+      "plano": {
+        "tipo1": 0.0,
+        "tipo2": 10.0
+      },
+      "lucro_total_reais": 1500.0,
+      "uso_dos_componentes": {
+        "cpu": 10.0,
+        "pente16": 20.0
+      },
+      "folga_dos_componentes": {
+        "cpu": 0.0,
+        "pente16": -8.0
+      }
     },
-    "margem_total_reais": 13200.0,
-    "receita_total_reais": 54000.0,
-    "uso_dos_recursos": {
-      "marcenaria_h": 240.0,
-      "acabamento_h": 120.0
-    },
-    "folga_dos_recursos": {
-      "marcenaria_h": 0.0,
-      "acabamento_h": 60.0
-    }
+    "licao": "A intuição acerta: só o produto que paga mais, porque cada máquina custa exatamente uma CPU. Mas ela não sabe provar."
   },
-  "custo_do_erro": {
-    "margem_perdida_reais_por_mes": 600.0,
-    "leitura": "O modelo que maximiza receita é viável e ótimo — para a pergunta errada. Seguir o plano dele custa esta margem por mês."
+  "etapa_3_cpu_e_memoria": {
+    "descricao": "10 CPUs e 12 pentes de 16 GB.",
+    "resultado": {
+      "status": "Optimal",
+      "plano": {
+        "tipo1": 8.0,
+        "tipo2": 2.0
+      },
+      "lucro_total_reais": 1100.0,
+      "uso_dos_componentes": {
+        "cpu": 10.0,
+        "pente16": 12.0
+      },
+      "folga_dos_componentes": {
+        "cpu": 0.0,
+        "pente16": 0.0
+      }
+    },
+    "o_que_aconteceu_com_o_otimo_da_etapa_2": {
+      "plano": {
+        "tipo1": 0.0,
+        "tipo2": 10.0
+      },
+      "lucro_total_reais": 1500.0,
+      "viavel": false,
+      "folga_dos_componentes": {
+        "cpu": 0.0,
+        "pente16": -8.0
+      }
+    },
+    "licao": "O ótimo anterior deixa de ser viável, e o novo ótimo é uma MISTURA — que nenhuma regra de bolso encontra."
+  },
+  "regras_de_bolso_refutadas": {
+    "por_cpu": {
+      "criterio": "lucro por cpu",
+      "razao": {
+        "tipo1": 100.0,
+        "tipo2": 150.0
+      },
+      "escolheu": "tipo2",
+      "plano": {
+        "tipo1": 0.0,
+        "tipo2": 6.0
+      },
+      "lucro_total_reais": 900.0,
+      "viavel": true,
+      "folga_dos_componentes": {
+        "cpu": 4.0,
+        "pente16": 0.0
+      }
+    },
+    "por_pente16": {
+      "criterio": "lucro por pente16",
+      "razao": {
+        "tipo1": 100.0,
+        "tipo2": 75.0
+      },
+      "escolheu": "tipo1",
+      "plano": {
+        "tipo1": 10.0,
+        "tipo2": 0.0
+      },
+      "lucro_total_reais": 1000.0,
+      "viavel": true,
+      "folga_dos_componentes": {
+        "cpu": 0.0,
+        "pente16": 2.0
+      }
+    },
+    "observacao": "As duas apontam para produtos diferentes, e nenhuma das duas chega ao ótimo.",
+    "quanto_cada_uma_perde_por_mes": {
+      "por_cpu": 200.0,
+      "por_pente16": 100.0
+    }
   }
 }

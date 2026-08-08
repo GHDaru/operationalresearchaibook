@@ -54,8 +54,9 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | Capítulo | Vídeo | Autor | Duração |
 |---|---|---|---|
 | 07 — Formulação de modelos lineares | ⏳ *em confirmação* | ⏳ | ⏳ |
+| 08 — A geometria da Programação Linear | ⏳ *em confirmação* | ⏳ | ⏳ |
 
-> **A dívida do capítulo 07, dita por extenso.** A curadoria aponta para material aberto sobre
+> **A dívida dos capítulos 07 e 08, dita por extenso.** A curadoria aponta para material aberto sobre
 > modelagem de planejamento da produção em Programação Linear, mas **a conferência de autoria e
 > duração na fonte não foi feita** — o ambiente de produção deste handbook não consegue ler o
 > YouTube de forma automatizada, e a política desta página exige autor e duração declarados.

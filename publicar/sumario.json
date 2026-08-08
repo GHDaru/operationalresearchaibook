@@ -32,9 +32,14 @@
           "teaser": "A parte do trabalho que nenhum solver faz por você: escolher qual pergunta o modelo responde."
         },
         {
+          "arquivo": "livro/capitulos/08-geometria.md",
+          "titulo": "08 — A geometria da Programação Linear",
+          "teaser": "Onde a resposta deixa de ser um número que veio de fora e vira um lugar que dá para apontar."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Oito vagas declaradas",
-          "teaser": "Geometria, Simplex, degenerescência, Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
+          "titulo": "⬜ Sete vagas declaradas",
+          "teaser": "Simplex, degenerescência, Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
         }
       ]
     },

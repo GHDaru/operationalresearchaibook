@@ -193,6 +193,7 @@ const COMPANION_CAPS = [
   { chave: "mapa", rotulo: "Mapa do handbook", libera: 0 },
   { chave: "exercicios", rotulo: "Exercícios", libera: 1 },
   { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
+  { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
 ];
 const capituloDe = (titulo) => parseInt((String(titulo).match(/^\s*(\d+)/) || [])[1], 10) || 0;
 function companionSnippet(chapter) {

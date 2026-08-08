@@ -54,7 +54,7 @@ conformidade em três pontos, e a distância é registrada aqui em vez de escond
 
 | Dívida | Princípio | Quando fecha |
 |---|---|---|
-| Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | 🟡 parcial em 2026-08-06 — o capítulo 07 e seus exercícios saíram; o vídeo segue em confirmação (edição 0.3) |
+| Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | 🟡 parcial — dois capítulos e 14 exercícios no ar; os vídeos seguem em confirmação (edições 0.3 e 0.4) |
 | `po-zero` sem etapas: só o esqueleto e a decisão de pilha | IV | ✅ fechada em 2026-08-06 — etapa 01 no ar (edição 0.3) |
 | Par em inglês inexistente | VIII | Após o núcleo, conforme roadmap |
 | Livros-base ainda não mapeados na bibliografia | X | ✅ fechada em 2026-08-06 — ver edição 0.2 |
@@ -131,6 +131,53 @@ acabamento paradas. Todos saem de `po-zero/etapa-01-formulacao/experimento.py`.
 |---|---|---|
 | Vídeo do capítulo 07 sem autoria e duração conferidas | I | Quando o autor indicar o vídeo do canal parceiro |
 | Sem artigos científicos na seção de fundamentos — a varredura de literatura sobre ensino de formulação não foi feita | III | Fila do Radar |
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.4 — 2026-08-07 · Capítulo 08 e o exemplo de sala
+
+A edição que troca o exemplo condutor do handbook pelo **exemplo que o autor usa em aula** e
+publica o método gráfico em cima dele.
+
+**O que motivou a troca.** O capítulo 07 tinha sido implementado antes de o autor responder qual
+seria o exemplo condutor — os gates de aprovação da especificação e do plano foram encurtados, e
+o capítulo nasceu com uma marcenaria genérica. O exemplo real é melhor, e o registro do erro de
+processo está na [spec 002 v2](../specs/002-cap07-formulacao/spec.md).
+
+**Entrou:**
+
+- **Capítulo 08 — A geometria da Programação Linear**, com a narrativa de sala: cada variável
+  numa dimensão, o significado dos pontos negativos, a laranja e a faca, a região viável, a reta
+  de iso-lucro como curva de nível, o gradiente, e o procedimento que termina no sistema 2×2 das
+  restrições que sustentam o vértice.
+- **A primeira ilha interativa do handbook** (`regiao-viavel`): o leitor liga a segunda
+  restrição e vê a região encolher, sobe a reta de iso-lucro e vê onde ela encosta por último.
+  É o GeoGebra da aula virando objeto do livro, com degradação para o texto sem JavaScript.
+- **Dez exercícios** (`cap08`): cinco de resolução com o modelo dado, cinco de modelagem a partir
+  de enunciado. Um cai em múltiplos ótimos, um tem ótimo fracionário, um é de minimização com
+  restrições de piso, e num deles a restrição que sustenta o vértice é um eixo.
+- **`po-zero/etapa-02-metodo-grafico`** — enumeração de vértices por pares de restrições,
+  conferida contra o HiGHS nas três etapas.
+- **Capítulo 07 reescrito** sobre a montadora, e `etapa-01` refeita para montar o modelo a partir
+  da **lista de materiais** — MRP ao contrário — com as duas regras de bolso refutadas por número.
+
+**Os números, e de onde vêm.** Sem restrição, ilimitado. Com 10 CPUs, dez do Tipo 2 e R$ 1.500.
+Com 12 pentes de 16 GB, o ótimo anterior deixa de existir (faltavam 8 pentes) e o novo é 8 do
+Tipo 1 mais 2 do Tipo 2, R$ 1.100 — a única combinação que esgota os dois recursos. As duas
+regras de bolso perdem R$ 200 e R$ 100 por mês. Tudo de `po-zero/etapa-01` e `etapa-02`.
+
+**Portões alterados:**
+
+- A bateria deixa de ser limitada a **quatro** variantes (A–D) e passa a aceitar até 26. O limite
+  vinha do livro de origem, onde uma bateria era o mesmo exercício em quatro versões; aqui uma
+  bateria é banco de treino.
+- A regra "a variante D é a do leitor" virou o campo **`contexto`** (`livro` | `leitor`). A regra
+  antiga confundia **posição** na bateria com **natureza** do exercício, e um banco de dez itens
+  expôs isso.
+
+**Dívida declarada.** As mesmas duas, agora nos dois capítulos: vídeo sem autoria e duração
+conferidas, e ausência de artigos científicos na seção de fundamentos.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.

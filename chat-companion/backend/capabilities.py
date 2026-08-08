@@ -39,6 +39,9 @@ REGISTRO = [
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},
+    {"chave": "geometria", "rotulo": "Geometria e método gráfico", "libera": 8, "tools": (),
+     "descricao": "Ajudo a enxergar a região viável, a subir a reta de iso-lucro e a achar as "
+                  "restrições que sustentam o vértice ótimo."},
 ]
 
 MODOS = ("avancado", "progressivo")

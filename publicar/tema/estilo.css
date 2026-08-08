@@ -435,3 +435,18 @@ abbr[title] { text-decoration: underline dotted; text-decoration-thickness: 1px;
   font-weight: 700; font-size: .75rem; margin-right: .5rem;
 }
 .exerc-tipo { color: var(--muted); }
+
+
+/* ---- Ilha do capítulo 08: região viável e reta de iso-lucro ---- */
+.viz-regiao { border: 1px solid var(--line); border-radius: 12px; padding: 1rem;
+  background: var(--sidebar); margin: 1.4rem 0; }
+.viz-regiao svg { width: 100%; height: auto; color: var(--fg); display: block; }
+.viz-controles { display: flex; flex-wrap: wrap; gap: 1rem 1.4rem; align-items: center;
+  margin-bottom: .9rem; font-size: .93rem; }
+.viz-check, .viz-slider { display: flex; align-items: center; gap: .5rem; }
+.viz-slider { flex: 1 1 260px; }
+.viz-slider input[type="range"] { flex: 1; min-width: 140px; accent-color: #e0a24a; }
+.viz-botao { border: 1px solid var(--line); background: transparent; color: var(--fg);
+  border-radius: 8px; padding: .35rem .7rem; cursor: pointer; font: inherit; font-size: .9rem; }
+.viz-botao:hover { border-color: #e0a24a; }
+.viz-leitura { margin: .9rem 0 0; font-size: .95rem; line-height: 1.5; }

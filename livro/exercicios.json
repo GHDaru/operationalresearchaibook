@@ -17,7 +17,8 @@
       "A resposta não confunde o limite de demanda (parâmetro, lado direito de uma restrição) com uma variável"
     ],
     "erro_provavel": "Classificar o lucro total como variável de decisão. É o erro mais comum e o mais revelador: quem o comete está tratando o resultado como algo que se escolhe, e não como consequência das escolhas. Lucro não é decidido — ele **decorre** de quanto se produz de cada produto. No modelo, ele é a função objetivo. O sintoma prático de quem carrega esse erro é escrever restrições sobre o lucro em vez de sobre os recursos.",
-    "resposta_guia": "Variável de decisão: item 1 (quantidade de pão francês), porque a dona pode assinar embaixo dessa quantidade amanhã. Parâmetros: itens 2, 3 e 5 — horas de forno, margem unitária e teto de demanda entram no modelo como dados e não são escolhidos por ele. Nem um nem outro: item 4, o lucro total, que é consequência das variáveis e aparece como função objetivo. O critério é sempre o mesmo: se ninguém pode mudar aquilo por decisão, não é variável."
+    "resposta_guia": "Variável de decisão: item 1 (quantidade de pão francês), porque a dona pode assinar embaixo dessa quantidade amanhã. Parâmetros: itens 2, 3 e 5 — horas de forno, margem unitária e teto de demanda entram no modelo como dados e não são escolhidos por ele. Nem um nem outro: item 4, o lucro total, que é consequência das variáveis e aparece como função objetivo. O critério é sempre o mesmo: se ninguém pode mudar aquilo por decisão, não é variável.",
+    "contexto": "livro"
   },
   {
     "id": "cap07.exB",
@@ -38,7 +39,8 @@
       "A não-negatividade das duas variáveis está declarada"
     ],
     "erro_provavel": "Esquecer a não-negatividade, ou tratá-la como formalidade e não escrevê-la. Sem ela, o solver pode atribuir quantidade negativa a um produto para liberar forno e farinha e inflar o objetivo — devolvendo um ótimo matematicamente correto e fisicamente impossível. Outro erro frequente é escrever a restrição de demanda sobre os dois produtos, quando o enunciado limita apenas o pão de forma: restrição a mais é restrição inventada, e ela corta soluções legítimas em silêncio.",
-    "resposta_guia": "Sejam x1 = pães franceses por semana e x2 = pães de forma por semana, ambos em unidades por semana. Maximizar 1,20·x1 + 3,00·x2 (reais por semana). Sujeito a: 0,05·x1 + 0,20·x2 ≤ 60 (forno, h/semana — a conferência: h/unid × unid/semana = h/semana, contra h/semana disponíveis); 0,10·x1 + 0,50·x2 ≤ 90 (farinha, kg/semana); x2 ≤ 400 (demanda, unid/semana); x1 ≥ 0 e x2 ≥ 0. Note que a restrição de demanda incide só sobre x2, porque o enunciado só limitou o pão de forma."
+    "resposta_guia": "Sejam x1 = pães franceses por semana e x2 = pães de forma por semana, ambos em unidades por semana. Maximizar 1,20·x1 + 3,00·x2 (reais por semana). Sujeito a: 0,05·x1 + 0,20·x2 ≤ 60 (forno, h/semana — a conferência: h/unid × unid/semana = h/semana, contra h/semana disponíveis); 0,10·x1 + 0,50·x2 ≤ 90 (farinha, kg/semana); x2 ≤ 400 (demanda, unid/semana); x1 ≥ 0 e x2 ≥ 0. Note que a restrição de demanda incide só sobre x2, porque o enunciado só limitou o pão de forma.",
+    "contexto": "livro"
   },
   {
     "id": "cap07.exC",
@@ -58,7 +60,8 @@
       "Distingue o que é erro de modelagem (restrição ausente) do que é apenas surpresa do gerente, sem assumir que toda intuição da operação está certa"
     ],
     "erro_provavel": "Concluir que os coeficientes 480 e 300 estão trocados, ou que o solver falhou. Nenhum dos dois: o plano é ótimo para o modelo que foi escrito. O erro é de **omissão** — falta a restrição de contrato mínimo. É o tipo de erro que nenhum portão automático pega, porque o modelo está sintaticamente perfeito e numericamente correto; ele só não descreve a fábrica. Outro desvio comum é aceitar a fala do gerente como prova de que a solda é gargalo: o que a folga mostra é que, **no plano proposto**, ela não é — e a divergência é justamente o que precisa ser investigado.",
-    "resposta_guia": "Falta a restrição x_B ≥ 80, o contrato mínimo. Sem ela, o modelo é livre para zerar B, e como A paga melhor por hora de prensa, ele zera. A saída já denunciava: 500 horas de folga num recurso que a operação chama de gargalo é contradição entre modelo e realidade — ou o modelo está incompleto, ou a crença da operação está errada, e nos dois casos é preciso investigar antes de decidir. Aqui é o modelo: com a restrição de contrato incluída, B entra no plano, a solda passa a ser exigida e o retrato bate com a fábrica. O solver não errou; ele respondeu com precisão a um modelo que não descrevia o problema."
+    "resposta_guia": "Falta a restrição x_B ≥ 80, o contrato mínimo. Sem ela, o modelo é livre para zerar B, e como A paga melhor por hora de prensa, ele zera. A saída já denunciava: 500 horas de folga num recurso que a operação chama de gargalo é contradição entre modelo e realidade — ou o modelo está incompleto, ou a crença da operação está errada, e nos dois casos é preciso investigar antes de decidir. Aqui é o modelo: com a restrição de contrato incluída, B entra no plano, a solda passa a ser exigida e o retrato bate com a fábrica. O solver não errou; ele respondeu com precisão a um modelo que não descrevia o problema.",
+    "contexto": "livro"
   },
   {
     "id": "cap07.exD",
@@ -78,6 +81,217 @@
       "O item 4 nomeia uma das três hipóteses e explica de forma concreta como o problema do leitor a quebra — não em abstrato",
       "O conjunto é coerente: as restrições limitam as variáveis declaradas, e o objetivo é função delas"
     ],
-    "erro_provavel": "Escolher uma decisão grande demais — \"a estratégia da área para o ano\" — em que nada é escolhível de forma direta e tudo é consequência de outra coisa. Formulação começa em decisão concreta e recorrente. O segundo desvio comum é pular o item 4 ou responder que o problema não quebra nenhuma hipótese: se for uma decisão real, quase certamente quebra a divisibilidade (pessoas, veículos e lotes não são fracionários) ou a proporcionalidade (há setup, desconto por volume ou ganho de escala em algum lugar)."
+    "erro_provavel": "Escolher uma decisão grande demais — \"a estratégia da área para o ano\" — em que nada é escolhível de forma direta e tudo é consequência de outra coisa. Formulação começa em decisão concreta e recorrente. O segundo desvio comum é pular o item 4 ou responder que o problema não quebra nenhuma hipótese: se for uma decisão real, quase certamente quebra a divisibilidade (pessoas, veículos e lotes não são fracionários) ou a proporcionalidade (há setup, desconto por volume ou ganho de escala em algum lugar).",
+    "contexto": "leitor"
+  },
+  {
+    "id": "cap08.exA",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "A",
+    "tipo": "resolver",
+    "objetivo": "O4",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Quando uma das restrições que sustenta o vértice é um eixo",
+    "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  3x₁ + 2x₂\n\nsujeito a\n\n- x₁ + x₂ ≤ 4\n- x₁ + 3x₂ ≤ 6\n- x₁, x₂ ≥ 0",
+    "criterios": [
+      "O ponto ótimo é (4, 0), com valor 12",
+      "As restrições que sustentam o vértice são x₁ + x₂ ≤ 4 **e a não-negatividade x₂ ≥ 0** — e a resposta reconhece que um eixo conta como restrição",
+      "O sistema resolvido é o das duas restrições ativas, e não o das duas restrições 'de recurso'",
+      "A resposta verifica que o ponto satisfaz também x₁ + 3x₂ ≤ 6, que fica com folga"
+    ],
+    "erro_provavel": "Resolver o sistema x₁ + x₂ = 4 com x₁ + 3x₂ = 6, obtendo (3, 1) e valor 11. Esse ponto é vértice da região, mas não é o ótimo: o par de restrições foi escolhido por serem 'as duas restrições do enunciado', e não por serem as que sustentam o vértice de contato. A não-negatividade é restrição como qualquer outra, e aqui é ela que segura o ótimo.",
+    "resposta_guia": "Ótimo em (4, 0), valor 12. O vértice é sustentado por x₁ + x₂ = 4 e por x₂ = 0. Resolvendo esse sistema: x₂ = 0 e x₁ = 4. Conferindo a outra restrição: 4 + 3(0) = 4 ≤ 6, com folga de 2. O vértice (3, 1) também é viável, mas rende 11."
+  },
+  {
+    "id": "cap08.exB",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "B",
+    "tipo": "resolver",
+    "objetivo": "O4",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Um ótimo que não é inteiro",
+    "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  5x₁ + 4x₂\n\nsujeito a\n\n- 6x₁ + 4x₂ ≤ 24\n- x₁ + 2x₂ ≤ 6\n- x₁, x₂ ≥ 0\n\nAo final, responda também: **o que você faria se x₂ fosse um número de máquinas?**",
+    "criterios": [
+      "O ponto ótimo é (3; 1,5), com valor 21",
+      "As duas restrições do enunciado são as que sustentam o vértice, e o sistema 2×2 é resolvido corretamente",
+      "A resposta reconhece que 1,5 só faz sentido se a variável for divisível",
+      "Sobre a pergunta final: a resposta **não** propõe simplesmente arredondar para 2 — reconhece que arredondar pode violar restrição, e que o caso inteiro é outro problema"
+    ],
+    "erro_provavel": "Arredondar (3; 1,5) para (3, 2) e declarar resolvido. Verifique: 6(3) + 4(2) = 26 > 24. O plano arredondado é **inviável**. Arredondar solução contínua não resolve problema inteiro — às vezes dá inviável, às vezes dá viável e longe do ótimo, e nunca dá garantia.",
+    "resposta_guia": "Ótimo em (3; 1,5), valor 21, sustentado por 6x₁ + 4x₂ = 24 e x₁ + 2x₂ = 6. Resolvendo: multiplicando a segunda por 2 e subtraindo da primeira, 4x₁ = 12, logo x₁ = 3 e x₂ = 1,5. Se x₂ fosse número de máquinas, a fração perde sentido e o problema passa a exigir variáveis inteiras — assunto de outra parte do handbook. Arredondar aqui produziria plano inviável."
+  },
+  {
+    "id": "cap08.exC",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "C",
+    "tipo": "resolver",
+    "objetivo": "O3",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Minimizar: a reta desce em vez de subir",
+    "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nAtenção: este é de **minimização**, e as restrições são de mínimo.\n\nminimizar  2x₁ + 3x₂\n\nsujeito a\n\n- x₁ + x₂ ≥ 4\n- 2x₁ + x₂ ≥ 5\n- x₁, x₂ ≥ 0\n\nDescreva também **o que muda no procedimento** quando o objetivo é minimizar.",
+    "criterios": [
+      "O ponto ótimo é (4, 0), com valor 8",
+      "A resposta explica que, em minimização, a reta de iso-custo é empurrada **contra** o gradiente — para o valor mais baixo que ainda toca a região",
+      "A resposta nota que a região aqui é **ilimitada superiormente**, e que isso não impede a existência de mínimo",
+      "O vértice é sustentado por x₁ + x₂ = 4 e por x₂ = 0, e o ponto satisfaz 2(4) + 0 = 8 ≥ 5"
+    ],
+    "erro_provavel": "Concluir que o problema é ilimitado porque a região não é fechada. Região ilimitada e problema ilimitado não são a mesma coisa: aqui a região cresce para cima e para a direita, mas o objetivo é **minimizar** um custo que cresce nessa mesma direção — então o mínimo existe e está num vértice. Ilimitado seria se a região fosse aberta na direção em que o objetivo melhora.",
+    "resposta_guia": "Ótimo em (4, 0), custo 8. Vértices viáveis: (0, 5) com custo 15, (1, 3) com custo 11 e (4, 0) com custo 8. Em minimização, empurra-se a reta de iso-custo no sentido oposto ao gradiente, até o último contato. O vértice é sustentado por x₁ + x₂ = 4 e x₂ = 0. A região é ilimitada para cima, o que não impede o mínimo de existir."
+  },
+  {
+    "id": "cap08.exD",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "D",
+    "tipo": "resolver",
+    "objetivo": "O4",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Três restrições, e a triagem que o olho não faz",
+    "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  40x₁ + 30x₂\n\nsujeito a\n\n- 2x₁ + x₂ ≤ 100\n- x₁ + x₂ ≤ 80\n- x₁ ≤ 40\n- x₁, x₂ ≥ 0\n\nListe **todos** os pontos que você obteve cruzando pares de restrições, e diga quais descartou e por quê.",
+    "criterios": [
+      "O ponto ótimo é (20, 60), com valor 2.600",
+      "O vértice é sustentado por 2x₁ + x₂ = 100 e x₁ + x₂ = 80",
+      "A resposta lista candidatos descartados por violarem alguma restrição não usada no par — a triagem está explícita, não implícita",
+      "A restrição x₁ ≤ 40 é identificada como **não ativa** no ótimo (x₁ = 20, folga de 20)"
+    ],
+    "erro_provavel": "Assumir que toda interseção de duas restrições é vértice da região viável. Com três restrições mais os dois eixos, há dez pares possíveis e a maioria produz pontos que violam alguma outra restrição. Quem pula a triagem costuma responder (40, 20) — interseção de x₁ = 40 com 2x₁ + x₂ = 100 — que é viável mas rende 2.200, ou pontos francamente inviáveis.",
+    "resposta_guia": "Ótimo em (20, 60), valor 2.600, sustentado por 2x₁ + x₂ = 100 e x₁ + x₂ = 80. Subtraindo, x₁ = 20 e x₂ = 60. Outros vértices viáveis: (0, 0) com 0, (40, 0) com 1.600, (40, 20) com 2.200 e (0, 80) com 2.400. A restrição x₁ ≤ 40 tem folga de 20 no ótimo — está no modelo, mas não é ela que segura o resultado."
+  },
+  {
+    "id": "cap08.exE",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "E",
+    "tipo": "resolver",
+    "objetivo": "O3",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Quando a reta encosta num lado inteiro",
+    "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  2x₁ + 2x₂\n\nsujeito a\n\n- x₁ + x₂ ≤ 6\n- x₁ ≤ 4\n- x₂ ≤ 4\n- x₁, x₂ ≥ 0\n\nEste tem uma particularidade. Descreva o que acontece ao subir a reta de iso-lucro, e o que você responde a um gestor que pergunta 'então qual plano eu executo?'",
+    "criterios": [
+      "O valor ótimo é 12, e a resposta identifica que há **infinitos** planos ótimos",
+      "A resposta explica a causa: a reta de iso-lucro é **paralela** à restrição x₁ + x₂ ≤ 6, então o último contato é um segmento inteiro, não um ponto",
+      "Os dois vértices ótimos (4, 2) e (2, 4) são identificados, e a resposta reconhece que todo ponto entre eles também é ótimo",
+      "À pergunta do gestor, a resposta usa a multiplicidade como **liberdade**: escolhe-se por um critério de fora do modelo, sem custo de lucro"
+    ],
+    "erro_provavel": "Encontrar (4, 2), declarar ótimo e parar. Não está errado — (4, 2) é ótimo — mas está incompleto, e a omissão é cara: quem para no primeiro vértice não percebe que existe uma faixa inteira de planos igualmente lucrativos. Essa faixa é informação valiosa para quem decide, porque permite otimizar outra coisa (risco, prazo, preferência do cliente) de graça.",
+    "resposta_guia": "Valor ótimo 12, atingido em todo o segmento entre (4, 2) e (2, 4). A causa é geométrica: o objetivo 2x₁ + 2x₂ tem gradiente (2, 2), paralelo à restrição x₁ + x₂ ≤ 6, então a reta de iso-lucro encosta no lado inteiro. Ao gestor: qualquer combinação com x₁ + x₂ = 6, respeitando x₁ ≤ 4 e x₂ ≤ 4, rende o mesmo. Escolha pelo critério que o modelo não captura."
+  },
+  {
+    "id": "cap08.exF",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "F",
+    "tipo": "formular",
+    "objetivo": "O2",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Confeitaria: do enunciado ao vértice",
+    "enunciado": "Uma confeitaria produz dois bolos. O **simples** dá R$ 20 de lucro por unidade, ocupa 1 hora de forno e consome 1 kg de chocolate. O **especial** dá R$ 35, ocupa 2 horas de forno e consome 1 kg de chocolate.\n\nNa semana há **40 horas de forno** e **25 kg de chocolate**. Tudo que for produzido é vendido.\n\nFormule o modelo e resolva pelo método gráfico.",
+    "criterios": [
+      "As variáveis são as quantidades de cada bolo por semana, com unidade declarada",
+      "O modelo é: max 20x₁ + 35x₂, sujeito a x₁ + 2x₂ ≤ 40 (forno) e x₁ + x₂ ≤ 25 (chocolate), com não-negatividade",
+      "O ponto ótimo é (10, 15), com lucro de R$ 725",
+      "O vértice é sustentado pelas duas restrições de recurso, e o sistema 2×2 é resolvido explicitamente"
+    ],
+    "erro_provavel": "Trocar os coeficientes de linha: escrever a restrição de forno como 1x₁ + 1x₂ e a de chocolate como 1x₁ + 2x₂. O erro vem de ler a tabela do enunciado na diagonal, e produz (15, 10) com lucro de R$ 650 — um número plausível, que passa despercebido. A defesa é a conferência de unidades: cada restrição é de UM recurso, e seus coeficientes são o consumo daquele recurso por cada produto.",
+    "resposta_guia": "Sejam x₁ e x₂ as quantidades semanais de bolo simples e especial. Maximizar 20x₁ + 35x₂ sujeito a x₁ + 2x₂ ≤ 40 (forno, h/semana), x₁ + x₂ ≤ 25 (chocolate, kg/semana), x₁, x₂ ≥ 0. O vértice ótimo é sustentado pelas duas: subtraindo x₁ + x₂ = 25 de x₁ + 2x₂ = 40, obtém-se x₂ = 15 e x₁ = 10. Lucro 20(10) + 35(15) = 725. Os dois recursos ficam sem folga."
+  },
+  {
+    "id": "cap08.exG",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "G",
+    "tipo": "formular",
+    "objetivo": "O2",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Oficina: dois serviços, dois gargalos",
+    "enunciado": "Uma oficina oferece revisão **simples** (lucro R$ 80) e revisão **completa** (lucro R$ 200). A simples ocupa 1 hora de mecânico e 1 hora de elevador; a completa ocupa 4 horas de mecânico e 1 hora de elevador.\n\nPor semana há **40 horas de mecânico** e **16 horas de elevador**. A demanda supera a capacidade nos dois serviços.\n\nFormule e resolva pelo método gráfico.",
+    "criterios": [
+      "As variáveis são as quantidades de cada revisão por semana",
+      "O modelo é: max 80x₁ + 200x₂, sujeito a x₁ + 4x₂ ≤ 40 e x₁ + x₂ ≤ 16, com não-negatividade",
+      "O ponto ótimo é (8, 8), com lucro de R$ 2.240",
+      "A frase 'a demanda supera a capacidade' é corretamente lida como **ausência** de restrição de demanda, e não como uma restrição a acrescentar"
+    ],
+    "erro_provavel": "Inventar uma restrição de demanda a partir da frase final. Dizer que a demanda supera a capacidade é dizer que ela **não limita** — logo não vira restrição. Restrição inventada corta soluções legítimas em silêncio, e é um erro mais difícil de achar do que restrição esquecida, porque o modelo continua viável e o resultado continua plausível.",
+    "resposta_guia": "Sejam x₁ revisões simples e x₂ completas por semana. Maximizar 80x₁ + 200x₂ sujeito a x₁ + 4x₂ ≤ 40 (mecânico, h), x₁ + x₂ ≤ 16 (elevador, h), x₁, x₂ ≥ 0. O ótimo é sustentado pelas duas: subtraindo, 3x₂ = 24, logo x₂ = 8 e x₁ = 8. Lucro 80(8) + 200(8) = 2.240. Note que a completa paga bem mais por unidade, e ainda assim o ótimo não é só completa: ela consome quatro vezes mais mecânico."
+  },
+  {
+    "id": "cap08.exH",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "H",
+    "tipo": "formular",
+    "objetivo": "O4",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Fazenda: quando os dois recursos acabam juntos",
+    "enunciado": "Uma fazenda tem **100 hectares** disponíveis e **400 mil litros** de água para a safra. O hectare de milho rende R$ 900 de lucro e consome 3 mil litros; o de soja rende R$ 1.200 e consome 5 mil litros.\n\nFormule, resolva pelo método gráfico e responda: **qual dos dois recursos é o gargalo?**",
+    "criterios": [
+      "O modelo é: max 900x₁ + 1200x₂, sujeito a x₁ + x₂ ≤ 100 (hectares) e 3x₁ + 5x₂ ≤ 400 (água, mil litros), com não-negatividade",
+      "O ponto ótimo é (50, 50), com lucro de R$ 105.000",
+      "O sistema das duas restrições ativas é montado e resolvido explicitamente",
+      "Sobre o gargalo: a resposta reconhece que **os dois** estão ativos, sem folga, e que a pergunta 'qual é o gargalo' pressupõe um único — pressuposto que este caso desmente"
+    ],
+    "erro_provavel": "Responder que o gargalo é a água, porque é o recurso 'mais técnico' ou porque aparece com números maiores. No ótimo, hectares e água têm folga zero: 50 + 50 = 100 e 3(50) + 5(50) = 400. Os dois seguram o resultado ao mesmo tempo, e é justamente isso que caracteriza o vértice — ele é o encontro das duas restrições. Procurar um gargalo único quando há dois ativos leva a investir no recurso errado.",
+    "resposta_guia": "Sejam x₁ e x₂ os hectares de milho e soja. Maximizar 900x₁ + 1200x₂ sujeito a x₁ + x₂ ≤ 100 e 3x₁ + 5x₂ ≤ 400, com não-negatividade. Substituindo x₁ = 100 − x₂ na segunda: 300 + 2x₂ = 400, logo x₂ = 50 e x₁ = 50. Lucro 900(50) + 1200(50) = 105.000. Os dois recursos ficam sem folga — não há um gargalo, há dois, e liberar só um deles não aumenta o lucro."
+  },
+  {
+    "id": "cap08.exI",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "I",
+    "tipo": "formular",
+    "objetivo": "O2",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Gráfica: modelar, resolver e conferir a folga",
+    "enunciado": "Uma gráfica produz **folhetos** (lucro R$ 5 o milheiro) e **cartazes** (lucro R$ 12 a centena). Cada milheiro de folheto ocupa 2 horas de impressão e 1 hora de acabamento; cada centena de cartazes ocupa 5 horas de impressão e 2 horas de acabamento.\n\nHá **100 horas de impressão** e **44 horas de acabamento** no mês.\n\nFormule, resolva, e diga **quanto sobra de cada recurso** no plano ótimo.",
+    "criterios": [
+      "As variáveis são declaradas nas unidades do enunciado — milheiros de folheto e centenas de cartazes —, e não em unidades avulsas",
+      "O modelo é: max 5x₁ + 12x₂, sujeito a 2x₁ + 5x₂ ≤ 100 e x₁ + 2x₂ ≤ 44, com não-negatividade",
+      "O ponto ótimo é (20, 12), com lucro de R$ 244",
+      "As folgas são calculadas e dão zero nos dois recursos"
+    ],
+    "erro_provavel": "Converter tudo para unidades avulsas — folhetos individuais e cartazes individuais — sem converter também os lucros e os tempos. O enunciado dá lucro por milheiro e tempo por milheiro; misturar as duas escalas produz um modelo com coeficientes incoerentes que ainda assim roda. Manter a unidade que o enunciado usa é mais seguro do que converter, e declarar a unidade da variável é o que impede o erro.",
+    "resposta_guia": "Sejam x₁ milheiros de folheto e x₂ centenas de cartazes por mês. Maximizar 5x₁ + 12x₂ sujeito a 2x₁ + 5x₂ ≤ 100 (impressão, h) e x₁ + 2x₂ ≤ 44 (acabamento, h), com não-negatividade. Da segunda, x₁ = 44 − 2x₂; substituindo na primeira: 88 + x₂ = 100, logo x₂ = 12 e x₁ = 20. Lucro 5(20) + 12(12) = 244. Impressão: 2(20) + 5(12) = 100, folga zero. Acabamento: 20 + 24 = 44, folga zero."
+  },
+  {
+    "id": "cap08.exJ",
+    "capitulo": 8,
+    "serie": "cap08",
+    "variante": "J",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "geometria",
+    "contexto": "livro",
+    "dificuldade": "media",
+    "titulo": "Ração: minimizar custo com exigências mínimas",
+    "enunciado": "Uma ração é feita com dois ingredientes. O **A** custa R$ 3 o quilo e fornece 2 unidades de proteína e 4 de energia por quilo. O **B** custa R$ 5 o quilo e fornece 5 de proteína e 2 de energia.\n\nCada saco precisa de **pelo menos 20 unidades de proteína** e **pelo menos 16 de energia**.\n\nFormule e resolva. Antes de resolver, responda: **o que é objetivo e o que é restrição aqui — e por que a resposta é o contrário do que você vinha fazendo?**",
+    "criterios": [
+      "As variáveis são as quantidades (kg) de cada ingrediente por saco",
+      "O objetivo é **minimizar custo** (3x₁ + 5x₂), e as exigências nutricionais são restrições de **maior ou igual**",
+      "O ponto ótimo é (2,5; 3), com custo de R$ 22,50",
+      "A resposta articula a inversão: nos exercícios anteriores o recurso era teto e o dinheiro era objetivo; aqui o dinheiro é objetivo a minimizar e a nutrição é piso"
+    ],
+    "erro_provavel": "Escrever as exigências nutricionais como '≤' por hábito, copiando a forma dos exercícios de recurso. Com '≤' o modelo fica viável e o ótimo vira não comprar nada, custo zero — resposta absurda que denuncia o erro. Vale a regra: recurso disponível vira teto (≤); exigência a cumprir vira piso (≥). O sentido da desigualdade vem do enunciado, não do costume.",
+    "resposta_guia": "Sejam x₁ e x₂ os quilos de A e de B por saco. Minimizar 3x₁ + 5x₂ sujeito a 2x₁ + 5x₂ ≥ 20 (proteína), 4x₁ + 2x₂ ≥ 16 (energia), x₁, x₂ ≥ 0. O ótimo é sustentado pelas duas: de 4x₁ + 2x₂ = 16 vem x₂ = 8 − 2x₁; substituindo, 2x₁ + 40 − 10x₁ = 20, logo x₁ = 2,5 e x₂ = 3. Custo 3(2,5) + 5(3) = 22,50. Comparando com os outros vértices: (10, 0) custa 30 e (0, 8) custa 40."
   }
 ]
