@@ -297,8 +297,17 @@ juntas.
 
 ## Assista
 
-> ⏳ **Vídeo em confirmação**, como no capítulo anterior. Ver a [Videoteca](../videoteca.md) para
-> o motivo e para o critério de quando esta lacuna fecha.
+**[Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E)** · autor ⏳ · duração ⏳
+
+**O que ele resolve:** este capítulo tem uma ilha interativa, e ela é boa para *experimentar* —
+subir a reta, ver a região encolher. O que ela não faz é **narrar**: alguém desenhando no quadro,
+errando de propósito, explicando por que traçou aquela reta e não outra. O vídeo faz isso, e é a
+segunda passada sobre o mesmo conteúdo, no ritmo de quem está pensando em voz alta.
+
+É a continuação direta do vídeo do capítulo anterior, na mesma série.
+
+> ⏳ **Provisório**, pelo mesmo motivo do capítulo anterior: título e endereço verificados,
+> autoria e duração não. Ver a [Videoteca](../videoteca.md).
 
 ## Síntese — o que levar
 

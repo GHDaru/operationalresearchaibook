@@ -288,10 +288,19 @@ habilidade.
 
 ## Assista
 
-> ⏳ **Vídeo em confirmação.** A curadoria aponta para material aberto sobre modelagem de
-> planejamento da produção em Programação Linear, mas a conferência de autoria e duração na
-> fonte está pendente — e o capítulo prefere dizer isso a publicar um crédito que não verificou.
-> Ver a [Videoteca](../videoteca.md).
+**[Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q)** · autor ⏳ · duração ⏳
+
+**O que ele resolve:** o texto aqui insiste que formular é escolher a pergunta, e faz isso com um
+caso só. O vídeo cobre a introdução à Programação Linear em outro ritmo e com outro exemplo —
+ouvir a mesma ideia dita por outra pessoa, com outra escolha de palavras, é o que consolida.
+Assista **depois** de tentar formular o modelo da montadora por conta própria; antes disso ele
+entrega resposta que você deveria estar construindo.
+
+> ⏳ **Este vídeo está em estado provisório.** Título e endereço foram verificados; **autoria e
+> duração não**. O ambiente de produção deste handbook não alcança o YouTube, e inventar esses
+> campos seria pior do que deixá-los em branco (constituição, Princípio III). A
+> [Videoteca](../videoteca.md) explica o estado e as duas condições que o encerram — a preferida
+> sendo a troca pelo vídeo equivalente do canal parceiro.
 
 ## Síntese — o que levar
 

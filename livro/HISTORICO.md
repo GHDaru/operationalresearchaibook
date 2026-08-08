@@ -181,3 +181,40 @@ conferidas, e ausência de artigos científicos na seção de fundamentos.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.5 — 2026-08-07 · Vídeo provisório, e o estado que ele exigiu criar
+
+Os capítulos 07 e 08 passam a ter vídeo. **Provisório**, e dizendo por quê.
+
+**O problema.** A política da Videoteca exige autor, duração e justificativa declarados — e o
+ambiente em que este handbook é produzido **não alcança o YouTube nem as páginas de curso das
+universidades**: o proxy de rede bloqueia os dois. Foi tentado, e falhou nos dois caminhos.
+
+Restavam três saídas: publicar capítulo sem vídeo, violando o Princípio I; **inventar** autor e
+duração, violando o Princípio III e a regra de atribuição da própria Videoteca; ou publicar o
+que se sabe e marcar o que não se sabe.
+
+**A decisão.** A terceira, formalizada como um **estado** e não como exceção. A Videoteca passa
+a ter dois: *definitivo*, com a ficha conferida na fonte, e *provisório*, em que os campos não
+conferidos aparecem `⏳` — **nunca preenchidos por estimativa**. Todo vídeo provisório carrega,
+ao lado, a condição da sua promoção.
+
+**Entrou:**
+
+- Capítulo 07: *Aula 1 — Programação Linear: introdução*.
+- Capítulo 08: *Aula 2 — Programação Linear: método gráfico*.
+
+São da mesma série, e a divisão dela — introdução, depois método gráfico — coincide com a dos
+dois capítulos. Título e endereço foram verificados por busca; **autoria e duração, não**, e a
+Videoteca diz isso numa tabela campo a campo.
+
+**Como fecha.** Preferencialmente pela troca pelos vídeos equivalentes do canal do João Sarubbi,
+cujo uso está autorizado — aí a ficha nasce completa. Alternativamente, o autor assiste aos
+provisórios e completa a ficha.
+
+**O que não mudou:** a fachada. Sem bloco de vídeo no motor, o "Assista" é link puro — e link
+puro é a fachada mais forte que existe, porque nenhuma requisição sai do navegador do leitor
+antes do clique.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
