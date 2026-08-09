@@ -53,6 +53,9 @@ Ao introduzir uma sigla nova, adicione-a **nos dois lugares**.
 | **DOI** | *Digital Object Identifier* | Identificador persistente de publicação |
 | **ISBN** | *International Standard Book Number* | Identificador de livro |
 | **API** | *Application Programming Interface* | Interface de programação de aplicações |
+| **CPU** | *Central Processing Unit* | Unidade central de processamento |
+| **GB** | *gigabyte* | Unidade de capacidade de memória |
+| **JSON** | *JavaScript Object Notation* | Formato de arquivo de dados usado pelas instâncias do `po-zero` |
 
 ## Termos
 
@@ -98,6 +101,27 @@ abstrato — é rápido ou lento **num conjunto de instâncias declarado**.
 
 **Solver.** O programa que resolve o modelo. Neste handbook, a trilha padrão usa solver aberto:
 custo zero é requisito, não preferência.
+
+**Semiespaço.** Cada um dos dois pedaços em que uma restrição de desigualdade corta o espaço. A
+imagem do capítulo de geometria: a restrição é uma faca que atravessa a laranja de lado a lado.
+Um semiespaço fica, o outro é descartado — e é daí que decorre que **restrição nunca aumenta a
+região viável**.
+
+**Vértice.** Uma quina da região viável: o ponto onde duas restrições (em duas dimensões) se
+encontram como igualdades. Importa por um motivo só, e ele sustenta toda a Parte II: **se existe
+ótimo, existe um vértice ótimo** — nunca é preciso procurar fora das quinas.
+
+**Reta de iso-lucro.** O conjunto dos planos que rendem o mesmo. É a curva de nível do objetivo:
+andar sobre ela é andar sem subir nem descer. Subi-la até o último contato com a região viável é
+o método gráfico.
+
+**Gradiente.** O vetor dos coeficientes da função objetivo. Aponta a direção em que o objetivo
+cresce mais rápido, e é **perpendicular** à reta de iso-lucro — porque andar ao longo dela não
+muda o valor.
+
+**Lista de materiais.** A relação de quanto de cada componente uma unidade de cada produto
+consome. Num modelo de otimização ela **é** a matriz de coeficientes das restrições — ver isso é
+ver que a formulação tem forma.
 
 **Cláusula de expiração.** A declaração, num capítulo da camada de fronteira, da data a partir
 da qual sua afirmação precisa ser reverificada. Sem ela, um capítulo de fronteira não é

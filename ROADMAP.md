@@ -106,6 +106,9 @@ planejamento e programação da produção; gestão de estoques.
 - **Janela trimestral de revisão** — reconferir vídeos (link morto é dívida do livro),
   reexecutar os experimentos do `po-zero` com as versões correntes de biblioteca e solver,
   atualizar as datas de captura.
+- **Portão de consistência de exercício** — verificar que todo exercício cujo enunciado afirme
+  uma solução ótima seja consistente com o modelo que ele apresenta. É o portão que teria pego
+  sozinho o defeito que a revisão da edição 0.6 encontrou à mão.
 - **Gatilho por telemetria** — exercício com taxa de acerto muito baixa e volume relevante é
   sintoma de **texto mal escrito**, não de leitor fraco. Entra na fila de revisão.
 

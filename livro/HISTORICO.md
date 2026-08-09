@@ -54,8 +54,8 @@ conformidade em três pontos, e a distância é registrada aqui em vez de escond
 
 | Dívida | Princípio | Quando fecha |
 |---|---|---|
-| Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | Rodada de Programação Linear |
-| `po-zero` sem etapas: só o esqueleto e a decisão de pilha | IV | Rodada de Programação Linear |
+| Nenhum capítulo de método publicado — logo, nenhum exercício e nenhum vídeo | I | 🟡 parcial — dois capítulos e 14 exercícios no ar; os vídeos seguem em confirmação (edições 0.3 e 0.4) |
+| `po-zero` sem etapas: só o esqueleto e a decisão de pilha | IV | ✅ fechada em 2026-08-06 — etapa 01 no ar (edição 0.3) |
 | Par em inglês inexistente | VIII | Após o núcleo, conforme roadmap |
 | Livros-base ainda não mapeados na bibliografia | X | ✅ fechada em 2026-08-06 — ver edição 0.2 |
 
@@ -90,3 +90,176 @@ ou enunciado das obras entrou no repositório (Princípio X).
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.3 — 2026-08-06 · Capítulo 07: formulação de modelos lineares
+
+> ⚠️ **Registro superado pela edição 0.4.** Os números citados nesta entrada — marcenaria, mesas
+> e estantes, R$ 13.800 — vieram do exemplo condutor que foi **substituído** um dia depois pelo
+> exemplo de sala do autor (montadora, MRP inverso). O script citado abaixo hoje produz outros
+> números. Registro datado não se reescreve: esta nota existe para que a entrada não engane quem
+> lê hoje, nem o tutor, que indexa esta página.
+
+O primeiro capítulo de método do handbook, e a primeira vez que a máquina inteira — texto,
+exercícios corrigidos no servidor e código reproduzível — roda de ponta a ponta.
+
+**Entrou:**
+
+- **Capítulo 07 — Formulação de modelos lineares**, abertura da Parte II. Estrutura o trabalho
+  em quatro perguntas (o que se escolhe, qual a única medida, o que limita, o que é dado) e
+  abre por um erro real: uma marcenaria que maximiza receita em vez de margem.
+- **Quatro exercícios** (`cap07`), em dificuldade crescente — reconhecer, formular, diagnosticar
+  e aplicar ao próprio contexto —, cada um rastreando a um objetivo de aprendizagem.
+- **`po-zero/etapa-01-formulacao`** — as duas formulações lado a lado, resolvidas com HiGHS.
+  `experimento.py` regenera `resultados.json` byte a byte, com versões declaradas.
+- **Capacidade `formulacao`** no tutor, liberada no capítulo 07.
+- **Marcador de vaga declarada** na navegação: as partes mostram o que ainda não foi escrito
+  como cartão tracejado apontando para o Mapa, em vez de omitir. O livro passa a publicar fora
+  da ordem do mapa, e diz isso ao leitor.
+
+**Os números do capítulo, e de onde vêm.** O plano que maximiza margem produz 30 mesas e 40
+estantes (R$ 13.800/mês); o que maximiza receita produz 60 mesas e nenhuma estante, fatura mais
+(R$ 54.000) e entrega R$ 13.200 de margem — R$ 600 a menos por mês, deixando 60 horas de
+acabamento paradas. Todos saem de `po-zero/etapa-01-formulacao/experimento.py`.
+
+**Portões reforçados nesta rodada:**
+
+- **Rastreio exercício → objetivo agora é verificado.** O Guia Editorial dizia que "o build
+  falha se o exercício apontar para um objetivo que não existe"; até aqui isso era prosa e nada
+  media. Agora o portão confere que o objetivo está declarado no capítulo que monta a bateria —
+  e foi provado quebrando-o de propósito.
+- **O portão de rubrica pegou um vazamento real**: o exemplo de sintaxe do Banco de Exercícios
+  compartilhava os primeiros 40 caracteres de um critério do `cap07.exB`. O exemplo foi
+  reescrito com texto que ninguém escreveria de verdade, e o motivo ficou registrado lá.
+
+**Dívida declarada.** Duas, ambas do próprio capítulo:
+
+| Dívida | Princípio | Quando fecha |
+|---|---|---|
+| Vídeo do capítulo 07 sem autoria e duração conferidas | I | Quando o autor indicar o vídeo do canal parceiro |
+| Sem artigos científicos na seção de fundamentos — a varredura de literatura sobre ensino de formulação não foi feita | III | Fila do Radar |
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.4 — 2026-08-07 · Capítulo 08 e o exemplo de sala
+
+A edição que troca o exemplo condutor do handbook pelo **exemplo que o autor usa em aula** e
+publica o método gráfico em cima dele.
+
+**O que motivou a troca.** O capítulo 07 tinha sido implementado antes de o autor responder qual
+seria o exemplo condutor — os gates de aprovação da especificação e do plano foram encurtados, e
+o capítulo nasceu com uma marcenaria genérica. O exemplo real é melhor, e o registro do erro de
+processo está na [spec 002 v2](../specs/002-cap07-formulacao/spec.md).
+
+**Entrou:**
+
+- **Capítulo 08 — A geometria da Programação Linear**, com a narrativa de sala: cada variável
+  numa dimensão, o significado dos pontos negativos, a laranja e a faca, a região viável, a reta
+  de iso-lucro como curva de nível, o gradiente, e o procedimento que termina no sistema 2×2 das
+  restrições que sustentam o vértice.
+- **A primeira ilha interativa do handbook** (`regiao-viavel`): o leitor liga a segunda
+  restrição e vê a região encolher, sobe a reta de iso-lucro e vê onde ela encosta por último.
+  É o GeoGebra da aula virando objeto do livro, com degradação para o texto sem JavaScript.
+- **Dez exercícios** (`cap08`): cinco de resolução com o modelo dado, cinco de modelagem a partir
+  de enunciado. Um cai em múltiplos ótimos, um tem ótimo fracionário, um é de minimização com
+  restrições de piso, e num deles a restrição que sustenta o vértice é um eixo.
+- **`po-zero/etapa-02-metodo-grafico`** — enumeração de vértices por pares de restrições,
+  conferida contra o HiGHS nas três etapas.
+- **Capítulo 07 reescrito** sobre a montadora, e `etapa-01` refeita para montar o modelo a partir
+  da **lista de materiais** — MRP ao contrário — com as duas regras de bolso refutadas por número.
+
+**Os números, e de onde vêm.** Sem restrição, ilimitado. Com 10 CPUs, dez do Tipo 2 e R$ 1.500.
+Com 12 pentes de 16 GB, o ótimo anterior deixa de existir (faltavam 8 pentes) e o novo é 8 do
+Tipo 1 mais 2 do Tipo 2, R$ 1.100 — a única combinação que esgota os dois recursos. As duas
+regras de bolso perdem R$ 200 e R$ 100 por mês. Tudo de `po-zero/etapa-01` e `etapa-02`.
+
+**Portões alterados:**
+
+- A bateria deixa de ser limitada a **quatro** variantes (A–D) e passa a aceitar até 26. O limite
+  vinha do livro de origem, onde uma bateria era o mesmo exercício em quatro versões; aqui uma
+  bateria é banco de treino.
+- A regra "a variante D é a do leitor" virou o campo **`contexto`** (`livro` | `leitor`). A regra
+  antiga confundia **posição** na bateria com **natureza** do exercício, e um banco de dez itens
+  expôs isso.
+
+**Dívida declarada.** As mesmas duas, agora nos dois capítulos: vídeo sem autoria e duração
+conferidas, e ausência de artigos científicos na seção de fundamentos.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.5 — 2026-08-07 · Vídeo provisório, e o estado que ele exigiu criar
+
+Os capítulos 07 e 08 passam a ter vídeo. **Provisório**, e dizendo por quê.
+
+**O problema.** A política da Videoteca exige autor, duração e justificativa declarados — e o
+ambiente em que este handbook é produzido **não alcança o YouTube nem as páginas de curso das
+universidades**: o proxy de rede bloqueia os dois. Foi tentado, e falhou nos dois caminhos.
+
+Restavam três saídas: publicar capítulo sem vídeo, violando o Princípio I; **inventar** autor e
+duração, violando o Princípio III e a regra de atribuição da própria Videoteca; ou publicar o
+que se sabe e marcar o que não se sabe.
+
+**A decisão.** A terceira, formalizada como um **estado** e não como exceção. A Videoteca passa
+a ter dois: *definitivo*, com a ficha conferida na fonte, e *provisório*, em que os campos não
+conferidos aparecem `⏳` — **nunca preenchidos por estimativa**. Todo vídeo provisório carrega,
+ao lado, a condição da sua promoção.
+
+**Entrou:**
+
+- Capítulo 07: *Aula 1 — Programação Linear: introdução*.
+- Capítulo 08: *Aula 2 — Programação Linear: método gráfico*.
+
+São da mesma série, e a divisão dela — introdução, depois método gráfico — coincide com a dos
+dois capítulos. Título e endereço foram verificados por busca; **autoria e duração, não**, e a
+Videoteca diz isso numa tabela campo a campo.
+
+**Como fecha.** Preferencialmente pela troca pelos vídeos equivalentes do canal do João Sarubbi,
+cujo uso está autorizado — aí a ficha nasce completa. Alternativamente, o autor assiste aos
+provisórios e completa a ficha.
+
+**O que não mudou:** a fachada. Sem bloco de vídeo no motor, o "Assista" é link puro — e link
+puro é a fachada mais forte que existe, porque nenhuma requisição sai do navegador do leitor
+antes do clique.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.6 — 2026-08-07 · O que a revisão independente encontrou
+
+Um agente em contexto fresco revisou os capítulos 07 e 08 contra as especificações e a
+constituição — o gate que a metodologia exige e que quem escreve não pode cumprir. Ele **não
+aprovou o merge**, e tinha razão.
+
+**O achado que justifica o gate inteiro.** O exercício `cap07.exC` apresentava uma saída de
+solver **impossível**: para o modelo escrito, o ótimo era (137,5; 125) com 103.500, e o
+enunciado afirmava (200, 0). Não era erro de digitação — era um exercício de *diagnóstico* que
+mandava o leitor ler um sintoma inexistente, com critérios de correção falsos. Um aluno que
+raciocinasse bem seria reprovado pela rubrica.
+
+**A causa raiz, registrada para não se repetir:** as dez respostas do capítulo 08 foram
+conferidas com código; as quatro do 07, não. **O único banco sem verificação executável foi o
+único com erro de fato.**
+
+**Também corrigido:**
+
+- A ilha interativa dizia "a reta encosta" ao passar por um vértice **não-ótimo** — contradizendo
+  a definição do próprio capítulo no ponto exato em que o leitor a está formando. E abria com a
+  memória ligada, invertendo a ordem da narrativa.
+- Quatro exercícios apontavam para objetivos que não testavam. O capítulo não tinha objetivo para
+  "formular a partir de enunciado", embora a prática o cobrasse: entrou o **O5**.
+- Duas rubricas com erro: uma trocava gradiente por reta de iso-lucro, outra citava um número
+  que não decorre do erro que ela descreve.
+- O capítulo afirmava "o último contato é sempre um vértice", desmentido por um exercício dele
+  mesmo. Vale a formulação precisa: **se existe ótimo, existe um vértice ótimo**.
+- Siglas nuas (CPU, GB, JSON), glossário intocado, mapa ainda marcando os dois capítulos como não
+  escritos, e uma "saída colada" que tinha sido reescrita à mão.
+- A edição 0.3 deste histórico propagava os números do exemplo descartado — e está indexada no
+  corpus do tutor. Ganhou nota de superação, sem apagar o registro.
+
+**O que fica como trabalho:** construir o portão que teria pego o `cap07.exC` sozinho — verificar
+que todo exercício cujo enunciado afirme uma solução ótima seja consistente com o modelo que ele
+mesmo apresenta. Está em `specs/003-cap08-geometria/tasks.md`.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), revisado por
+agente independente em contexto fresco, sob curadoria e responsabilidade editorial humanas.

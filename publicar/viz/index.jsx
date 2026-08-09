@@ -3,10 +3,11 @@
 // enhancement: sem JS, a página mostra o conteúdo estático do Markdown (fallback).
 import React from "react";
 import { createRoot } from "react-dom/client";
+import RegiaoViavel from "./RegiaoViavel.jsx";
 
-// Vazio nesta fase: as ilhas nascem com os capítulos de método que as pedem
-// (a primeira prevista é a geometria da região viável, na Parte II).
-const COMPONENTES = {};
+const COMPONENTES = {
+  "regiao-viavel": RegiaoViavel,
+};
 
 for (const el of document.querySelectorAll("[data-viz]")) {
   const Comp = COMPONENTES[el.getAttribute("data-viz")];

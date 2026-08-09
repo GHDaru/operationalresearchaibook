@@ -14,6 +14,36 @@
       ]
     },
     {
+      "nome": "Parte I — Fundamentos",
+      "itens": [
+        {
+          "externo": "mapa-do-handbook.html",
+          "titulo": "⬜ Seis vagas declaradas",
+          "teaser": "O que é PO, o ciclo de modelagem, anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
+        }
+      ]
+    },
+    {
+      "nome": "Parte II — Programação Linear",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/07-formulacao.md",
+          "titulo": "07 — Formulação de modelos lineares",
+          "teaser": "A parte do trabalho que nenhum solver faz por você: escolher qual pergunta o modelo responde."
+        },
+        {
+          "arquivo": "livro/capitulos/08-geometria.md",
+          "titulo": "08 — A geometria da Programação Linear",
+          "teaser": "Onde a resposta deixa de ser um número que veio de fora e vira um lugar que dá para apontar."
+        },
+        {
+          "externo": "mapa-do-handbook.html",
+          "titulo": "⬜ Sete vagas declaradas",
+          "teaser": "Simplex, degenerescência, Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
+        }
+      ]
+    },
+    {
       "nome": "Aparato do livro",
       "itens": [
         {

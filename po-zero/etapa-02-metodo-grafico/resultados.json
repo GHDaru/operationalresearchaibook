@@ -1,0 +1,360 @@
+{
+  "instancia": "montagem de computadores (MRP inverso) — a mesma da etapa 01",
+  "versoes": {
+    "python": "3.11.15",
+    "pulp": "3.3.2",
+    "solver": "HiGHS (via PuLP)",
+    "sistema": "Linux"
+  },
+  "determinismo": "sem aleatoriedade — nenhuma semente é usada",
+  "lucro_unitario": {
+    "tipo1": 100.0,
+    "tipo2": 150.0
+  },
+  "etapas": {
+    "1_sem_restricao": {
+      "descricao": "Só a não-negatividade. A região é infinita e o lucro não tem teto.",
+      "solver": {
+        "status": "Unbounded"
+      },
+      "licao": "Sistema sem restrição não é sistema modelável. Toda restrição real vem depois desta constatação."
+    },
+    "2_so_cpu": {
+      "descricao": "10 CPUs, memória infinita.",
+      "enumeracao": {
+        "candidatos": [
+          {
+            "ponto": [
+              0.0,
+              10.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x1 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1500.0
+          },
+          {
+            "ponto": [
+              10.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1000.0
+          },
+          {
+            "ponto": [
+              0.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "x1 >= 0",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 0.0
+          }
+        ],
+        "viaveis": [
+          {
+            "ponto": [
+              0.0,
+              10.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x1 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1500.0
+          },
+          {
+            "ponto": [
+              10.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1000.0
+          },
+          {
+            "ponto": [
+              0.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "x1 >= 0",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 0.0
+          }
+        ],
+        "otimo": {
+          "ponto": [
+            0.0,
+            10.0
+          ],
+          "das_restricoes": [
+            "CPUs: x1 + x2 <= 10",
+            "x1 >= 0"
+          ],
+          "viavel": true,
+          "violou": [],
+          "lucro": 1500.0,
+          "restricoes_ativas": [
+            "CPUs: x1 + x2 <= 10",
+            "x1 >= 0"
+          ],
+          "folgas": {
+            "CPUs: x1 + x2 <= 10": 0.0,
+            "x1 >= 0": 0.0,
+            "x2 >= 0": 10.0
+          }
+        }
+      },
+      "solver": {
+        "status": "Optimal",
+        "ponto": [
+          0.0,
+          10.0
+        ],
+        "lucro": 1500.0
+      },
+      "licao": "A intuição acerta (todo Tipo 2), mas não sabe provar. A prova é: são só três vértices, e um deles ganha."
+    },
+    "3_cpu_e_memoria": {
+      "descricao": "10 CPUs e 12 pentes de 16 GB.",
+      "enumeracao": {
+        "candidatos": [
+          {
+            "ponto": [
+              8.0,
+              2.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "pentes de 16 GB: x1 + 2x2 <= 12"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1100.0
+          },
+          {
+            "ponto": [
+              0.0,
+              10.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x1 >= 0"
+            ],
+            "viavel": false,
+            "violou": [
+              "pentes de 16 GB: x1 + 2x2 <= 12"
+            ],
+            "lucro": null
+          },
+          {
+            "ponto": [
+              10.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1000.0
+          },
+          {
+            "ponto": [
+              0.0,
+              6.0
+            ],
+            "das_restricoes": [
+              "pentes de 16 GB: x1 + 2x2 <= 12",
+              "x1 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 900.0
+          },
+          {
+            "ponto": [
+              12.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "pentes de 16 GB: x1 + 2x2 <= 12",
+              "x2 >= 0"
+            ],
+            "viavel": false,
+            "violou": [
+              "CPUs: x1 + x2 <= 10"
+            ],
+            "lucro": null
+          },
+          {
+            "ponto": [
+              0.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "x1 >= 0",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 0.0
+          }
+        ],
+        "viaveis": [
+          {
+            "ponto": [
+              8.0,
+              2.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "pentes de 16 GB: x1 + 2x2 <= 12"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1100.0
+          },
+          {
+            "ponto": [
+              10.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "CPUs: x1 + x2 <= 10",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 1000.0
+          },
+          {
+            "ponto": [
+              0.0,
+              6.0
+            ],
+            "das_restricoes": [
+              "pentes de 16 GB: x1 + 2x2 <= 12",
+              "x1 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 900.0
+          },
+          {
+            "ponto": [
+              0.0,
+              0.0
+            ],
+            "das_restricoes": [
+              "x1 >= 0",
+              "x2 >= 0"
+            ],
+            "viavel": true,
+            "violou": [],
+            "lucro": 0.0
+          }
+        ],
+        "otimo": {
+          "ponto": [
+            8.0,
+            2.0
+          ],
+          "das_restricoes": [
+            "CPUs: x1 + x2 <= 10",
+            "pentes de 16 GB: x1 + 2x2 <= 12"
+          ],
+          "viavel": true,
+          "violou": [],
+          "lucro": 1100.0,
+          "restricoes_ativas": [
+            "CPUs: x1 + x2 <= 10",
+            "pentes de 16 GB: x1 + 2x2 <= 12"
+          ],
+          "folgas": {
+            "CPUs: x1 + x2 <= 10": 0.0,
+            "pentes de 16 GB: x1 + 2x2 <= 12": 0.0,
+            "x1 >= 0": 8.0,
+            "x2 >= 0": 2.0
+          }
+        }
+      },
+      "solver": {
+        "status": "Optimal",
+        "ponto": [
+          8.0,
+          2.0
+        ],
+        "lucro": 1100.0
+      },
+      "licao": "O vértice ótimo da etapa 2 sai da região viável. Restrição nova nunca aumenta a região.",
+      "o_que_aconteceu_com_o_otimo_anterior": {
+        "ponto": [
+          0.0,
+          10.0
+        ],
+        "continua_viavel": false,
+        "violou": "pentes de 16 GB: x1 + 2x2 <= 12",
+        "quanto_faltou_de_pente": 8.0
+      },
+      "iso_lucro_no_otimo": {
+        "equacao": "100*x1 + 150*x2 = 1100",
+        "gradiente": [
+          100.0,
+          150.0
+        ],
+        "observacao": "O gradiente é perpendicular à reta de iso-lucro e aponta para onde o lucro cresce."
+      },
+      "heuristicas_gulosas": {
+        "por_cpu": {
+          "escolhe": "Tipo 2",
+          "razao": [
+            100.0,
+            150.0
+          ],
+          "plano": [
+            0,
+            6
+          ],
+          "lucro": 900.0
+        },
+        "por_pente": {
+          "escolhe": "Tipo 1",
+          "razao": [
+            100.0,
+            75.0
+          ],
+          "plano": [
+            10,
+            0
+          ],
+          "lucro": 1000.0
+        },
+        "observacao": "As duas apontam para vértices diferentes, e nenhum dos dois é o ótimo."
+      }
+    }
+  }
+}

@@ -50,47 +50,64 @@ Cada exercício é um objeto em `livro/exercicios.json`:
 
 ```json
 {
-  "id": "cap07.exA",
-  "capitulo": 7,
-  "serie": "cap07",
+  "id": "cap99.exA",
+  "capitulo": 99,
+  "serie": "cap99",
   "variante": "A",
   "tipo": "formular",
-  "capacidade": "formulacao_linear",
-  "titulo": "Formular um problema de mix de produção",
-  "enunciado": "Uma fábrica produz dois itens...",
+  "objetivo": "O2",
+  "capacidade": "formulacao",
+  "titulo": "TITULO CURTO, EXIBIDO NO CARTAO",
+  "enunciado": "O TEXTO DO PROBLEMA. Markdown e aceito.",
   "criterios": [
-    "As variáveis de decisão são as quantidades a produzir de cada item, e estão declaradas com unidade",
-    "A função objetivo maximiza margem de contribuição, não receita",
-    "Há uma restrição por recurso escasso, com o lado direito na mesma unidade do lado esquerdo"
+    "PRIMEIRO CRITERIO — um fato verificavel da resposta, nao uma impressao",
+    "SEGUNDO CRITERIO — outro fato verificavel",
+    "TERCEIRO CRITERIO — de 3 a 5 no total"
   ],
-  "erro_provavel": "Maximizar receita em vez de margem...",
-  "resposta_guia": "Sejam x1 e x2 as quantidades..."
+  "erro_provavel": "O MAL-ENTENDIDO COMUM, e por que ele esta errado.",
+  "resposta_guia": "A RESPOSTA DE REFERENCIA, para o tutor julgar equivalencia."
 }
 ```
+
+> **Por que o exemplo está em caixa-alta, com um capítulo que não existe.** Há um portão que
+> procura, nas páginas publicadas, os 40 primeiros caracteres normalizados de cada campo de
+> rubrica. Um exemplo de documentação escrito com texto realista **colide** com a rubrica de um
+> exercício real e derruba o build — corretamente, porque nesse ponto o leitor conseguiria
+> inferir a rubrica lendo esta página. Aconteceu na primeira vez que este documento e um
+> capítulo real coexistiram. Exemplo de sintaxe usa texto que ninguém escreveria de verdade.
 
 ### Campos
 
 | Campo | Obrigatório | O que é |
 |---|---|---|
-| `id` | sim | Padrão `capNN.exX`, com `X` em A–D. Único no livro inteiro; duplicata quebra o build |
+| `id` | sim | Padrão `capNN.exX`, com `X` em A–Z. Único no livro inteiro; duplicata quebra o build |
 | `capitulo` | sim | Número do capítulo. **Precisa bater com o `NN` do id** |
 | `serie` | sim | `capNN` — é por ela que a bateria é montada. **Precisa bater com o id** |
-| `variante` | sim | `A`, `B`, `C` ou `D`. **Precisa bater com o id** |
+| `variante` | sim | A letra do id, de `A` a `Z`. **Precisa bater com o id** |
 | `tipo` | sim | O gênero do exercício (ver §"Os tipos") |
 | `capacidade` | sim | A chave em `chat-companion/backend/capabilities.py`. O portão confere que existe **e que já foi liberada** no capítulo do exercício |
 | `titulo` | sim | Nome curto, exibido no cartão |
 | `enunciado` | sim | O texto do problema. Markdown é aceito |
+| `objetivo` | sim | O `O1`/`O2`… declarado na seção de objetivos do capítulo. **O portão confere que ele existe lá** |
+| `contexto` | não | `livro` (padrão) ou `leitor` — ver abaixo |
 | `criterios` | sim | **De 3 a 5** critérios de aceite. Menos que 3 não avalia; mais que 5 não é rubrica, é gabarito disfarçado |
 | `erro_provavel` | recomendado | O mal-entendido comum, e por que ele está errado. É o que produz devolutiva útil |
 | `resposta_guia` | ver abaixo | A resposta de referência, que permite ao tutor julgar equivalência de raciocínio |
 
-### A regra da variante D
+### A regra do `contexto`
 
-As variantes **A, B e C** têm contexto dado pelo livro e **exigem** `resposta_guia`.
+| `contexto` | Significa | Regra |
+|---|---|---|
+| `livro` (padrão) | O problema é dado pelo livro | **Exige** `resposta_guia` |
+| `leitor` | O leitor traz o próprio problema — a sua operação, a sua turma, o seu dado | **Proíbe** `resposta_guia` |
 
-A variante **D** é aquela em que o leitor traz o **próprio problema** — a sua operação, a sua
-turma, o seu dado. Não há resposta-guia possível, e declarar uma seria mentira: o portão
-**falha** se a variante D tiver `resposta_guia`.
+Não há resposta-guia possível para o problema do leitor, e declarar uma seria mentira.
+
+> **Isto já foi amarrado à letra "D" do identificador.** Funcionava enquanto uma bateria era o
+> mesmo exercício em quatro variantes. Quando o capítulo de método gráfico pediu um banco de
+> dez, a regra virou arbitrária: nada torna o décimo item mais "do leitor" que o terceiro.
+> `contexto` declara a **natureza** do exercício; a letra do identificador declara só a
+> **posição** na bateria. Confundir as duas foi o defeito.
 
 ## Os tipos
 
@@ -102,6 +119,7 @@ O tipo declara o que o exercício treina. Em PO os cinco que importam são:
 | `diagnosticar` | Dado um modelo errado e sua saída, encontrar o erro de formulação |
 | `interpretar` | Dada a solução do solver, dizer o que ela autoriza a decidir — e o que não |
 | `escolher` | Dada a instância, dizer qual família de método serve e por quê |
+| `resolver` | Dado o modelo, chegar ao ótimo pelo método do capítulo, mostrando o caminho |
 | `julgar` | Dado um trecho de artigo ou um resultado, dizer se a comparação sustenta a conclusão |
 
 ## Os portões que isto atravessa
@@ -111,7 +129,7 @@ O tipo declara o que o exercício treina. Em PO os cinco que importam são:
 1. Campo obrigatório ausente, identificador duplicado, ou identificador que não bate com
    `capitulo`, `serie` e `variante`.
 2. Número de critérios fora da faixa de 3 a 5.
-3. Variante A, B ou C sem resposta-guia; variante D com resposta-guia.
+3. `contexto: livro` sem resposta-guia, ou `contexto: leitor` com resposta-guia.
 4. `capacidade` inexistente em `capabilities.py`, ou liberada num capítulo posterior ao do
    exercício — o tutor não pode avaliar com uma capacidade que o leitor ainda não destravou.
 5. **Exercício órfão**: série que existe no registro e não é montada por nenhum capítulo.
