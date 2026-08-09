@@ -52,8 +52,8 @@ ordem:
 
 | Rodada | Capítulo | Por que aqui |
 |---|---|---|
-| 002 | 07 — Formulação de modelos lineares | O capítulo mais praticado do livro. Sem ele, nada do resto tem sobre o que operar |
-| 003 | 08 — A geometria da Programação Linear | Dá a intuição que o Simplex vai formalizar |
+| 002 ✅ | 07 — Formulação de modelos lineares | O capítulo mais praticado do livro. Sem ele, nada do resto tem sobre o que operar |
+| 003 ✅ | 08 — A geometria da Programação Linear | Dá a intuição que o Simplex vai formalizar |
 | 004 | 09 — O método Simplex | O algoritmo por dentro, com a implementação didática do `po-zero` |
 | 005 | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
 | 006 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
@@ -127,3 +127,4 @@ planejamento e programação da produção; gestão de estoques.
 | 2026-08-06 | Livros-base mapeados: as duas obras **não cobrem** as Partes V, VII e XI | [Bibliografia](livro/bibliografia.md) · edição 0.2 |
 | 2026-08-06 | **Uma rodada Maestro por capítulo** | Este documento |
 | 2026-08-06 | Materiais de terceiros em repositório privado separado; histórico purgado | [ADR 0005](adr/0005-materiais-em-repositorio-privado.md) |
+| 2026-08-09 | Rodadas 002 e 003 aprovadas e publicadas na `main` | [Histórico](livro/HISTORICO.md) · edição 0.6 |
