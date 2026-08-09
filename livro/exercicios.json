@@ -11,7 +11,7 @@
     "titulo": "Separar o que se decide do que se aceita",
     "enunciado": "Uma padaria produz pão francês e pão de forma. A dona descreve a semana assim:\n\n> \"Tenho 60 horas de forno e 90 kg de farinha. O pão francês me deixa R$ 1,20 de margem por unidade e o de forma, R$ 3,00. Consigo vender no máximo 400 pães de forma — mais que isso encalha. Queria saber quanto fazer de cada um para ganhar o máximo possível na semana.\"\n\nClassifique **cada um** dos itens abaixo como **variável de decisão**, **parâmetro** ou **nem um nem outro**, e justifique em uma frase o critério que você usou:\n\n1. A quantidade de pão francês a produzir na semana\n2. As 60 horas de forno\n3. A margem de R$ 3,00 por pão de forma\n4. O lucro total da semana\n5. O limite de 400 pães de forma\n\nAtenção ao item 4: ele é o mais escorregadio da lista.",
     "criterios": [
-      "Os itens 1 é classificado como variável de decisão, e os itens 2, 3 e 5 como parâmetros",
+      "O item 1 é classificado como variável de decisão, e os itens 2, 3 e 5 como parâmetros",
       "O item 4 (lucro total) é identificado como **nem um nem outro**: é consequência do modelo, e aparece como função objetivo, não como variável nem como dado",
       "O critério declarado para separar variável de parâmetro é o de decisão — quem decide pode escolher a quantidade, mas não escolhe as horas de forno disponíveis nem a margem unitária",
       "A resposta não confunde o limite de demanda (parâmetro, lado direito de uma restrição) com uma variável"
@@ -52,15 +52,15 @@
     "capacidade": "formulacao",
     "dificuldade": "dificil",
     "titulo": "Achar o erro num modelo que rodou e devolveu ótimo",
-    "enunciado": "Uma metalúrgica quer decidir quanto produzir de dois perfis, A e B, no mês. Um analista entrega este modelo e a saída do solver:\n\n```\nmaximizar  480 x_A + 300 x_B\nsujeito a\n  6 x_A + 3 x_B <= 1200      (prensa, horas/mês)\n  2 x_A + 5 x_B <= 900       (solda, horas/mês)\n  x_A, x_B >= 0\n\nsolver: Optimal\nplano:  x_A = 200 ; x_B = 0\nuso:    prensa 1200 h (folga 0) ; solda 400 h (folga 500)\n```\n\nO gerente de produção reage: *\"Isso não pode estar certo. A solda é o nosso gargalo há dois anos — vive parada de madrugada para dar conta. E a gente **tem** contrato de 80 unidades de B por mês com um cliente.\"*\n\nO modelo rodou e devolveu ótimo. Diga **o que está errado nele** e o que a saída já denunciava antes mesmo de o gerente falar.",
+    "enunciado": "Uma metalúrgica quer decidir quanto produzir de dois perfis, A e B, no mês. Um analista entrega este modelo e a saída do solver:\n\n```\nmaximizar  480 x_A + 200 x_B\nsujeito a\n  6 x_A + 3 x_B <= 1200      (prensa, horas/mês)\n  2 x_A + 5 x_B <= 900       (solda, horas/mês)\n  x_A, x_B >= 0\n\nsolver: Optimal\nplano:  x_A = 200 ; x_B = 0\nuso:    prensa 1200 h (folga 0) ; solda 400 h (folga 500)\n```\n\nO gerente de produção reage: *\"Isso não pode estar certo. A solda é o nosso gargalo há dois anos — vive parada de madrugada para dar conta. E a gente **tem** contrato de 80 unidades de B por mês com um cliente.\"*\n\nO modelo rodou e devolveu ótimo. Diga **o que está errado nele**, o que a saída já denunciava antes mesmo de o gerente falar, e — depois de corrigir — **se a queixa do gerente sobre a solda fica resolvida**.",
     "criterios": [
       "Identifica que falta a restrição de contrato mínimo do perfil B (x_B ≥ 80): o modelo não conhece uma obrigação real, e por isso zera B livremente",
       "Lê a folga como sintoma: 500 horas de folga na solda contradizem a afirmação de que ela é o gargalo, e essa contradição entre modelo e operação é o sinal de que falta informação no modelo",
       "A resposta ataca a formulação, e não o solver nem a aritmética — o plano é de fato ótimo para o modelo escrito",
-      "Distingue o que é erro de modelagem (restrição ausente) do que é apenas surpresa do gerente, sem assumir que toda intuição da operação está certa"
+      "Sobre a última pergunta: reconhece que corrigir o modelo **não** resolve a queixa do gerente. Com o contrato, a solda sobe de 400 h para 720 h e continua com folga — a divergência diminui, mas permanece, e continua sendo coisa a investigar"
     ],
-    "erro_provavel": "Concluir que os coeficientes 480 e 300 estão trocados, ou que o solver falhou. Nenhum dos dois: o plano é ótimo para o modelo que foi escrito. O erro é de **omissão** — falta a restrição de contrato mínimo. É o tipo de erro que nenhum portão automático pega, porque o modelo está sintaticamente perfeito e numericamente correto; ele só não descreve a fábrica. Outro desvio comum é aceitar a fala do gerente como prova de que a solda é gargalo: o que a folga mostra é que, **no plano proposto**, ela não é — e a divergência é justamente o que precisa ser investigado.",
-    "resposta_guia": "Falta a restrição x_B ≥ 80, o contrato mínimo. Sem ela, o modelo é livre para zerar B, e como A paga melhor por hora de prensa, ele zera. A saída já denunciava: 500 horas de folga num recurso que a operação chama de gargalo é contradição entre modelo e realidade — ou o modelo está incompleto, ou a crença da operação está errada, e nos dois casos é preciso investigar antes de decidir. Aqui é o modelo: com a restrição de contrato incluída, B entra no plano, a solda passa a ser exigida e o retrato bate com a fábrica. O solver não errou; ele respondeu com precisão a um modelo que não descrevia o problema.",
+    "erro_provavel": "Concluir que os coeficientes estão trocados, ou que o solver falhou. Nenhum dos dois: o plano é ótimo para o modelo que foi escrito — 480 por unidade de A contra 200 de B, e A consome menos prensa por real gerado. O erro é de **omissão**: falta a restrição de contrato mínimo. É o tipo de erro que nenhum portão automático pega, porque o modelo está sintaticamente perfeito e numericamente correto; ele só não descreve a fábrica.\n\nO segundo desvio, mais sutil, é aceitar a fala do gerente como prova de que a solda é gargalo e considerar o caso encerrado ao incluir o contrato. O que a folga mostra é que, nos dois modelos, a solda **não** é o recurso que segura o resultado. Ou há ainda outra informação faltando, ou a crença da operação está errada — e concluir qual das duas exige investigar, não escolher a mais simpática.",
+    "resposta_guia": "Falta a restrição x_B ≥ 80, o contrato mínimo. Sem ela o modelo é livre para zerar B, e como A paga muito melhor por hora de prensa (480 por 6 h contra 200 por 3 h), ele zera. A saída já denunciava: 500 horas de folga num recurso que a operação chama de gargalo é contradição entre modelo e realidade.\n\nCom x_B ≥ 80 o plano vira x_A = 160 e x_B = 80, com lucro de 92.800 — menor que os 96.000 anteriores, como tem de ser: restrição nova nunca melhora o ótimo. A prensa continua sem folga (1.200 h) e a solda sobe de 400 h para 720 h, mas ainda sobra 180 h. Ou seja: o modelo corrigido explica por que B é produzido, e **não** explica a queixa sobre a solda. Essa divergência continua aberta, e é o próximo lugar a investigar — provavelmente há restrição de solda que ninguém escreveu, como setup ou disponibilidade de soldador por turno.",
     "contexto": "livro"
   },
   {
@@ -93,7 +93,7 @@
     "objetivo": "O4",
     "capacidade": "geometria",
     "contexto": "livro",
-    "dificuldade": "media",
+    "dificuldade": "facil",
     "titulo": "Quando uma das restrições que sustenta o vértice é um eixo",
     "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  3x₁ + 2x₂\n\nsujeito a\n\n- x₁ + x₂ ≤ 4\n- x₁ + 3x₂ ≤ 6\n- x₁, x₂ ≥ 0",
     "criterios": [
@@ -156,7 +156,7 @@
     "objetivo": "O4",
     "capacidade": "geometria",
     "contexto": "livro",
-    "dificuldade": "media",
+    "dificuldade": "dificil",
     "titulo": "Três restrições, e a triagem que o olho não faz",
     "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  40x₁ + 30x₂\n\nsujeito a\n\n- 2x₁ + x₂ ≤ 100\n- x₁ + x₂ ≤ 80\n- x₁ ≤ 40\n- x₁, x₂ ≥ 0\n\nListe **todos** os pontos que você obteve cruzando pares de restrições, e diga quais descartou e por quê.",
     "criterios": [
@@ -165,7 +165,7 @@
       "A resposta lista candidatos descartados por violarem alguma restrição não usada no par — a triagem está explícita, não implícita",
       "A restrição x₁ ≤ 40 é identificada como **não ativa** no ótimo (x₁ = 20, folga de 20)"
     ],
-    "erro_provavel": "Assumir que toda interseção de duas restrições é vértice da região viável. Com três restrições mais os dois eixos, há dez pares possíveis e a maioria produz pontos que violam alguma outra restrição. Quem pula a triagem costuma responder (40, 20) — interseção de x₁ = 40 com 2x₁ + x₂ = 100 — que é viável mas rende 2.200, ou pontos francamente inviáveis.",
+    "erro_provavel": "Assumir que toda interseção de duas restrições é vértice da região viável. Com três restrições mais os dois eixos há dez pares; um é de retas paralelas e não produz ponto, e dos nove pontos restantes **quatro são descartados** por violarem alguma restrição fora do par. Quem pula a triagem costuma responder (40, 20) — interseção de x₁ = 40 com 2x₁ + x₂ = 100 — que é viável mas rende 2.200, ou pontos francamente inviáveis.",
     "resposta_guia": "Ótimo em (20, 60), valor 2.600, sustentado por 2x₁ + x₂ = 100 e x₁ + x₂ = 80. Subtraindo, x₁ = 20 e x₂ = 60. Outros vértices viáveis: (0, 0) com 0, (40, 0) com 1.600, (40, 20) com 2.200 e (0, 80) com 2.400. A restrição x₁ ≤ 40 tem folga de 20 no ótimo — está no modelo, mas não é ela que segura o resultado."
   },
   {
@@ -177,7 +177,7 @@
     "objetivo": "O3",
     "capacidade": "geometria",
     "contexto": "livro",
-    "dificuldade": "media",
+    "dificuldade": "dificil",
     "titulo": "Quando a reta encosta num lado inteiro",
     "enunciado": "**Procedimento pedido em todos os itens deste bloco:** desenhe as retas, ache a região viável, suba a reta de iso-lucro na direção do gradiente, **identifique as duas restrições que sustentam o vértice de contato**, troque `≤` por `=` e resolva o sistema 2×2. Responda com o ponto, o valor ótimo e **quais restrições sustentam o vértice**.\n\nmaximizar  2x₁ + 2x₂\n\nsujeito a\n\n- x₁ + x₂ ≤ 6\n- x₁ ≤ 4\n- x₂ ≤ 4\n- x₁, x₂ ≥ 0\n\nEste tem uma particularidade. Descreva o que acontece ao subir a reta de iso-lucro, e o que você responde a um gestor que pergunta 'então qual plano eu executo?'",
     "criterios": [
@@ -187,7 +187,7 @@
       "À pergunta do gestor, a resposta usa a multiplicidade como **liberdade**: escolhe-se por um critério de fora do modelo, sem custo de lucro"
     ],
     "erro_provavel": "Encontrar (4, 2), declarar ótimo e parar. Não está errado — (4, 2) é ótimo — mas está incompleto, e a omissão é cara: quem para no primeiro vértice não percebe que existe uma faixa inteira de planos igualmente lucrativos. Essa faixa é informação valiosa para quem decide, porque permite otimizar outra coisa (risco, prazo, preferência do cliente) de graça.",
-    "resposta_guia": "Valor ótimo 12, atingido em todo o segmento entre (4, 2) e (2, 4). A causa é geométrica: o objetivo 2x₁ + 2x₂ tem gradiente (2, 2), paralelo à restrição x₁ + x₂ ≤ 6, então a reta de iso-lucro encosta no lado inteiro. Ao gestor: qualquer combinação com x₁ + x₂ = 6, respeitando x₁ ≤ 4 e x₂ ≤ 4, rende o mesmo. Escolha pelo critério que o modelo não captura."
+    "resposta_guia": "Valor ótimo 12, atingido em todo o segmento entre (4, 2) e (2, 4). A causa é geométrica: a **reta de iso-lucro** 2x₁ + 2x₂ = z é paralela à reta da restrição x₁ + x₂ = 6, então o último contato é o lado inteiro e não um ponto. (O gradiente (2, 2) é perpendicular às duas — é ele que define a direção de subida; quem é paralela à restrição é a iso-lucro.) Ao gestor: qualquer combinação com x₁ + x₂ = 6, respeitando x₁ ≤ 4 e x₂ ≤ 4, rende o mesmo. Escolha pelo critério que o modelo não captura."
   },
   {
     "id": "cap08.exF",
@@ -195,10 +195,10 @@
     "serie": "cap08",
     "variante": "F",
     "tipo": "formular",
-    "objetivo": "O2",
+    "objetivo": "O5",
     "capacidade": "geometria",
     "contexto": "livro",
-    "dificuldade": "media",
+    "dificuldade": "facil",
     "titulo": "Confeitaria: do enunciado ao vértice",
     "enunciado": "Uma confeitaria produz dois bolos. O **simples** dá R$ 20 de lucro por unidade, ocupa 1 hora de forno e consome 1 kg de chocolate. O **especial** dá R$ 35, ocupa 2 horas de forno e consome 1 kg de chocolate.\n\nNa semana há **40 horas de forno** e **25 kg de chocolate**. Tudo que for produzido é vendido.\n\nFormule o modelo e resolva pelo método gráfico.",
     "criterios": [
@@ -207,7 +207,7 @@
       "O ponto ótimo é (10, 15), com lucro de R$ 725",
       "O vértice é sustentado pelas duas restrições de recurso, e o sistema 2×2 é resolvido explicitamente"
     ],
-    "erro_provavel": "Trocar os coeficientes de linha: escrever a restrição de forno como 1x₁ + 1x₂ e a de chocolate como 1x₁ + 2x₂. O erro vem de ler a tabela do enunciado na diagonal, e produz (15, 10) com lucro de R$ 650 — um número plausível, que passa despercebido. A defesa é a conferência de unidades: cada restrição é de UM recurso, e seus coeficientes são o consumo daquele recurso por cada produto.",
+    "erro_provavel": "Ler a tabela do enunciado na diagonal e trocar as linhas: escrever a restrição de forno como x₁ + x₂ ≤ 40 e a de chocolate como x₁ + 2x₂ ≤ 25. O modelo resultante roda, devolve ótimo e produz **(25, 0) com lucro de R$ 500** — nenhum bolo especial, o que já deveria estranhar quem viu que o especial paga R$ 35. A defesa é a conferência de unidades: cada restrição é de UM recurso, e seus coeficientes são o consumo daquele recurso por cada produto. Escrever o nome do recurso ao lado da restrição, antes de checar os números, elimina o erro na origem.",
     "resposta_guia": "Sejam x₁ e x₂ as quantidades semanais de bolo simples e especial. Maximizar 20x₁ + 35x₂ sujeito a x₁ + 2x₂ ≤ 40 (forno, h/semana), x₁ + x₂ ≤ 25 (chocolate, kg/semana), x₁, x₂ ≥ 0. O vértice ótimo é sustentado pelas duas: subtraindo x₁ + x₂ = 25 de x₁ + 2x₂ = 40, obtém-se x₂ = 15 e x₁ = 10. Lucro 20(10) + 35(15) = 725. Os dois recursos ficam sem folga."
   },
   {
@@ -216,7 +216,7 @@
     "serie": "cap08",
     "variante": "G",
     "tipo": "formular",
-    "objetivo": "O2",
+    "objetivo": "O5",
     "capacidade": "geometria",
     "contexto": "livro",
     "dificuldade": "media",
@@ -258,10 +258,10 @@
     "serie": "cap08",
     "variante": "I",
     "tipo": "formular",
-    "objetivo": "O2",
+    "objetivo": "O5",
     "capacidade": "geometria",
     "contexto": "livro",
-    "dificuldade": "media",
+    "dificuldade": "dificil",
     "titulo": "Gráfica: modelar, resolver e conferir a folga",
     "enunciado": "Uma gráfica produz **folhetos** (lucro R$ 5 o milheiro) e **cartazes** (lucro R$ 12 a centena). Cada milheiro de folheto ocupa 2 horas de impressão e 1 hora de acabamento; cada centena de cartazes ocupa 5 horas de impressão e 2 horas de acabamento.\n\nHá **100 horas de impressão** e **44 horas de acabamento** no mês.\n\nFormule, resolva, e diga **quanto sobra de cada recurso** no plano ótimo.",
     "criterios": [
@@ -279,10 +279,10 @@
     "serie": "cap08",
     "variante": "J",
     "tipo": "formular",
-    "objetivo": "O1",
+    "objetivo": "O5",
     "capacidade": "geometria",
     "contexto": "livro",
-    "dificuldade": "media",
+    "dificuldade": "dificil",
     "titulo": "Ração: minimizar custo com exigências mínimas",
     "enunciado": "Uma ração é feita com dois ingredientes. O **A** custa R$ 3 o quilo e fornece 2 unidades de proteína e 4 de energia por quilo. O **B** custa R$ 5 o quilo e fornece 5 de proteína e 2 de energia.\n\nCada saco precisa de **pelo menos 20 unidades de proteína** e **pelo menos 16 de energia**.\n\nFormule e resolva. Antes de resolver, responda: **o que é objetivo e o que é restrição aqui — e por que a resposta é o contrário do que você vinha fazendo?**",
     "criterios": [

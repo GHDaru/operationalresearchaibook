@@ -93,6 +93,12 @@ responsabilidade editorial humanas.
 
 ### Edição 0.3 — 2026-08-06 · Capítulo 07: formulação de modelos lineares
 
+> ⚠️ **Registro superado pela edição 0.4.** Os números citados nesta entrada — marcenaria, mesas
+> e estantes, R$ 13.800 — vieram do exemplo condutor que foi **substituído** um dia depois pelo
+> exemplo de sala do autor (montadora, MRP inverso). O script citado abaixo hoje produz outros
+> números. Registro datado não se reescreve: esta nota existe para que a entrada não engane quem
+> lê hoje, nem o tutor, que indexa esta página.
+
 O primeiro capítulo de método do handbook, e a primeira vez que a máquina inteira — texto,
 exercícios corrigidos no servidor e código reproduzível — roda de ponta a ponta.
 
@@ -218,3 +224,42 @@ antes do clique.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.6 — 2026-08-07 · O que a revisão independente encontrou
+
+Um agente em contexto fresco revisou os capítulos 07 e 08 contra as especificações e a
+constituição — o gate que a metodologia exige e que quem escreve não pode cumprir. Ele **não
+aprovou o merge**, e tinha razão.
+
+**O achado que justifica o gate inteiro.** O exercício `cap07.exC` apresentava uma saída de
+solver **impossível**: para o modelo escrito, o ótimo era (137,5; 125) com 103.500, e o
+enunciado afirmava (200, 0). Não era erro de digitação — era um exercício de *diagnóstico* que
+mandava o leitor ler um sintoma inexistente, com critérios de correção falsos. Um aluno que
+raciocinasse bem seria reprovado pela rubrica.
+
+**A causa raiz, registrada para não se repetir:** as dez respostas do capítulo 08 foram
+conferidas com código; as quatro do 07, não. **O único banco sem verificação executável foi o
+único com erro de fato.**
+
+**Também corrigido:**
+
+- A ilha interativa dizia "a reta encosta" ao passar por um vértice **não-ótimo** — contradizendo
+  a definição do próprio capítulo no ponto exato em que o leitor a está formando. E abria com a
+  memória ligada, invertendo a ordem da narrativa.
+- Quatro exercícios apontavam para objetivos que não testavam. O capítulo não tinha objetivo para
+  "formular a partir de enunciado", embora a prática o cobrasse: entrou o **O5**.
+- Duas rubricas com erro: uma trocava gradiente por reta de iso-lucro, outra citava um número
+  que não decorre do erro que ela descreve.
+- O capítulo afirmava "o último contato é sempre um vértice", desmentido por um exercício dele
+  mesmo. Vale a formulação precisa: **se existe ótimo, existe um vértice ótimo**.
+- Siglas nuas (CPU, GB, JSON), glossário intocado, mapa ainda marcando os dois capítulos como não
+  escritos, e uma "saída colada" que tinha sido reescrita à mão.
+- A edição 0.3 deste histórico propagava os números do exemplo descartado — e está indexada no
+  corpus do tutor. Ganhou nota de superação, sem apagar o registro.
+
+**O que fica como trabalho:** construir o portão que teria pego o `cap07.exC` sozinho — verificar
+que todo exercício cujo enunciado afirme uma solução ótima seja consistente com o modelo que ele
+mesmo apresenta. Está em `specs/003-cap08-geometria/tasks.md`.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), revisado por
+agente independente em contexto fresco, sob curadoria e responsabilidade editorial humanas.

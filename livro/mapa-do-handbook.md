@@ -51,19 +51,20 @@ A porta de entrada. Termina com o leitor sabendo **reconhecer um problema de PO*
 
 ## Parte II — Programação Linear
 
-O coração do handbook e o **escopo da próxima rodada**. É aqui que o aluno aprende a modelar de verdade, e é a base de tudo que vem depois.
+O coração do handbook. Os dois primeiros capítulos estão publicados; o Simplex é a próxima
+rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base de tudo que vem depois.
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| 🚧 | 07 — Formulação de modelos lineares | Traduzir o problema em variáveis, objetivo e restrições. O capítulo mais praticado do livro. |
-| 🚧 | 08 — A geometria da Programação Linear | Poliedros, vértices e por que o ótimo está sempre num canto. |
+| ✅ | 07 — Formulação de modelos lineares | Traduzir o problema em variáveis, objetivo e restrições. O capítulo mais praticado do livro. |
+| ✅ | 08 — A geometria da Programação Linear | Semiespaços, região viável e por que nunca é preciso procurar o ótimo fora das quinas. |
 | 🚧 | 09 — O método Simplex | O algoritmo por dentro: base, pivoteamento, critério de entrada e saída. |
-| 🚧 | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
-| 🚧 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
-| 🚧 | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. |
-| 🚧 | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. |
-| 🚧 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
-| 🚧 | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
+| ⬜ | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
+| ⬜ | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
+| ⬜ | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. |
+| ⬜ | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. |
+| ⬜ | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
+| ⬜ | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
 
 ## Parte III — Otimização em Redes e Fluxos
 
@@ -202,4 +203,4 @@ Honestidade sobre o próprio sumário:
 
 ### Leitura executiva
 
-O handbook cobre Pesquisa Operacional em **três camadas com ritmos diferentes**: um núcleo de nove partes (Fundamentos, Programação Linear, Redes, Programação Inteira, Metaheurísticas, Não Linear, Incerteza, Modelos Probabilísticos, Decisão), uma camada de módulos aplicados que cresce por adição sem tocar no núcleo, e uma camada de fronteira com expiração obrigatória. São 77 vagas declaradas mais o aparato. A separação em camadas é o que permite fundamentação estável e atualização científica constante ao mesmo tempo — o que se move rápido não fica onde o aluno aprende a base. Esta rodada publica o mapa e a estrutura; a próxima escreve a Parte II, Programação Linear.
+O handbook cobre Pesquisa Operacional em **três camadas com ritmos diferentes**: um núcleo de nove partes (Fundamentos, Programação Linear, Redes, Programação Inteira, Metaheurísticas, Não Linear, Incerteza, Modelos Probabilísticos, Decisão), uma camada de módulos aplicados que cresce por adição sem tocar no núcleo, e uma camada de fronteira com expiração obrigatória. São 77 vagas declaradas mais o aparato. A separação em camadas é o que permite fundamentação estável e atualização científica constante ao mesmo tempo — o que se move rápido não fica onde o aluno aprende a base. A Parte II está em construção: formulação e geometria publicadas, o Simplex a seguir.

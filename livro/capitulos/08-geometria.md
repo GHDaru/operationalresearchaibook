@@ -14,6 +14,9 @@ acrescentar restrição **nunca** aumenta a região viável.
 
 **O4.** **Determinar** o ponto ótimo pelo sistema formado pelas restrições que o sustentam.
 
+**O5.** **Formular** um modelo de duas variáveis a partir de um enunciado em prosa e **resolvê-lo**
+pelo método gráfico, do zero ao ponto exato.
+
 ## O problema
 
 No capítulo anterior o solver respondeu, e nós aceitamos. Ele disse: monte 8 do Tipo 1 e 2 do
@@ -38,7 +41,7 @@ quem não viu, decora o algoritmo.
 ### Cada variável ganha um eixo
 
 Duas variáveis de decisão, dois eixos. No eixo horizontal, $x_1$: quantos computadores do Tipo
-1 montar. No vertical, $x_2$: quantos do Tipo 2. **Um ponto do plano é um plano de produção** —
+1 montar — cada um com uma unidade central de processamento (CPU) e um pente de memória. No vertical, $x_2$: quantos do Tipo 2. **Um ponto do plano é um plano de produção** —
 um par de números que alguém pode assinar.
 
 O ponto $(8, 2)$ diz "monte oito do Tipo 1 e dois do Tipo 2". O ponto $(3, 5)$ diz outra coisa.
@@ -128,14 +131,25 @@ lucros unitários. Subir $z$ empurra a reta para longe da origem.
 E o método aparece sozinho: **suba a reta de iso-lucro até o último valor em que ela ainda
 toca a região viável.** Onde ela toca por último é o ótimo.
 
-<div data-viz="regiao-viavel"></div>
+<div data-viz="regiao-viavel">
+
+*(Objeto interativo — precisa de JavaScript. Sem ele, a tabela de vértices mais adiante nesta
+página traz os mesmos números, e o texto a seguir descreve o que a interação mostra.)*
+
+</div>
 
 Suba a reta no controle acima. Antes de chegar ao teto, ela **corta** a região: há muitos planos
-com aquele lucro. No último valor, ela não corta mais — apenas **encosta**. E encosta em um
-ponto só.
+com aquele lucro. No último valor, ela não corta mais — apenas **encosta**.
 
-Repare **em que tipo de ponto** ela encosta. Não é no meio de um lado, não é no interior da
-região. É numa quina — num **vértice**.
+Repare **onde** ela encosta. Não é no interior da região. É na borda, e — nesta instância — numa
+quina: num **vértice**.
+
+O caso em que ela encosta num lado inteiro existe, e o capítulo volta a ele em "quando não
+serve". O que vale sempre, e é a afirmação que sustenta o resto da Parte II, é mais precisa do
+que "o contato é um ponto só":
+
+> **Se existe ótimo, existe um vértice ótimo.** Pode haver outros pontos ótimos junto com ele —
+> mas nunca é preciso procurar fora dos vértices.
 
 Guarde essa palavra, porque ela é a ponte para todo o resto da Parte II. Com a restrição de CPU
 sozinha, a reta encosta por último em $(0, 10)$: dez máquinas do Tipo 2, **R$ 1.500**. Que é
@@ -288,10 +302,10 @@ que o Simplex vai percorrer.
 
 Dez exercícios, em dois blocos de cinco.
 
-Os cinco primeiros **dão o modelo pronto** e treinam o procedimento: identificar as restrições
-que sustentam o vértice e resolver o sistema. Os cinco seguintes **dão só o enunciado** — você
-formula e depois resolve. É a primeira vez no handbook em que as duas habilidades são cobradas
-juntas.
+Os cinco primeiros **dão o modelo pronto** e treinam o procedimento (objetivos O3 e O4):
+identificar as restrições que sustentam o vértice e resolver o sistema. Os cinco seguintes **dão
+só o enunciado** e cobram o objetivo O5 — formular e depois resolver. É a primeira vez no
+handbook em que as duas habilidades são exigidas na mesma tarefa.
 
 <div data-bateria="cap08"></div>
 
@@ -316,7 +330,7 @@ segunda passada sobre o mesmo conteúdo, no ritmo de quem está pensando em voz 
 - **Restrição é faca:** corta o espaço em dois e você fica com um lado. Por isso ela **nunca**
   aumenta a região viável.
 - **Lucro é altura; iso-lucro é curva de nível.** Subir a reta até o último contato é o método.
-- **O último contato é sempre um vértice.** É a ideia que o Simplex vai transformar em algoritmo.
+- **Se existe ótimo, existe um vértice ótimo.** Pode haver mais pontos ótimos junto — mas nunca é preciso procurar fora dos vértices. É a ideia que o Simplex vai transformar em algoritmo.
 - **O gradiente aponta para onde subir**, e é perpendicular à reta de iso-lucro.
 - **Vértice se resolve por sistema, não por olho:** ache as duas restrições que o sustentam,
   troque `≤` por `=`, resolva o $2\times2$ — e confira contra as demais.
@@ -341,8 +355,8 @@ de fuga infinita — por isso a não-negatividade é restrição de verdade, e �
 primeiro quadrante. Toda restrição funciona como uma faca que corta o espaço em dois
 semiespaços, do que decorre a propriedade mais útil do capítulo: **acrescentar restrição nunca
 aumenta a região viável**. O lucro é lido como altura, e a reta de iso-lucro é a curva de nível;
-subi-la na direção do gradiente até o último contato com a região encontra o ótimo, que está
-**sempre num vértice**. Como olho não lê coordenada, o ponto exato vem do sistema formado pelas
+subi-la na direção do gradiente até o último contato com a região encontra o ótimo — e, se existe
+ótimo, **existe um vértice ótimo**, de modo que nunca é preciso procurar fora das quinas. Como olho não lê coordenada, o ponto exato vem do sistema formado pelas
 duas restrições que sustentam aquele vértice. No caso da montadora, a restrição de memória
 elimina o ótimo anterior — que pedia 20 pentes e só havia 12 — e o novo ótimo é (8, 2), com
 R$ 1.100, o único vértice que esgota os dois recursos. O método é ferramenta de entendimento,

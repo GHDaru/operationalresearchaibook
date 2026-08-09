@@ -20,7 +20,8 @@ em diante.
 Último dia do mês numa montadora de computadores. O que entrar no estoque hoje é vendido —
 não há dúvida de demanda, há dúvida de **o que montar**.
 
-Dois modelos saem da linha:
+Dois modelos saem da linha, e os dois disputam o mesmo estoque de unidades centrais de
+processamento (CPU) e de pentes de memória de 16 gigabytes (GB):
 
 | | Lucro por unidade | CPU | Memória |
 |---|---|---|---|
@@ -225,12 +226,13 @@ para refutá-las com número em vez de discurso:
 
 ```
   etapa 1 (sem restrição) : Unbounded
-  etapa 2 (só CPU)        : 10 do Tipo 2        -> R$ 1500
-  etapa 3 (CPU + memória) : 8 e 2               -> R$ 1100
-    o ótimo da etapa 2 ainda é viável? False  (faltam 8 pentes)
+  etapa 2 (só CPU)        : {'tipo1': 0.0, 'tipo2': 10.0} -> R$ 1500
+  etapa 3 (CPU + memória) : {'tipo1': 8.0, 'tipo2': 2.0} -> R$ 1100
+    o ótimo da etapa 2 ainda é viável? False  (folga de pentes: -8)
 
-  por CPU     escolhe tipo2 -> 6 unidades  = R$  900  (perde R$ 200)
-  por pente   escolhe tipo1 -> 10 unidades = R$ 1000  (perde R$ 100)
+  regras de bolso:
+    por_cpu      escolhe tipo2  -> {'tipo1': 0.0, 'tipo2': 6.0} = R$ 900  (perde R$ 200)
+    por_pente16  escolhe tipo1  -> {'tipo1': 10.0, 'tipo2': 0.0} = R$ 1000  (perde R$ 100)
 ```
 
 Repare na linha do meio: **o ótimo da etapa 2 não sobrevive à etapa 3**. Ele pedia 20 pentes, e

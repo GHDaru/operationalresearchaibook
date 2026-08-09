@@ -353,6 +353,8 @@ const SIGLAS = {
   API: "Application Programming Interface", DOI: "Digital Object Identifier",
   ISBN: "International Standard Book Number", ORCID: "Open Researcher and Contributor ID",
   ADR: "Architecture Decision Record", DoD: "Definition of Done",
+  CPU: "Central Processing Unit — unidade central de processamento",
+  GB: "gigabyte", JSON: "JavaScript Object Notation",
 };
 const RE_SIGLAS = new RegExp("\\b(" + Object.keys(SIGLAS).sort((a, b) => b.length - a.length).join("|") + ")\\b", "g");
 const TAGS_PROT = /^(pre|code|a|abbr|h[1-6]|script|style)$/i;

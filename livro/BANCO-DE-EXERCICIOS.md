@@ -83,7 +83,7 @@ Cada exercício é um objeto em `livro/exercicios.json`:
 | `id` | sim | Padrão `capNN.exX`, com `X` em A–Z. Único no livro inteiro; duplicata quebra o build |
 | `capitulo` | sim | Número do capítulo. **Precisa bater com o `NN` do id** |
 | `serie` | sim | `capNN` — é por ela que a bateria é montada. **Precisa bater com o id** |
-| `variante` | sim | `A`, `B`, `C` ou `D`. **Precisa bater com o id** |
+| `variante` | sim | A letra do id, de `A` a `Z`. **Precisa bater com o id** |
 | `tipo` | sim | O gênero do exercício (ver §"Os tipos") |
 | `capacidade` | sim | A chave em `chat-companion/backend/capabilities.py`. O portão confere que existe **e que já foi liberada** no capítulo do exercício |
 | `titulo` | sim | Nome curto, exibido no cartão |

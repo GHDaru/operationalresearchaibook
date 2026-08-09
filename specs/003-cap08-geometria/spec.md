@@ -94,7 +94,7 @@ vértice de contato entende o algoritmo depois; quem não enxerga, decora.
 | A5 | **Todas as dez respostas conferidas** por enumeração **e** por solver | Saída colada na verificação |
 | A6 | Todo exercício rastreia a objetivo existente | Portão (verificado, não declarado) |
 | A7 | `experimento.py` reproduz `resultados.json` byte a byte | Dupla execução |
-| A8 | Enumeração e solver concordam nas três etapas | Saída do experimento |
+| A8 | Enumeração e solver concordam nas duas etapas com região limitada | Saída do experimento |
 | A9 | Capítulo 07 reescrito sobre o mesmo exemplo | Leitura: o 08 abre citando o resultado do 07 |
 | A10 | Build e testes verdes | `npm run build` e `pytest -q` |
 

@@ -64,7 +64,10 @@ function retaIso(nivel) {
 }
 
 export default function RegiaoViavel() {
-  const [comMemoria, setComMemoria] = useState(true);
+  // Abre com a memória DESLIGADA de propósito: o capítulo conduz o leitor a
+  // subir a reta com a CPU sozinha, ver o ótimo em (0,10), e só então mandar
+  // "ligue a restrição". Abrir ligado inverteria a narrativa.
+  const [comMemoria, setComMemoria] = useState(false);
   const [nivel, setNivel] = useState(600);
 
   const restricoes = comMemoria ? [CPU, MEM] : [CPU];
@@ -77,8 +80,12 @@ export default function RegiaoViavel() {
   const toca = nivel <= maxLucro + 1e-9;
   const iso = retaIso(nivel);
 
-  // O vértice que a reta encosta quando ela está no seu último valor.
-  const noNivel = verts.filter((p) => quase(lucro(p), nivel));
+  // ATENÇÃO: "encostar" é passar pelo ÚLTIMO valor possível, não coincidir com
+  // um vértice qualquer. Uma reta que passa por um vértice não-ótimo ainda CORTA
+  // a região — em (0,6), com nível 900, ela também passa por (9,0), que é viável.
+  // A versão anterior testava a coincidência com vértice e escrevia "encosta",
+  // desmentindo a definição do capítulo justo onde o leitor a está formando.
+  const noOtimo = quase(nivel, maxLucro);
 
   return (
     <div className="viz-regiao">
@@ -132,13 +139,30 @@ export default function RegiaoViavel() {
                 stroke="#e0a24a" strokeWidth="3" strokeDasharray={toca ? "0" : "7 6"} />
         )}
 
-        {/* gradiente: para onde o lucro cresce */}
-        <g stroke="#e0a24a" strokeWidth="2" fill="none" opacity=".85">
-          <line x1={sx(9.6)} y1={sy(8.4)} x2={sx(11.2)} y2={sy(10.8)} />
-          <polygon points={`${sx(11.2)},${sy(10.8)} ${sx(10.5)},${sy(10.5)} ${sx(11.0)},${sy(9.9)}`}
-                   fill="#e0a24a" stroke="none" />
-        </g>
-        <text x={sx(8.2)} y={sy(8.0)} fontSize="12" fill="#e0a24a">∇ = (100, 150)</text>
+        {/* Gradiente. O texto afirma que ele é PERPENDICULAR à reta de iso-lucro,
+            então a seta precisa sair perpendicular NA TELA — e as escalas dos dois
+            eixos são diferentes. Desenhar (100,150) em coordenadas de dados daria
+            ~82°, e o leitor veria o capítulo se contradizer. Por isso a direção é
+            calculada no espaço da tela. */}
+        {(() => {
+          const kx = (W - M.l - M.r) / XMAX, ky = (H - M.t - M.b) / YMAX;
+          // direção ao longo da iso-lucro, em dados: (L2, -L1) → em tela:
+          const dx = L2 * kx, dy = L1 * ky;
+          const n = Math.hypot(dx, dy);
+          // girar 90° na tela: (dx,dy) → (dy,-dx), que aponta para cima e à direita
+          const ux = dy / n, uy = -dx / n;
+          const x0 = sx(9.3), y0 = sy(7.6), C = 66;
+          const x1 = x0 + ux * C, y1 = y0 + uy * C;
+          const px = -uy, py = ux; // perpendicular à seta, para a ponta
+          return (
+            <g stroke="#e0a24a" strokeWidth="2" fill="none" opacity=".9">
+              <line x1={x0} y1={y0} x2={x1} y2={y1} />
+              <polygon fill="#e0a24a" stroke="none"
+                points={`${x1},${y1} ${x1 - ux * 13 + px * 6},${y1 - uy * 13 + py * 6} ${x1 - ux * 13 - px * 6},${y1 - uy * 13 - py * 6}`} />
+            </g>
+          );
+        })()}
+        <text x={sx(6.4)} y={sy(7.2)} fontSize="12" fill="#e0a24a">∇ = (100, 150)</text>
 
         {/* vértices */}
         {verts.map((p) => {
@@ -165,11 +189,9 @@ export default function RegiaoViavel() {
 
       <p className="viz-leitura">
         {toca ? (
-          noNivel.length ? (
-            <>A reta <b>encosta</b> no vértice ({noNivel[0][0]}, {noNivel[0][1]}).{" "}
-              {quase(lucro(noNivel[0]), maxLucro)
-                ? <b>É o último valor possível — este é o ótimo.</b>
-                : "Ainda dá para subir."}</>
+          noOtimo ? (
+            <>A reta <b>encosta</b> em ({otimo[0]}, {otimo[1]}) e não corta mais a região.{" "}
+              <b>É o último valor possível — este é o ótimo.</b></>
           ) : (
             <>A reta <b>corta</b> a região: todo ponto dela sobre o azul rende R$ {nivel.toLocaleString("pt-BR")}. Continue subindo.</>
           )

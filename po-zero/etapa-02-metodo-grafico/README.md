@@ -25,8 +25,9 @@ python experimento.py
 
 ## O que o experimento mostra
 
-Nas três etapas da narrativa, a enumeração à mão é **conferida contra o HiGHS**, e as duas
-concordam. Com CPU e memória há seis pares de restrições; quatro produzem vértices viáveis e
+Nas **duas** etapas que têm região viável limitada, a enumeração à mão é **conferida contra o
+HiGHS**, e as duas concordam. (A etapa sem restrições não tem vértice a enumerar: só o solver
+roda, e devolve `Unbounded`.) Com CPU e memória há seis pares de restrições; quatro produzem vértices viáveis e
 dois são descartados — `(0, 10)` viola a memória e `(12, 0)` viola a CPU.
 
 A lista de candidatos inclui os descartados **de propósito**: o capítulo mostra que a conta é

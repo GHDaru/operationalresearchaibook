@@ -16,7 +16,7 @@
 | VIII | Português canônico | Só PT, conforme ADR 0002 | ✅ |
 | IX | Comunicação inteligível | "Pesquisa Operacional (PO)" e "Programação Linear (PL)" abertas na primeira ocorrência do capítulo | ✅ |
 | X | Direitos autorais | Instância autoral com ficha; o contraste entre as obras-base é análise própria, sem reprodução | ✅ |
-| XI | DoD verificável | Build e testes verdes, com saída colada em [`verificacao.md`](verificacao.md) | ✅ |
+| XI | DoD verificável | Build e testes verdes, com saída colada em [`verificacao.md`](../003-cap08-geometria/verificacao.md) | ✅ |
 
 **Violações que impediriam a rodada:** nenhuma. As duas marcas são **dívidas declaradas**, com
 prazo e responsável, e estão registradas no `HISTORICO.md` — não escondidas na prosa.
