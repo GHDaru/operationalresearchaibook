@@ -263,3 +263,67 @@ mesmo apresenta. Está em `specs/003-cap08-geometria/tasks.md`.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), revisado por
 agente independente em contexto fresco, sob curadoria e responsabilidade editorial humanas.
+
+### Edição 0.7 — 2026-08-09 · Capítulo 09: o método Simplex
+
+Rodada 004. Diferente das duas anteriores, **o conteúdo não veio de uma narrativa de sala** —
+o autor respondeu ao *clarify* que não havia uma, e aprovou a proposta da especificação. Fica
+registrado: a sequência didática deste capítulo é proposta editorial, não sequência já testada
+com alunos.
+
+Duas decisões do autor no gate: o veículo é o **quadro** (*tableau*), e a **Fase I / *big-M***
+entra neste capítulo em vez de virar capítulo próprio.
+
+**Entrou:**
+
+- **[Capítulo 09 — O método Simplex](capitulos/09-simplex.md)**, encadeado na promessa que o 08
+  deixou aberta. O algoritmo chega a (8, 2) e R$ 1.100 em duas iterações, **pisando exatamente
+  nos vértices que o desenho do capítulo anterior mostrou**.
+- A ponte central do capítulo: **vértice = solução básica viável**. A tabela de bases da
+  montadora é, linha por linha, a mesma tabela de pares de retas do capítulo 08.
+- ***Big-M* com uma segunda instância da mesma história**: cinco unidades do Tipo 2 já vendidas
+  tiram a origem da região viável. O plano vira (2, 5) e R$ 950 — o compromisso custou R$ 150.
+- A resposta à dívida do capítulo 07: **por que a ganância do Simplex não engana**, se duas
+  regras gulosas foram refutadas lá. Porque ela escolhe só a direção do próximo passo, e o teste
+  da razão escolhe o tamanho.
+- **[Etapa 03 do `po-zero`](../po-zero/etapa-03-simplex/)** — Simplex de quadro em aritmética
+  exata, com *big-M* simbólico e todos os quadros guardados.
+- **Oito exercícios** (`cap09`, A–H), com três dedicados ao erro de conclusão sobre conta certa.
+- Capacidade `simplex` no tutor, nos dois lados do espelho.
+- Doze verbetes novos no [glossário](glossario.md): forma padrão, base, solução básica viável,
+  custo reduzido, pivoteamento, teste da razão, convexidade, entre outros.
+
+**O portão que faltava, construído.** A edição 0.6 deixou como trabalho o portão que teria pego
+sozinho o defeito do `cap07.exC`. Ele existe: `publicar/verifica-otimos.mjs` resolve, em
+aritmética exata sobre racionais, **todo modelo declarado numa rubrica** e confere o ótimo
+afirmado. Foram anexados modelos verificáveis aos onze exercícios anteriores que afirmavam um
+ótimo; hoje são dezenove modelos conferidos a cada build. O portão foi provado quebrando: com o
+defeito histórico reintroduzido, ele acusa e nomeia o ótimo verdadeiro (103.500).
+
+O portão tem duas metades, e a segunda importa tanto quanto a primeira: se a rubrica afirma um
+ótimo e **não** há modelo declarado, o build falha. Sem isso, bastaria omitir o campo para o
+exercício voltar ao estado em que o defeito nasceu.
+
+**O pior caso, medido em vez de citado.** A afirmação de que o Simplex tem pior caso exponencial
+costuma vir emprestada da literatura. Aqui o cubo de Klee–Minty é **construído** pelo
+experimento, e os pivôs são contados: 3, 7, 15, 31, 63 e 127 para $n$ de 2 a 7 — sempre
+$2^n - 1$. A troca foi deliberada, e nasceu de uma limitação: como as fontes acadêmicas não são
+alcançáveis deste ambiente, uma afirmação que pudesse ser medida foi medida.
+
+**Um erro meu, pego antes de publicar.** O rascunho do capítulo trazia um endereço de vídeo do
+YouTube que eu **inventei** — exatamente o que o Princípio III proíbe. Foi substituído por um
+localizado em busca real. Registrar isso aqui é o ponto: o defeito não chegou ao leitor, mas o
+mecanismo que o produziu é o mesmo que produz os que chegam.
+
+**Dívidas declaradas:**
+
+- **O vídeo do capítulo 09 tem uma ressalva a mais** que os anteriores: não é da mesma série, e
+  a atribuição da série ao curso indicado pela busca **não foi confirmada na fonte**. Está dito
+  na [Videoteca](videoteca.md).
+- **A seção de fundamentos científicos declara a lacuna.** arXiv, Crossref, OpenAlex e os sites
+  das editoras respondem `403` ao proxy de saída deste ambiente. História do método,
+  complexidade em média e comparação entre regras de pivoteamento seguem sem literatura
+  primária.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.

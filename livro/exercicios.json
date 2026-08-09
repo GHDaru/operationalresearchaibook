@@ -61,7 +61,81 @@
     ],
     "erro_provavel": "Concluir que os coeficientes estão trocados, ou que o solver falhou. Nenhum dos dois: o plano é ótimo para o modelo que foi escrito — 480 por unidade de A contra 200 de B, e A consome menos prensa por real gerado. O erro é de **omissão**: falta a restrição de contrato mínimo. É o tipo de erro que nenhum portão automático pega, porque o modelo está sintaticamente perfeito e numericamente correto; ele só não descreve a fábrica.\n\nO segundo desvio, mais sutil, é aceitar a fala do gerente como prova de que a solda é gargalo e considerar o caso encerrado ao incluir o contrato. O que a folga mostra é que, nos dois modelos, a solda **não** é o recurso que segura o resultado. Ou há ainda outra informação faltando, ou a crença da operação está errada — e concluir qual das duas exige investigar, não escolher a mais simpática.",
     "resposta_guia": "Falta a restrição x_B ≥ 80, o contrato mínimo. Sem ela o modelo é livre para zerar B, e como A paga muito melhor por hora de prensa (480 por 6 h contra 200 por 3 h), ele zera. A saída já denunciava: 500 horas de folga num recurso que a operação chama de gargalo é contradição entre modelo e realidade.\n\nCom x_B ≥ 80 o plano vira x_A = 160 e x_B = 80, com lucro de 92.800 — menor que os 96.000 anteriores, como tem de ser: restrição nova nunca melhora o ótimo. A prensa continua sem folga (1.200 h) e a solda sobe de 400 h para 720 h, mas ainda sobra 180 h. Ou seja: o modelo corrigido explica por que B é produzido, e **não** explica a queixa sobre a solda. Essa divergência continua aberta, e é o próximo lugar a investigar — provavelmente há restrição de solda que ninguém escreveu, como setup ou disponibilidade de soldador por turno.",
-    "contexto": "livro"
+    "contexto": "livro",
+    "modelo": [
+      {
+        "rotulo": "modelo do analista",
+        "sentido": "max",
+        "variaveis": [
+          "x_A",
+          "x_B"
+        ],
+        "objetivo": [
+          480,
+          200
+        ],
+        "restricoes": [
+          [
+            6,
+            3,
+            "<=",
+            1200
+          ],
+          [
+            2,
+            5,
+            "<=",
+            900
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            200,
+            0
+          ],
+          "valor": 96000
+        }
+      },
+      {
+        "rotulo": "modelo corrigido, com o contrato",
+        "sentido": "max",
+        "variaveis": [
+          "x_A",
+          "x_B"
+        ],
+        "objetivo": [
+          480,
+          200
+        ],
+        "restricoes": [
+          [
+            6,
+            3,
+            "<=",
+            1200
+          ],
+          [
+            2,
+            5,
+            "<=",
+            900
+          ],
+          [
+            0,
+            1,
+            ">=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            160,
+            80
+          ],
+          "valor": 92800
+        }
+      }
+    ]
   },
   {
     "id": "cap07.exD",
@@ -103,7 +177,39 @@
       "A resposta verifica que o ponto satisfaz também x₁ + 3x₂ ≤ 6, que fica com folga"
     ],
     "erro_provavel": "Resolver o sistema x₁ + x₂ = 4 com x₁ + 3x₂ = 6, obtendo (3, 1) e valor 11. Esse ponto é vértice da região, mas não é o ótimo: o par de restrições foi escolhido por serem 'as duas restrições do enunciado', e não por serem as que sustentam o vértice de contato. A não-negatividade é restrição como qualquer outra, e aqui é ela que segura o ótimo.",
-    "resposta_guia": "Ótimo em (4, 0), valor 12. O vértice é sustentado por x₁ + x₂ = 4 e por x₂ = 0. Resolvendo esse sistema: x₂ = 0 e x₁ = 4. Conferindo a outra restrição: 4 + 3(0) = 4 ≤ 6, com folga de 2. O vértice (3, 1) também é viável, mas rende 11."
+    "resposta_guia": "Ótimo em (4, 0), valor 12. O vértice é sustentado por x₁ + x₂ = 4 e por x₂ = 0. Resolvendo esse sistema: x₂ = 0 e x₁ = 4. Conferindo a outra restrição: 4 + 3(0) = 4 ≤ 6, com folga de 2. O vértice (3, 1) também é viável, mas rende 11.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        3,
+        2
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          4
+        ],
+        [
+          1,
+          3,
+          "<=",
+          6
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          4,
+          0
+        ],
+        "valor": 12
+      }
+    }
   },
   {
     "id": "cap08.exB",
@@ -124,7 +230,39 @@
       "Sobre a pergunta final: a resposta **não** propõe simplesmente arredondar para 2 — reconhece que arredondar pode violar restrição, e que o caso inteiro é outro problema"
     ],
     "erro_provavel": "Arredondar (3; 1,5) para (3, 2) e declarar resolvido. Verifique: 6(3) + 4(2) = 26 > 24. O plano arredondado é **inviável**. Arredondar solução contínua não resolve problema inteiro — às vezes dá inviável, às vezes dá viável e longe do ótimo, e nunca dá garantia.",
-    "resposta_guia": "Ótimo em (3; 1,5), valor 21, sustentado por 6x₁ + 4x₂ = 24 e x₁ + 2x₂ = 6. Resolvendo: multiplicando a segunda por 2 e subtraindo da primeira, 4x₁ = 12, logo x₁ = 3 e x₂ = 1,5. Se x₂ fosse número de máquinas, a fração perde sentido e o problema passa a exigir variáveis inteiras — assunto de outra parte do handbook. Arredondar aqui produziria plano inviável."
+    "resposta_guia": "Ótimo em (3; 1,5), valor 21, sustentado por 6x₁ + 4x₂ = 24 e x₁ + 2x₂ = 6. Resolvendo: multiplicando a segunda por 2 e subtraindo da primeira, 4x₁ = 12, logo x₁ = 3 e x₂ = 1,5. Se x₂ fosse número de máquinas, a fração perde sentido e o problema passa a exigir variáveis inteiras — assunto de outra parte do handbook. Arredondar aqui produziria plano inviável.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        5,
+        4
+      ],
+      "restricoes": [
+        [
+          6,
+          4,
+          "<=",
+          24
+        ],
+        [
+          1,
+          2,
+          "<=",
+          6
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          3,
+          1.5
+        ],
+        "valor": 21
+      }
+    }
   },
   {
     "id": "cap08.exC",
@@ -145,7 +283,39 @@
       "O vértice é sustentado por x₁ + x₂ = 4 e por x₂ = 0, e o ponto satisfaz 2(4) + 0 = 8 ≥ 5"
     ],
     "erro_provavel": "Concluir que o problema é ilimitado porque a região não é fechada. Região ilimitada e problema ilimitado não são a mesma coisa: aqui a região cresce para cima e para a direita, mas o objetivo é **minimizar** um custo que cresce nessa mesma direção — então o mínimo existe e está num vértice. Ilimitado seria se a região fosse aberta na direção em que o objetivo melhora.",
-    "resposta_guia": "Ótimo em (4, 0), custo 8. Vértices viáveis: (0, 5) com custo 15, (1, 3) com custo 11 e (4, 0) com custo 8. Em minimização, empurra-se a reta de iso-custo no sentido oposto ao gradiente, até o último contato. O vértice é sustentado por x₁ + x₂ = 4 e x₂ = 0. A região é ilimitada para cima, o que não impede o mínimo de existir."
+    "resposta_guia": "Ótimo em (4, 0), custo 8. Vértices viáveis: (0, 5) com custo 15, (1, 3) com custo 11 e (4, 0) com custo 8. Em minimização, empurra-se a reta de iso-custo no sentido oposto ao gradiente, até o último contato. O vértice é sustentado por x₁ + x₂ = 4 e x₂ = 0. A região é ilimitada para cima, o que não impede o mínimo de existir.",
+    "modelo": {
+      "sentido": "min",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        2,
+        3
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          ">=",
+          4
+        ],
+        [
+          2,
+          1,
+          ">=",
+          5
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          4,
+          0
+        ],
+        "valor": 8
+      }
+    }
   },
   {
     "id": "cap08.exD",
@@ -166,7 +336,45 @@
       "A restrição x₁ ≤ 40 é identificada como **não ativa** no ótimo (x₁ = 20, folga de 20)"
     ],
     "erro_provavel": "Assumir que toda interseção de duas restrições é vértice da região viável. Com três restrições mais os dois eixos há dez pares; um é de retas paralelas e não produz ponto, e dos nove pontos restantes **quatro são descartados** por violarem alguma restrição fora do par. Quem pula a triagem costuma responder (40, 20) — interseção de x₁ = 40 com 2x₁ + x₂ = 100 — que é viável mas rende 2.200, ou pontos francamente inviáveis.",
-    "resposta_guia": "Ótimo em (20, 60), valor 2.600, sustentado por 2x₁ + x₂ = 100 e x₁ + x₂ = 80. Subtraindo, x₁ = 20 e x₂ = 60. Outros vértices viáveis: (0, 0) com 0, (40, 0) com 1.600, (40, 20) com 2.200 e (0, 80) com 2.400. A restrição x₁ ≤ 40 tem folga de 20 no ótimo — está no modelo, mas não é ela que segura o resultado."
+    "resposta_guia": "Ótimo em (20, 60), valor 2.600, sustentado por 2x₁ + x₂ = 100 e x₁ + x₂ = 80. Subtraindo, x₁ = 20 e x₂ = 60. Outros vértices viáveis: (0, 0) com 0, (40, 0) com 1.600, (40, 20) com 2.200 e (0, 80) com 2.400. A restrição x₁ ≤ 40 tem folga de 20 no ótimo — está no modelo, mas não é ela que segura o resultado.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        40,
+        30
+      ],
+      "restricoes": [
+        [
+          2,
+          1,
+          "<=",
+          100
+        ],
+        [
+          1,
+          1,
+          "<=",
+          80
+        ],
+        [
+          1,
+          0,
+          "<=",
+          40
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          20,
+          60
+        ],
+        "valor": 2600
+      }
+    }
   },
   {
     "id": "cap08.exE",
@@ -187,7 +395,51 @@
       "À pergunta do gestor, a resposta usa a multiplicidade como **liberdade**: escolhe-se por um critério de fora do modelo, sem custo de lucro"
     ],
     "erro_provavel": "Encontrar (4, 2), declarar ótimo e parar. Não está errado — (4, 2) é ótimo — mas está incompleto, e a omissão é cara: quem para no primeiro vértice não percebe que existe uma faixa inteira de planos igualmente lucrativos. Essa faixa é informação valiosa para quem decide, porque permite otimizar outra coisa (risco, prazo, preferência do cliente) de graça.",
-    "resposta_guia": "Valor ótimo 12, atingido em todo o segmento entre (4, 2) e (2, 4). A causa é geométrica: a **reta de iso-lucro** 2x₁ + 2x₂ = z é paralela à reta da restrição x₁ + x₂ = 6, então o último contato é o lado inteiro e não um ponto. (O gradiente (2, 2) é perpendicular às duas — é ele que define a direção de subida; quem é paralela à restrição é a iso-lucro.) Ao gestor: qualquer combinação com x₁ + x₂ = 6, respeitando x₁ ≤ 4 e x₂ ≤ 4, rende o mesmo. Escolha pelo critério que o modelo não captura."
+    "resposta_guia": "Valor ótimo 12, atingido em todo o segmento entre (4, 2) e (2, 4). A causa é geométrica: a **reta de iso-lucro** 2x₁ + 2x₂ = z é paralela à reta da restrição x₁ + x₂ = 6, então o último contato é o lado inteiro e não um ponto. (O gradiente (2, 2) é perpendicular às duas — é ele que define a direção de subida; quem é paralela à restrição é a iso-lucro.) Ao gestor: qualquer combinação com x₁ + x₂ = 6, respeitando x₁ ≤ 4 e x₂ ≤ 4, rende o mesmo. Escolha pelo critério que o modelo não captura.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        2,
+        2
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          6
+        ],
+        [
+          1,
+          0,
+          "<=",
+          4
+        ],
+        [
+          0,
+          1,
+          "<=",
+          4
+        ]
+      ],
+      "otimo": {
+        "segmento": [
+          [
+            4,
+            2
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "valor": 12
+      }
+    }
   },
   {
     "id": "cap08.exF",
@@ -208,7 +460,39 @@
       "O vértice é sustentado pelas duas restrições de recurso, e o sistema 2×2 é resolvido explicitamente"
     ],
     "erro_provavel": "Ler a tabela do enunciado na diagonal e trocar as linhas: escrever a restrição de forno como x₁ + x₂ ≤ 40 e a de chocolate como x₁ + 2x₂ ≤ 25. O modelo resultante roda, devolve ótimo e produz **(25, 0) com lucro de R$ 500** — nenhum bolo especial, o que já deveria estranhar quem viu que o especial paga R$ 35. A defesa é a conferência de unidades: cada restrição é de UM recurso, e seus coeficientes são o consumo daquele recurso por cada produto. Escrever o nome do recurso ao lado da restrição, antes de checar os números, elimina o erro na origem.",
-    "resposta_guia": "Sejam x₁ e x₂ as quantidades semanais de bolo simples e especial. Maximizar 20x₁ + 35x₂ sujeito a x₁ + 2x₂ ≤ 40 (forno, h/semana), x₁ + x₂ ≤ 25 (chocolate, kg/semana), x₁, x₂ ≥ 0. O vértice ótimo é sustentado pelas duas: subtraindo x₁ + x₂ = 25 de x₁ + 2x₂ = 40, obtém-se x₂ = 15 e x₁ = 10. Lucro 20(10) + 35(15) = 725. Os dois recursos ficam sem folga."
+    "resposta_guia": "Sejam x₁ e x₂ as quantidades semanais de bolo simples e especial. Maximizar 20x₁ + 35x₂ sujeito a x₁ + 2x₂ ≤ 40 (forno, h/semana), x₁ + x₂ ≤ 25 (chocolate, kg/semana), x₁, x₂ ≥ 0. O vértice ótimo é sustentado pelas duas: subtraindo x₁ + x₂ = 25 de x₁ + 2x₂ = 40, obtém-se x₂ = 15 e x₁ = 10. Lucro 20(10) + 35(15) = 725. Os dois recursos ficam sem folga.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        20,
+        35
+      ],
+      "restricoes": [
+        [
+          1,
+          2,
+          "<=",
+          40
+        ],
+        [
+          1,
+          1,
+          "<=",
+          25
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          10,
+          15
+        ],
+        "valor": 725
+      }
+    }
   },
   {
     "id": "cap08.exG",
@@ -229,7 +513,39 @@
       "A frase 'a demanda supera a capacidade' é corretamente lida como **ausência** de restrição de demanda, e não como uma restrição a acrescentar"
     ],
     "erro_provavel": "Inventar uma restrição de demanda a partir da frase final. Dizer que a demanda supera a capacidade é dizer que ela **não limita** — logo não vira restrição. Restrição inventada corta soluções legítimas em silêncio, e é um erro mais difícil de achar do que restrição esquecida, porque o modelo continua viável e o resultado continua plausível.",
-    "resposta_guia": "Sejam x₁ revisões simples e x₂ completas por semana. Maximizar 80x₁ + 200x₂ sujeito a x₁ + 4x₂ ≤ 40 (mecânico, h), x₁ + x₂ ≤ 16 (elevador, h), x₁, x₂ ≥ 0. O ótimo é sustentado pelas duas: subtraindo, 3x₂ = 24, logo x₂ = 8 e x₁ = 8. Lucro 80(8) + 200(8) = 2.240. Note que a completa paga bem mais por unidade, e ainda assim o ótimo não é só completa: ela consome quatro vezes mais mecânico."
+    "resposta_guia": "Sejam x₁ revisões simples e x₂ completas por semana. Maximizar 80x₁ + 200x₂ sujeito a x₁ + 4x₂ ≤ 40 (mecânico, h), x₁ + x₂ ≤ 16 (elevador, h), x₁, x₂ ≥ 0. O ótimo é sustentado pelas duas: subtraindo, 3x₂ = 24, logo x₂ = 8 e x₁ = 8. Lucro 80(8) + 200(8) = 2.240. Note que a completa paga bem mais por unidade, e ainda assim o ótimo não é só completa: ela consome quatro vezes mais mecânico.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        80,
+        200
+      ],
+      "restricoes": [
+        [
+          1,
+          4,
+          "<=",
+          40
+        ],
+        [
+          1,
+          1,
+          "<=",
+          16
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          8,
+          8
+        ],
+        "valor": 2240
+      }
+    }
   },
   {
     "id": "cap08.exH",
@@ -250,7 +566,39 @@
       "Sobre o gargalo: a resposta reconhece que **os dois** estão ativos, sem folga, e que a pergunta 'qual é o gargalo' pressupõe um único — pressuposto que este caso desmente"
     ],
     "erro_provavel": "Responder que o gargalo é a água, porque é o recurso 'mais técnico' ou porque aparece com números maiores. No ótimo, hectares e água têm folga zero: 50 + 50 = 100 e 3(50) + 5(50) = 400. Os dois seguram o resultado ao mesmo tempo, e é justamente isso que caracteriza o vértice — ele é o encontro das duas restrições. Procurar um gargalo único quando há dois ativos leva a investir no recurso errado.",
-    "resposta_guia": "Sejam x₁ e x₂ os hectares de milho e soja. Maximizar 900x₁ + 1200x₂ sujeito a x₁ + x₂ ≤ 100 e 3x₁ + 5x₂ ≤ 400, com não-negatividade. Substituindo x₁ = 100 − x₂ na segunda: 300 + 2x₂ = 400, logo x₂ = 50 e x₁ = 50. Lucro 900(50) + 1200(50) = 105.000. Os dois recursos ficam sem folga — não há um gargalo, há dois, e liberar só um deles não aumenta o lucro."
+    "resposta_guia": "Sejam x₁ e x₂ os hectares de milho e soja. Maximizar 900x₁ + 1200x₂ sujeito a x₁ + x₂ ≤ 100 e 3x₁ + 5x₂ ≤ 400, com não-negatividade. Substituindo x₁ = 100 − x₂ na segunda: 300 + 2x₂ = 400, logo x₂ = 50 e x₁ = 50. Lucro 900(50) + 1200(50) = 105.000. Os dois recursos ficam sem folga — não há um gargalo, há dois, e liberar só um deles não aumenta o lucro.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        900,
+        1200
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          100
+        ],
+        [
+          3,
+          5,
+          "<=",
+          400
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          50,
+          50
+        ],
+        "valor": 105000
+      }
+    }
   },
   {
     "id": "cap08.exI",
@@ -271,7 +619,39 @@
       "As folgas são calculadas e dão zero nos dois recursos"
     ],
     "erro_provavel": "Converter tudo para unidades avulsas — folhetos individuais e cartazes individuais — sem converter também os lucros e os tempos. O enunciado dá lucro por milheiro e tempo por milheiro; misturar as duas escalas produz um modelo com coeficientes incoerentes que ainda assim roda. Manter a unidade que o enunciado usa é mais seguro do que converter, e declarar a unidade da variável é o que impede o erro.",
-    "resposta_guia": "Sejam x₁ milheiros de folheto e x₂ centenas de cartazes por mês. Maximizar 5x₁ + 12x₂ sujeito a 2x₁ + 5x₂ ≤ 100 (impressão, h) e x₁ + 2x₂ ≤ 44 (acabamento, h), com não-negatividade. Da segunda, x₁ = 44 − 2x₂; substituindo na primeira: 88 + x₂ = 100, logo x₂ = 12 e x₁ = 20. Lucro 5(20) + 12(12) = 244. Impressão: 2(20) + 5(12) = 100, folga zero. Acabamento: 20 + 24 = 44, folga zero."
+    "resposta_guia": "Sejam x₁ milheiros de folheto e x₂ centenas de cartazes por mês. Maximizar 5x₁ + 12x₂ sujeito a 2x₁ + 5x₂ ≤ 100 (impressão, h) e x₁ + 2x₂ ≤ 44 (acabamento, h), com não-negatividade. Da segunda, x₁ = 44 − 2x₂; substituindo na primeira: 88 + x₂ = 100, logo x₂ = 12 e x₁ = 20. Lucro 5(20) + 12(12) = 244. Impressão: 2(20) + 5(12) = 100, folga zero. Acabamento: 20 + 24 = 44, folga zero.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        5,
+        12
+      ],
+      "restricoes": [
+        [
+          2,
+          5,
+          "<=",
+          100
+        ],
+        [
+          1,
+          2,
+          "<=",
+          44
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          20,
+          12
+        ],
+        "valor": 244
+      }
+    }
   },
   {
     "id": "cap08.exJ",
@@ -292,6 +672,447 @@
       "A resposta articula a inversão: nos exercícios anteriores o recurso era teto e o dinheiro era objetivo; aqui o dinheiro é objetivo a minimizar e a nutrição é piso"
     ],
     "erro_provavel": "Escrever as exigências nutricionais como '≤' por hábito, copiando a forma dos exercícios de recurso. Com '≤' o modelo fica viável e o ótimo vira não comprar nada, custo zero — resposta absurda que denuncia o erro. Vale a regra: recurso disponível vira teto (≤); exigência a cumprir vira piso (≥). O sentido da desigualdade vem do enunciado, não do costume.",
-    "resposta_guia": "Sejam x₁ e x₂ os quilos de A e de B por saco. Minimizar 3x₁ + 5x₂ sujeito a 2x₁ + 5x₂ ≥ 20 (proteína), 4x₁ + 2x₂ ≥ 16 (energia), x₁, x₂ ≥ 0. O ótimo é sustentado pelas duas: de 4x₁ + 2x₂ = 16 vem x₂ = 8 − 2x₁; substituindo, 2x₁ + 40 − 10x₁ = 20, logo x₁ = 2,5 e x₂ = 3. Custo 3(2,5) + 5(3) = 22,50. Comparando com os outros vértices: (10, 0) custa 30 e (0, 8) custa 40."
+    "resposta_guia": "Sejam x₁ e x₂ os quilos de A e de B por saco. Minimizar 3x₁ + 5x₂ sujeito a 2x₁ + 5x₂ ≥ 20 (proteína), 4x₁ + 2x₂ ≥ 16 (energia), x₁, x₂ ≥ 0. O ótimo é sustentado pelas duas: de 4x₁ + 2x₂ = 16 vem x₂ = 8 − 2x₁; substituindo, 2x₁ + 40 − 10x₁ = 20, logo x₁ = 2,5 e x₂ = 3. Custo 3(2,5) + 5(3) = 22,50. Comparando com os outros vértices: (10, 0) custa 30 e (0, 8) custa 40.",
+    "modelo": {
+      "sentido": "min",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        3,
+        5
+      ],
+      "restricoes": [
+        [
+          2,
+          5,
+          ">=",
+          20
+        ],
+        [
+          4,
+          2,
+          ">=",
+          16
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          2.5,
+          3
+        ],
+        "valor": 22.5
+      }
+    }
+  },
+  {
+    "id": "cap09.exA",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "A",
+    "tipo": "julgar",
+    "objetivo": "O1",
+    "capacidade": "simplex",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "Por que não enumerar",
+    "enunciado": "Um modelo de Programação Linear tem **6 variáveis de decisão** e **5 restrições**, todas do tipo `≤`.\n\n1. Quantas variáveis o modelo tem depois de posto em forma padrão?\n2. Quantas bases existem para examinar, se alguém decidir enumerar todas?\n3. O Simplex examina essas mesmas bases? Responda **o que ele faz em vez disso**, em duas frases.\n\nUm colega comenta: *\"são só algumas centenas, o computador faz num piscar\"*. Ele tem razão **neste caso** — então explique por que a enumeração ainda assim não é o caminho.",
+    "criterios": [
+      "Identifica 11 variáveis em forma padrão: as 6 de decisão mais 1 folga por restrição",
+      "Calcula 462 bases, reconhecendo que a conta é a combinação de 11 elementos tomados 5 a 5 (ou 6 a 6, que dá o mesmo)",
+      "Responde que o Simplex **não** examina todas: ele parte de uma base viável e troca uma variável por vez, percorrendo um caminho de vértices sempre melhores",
+      "Sobre o comentário do colega: reconhece que ele está certo nesta instância e errado como método, porque a contagem cresce combinatoriamente — dobrar o tamanho do modelo não dobra o trabalho"
+    ],
+    "erro_provavel": "Contar apenas as 6 variáveis de decisão e responder algo como 15 ou 20 bases. O erro nasce de esquecer que a forma padrão **cria variáveis**: cada `≤` vira uma igualdade e traz uma folga junto. Quem esquece isso também tende a achar que a base é escolhida entre as variáveis originais, e trava no primeiro quadro em que uma folga entra na base. A base é escolhida entre **todas** as colunas do quadro, e tem tamanho igual ao número de restrições.",
+    "resposta_guia": "Em forma padrão há 11 variáveis: as 6 de decisão e 5 folgas, uma por restrição. Uma base tem tamanho 5 — o número de restrições — logo há C(11,5) = 462 bases a examinar. O Simplex não olha para as 462: começa numa base viável e, a cada iteração, troca exatamente uma variável, andando por um caminho de vértices em que o objetivo nunca piora, e para quando nenhuma troca melhora. O colega tem razão sobre esta instância — 462 contas são triviais. O que ele erra é o método: a contagem é combinatória, então um modelo com 20 variáveis e 20 restrições já tem 137.846.528.820 bases. Um procedimento que funciona no exemplo pequeno e é impraticável no tamanho real não é um procedimento."
+  },
+  {
+    "id": "cap09.exB",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "B",
+    "tipo": "formular",
+    "objetivo": "O2",
+    "capacidade": "simplex",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "Da desigualdade ao quadro de partida",
+    "enunciado": "**A marcenaria deste bloco.** Uma marcenaria produz estantes e armários. Cada estante dá R$ 3 de lucro; cada armário, R$ 5. A estante consome 1 hora de corte e 3 de montagem; o armário, 2 de corte e 2 de montagem. Há 8 horas de corte e 12 de montagem.\n\n$$\\max\\ 3x_1 + 5x_2 \\quad \\text{s.a.}\\quad x_1 + 2x_2 \\le 8,\\quad 3x_1 + 2x_2 \\le 12,\\quad x_1, x_2 \\ge 0$$\n\nEscreva o modelo em **forma padrão** e responda:\n\n1. Quais são as variáveis, e o que cada folga significa na marcenaria?\n2. Qual é a base de partida, e por que ela serve?\n3. **Que ponto do plano** essa base representa, e quanto vale o lucro ali?",
+    "criterios": [
+      "A forma padrão troca as duas desigualdades por igualdades, introduzindo $f_1$ e $f_2$ com a não-negatividade de todas as quatro variáveis",
+      "Interpreta as folgas como horas ociosas: $f_1$ é hora de corte não usada e $f_2$ é hora de montagem não usada",
+      "A base de partida é $\\{f_1, f_2\\}$, com $f_1 = 8$ e $f_2 = 12$; ela serve porque dá valores não-negativos sem exigir nenhuma conta",
+      "Reconhece que essa base representa a origem $(0,0)$ — não produzir nada — com lucro zero"
+    ],
+    "erro_provavel": "Escrever a forma padrão certa e, na pergunta 3, responder que a base de partida \"não representa ponto nenhum, é só o começo da tabela\". Representa, sim, e é a ideia central do capítulo: **toda base é um vértice**. As variáveis fora da base valem zero, então $x_1 = x_2 = 0$ — a origem. Quem não faz essa ligação passa o capítulo inteiro manipulando tabela sem saber onde está, e é quem não consegue dizer, no meio de uma prova, se o quadro atual já é uma resposta executável.",
+    "resposta_guia": "Forma padrão: $x_1 + 2x_2 + f_1 = 8$ e $3x_1 + 2x_2 + f_2 = 12$, com $x_1, x_2, f_1, f_2 \\ge 0$. $f_1$ são horas de corte que sobram e $f_2$, horas de montagem que sobram. A base de partida é $\\{f_1, f_2\\}$: as colunas das folgas formam a identidade, então basta ler $f_1 = 8$ e $f_2 = 12$ sem resolver sistema nenhum, e os dois valores são não-negativos. As variáveis fora da base valem zero, logo $x_1 = x_2 = 0$: é a origem, não produzir nada, com lucro zero e as 8 horas de corte e 12 de montagem inteiras ociosas.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        3,
+        5
+      ],
+      "restricoes": [
+        [
+          1,
+          2,
+          "<=",
+          8
+        ],
+        [
+          3,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          2,
+          3
+        ],
+        "valor": 21
+      }
+    }
+  },
+  {
+    "id": "cap09.exC",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "C",
+    "tipo": "resolver",
+    "objetivo": "O3",
+    "capacidade": "simplex",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "Quem entra e quem sai",
+    "enunciado": "**A marcenaria deste bloco.** Uma marcenaria produz estantes e armários. Cada estante dá R$ 3 de lucro; cada armário, R$ 5. A estante consome 1 hora de corte e 3 de montagem; o armário, 2 de corte e 2 de montagem. Há 8 horas de corte e 12 de montagem.\n\n$$\\max\\ 3x_1 + 5x_2 \\quad \\text{s.a.}\\quad x_1 + 2x_2 \\le 8,\\quad 3x_1 + 2x_2 \\le 12,\\quad x_1, x_2 \\ge 0$$\n\nO quadro de partida é este:\n\n| base | $x_1$ | $x_2$ | $f_1$ | $f_2$ | $b$ |\n|---|---:|---:|---:|---:|---:|\n| $f_1$ | 1 | 2 | 1 | 0 | 8 |\n| $f_2$ | 3 | 2 | 0 | 1 | 12 |\n| $z$ | −3 | −5 | 0 | 0 | 0 |\n\nSem pivotear ainda, responda:\n\n1. Qual coluna **entra** na base, e por qual regra?\n2. Qual variável **sai**? Mostre o teste da razão linha a linha.\n3. Qual é o elemento **pivô**?\n4. Em uma frase: o que a razão vencedora significa na marcenaria?",
+    "criterios": [
+      "Entra $x_2$, porque −5 é o coeficiente mais negativo da linha $z$ (regra de Dantzig)",
+      "O teste da razão é feito nas duas linhas: $8 \\div 2 = 4$ e $12 \\div 2 = 6$",
+      "Sai $f_1$, por ter a **menor** razão positiva",
+      "O pivô é o 2 no cruzamento da linha de $f_1$ com a coluna de $x_2$",
+      "Interpreta a razão vencedora: 4 é o máximo de armários que as 8 horas de corte permitem, e é o corte que acaba primeiro"
+    ],
+    "erro_provavel": "Escolher a **maior** razão, ou escolher a linha pelo maior lado direito. O raciocínio por trás do erro costuma ser \"quero andar o máximo possível\" — que é a intenção certa e a conta errada. Andar até a razão 6 poria $x_2 = 6$, exigindo 12 horas de corte quando só existem 8. O ponto resultante fica **fora da região viável**, e o pior é que a tabela continua produzindo números bem-comportados: o erro não aparece como falha, aparece como resposta.",
+    "resposta_guia": "Entra $x_2$: entre −3 e −5, o mais negativo é −5, então é a coluna de $x_2$. Teste da razão: na linha de $f_1$, $8 \\div 2 = 4$; na de $f_2$, $12 \\div 2 = 6$. Vence a menor razão positiva, portanto sai $f_1$, e o pivô é o 2 na linha de $f_1$, coluna de $x_2$. A razão 4 diz que as 8 horas de corte comportam no máximo 4 armários — o corte é o recurso que acaba primeiro quando se aumenta só $x_2$, e é ele quem manda parar.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        3,
+        5
+      ],
+      "restricoes": [
+        [
+          1,
+          2,
+          "<=",
+          8
+        ],
+        [
+          3,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          2,
+          3
+        ],
+        "valor": 21
+      }
+    }
+  },
+  {
+    "id": "cap09.exD",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "D",
+    "tipo": "resolver",
+    "objetivo": "O3",
+    "capacidade": "simplex",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Pivotear e ler onde você chegou",
+    "enunciado": "**A marcenaria deste bloco.** Uma marcenaria produz estantes e armários. Cada estante dá R$ 3 de lucro; cada armário, R$ 5. A estante consome 1 hora de corte e 3 de montagem; o armário, 2 de corte e 2 de montagem. Há 8 horas de corte e 12 de montagem.\n\n$$\\max\\ 3x_1 + 5x_2 \\quad \\text{s.a.}\\quad x_1 + 2x_2 \\le 8,\\quad 3x_1 + 2x_2 \\le 12,\\quad x_1, x_2 \\ge 0$$\n\nPartindo do quadro de partida (o mesmo do exercício anterior):\n\n| base | $x_1$ | $x_2$ | $f_1$ | $f_2$ | $b$ |\n|---|---:|---:|---:|---:|---:|\n| $f_1$ | 1 | 2 | 1 | 0 | 8 |\n| $f_2$ | 3 | 2 | 0 | 1 | 12 |\n| $z$ | −3 | −5 | 0 | 0 | 0 |\n\nExecute **uma** iteração completa: pivoteie e escreva o novo quadro inteiro, com frações exatas — nada de decimais arredondados.\n\nDepois responda: **em que ponto do plano você está agora**, quanto vale o lucro ali, e **o quadro já é final**?",
+    "criterios": [
+      "A linha do pivô é dividida por 2, virando $(1/2,\\ 1,\\ 1/2,\\ 0 \\mid 4)$ na base como $x_2$",
+      "A linha de $f_2$ vira $(2,\\ 0,\\ -1,\\ 1 \\mid 4)$ e a linha $z$ vira $(-1/2,\\ 0,\\ 5/2,\\ 0 \\mid 20)$",
+      "Lê o ponto corretamente: $x_2 = 4$, $x_1 = 0$ por estar fora da base, isto é, o vértice $(0, 4)$",
+      "O lucro ali é 20, e o quadro **não** é final porque ainda há um coeficiente negativo (−1/2) na linha $z$"
+    ],
+    "erro_provavel": "Pivotear certo e declarar o quadro final porque \"o lucro subiu de 0 para 20 e a coluna de $x_2$ está resolvida\". O critério de parada não é o lucro ter subido nem a coluna que entrou estar arrumada — é **não sobrar nenhum negativo na linha $z$**. O −1/2 sob $x_1$ está dizendo, em voz alta, que produzir estantes ainda aumenta o lucro. Parar aqui entrega (0, 4) e R$ 20, quando o modelo tinha R$ 21 disponível.",
+    "resposta_guia": "Dividindo a linha de $f_1$ pelo pivô 2 obtém-se a nova linha de $x_2$: $(1/2,\\ 1,\\ 1/2,\\ 0 \\mid 4)$. Subtraindo 2 vezes essa linha da de $f_2$: $(2,\\ 0,\\ -1,\\ 1 \\mid 4)$. Somando 5 vezes à linha $z$: $(-1/2,\\ 0,\\ 5/2,\\ 0 \\mid 20)$. A base agora é $\\{x_2, f_2\\}$, com $x_2 = 4$ e $f_2 = 4$; $x_1$ e $f_1$ estão fora e valem zero. O ponto é $(0, 4)$, com lucro 20 — só armários, com as 8 horas de corte esgotadas e 4 horas de montagem ainda sobrando. O quadro **não** é final: o −1/2 sob $x_1$ mostra que ainda há como subir.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        3,
+        5
+      ],
+      "restricoes": [
+        [
+          1,
+          2,
+          "<=",
+          8
+        ],
+        [
+          3,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          2,
+          3
+        ],
+        "valor": 21
+      }
+    }
+  },
+  {
+    "id": "cap09.exE",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "E",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "capacidade": "simplex",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O teste da razão feito ao contrário",
+    "enunciado": "**A marcenaria deste bloco.** Uma marcenaria produz estantes e armários. Cada estante dá R$ 3 de lucro; cada armário, R$ 5. A estante consome 1 hora de corte e 3 de montagem; o armário, 2 de corte e 2 de montagem. Há 8 horas de corte e 12 de montagem.\n\n$$\\max\\ 3x_1 + 5x_2 \\quad \\text{s.a.}\\quad x_1 + 2x_2 \\le 8,\\quad 3x_1 + 2x_2 \\le 12,\\quad x_1, x_2 \\ge 0$$\n\nUm aluno resolve a primeira iteração assim:\n\n> *\"Entra $x_2$, porque −5 é o mais negativo. Para quem sai, calculei as razões: 8÷2 = 4 e 12÷2 = 6. Peguei a linha de $f_2$, com razão 6, porque assim eu ando mais e o lucro sobe mais de uma vez só.\"*\n\n1. Complete o raciocínio dele: **que ponto** do plano essa escolha produz?\n2. Mostre, com a conta, que esse ponto **não pode ser executado** na marcenaria.\n3. Explique, em uma frase, o que o teste da razão está de fato medindo — e por que a menor razão não é uma convenção.",
+    "criterios": [
+      "Identifica que a escolha do aluno leva a $x_2 = 6$, isto é, ao ponto $(0, 6)$",
+      "Mostra que $(0,6)$ viola a restrição de corte: $1(0) + 2(6) = 12$ horas contra as 8 disponíveis",
+      "Explica que o teste da razão mede **até onde dá para andar** naquela direção antes de a primeira restrição se esgotar",
+      "Conclui que a menor razão é a única que mantém todas as variáveis não-negativas — e que uma razão maior produz solução inviável, não apenas pior"
+    ],
+    "erro_provavel": "Concordar em parte com o aluno, dizendo que a escolha dele \"dá um resultado pior, mas não está errada\". Está errada de um jeito mais grave do que ser pior: o ponto produzido **não existe** como plano de produção. Confundir \"pior\" com \"inviável\" é o mal-entendido que faz alguém levar para a reunião um plano que a fábrica não consegue executar — e um número ruim é sempre menos perigoso do que um número impossível apresentado com confiança.",
+    "resposta_guia": "Escolher a linha de $f_2$ leva $x_2$ até 6, no ponto $(0, 6)$. Basta conferir o corte: $1(0) + 2(6) = 12$ horas, e só existem 8 — o ponto está fora da região viável. No quadro, isso apareceria como $f_1 = 8 - 12 = -4$, uma folga negativa, o que é impossível por definição, já que a forma padrão exige todas as variáveis não-negativas. O teste da razão mede até onde dá para andar na direção escolhida antes que a primeira restrição se esgote; a menor razão não é convenção, é a única escolha que preserva a viabilidade. Andar mais não rende mais: sai da região.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        3,
+        5
+      ],
+      "restricoes": [
+        [
+          1,
+          2,
+          "<=",
+          8
+        ],
+        [
+          3,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          2,
+          3
+        ],
+        "valor": 21
+      }
+    }
+  },
+  {
+    "id": "cap09.exF",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "F",
+    "tipo": "resolver",
+    "objetivo": "O4",
+    "capacidade": "simplex",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Ler um quadro final sem ter visto o começo",
+    "enunciado": "Uma fábrica tem dois produtos e três limites: duas máquinas e um teto comercial no produto 1.\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\le 100,\\quad x_1 + x_2 \\le 80,\\quad x_1 \\le 40,\\quad x_1, x_2 \\ge 0$$\n\nAlguém resolveu e entregou só o último quadro:\n\n| base | $x_1$ | $x_2$ | $f_1$ | $f_2$ | $f_3$ | $b$ |\n|---|---:|---:|---:|---:|---:|---:|\n| $x_2$ | 0 | 1 | −1 | 2 | 0 | 60 |\n| $f_3$ | 0 | 0 | −1 | 1 | 1 | 20 |\n| $x_1$ | 1 | 0 | 1 | −1 | 0 | 20 |\n| $z$ | 0 | 0 | 10 | 20 | 0 | 2600 |\n\nSem refazer a conta, responda:\n\n1. Qual é o plano de produção e quanto ele rende?\n2. **Quais restrições estão apertadas** e qual sobra — e quanto sobra?\n3. O quadro é final? Justifique pelo critério, não pela aparência.\n4. O gerente comercial pergunta se vale a pena negociar um teto maior no produto 1. O que este quadro já responde?",
+    "criterios": [
+      "Lê o plano direto da base: $x_1 = 20$, $x_2 = 60$, com lucro 2.600",
+      "Reconhece que $f_1$ e $f_2$ estão fora da base, logo valem zero: as duas máquinas estão esgotadas",
+      "Reconhece que $f_3$ está na base valendo 20: o teto comercial de 40 não está apertado, sobra 20",
+      "Justifica que o quadro é final porque nenhum coeficiente da linha $z$ é negativo",
+      "Sobre o teto comercial: como ele sobra 20, aumentá-lo não muda nada — o que segura o resultado são as duas máquinas"
+    ],
+    "erro_provavel": "Ler o plano certo e responder ao gerente que \"vale a pena, porque $x_1 = 20$ está longe do teto de 40, então há espaço para crescer\". A conclusão inverte a leitura. Justamente por sobrar folga, o teto **não** é o que limita: mexer nele não move o resultado em nada. Este é o hábito que o capítulo quer instalar — antes de negociar um limite, verifique se ele está apertado. Negociar folga é gastar capital político para não mudar nada.",
+    "resposta_guia": "O plano é $x_1 = 20$ e $x_2 = 60$, com lucro 2.600 — os valores estão no lado direito, nas linhas em que $x_1$ e $x_2$ são a base. $f_1$ e $f_2$ estão fora da base e valem zero: as duas máquinas estão no limite. $f_3$ está na base valendo 20, então o teto comercial de 40 unidades tem folga: só 20 estão sendo produzidas. O quadro é final pelo critério, não pela aparência: nenhum coeficiente da linha $z$ é negativo. Ao gerente: negociar um teto maior no produto 1 não muda nada, porque esse teto não é o que segura o resultado; quem segura são as duas máquinas, que estão sem folga.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        40,
+        30
+      ],
+      "restricoes": [
+        [
+          2,
+          1,
+          "<=",
+          100
+        ],
+        [
+          1,
+          1,
+          "<=",
+          80
+        ],
+        [
+          1,
+          0,
+          "<=",
+          40
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          20,
+          60
+        ],
+        "valor": 2600
+      }
+    }
+  },
+  {
+    "id": "cap09.exG",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "G",
+    "tipo": "diagnosticar",
+    "objetivo": "O4",
+    "capacidade": "simplex",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O quadro que parou cedo demais",
+    "enunciado": "O mesmo modelo do exercício anterior:\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\le 100,\\quad x_1 + x_2 \\le 80,\\quad x_1 \\le 40,\\quad x_1, x_2 \\ge 0$$\n\nUm relatório apresenta este quadro como resultado, com a legenda *\"plano ótimo: 40 unidades do produto 1 e 20 do produto 2, lucro R$ 2.200\"*:\n\n| base | $x_1$ | $x_2$ | $f_1$ | $f_2$ | $f_3$ | $b$ |\n|---|---:|---:|---:|---:|---:|---:|\n| $x_2$ | 0 | 1 | 1 | 0 | −2 | 20 |\n| $f_2$ | 0 | 0 | −1 | 1 | 1 | 20 |\n| $x_1$ | 1 | 0 | 0 | 0 | 1 | 40 |\n| $z$ | 0 | 0 | 30 | 0 | −20 | 2200 |\n\n1. O plano lido do quadro está certo? E a legenda?\n2. Diga **exatamente** o que está errado, apontando a evidência no quadro.\n3. Qual coluna deveria entrar na base, e o que isso significa em termos de decisão de produção?",
+    "criterios": [
+      "Confirma que a leitura do quadro está certa: $x_1 = 40$, $x_2 = 20$, valor 2.200",
+      "Aponta o defeito na legenda: o quadro **não** é final, porque há um coeficiente negativo (−20) na linha $z$, sob $f_3$",
+      "Conclui que a coluna que deve entrar é $f_3$, a folga do teto comercial",
+      "Interpreta a decisão: fazer $f_3$ entrar na base é **deixar de produzir no teto** do produto 1, abrindo espaço para o produto 2"
+    ],
+    "erro_provavel": "Procurar o erro na aritmética do quadro e não achar nada — porque não há erro de aritmética. O quadro está impecavelmente calculado e o plano lido dele é o plano correto **daquele vértice**. O defeito é de conclusão, não de conta: alguém parou antes do critério de parada. É o modo mais traiçoeiro de errar em Programação Linear, porque não deixa rastro numérico — sai um plano executável, coerente, e simplesmente pior do que o disponível.",
+    "resposta_guia": "A leitura está certa: $x_1 = 40$, $x_2 = 20$, lucro 2.200. A legenda é que está errada, e a evidência está na linha $z$: o −20 sob $f_3$ diz que o quadro não é final. Deve entrar $f_3$, a folga do teto comercial do produto 1. Em decisão de produção isso significa **recuar do teto**: hoje o plano usa as 40 unidades permitidas do produto 1, e liberar parte dessa capacidade para o produto 2 rende mais. Continuando a iteração chega-se a $x_1 = 20$, $x_2 = 60$ e lucro 2.600 — R$ 400 a mais do que o relatório declarou como ótimo.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        40,
+        30
+      ],
+      "restricoes": [
+        [
+          2,
+          1,
+          "<=",
+          100
+        ],
+        [
+          1,
+          1,
+          "<=",
+          80
+        ],
+        [
+          1,
+          0,
+          "<=",
+          40
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          20,
+          60
+        ],
+        "valor": 2600
+      }
+    }
+  },
+  {
+    "id": "cap09.exH",
+    "capitulo": 9,
+    "serie": "cap09",
+    "variante": "H",
+    "tipo": "diagnosticar",
+    "objetivo": "O5",
+    "capacidade": "simplex",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "A artificial que não saiu",
+    "enunciado": "Uma ração é feita com dois ingredientes, A e B, a R$ 4 e R$ 6 o quilo. O saco precisa de **pelo menos 10 unidades de proteína**; o A fornece 2 por quilo e o B, 1. O fornecedor só entrega **até 3 kg de cada** ingrediente por saco.\n\n$$\\min\\ 4x_1 + 6x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\ge 10,\\quad x_1 \\le 3,\\quad x_2 \\le 3,\\quad x_1, x_2 \\ge 0$$\n\nResolvido por *big-M*, o último quadro é este ($a_1$ é a variável artificial da restrição de proteína, $e_1$ o excesso):\n\n| base | $x_1$ | $x_2$ | $e_1$ | $a_1$ | $f_2$ | $f_3$ | $b$ |\n|---|---:|---:|---:|---:|---:|---:|---:|\n| $a_1$ | 0 | 0 | −1 | 1 | −2 | −1 | 1 |\n| $x_1$ | 1 | 0 | 0 | 0 | 1 | 0 | 3 |\n| $x_2$ | 0 | 1 | 0 | 0 | 0 | 1 | 3 |\n| $z$ | 0 | 0 | $M$ | 0 | $2M − 4$ | $M − 6$ | $−M − 30$ |\n\nUm estagiário conclui: *\"terminou, a linha $z$ não tem negativo. A receita é 3 kg de A e 3 kg de B, e o custo é R$ 30 — o $M$ a gente ignora, é só um artifício de cálculo\"*.\n\n1. O quadro de fato terminou?\n2. A conclusão está certa? Aponte a evidência.\n3. Confirme o diagnóstico **pelo enunciado**, sem usar o quadro.\n4. O que você leva para quem pediu a ração — e onde está o defeito, no algoritmo ou no modelo?",
+    "criterios": [
+      "Confirma que o algoritmo terminou: nenhum coeficiente negativo na linha $z$",
+      "Aponta que $a_1$ continua **na base**, valendo 1 — e que artificial positiva ao final significa modelo **inviável**",
+      "Rejeita a leitura do custo: não se pode ignorar o $M$, e $−M − 30$ não é um custo, é o atestado de que o sistema só fechou com 1 unidade de proteína inventada",
+      "Confirma pelo enunciado: com no máximo 3 kg de cada, a proteína máxima é $2(3) + 1(3) = 9$, abaixo das 10 exigidas",
+      "Conclui que o defeito é do **modelo**, não do algoritmo: a exigência e o limite de fornecimento são incompatíveis, e é uma dessas duas coisas que precisa mudar"
+    ],
+    "erro_provavel": "Aceitar a leitura do estagiário porque o critério de parada foi de fato satisfeito. Ele acertou a pergunta 1 e é isso que torna o erro convincente: o algoritmo **terminou** mesmo. Só que terminar e ter resposta são coisas diferentes. A verificação que falta é olhar **quem ficou na base**, e uma artificial com valor positivo ali diz que o único jeito de o sistema fechar foi inventar mercadoria. O plano de 3 kg e 3 kg não entrega as 10 unidades de proteína — entrega 9 — e um relatório que apresente isso como receita aprovada faz o cliente comprar ração fora de especificação.",
+    "resposta_guia": "O algoritmo terminou: não há coeficiente negativo na linha $z$. Mas a conclusão está errada, e a evidência é a primeira linha: $a_1$, a variável artificial, continua na base valendo 1. Ela não é ingrediente nem excesso — é ficção introduzida para dar uma base de partida, e sobrar ficção no fim significa que o sistema só fecha inventando 1 unidade de proteína. O modelo é inviável, e o $−M − 30$ não é custo: é justamente a multa que denuncia isso. Dá para confirmar sem o quadro: com no máximo 3 kg de cada, a proteína máxima possível é $2(3) + 1(3) = 9$, e a exigência é 10. O defeito não é do algoritmo, que fez o certo e avisou; é do modelo, que promete uma especificação que o fornecimento não sustenta. O que se leva a quem pediu é a incompatibilidade — ou se negocia mais de um dos ingredientes, ou se revê a exigência de proteína.",
+    "modelo": {
+      "sentido": "min",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        4,
+        6
+      ],
+      "restricoes": [
+        [
+          2,
+          1,
+          ">=",
+          10
+        ],
+        [
+          1,
+          0,
+          "<=",
+          3
+        ],
+        [
+          0,
+          1,
+          "<=",
+          3
+        ]
+      ],
+      "otimo": {
+        "status": "inviavel"
+      }
+    }
   }
 ]

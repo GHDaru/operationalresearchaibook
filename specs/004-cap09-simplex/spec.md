@@ -1,7 +1,7 @@
 # Spec 004 — Capítulo 09: O método Simplex
 
 **Rodada:** 004 · **Raia:** plena · **Branch:** `claude/handbook-pesquisa-operacional-ucbbpu`
-· **Data:** 2026-08-09 · **Status:** **aguardando aprovação do autor** (gate de spec)
+· **Data:** 2026-08-09 · **Status:** **clarify respondido pelo autor — aprovada para implementar**
 
 > **Esta spec é proposta, não transcrição.** Nos capítulos 07 e 08 o conteúdo veio da narrativa
 > de aula do autor. Aqui eu não tenho essa narrativa: o que segue é uma **proposta** montada a
@@ -77,24 +77,24 @@ razão. O capítulo precisa responder por que aqui a ganância não engana: porq
 - Dualidade e preço-sombra — capítulo 12. O capítulo declara que o quadro final **já contém**
   essa informação e que o livro ainda não vai lê-la.
 
-### Aberto — depende da resposta do autor
+## Clarify — respondido pelo autor em 2026-08-09
 
-- **Fase I / *big-M*** (base inicial quando a origem não é viável). A instância da montadora é
-  toda `≤` com lado direito positivo, então a base de folgas serve e o assunto pode esperar.
-  Mas ele não está declarado em nenhum capítulo do mapa: o 10 é sobre casos especiais, não sobre
-  partida. Se não entrar aqui, fica **sem casa** — e isso é decisão editorial, não minha.
+| # | Pergunta | Resposta | O que muda |
+|---|---|---|---|
+| 1 | Veículo: quadro (*tableau*) ou forma algébrica? | **Quadro** | O capítulo ensina pelo quadro, que é o que a sala pratica e o que cai em prova. A álgebra aparece só onde é necessária para dar sentido ao quadro — a forma matricial fica para o capítulo 11 |
+| 2 | Onde entra a Fase I / *big-M*? | **Neste capítulo 09** | O Simplex fica completo num lugar só: partida, iteração e parada. Exige uma segunda instância, em que a origem **não** é viável |
+| 3 | Existe narrativa de sala? | **Não — seguir a proposta** | A narrativa acima é a implementada. Fica registrado que ela é minha, e não sequência testada em sala como nos capítulos 07 e 08 |
 
-## Perguntas de clarify
+### Consequência da resposta 2: a segunda instância
 
-Três, e as três mudam o capítulo:
+Big-M precisa de uma instância cuja origem seja inviável, e ela deve nascer da **mesma história**
+— trocar de contexto no meio do capítulo custa mais do que ganha. A escolhida é a montadora com
+um **compromisso já vendido**: o cliente comprou 5 unidades do Tipo 2, o que impõe
+$x_2 \ge 5$ e tira a origem da região viável.
 
-1. **Qual veículo você usa em sala: o quadro (*tableau*) ou a forma algébrica?** O quadro é o
-   que a maioria dos cursos brasileiros pratica e é mais fácil de conferir na prova; a forma
-   algébrica mostra melhor *por que* funciona e liga direto ao capítulo 11.
-2. **A Fase I / *big-M* entra neste capítulo, vira capítulo próprio, ou fica para depois?**
-3. **Existe uma narrativa sua de sala para o Simplex**, como houve para o método gráfico? Se
-   existir, ela substitui a proposta acima — o padrão dos capítulos 07 e 08 é que a sequência
-   didática testada em sala ganha da minha.
+O ganho pedagógico é duplo: o leitor vê a partida artificial **e** vê o preço do compromisso —
+o ótimo cai de R$ 1.100 para R$ 950, e essa diferença é uma decisão de negócio, não um detalhe
+de álgebra.
 
 ## Critérios de aceite
 

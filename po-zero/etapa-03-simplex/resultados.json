@@ -1,0 +1,441 @@
+{
+  "instancia": {
+    "arquivo": "po-zero/etapa-01-formulacao/instancias/montadora.json",
+    "ficha": "Montadora — último dia do mês, MRP inverso"
+  },
+  "combinatoria": [
+    {
+      "variaveis": 2,
+      "restricoes": 2,
+      "bases": 6
+    },
+    {
+      "variaveis": 5,
+      "restricoes": 5,
+      "bases": 252
+    },
+    {
+      "variaveis": 10,
+      "restricoes": 10,
+      "bases": 184756
+    },
+    {
+      "variaveis": 20,
+      "restricoes": 20,
+      "bases": 137846528820
+    },
+    {
+      "variaveis": 50,
+      "restricoes": 50,
+      "bases": 100891344545564193334812497256
+    }
+  ],
+  "pior_caso_klee_minty": {
+    "descricao": "Cubo de Klee–Minty com a regra de Dantzig (a que o capítulo ensina). O algoritmo visita todos os 2^n vértices.",
+    "medicoes": [
+      {
+        "n": 2,
+        "vertices_do_cubo": 4,
+        "pivos": 3,
+        "confere_com_2n_menos_1": true,
+        "status": "otimo"
+      },
+      {
+        "n": 3,
+        "vertices_do_cubo": 8,
+        "pivos": 7,
+        "confere_com_2n_menos_1": true,
+        "status": "otimo"
+      },
+      {
+        "n": 4,
+        "vertices_do_cubo": 16,
+        "pivos": 15,
+        "confere_com_2n_menos_1": true,
+        "status": "otimo"
+      },
+      {
+        "n": 5,
+        "vertices_do_cubo": 32,
+        "pivos": 31,
+        "confere_com_2n_menos_1": true,
+        "status": "otimo"
+      },
+      {
+        "n": 6,
+        "vertices_do_cubo": 64,
+        "pivos": 63,
+        "confere_com_2n_menos_1": true,
+        "status": "otimo"
+      },
+      {
+        "n": 7,
+        "vertices_do_cubo": 128,
+        "pivos": 127,
+        "confere_com_2n_menos_1": true,
+        "status": "otimo"
+      }
+    ]
+  },
+  "casos": {
+    "montadora": {
+      "descricao": "A instância dos capítulos 07 e 08: 10 CPUs e 12 pentes de 16 GB. Origem viável, base de folgas serve.",
+      "modelo": [
+        {
+          "coeficientes": [
+            "1",
+            "1"
+          ],
+          "sinal": "<=",
+          "b": "10",
+          "rotulo": "CPUs"
+        },
+        {
+          "coeficientes": [
+            "1",
+            "2"
+          ],
+          "sinal": "<=",
+          "b": "12",
+          "rotulo": "pentes de memória de 16 GB"
+        }
+      ],
+      "quadro": {
+        "status": "otimo",
+        "pivos": 2,
+        "colunas": [
+          "x1",
+          "x2",
+          "f1",
+          "f2"
+        ],
+        "artificiais": [],
+        "vertices_visitados": [
+          [
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "6"
+          ],
+          [
+            "8",
+            "2"
+          ]
+        ],
+        "ponto": [
+          "8",
+          "2"
+        ],
+        "valor": "1100",
+        "quadros": [
+          "base          x1      x2      f1      f2       b\n------------------------------------------------\nf1             1       1       1       0      10\nf2             1       2       0       1      12\nz           -100    -150       0       0       0",
+          "base          x1      x2      f1      f2       b\n------------------------------------------------\nf1           1/2       0       1    -1/2       4\nx2           1/2       1       0     1/2       6\nz            -25       0       0      75     900",
+          "base          x1      x2      f1      f2       b\n------------------------------------------------\nx1             1       0       2      -1       8\nx2             0       1      -1       1       2\nz              0       0      50      50    1100"
+        ],
+        "decisoes": [
+          {
+            "iteracao": 0,
+            "base": [
+              "f1",
+              "f2"
+            ],
+            "entra": "x2",
+            "sai": "f2",
+            "razoes": {
+              "f1": "10",
+              "f2": "6"
+            }
+          },
+          {
+            "iteracao": 1,
+            "base": [
+              "f1",
+              "x2"
+            ],
+            "entra": "x1",
+            "sai": "f1",
+            "razoes": {
+              "f1": "8",
+              "x2": "12"
+            }
+          },
+          {
+            "iteracao": 2,
+            "base": [
+              "x1",
+              "x2"
+            ],
+            "entra": null,
+            "sai": null,
+            "razoes": {}
+          }
+        ]
+      },
+      "solver": {
+        "status": "Optimal",
+        "ponto": [
+          8.0,
+          2.0
+        ],
+        "valor": 1100.0
+      },
+      "concordam": true
+    },
+    "montadora_com_compromisso": {
+      "descricao": "A mesma montadora com 5 unidades do Tipo 2 já vendidas: x2 >= 5. A origem deixa de ser viável e o big-M precisa entrar.",
+      "modelo": [
+        {
+          "coeficientes": [
+            "1",
+            "1"
+          ],
+          "sinal": "<=",
+          "b": "10",
+          "rotulo": "CPUs"
+        },
+        {
+          "coeficientes": [
+            "1",
+            "2"
+          ],
+          "sinal": "<=",
+          "b": "12",
+          "rotulo": "pentes de memória de 16 GB"
+        },
+        {
+          "coeficientes": [
+            "0",
+            "1"
+          ],
+          "sinal": ">=",
+          "b": "5",
+          "rotulo": "compromisso: x2 >= 5"
+        }
+      ],
+      "quadro": {
+        "status": "otimo",
+        "pivos": 3,
+        "colunas": [
+          "x1",
+          "x2",
+          "f1",
+          "f2",
+          "e3",
+          "a3"
+        ],
+        "artificiais": [
+          "a3"
+        ],
+        "vertices_visitados": [
+          [
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "5"
+          ],
+          [
+            "0",
+            "6"
+          ],
+          [
+            "2",
+            "5"
+          ]
+        ],
+        "ponto": [
+          "2",
+          "5"
+        ],
+        "valor": "950",
+        "quadros": [
+          "base            x1        x2        f1        f2        e3        a3         b\n------------------------------------------------------------------------------\nf1               1         1         1         0         0         0        10\nf2               1         2         0         1         0         0        12\na3               0         1         0         0        -1         1         5\nz             -100  -M - 150         0         0         M         0       -5M",
+          "base           x1       x2       f1       f2       e3       a3        b\n-----------------------------------------------------------------------\nf1              1        0        1        0        1       -1        5\nf2              1        0        0        1        2       -2        2\nx2              0        1        0        0       -1        1        5\nz            -100        0        0        0     -150  M + 150      750",
+          "base          x1      x2      f1      f2      e3      a3       b\n----------------------------------------------------------------\nf1           1/2       0       1    -1/2       0       0       4\ne3           1/2       0       0     1/2       1      -1       1\nx2           1/2       1       0     1/2       0       0       6\nz            -25       0       0      75       0       M     900",
+          "base          x1      x2      f1      f2      e3      a3       b\n----------------------------------------------------------------\nf1             0       0       1      -1      -1       1       3\nx1             1       0       0       1       2      -2       2\nx2             0       1       0       0      -1       1       5\nz              0       0       0     100      50  M - 50     950"
+        ],
+        "decisoes": [
+          {
+            "iteracao": 0,
+            "base": [
+              "f1",
+              "f2",
+              "a3"
+            ],
+            "entra": "x2",
+            "sai": "a3",
+            "razoes": {
+              "f1": "10",
+              "f2": "6",
+              "a3": "5"
+            }
+          },
+          {
+            "iteracao": 1,
+            "base": [
+              "f1",
+              "f2",
+              "x2"
+            ],
+            "entra": "e3",
+            "sai": "f2",
+            "razoes": {
+              "f1": "5",
+              "f2": "1"
+            }
+          },
+          {
+            "iteracao": 2,
+            "base": [
+              "f1",
+              "e3",
+              "x2"
+            ],
+            "entra": "x1",
+            "sai": "e3",
+            "razoes": {
+              "f1": "8",
+              "e3": "2",
+              "x2": "12"
+            }
+          },
+          {
+            "iteracao": 3,
+            "base": [
+              "f1",
+              "x1",
+              "x2"
+            ],
+            "entra": null,
+            "sai": null,
+            "razoes": {}
+          }
+        ]
+      },
+      "solver": {
+        "status": "Optimal",
+        "ponto": [
+          2.0,
+          5.0
+        ],
+        "valor": 950.0
+      },
+      "concordam": true
+    },
+    "compromisso_impossivel": {
+      "descricao": "O mesmo compromisso, mas de 8 unidades: 8 do Tipo 2 exigiriam 16 pentes e só há 12. Não existe plano.",
+      "modelo": [
+        {
+          "coeficientes": [
+            "1",
+            "1"
+          ],
+          "sinal": "<=",
+          "b": "10",
+          "rotulo": "CPUs"
+        },
+        {
+          "coeficientes": [
+            "1",
+            "2"
+          ],
+          "sinal": "<=",
+          "b": "12",
+          "rotulo": "pentes de memória de 16 GB"
+        },
+        {
+          "coeficientes": [
+            "0",
+            "1"
+          ],
+          "sinal": ">=",
+          "b": "8",
+          "rotulo": "compromisso: x2 >= 8"
+        }
+      ],
+      "quadro": {
+        "status": "inviavel",
+        "pivos": 1,
+        "colunas": [
+          "x1",
+          "x2",
+          "f1",
+          "f2",
+          "e3",
+          "a3"
+        ],
+        "artificiais": [
+          "a3"
+        ],
+        "vertices_visitados": [
+          [
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "6"
+          ]
+        ],
+        "ponto": null,
+        "valor": null,
+        "quadros": [
+          "base            x1        x2        f1        f2        e3        a3         b\n------------------------------------------------------------------------------\nf1               1         1         1         0         0         0        10\nf2               1         2         0         1         0         0        12\na3               0         1         0         0        -1         1         8\nz             -100  -M - 150         0         0         M         0       -8M",
+          "base             x1         x2         f1         f2         e3         a3          b\n-------------------------------------------------------------------------------------\nf1              1/2          0          1       -1/2          0          0          4\nx2              1/2          1          0        1/2          0          0          6\na3             -1/2          0          0       -1/2         -1          1          2\nz         1/2M - 25          0          0  1/2M + 75          M          0  -2M + 900"
+        ],
+        "decisoes": [
+          {
+            "iteracao": 0,
+            "base": [
+              "f1",
+              "f2",
+              "a3"
+            ],
+            "entra": "x2",
+            "sai": "f2",
+            "razoes": {
+              "f1": "10",
+              "f2": "6",
+              "a3": "8"
+            }
+          },
+          {
+            "iteracao": 1,
+            "base": [
+              "f1",
+              "x2",
+              "a3"
+            ],
+            "entra": null,
+            "sai": null,
+            "razoes": {}
+          }
+        ]
+      },
+      "solver": {
+        "status": "Infeasible"
+      },
+      "concordam": true
+    }
+  },
+  "ganho_por_unidade_extra": [
+    {
+      "recurso": "CPUs",
+      "valor_de_uma_unidade_a_mais": 50.0
+    },
+    {
+      "recurso": "pentes de memória de 16 GB",
+      "valor_de_uma_unidade_a_mais": 50.0
+    }
+  ],
+  "ambiente": {
+    "python": "3.11.15",
+    "pulp": "3.3.2",
+    "solver": "HiGHS (via highspy)",
+    "aritmetica_do_quadro": "exata (fractions.Fraction); big-M simbólico",
+    "determinismo": "sem aleatoriedade: nenhuma semente a declarar"
+  }
+}

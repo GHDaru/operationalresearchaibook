@@ -78,6 +78,41 @@ zero significa restrição **ativa** — é ela que está segurando o resultado.
 restrição ativa. Vale **apenas dentro de uma faixa**, e ler fora dela é o erro clássico de
 interpretação.
 
+**Forma padrão.** O modelo reescrito só com igualdades e com todas as variáveis não-negativas.
+Não muda o problema — é a mesma coisa dita numa língua que a álgebra linear sabe processar.
+
+**Variável de folga.** A folga promovida a variável do modelo, para que uma desigualdade `≤`
+vire igualdade. Fora da base significa recurso esgotado; na base, recurso sobrando.
+
+**Variável artificial.** Variável sem significado físico, introduzida só para dar uma base de
+partida a restrições `≥` ou `=`. Entra na função objetivo com multa (ver *big-M*). Se ainda
+estiver na base ao final, com valor positivo, o modelo é **inviável**.
+
+***Big-M*.** A multa dada às variáveis artificiais, com $M$ maior que qualquer valor do
+problema. Tratado como **símbolo**, não como número: escolher um valor concreto pequeno demais
+faz um modelo inviável devolver resposta com cara de ótima.
+
+**Base.** O conjunto de variáveis que o sistema determina; as demais são fixadas em zero. Tem
+tamanho igual ao número de restrições.
+
+**Solução básica viável.** Solução obtida de uma base, com todas as variáveis não-negativas.
+**É o mesmo objeto que a geometria chama de vértice** — a ponte que o método Simplex atravessa.
+
+**Custo reduzido.** Quanto o objetivo muda por unidade de uma variável que hoje está fora da
+base. Negativo (num problema de maximizar, na convenção deste livro) significa que ainda há
+como melhorar; nenhum negativo é o critério de parada.
+
+**Pivoteamento.** Trocar uma variável da base por uma de fora, por eliminação de Gauss. No
+desenho, é andar por uma aresta até o vértice vizinho.
+
+**Teste da razão.** A conta que decide qual variável sai da base: a menor razão positiva entre
+lado direito e coeficiente da coluna que entra. Não é convenção — é a única escolha que
+preserva a viabilidade.
+
+**Convexidade.** Propriedade de um conjunto em que o segmento entre dois pontos quaisquer está
+inteiro dentro dele. É o que garante, num problema linear, que todo ótimo local é global — e é
+por isso que o Simplex pode parar no primeiro vértice de onde nada melhora.
+
 **Dualidade.** A cada modelo de otimização corresponde um modelo espelho cujas variáveis são
 os preços das restrições do original. Não é curiosidade teórica: é o que dá interpretação
 econômica à resposta e sustenta boa parte dos algoritmos.
