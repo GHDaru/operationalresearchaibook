@@ -57,11 +57,14 @@ repete, com outras roupas, no problema que você vai encontrar.
 
 ### O aperto: como se planeja uma organização gigantesca
 
-Em junho de 1947, a Força Aérea dos Estados Unidos montou uma força-tarefa para um problema que
-a estava sufocando: **planejar a si mesma**. Treinamento, suprimento, deslocamento de pessoal —
-tudo isso encadeado, em escala continental, com recursos que acabavam. O projeto se chamou
-**SCOOP** (*Scientific Computation of Optimal Programs*), e o matemático-chefe era **George
-Dantzig**.
+Em **junho de 1947** — um mês antes de a Força Aérea dos Estados Unidos sequer existir como ramo
+separado das forças armadas — ela montou uma força-tarefa para um problema que a estava
+sufocando: **planejar a si mesma**. Treinamento, suprimento, deslocamento de pessoal, tudo
+encadeado, em escala continental, com recursos que acabavam.
+
+A força-tarefa recebeu depois o nome de **Projeto SCOOP** (*Scientific Computation of Optimal
+Programs*), e seu matemático-chefe era **George Dantzig**. No mesmo ano, ele enunciou
+matematicamente o problema de programação linear e desenvolveu o Simplex para resolvê-lo.
 
 Aqui vale desfazer um mal-entendido que quase todo aluno carrega, e que a tradução piorou:
 
@@ -87,16 +90,25 @@ delas se prefere. Escrever o problema assim é meio caminho — e foi aí que el
 parede: o modelo estava formulado e **não existia método conhecido para resolvê-lo**. O Simplex
 nasceu dessa parede, no mesmo ano.
 
-### O nome
+### Os nomes — e são dois
 
-*Simplex* não descreve nada de simples. A sugestão veio de **T. S. Motzkin**, numa conversa: as
+**"Programação linear" foi batizada por outra pessoa.** A expressão de Dantzig era
+*"programming in a linear structure"* — programar, no sentido militar de planejar, dentro de uma
+estrutura linear. Quem propôs a forma curta foi o economista **T. J. Koopmans**, numa visita que
+Dantzig fez à RAND Corporation em **1948** para discutir suas ideias. Pegou, e nunca mais saiu.
+
+**"Simplex" tampouco descreve nada de simples.** A sugestão veio de **T. S. Motzkin**, numa conversa: as
 colunas da base mais a coluna que entra formam, no espaço, um objeto geométrico chamado
 **simplex** — o triângulo generalizado para qualquer dimensão. Cada iteração pode ser vista como
 a passagem de um simplex para outro, vizinho. Dantzig gostou e o nome pegou.
 
 Vale saber, e vale desconfiar: o método não manipula simplexes em lugar nenhum do procedimento.
-O nome é um apelido geométrico de uma conversa, não uma descrição do algoritmo — e isso é mais
-comum na matemática aplicada do que os livros deixam transparecer.
+O nome é um apelido geométrico saído de uma conversa, não uma descrição do algoritmo.
+
+Repare no padrão: **as duas metades do nome do campo vieram de conversa de corredor**, e nenhuma
+das duas foi escolhida pelo autor do método. É mais comum na matemática aplicada do que os livros
+deixam transparecer — e é uma boa razão para não deduzir o que um método faz a partir de como ele
+se chama.
 
 ### E o *big-M*, de onde saiu?
 
@@ -139,16 +151,15 @@ fonte, e exige separar o que está documentado do que é interpretação. Então
 
 | Afirmação | Estado |
 |---|---|
-| Projeto SCOOP, Força Aérea, junho de 1947, Dantzig como matemático-chefe | ⏳ localizado em busca (INFORMS, MacTutor), **não aberto na fonte** |
-| *Programming* como termo militar para plano/cronograma | ⏳ mesma procedência |
-| O nome *simplex* sugerido por T. S. Motzkin | ⏳ mesma procedência |
-| O *big-M* atribuído a A. Charnes, como "método das penalidades" | ⏳ **atribuição corrente na literatura didática**, não confirmada em fonte primária |
-| **Por que a letra M** | ❌ **não encontrei fonte.** A leitura óbvia é *Muito grande*, mas leitura óbvia não é documento, e este livro não preenche lacuna com suposição de cara de fato |
+| Força-tarefa criada em junho de 1947, um mês antes de a Força Aérea virar ramo separado; nomeada depois Projeto SCOOP; Dantzig como matemático-chefe; enunciado e Simplex no mesmo ano | ✓ **fonte aberta e conferida** |
+| *Programming* como termo militar para planos ou cronogramas de treinamento, suprimento logístico ou deslocamento de pessoal | ✓ **fonte aberta e conferida** |
+| "Programação linear" proposto por T. J. Koopmans na RAND, 1948; a expressão de Dantzig era *programming in a linear structure* | ✓ mesma fonte |
+| A. Charnes, *Optimality and Degeneracy in Linear Programming*, Econometrica 20(2), 1952 | ✓ **metadados conferidos** — mas o **conteúdo não foi lido**, então a atribuição do *big-M* a esse artigo segue como corrente, não confirmada |
+| O nome *simplex* sugerido por T. S. Motzkin | ⏳ **atribuição corrente**, não confirmada em fonte primária |
+| **Por que a letra M** | ❌ **não encontrei fonte.** A leitura óbvia é *muito grande*, mas leitura óbvia não é documento, e este livro não preenche lacuna com suposição de cara de fato |
 | A leitura de que a virada foi *separar o possível do preferível*, e o padrão "afrouxe e cobre" | 📖 **interpretação deste livro**, não afirmação histórica |
 
-As fontes estão localizadas e não abertas porque este ambiente de trabalho não alcança arquivo
-acadêmico. Ver [bibliografia](../bibliografia.md) e a nota em *Fundamentos e fontes*, no fim do
-capítulo.
+As referências completas estão na [bibliografia](../bibliografia.md).
 
 ## A intuição
 
@@ -551,15 +562,16 @@ experimento desta etapa e se regeneram rodando um script. Foi uma escolha delibe
 caso exponencial é o tipo de afirmação que normalmente se empresta de uma referência, e aqui ela
 é construída, o que a torna conferível por quem não tem acesso à referência.
 
-**O que está localizado e não aberto.** Toda a seção *De onde isto veio* — SCOOP, 1947, o termo
-militar *programming*, o nome sugerido por Motzkin, a atribuição do *big-M* a Charnes — vem de
-fontes **encontradas em busca e não abertas**, e está marcada `⏳` na tabela daquela seção. Isso
-não é o mesmo que verificada: é o máximo de honestidade disponível daqui, e a diferença está
-escrita onde o leitor a vê.
+**O que foi conferido na fonte.** A seção *De onde isto veio* passou por verificação em fontes
+abertas: SCOOP e junho de 1947, o sentido militar de *programming*, e o batismo do termo por
+Koopmans em 1948. O que **não** fechou está marcado `⏳` na tabela daquela seção — a atribuição do
+*big-M* e o nome *simplex* seguem como atribuição corrente, e a origem da letra M continua sem
+fonte nenhuma.
 
 **O que continua em dívida.** Os resultados de complexidade em média, que explicam por que o
 método funciona tão bem na prática apesar do pior caso, e a comparação sistemática entre regras
-de pivoteamento **exigem literatura primária**, e não estão aqui.
+de pivoteamento **exigem leitura de literatura primária**, e não estão aqui. Entram na fila do
+[Radar](../../radar/RADAR.md).
 
 > ⏳ **Dívida declarada, com o motivo.** Este ambiente de trabalho não alcança as fontes:
 > arXiv, Crossref, OpenAlex e os sites das editoras respondem `403` ao proxy de saída. Publicar

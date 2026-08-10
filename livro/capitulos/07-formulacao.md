@@ -105,32 +105,42 @@ trabalho.
 
 ### O aperto: alimentar gente ao menor custo possível
 
-Em 1945, o economista **George Stigler** publicou uma pergunta de aparência modesta: dada uma
-lista de alimentos, cada um com composição nutricional e preço conhecidos, **qual é a combinação
-mais barata que atende às necessidades diárias mínimas?**
-
-A pergunta não era acadêmica. Alimentar populações e tropas com orçamento apertado era problema
-concreto, e a resposta valia dinheiro de verdade.
+Em 1945, o economista **George Stigler** publicou *The Cost of Subsistence* com uma pergunta de
+aparência modesta: dada uma lista de alimentos, cada um com composição nutricional e preço
+conhecidos, **qual é a combinação mais barata que atende às necessidades diárias mínimas?**
 
 Stigler fez o que este capítulo ensina: **escreveu o modelo**. O que se escolhe (quanto de cada
 alimento), o que se aceita (preços e composição), o que limita (as exigências nutricionais), e a
-única medida a minimizar (o custo). O modelo ficou pronto, correto e completo.
+única medida a minimizar (o custo).
 
-**E ele não tinha como resolvê-lo.** Não existia método. Stigler chutou — de forma inteligente,
-por tentativa e eliminação — e chegou a uma dieta de **US$ 39,93 por ano**, a preços de 1939. Ele
-próprio registrou que não havia como provar que aquilo era o melhor possível.
+**E não tinha como resolvê-lo.** Nas palavras de Dantzig, "não havia técnica que ele conhecesse
+para resolver" o modelo, então Stigler "inventou uma heurística muito engenhosa" e chegou a uma
+dieta de **US$ 39,93 por ano**, a preços de 1939. Ele examinou um punhado das 510 combinações
+possíveis dos alimentos que selecionara, **não afirmou que fosse a mais barata**, e deu suas
+razões para acreditar que o custo anual não poderia cair muito.
 
-### O que aconteceu depois — e por que isto importa para você
+Guarde esse gesto: ele escreveu o modelo, resolveu como deu, e **disse com todas as letras o que
+não sabia**.
 
-Dois anos depois, em 1947, o método apareceu (é o capítulo 09). A dieta de Stigler foi das
-primeiras coisas de porte a serem resolvidas com ele. O custo do cálculo, à época:
+### O que aconteceu depois
 
-> **Nove escriturários, com calculadoras de mesa manuais, 120 dias-de-escriturário de trabalho.**
-> Resultado: **US$ 39,69 por ano**.
+No outono de 1947 o método já existia (é o capítulo 09), e **Jack Laderman**, do *Mathematical
+Tables Project* do National Bureau of Standards, resolveu a dieta de Stigler como **teste** do
+Simplex recém-proposto. Foi a primeira computação de porte da área. O sistema tinha **9 equações
+e 77 incógnitas**.
 
-Guarde os dois números lado a lado. O chute do Stigler estava a **24 centavos por ano** do ótimo
-verdadeiro — errou por menos de 1%. E foram precisos quatro meses de trabalho humano para
-descobrir isso.
+Laderman repartiu 8 ou 9 das 77 colunas para cada um de **nove escriturários**, que trabalharam
+com **calculadoras de mesa manuais** — era antes dos computadores. Custou aproximadamente
+**120 dias-de-trabalho** chegar ao ótimo: **US$ 39,69 por ano**.
+
+O chute de Stigler estava a **24 centavos por ano** do ótimo verdadeiro. Nas palavras de
+Dantzig: *"nada mal!"*
+
+> **Um detalhe que vale a menção.** Cada escriturário anotava sua iteração numa folha separada.
+> Terminado o trabalho, Laderman emendou todas as folhas numa única folha enorme, que a equipe
+> apelidou de **Table Cloth** — a toalha de mesa. Oskar Morgenstern, o coautor de von Neumann na
+> teoria dos jogos, escreveu de Princeton querendo ir a Washington só para vê-la. A toalha acabou
+> se perdendo.
 
 Três lições saem daí, e nenhuma delas é sobre dieta:
 
@@ -142,10 +152,57 @@ Três lições saem daí, e nenhuma delas é sobre dieta:
    centavos só viraram fato *depois* de existir o ótimo para comparar. Sem ele, "acho que está
    bom" continua sendo fé. É a diferença entre uma resposta boa e uma resposta com **garantia**,
    e é o que o handbook chama de limitante.
-3. **O modelo responde exatamente a pergunta que você fez.** A dieta ótima da época era
-   nutricionalmente impecável e ninguém a comeria: farinha, repolho, feijão seco, dia após dia.
-   O modelo não errou — ele minimizou custo sujeito a nutrientes, que foi o que se pediu.
-   Palatabilidade não estava no modelo, então não estava na resposta.
+3. **O modelo responde exatamente a pergunta que você fez.** E para essa terceira lição há uma
+   história melhor do que qualquer explicação — contada pelo próprio inventor do método, contra
+   ele mesmo.
+
+### Os 500 galões de vinagre
+
+No início dos anos 1950, já na RAND, o médico mandou Dantzig emagrecer. Ele decidiu **modelar a
+própria dieta como um programa linear** e deixar o computador decidir o que comer. Trocou o
+objetivo — não queria economizar dinheiro — por outro: *"o problema de uma dieta é que a gente
+vive com fome; o que eu preciso é maximizar a sensação de estar satisfeito"*. Como medida de
+saciedade, usou o peso do alimento **menos o peso da água** que ele contém. Mais de 500 alimentos
+foram perfurados em cartões e alimentados no IBM 701.
+
+O colega Ray Fulkerson achou aquilo insano: *"Você é maluco? A gente resolve modelo para os
+outros seguirem, não para nós mesmos."* Dantzig foi em frente. Combinou com a mulher, Anne, que
+jantaria o que a máquina mandasse.
+
+**Dia 1.** Ele lê a solução ótima ao telefone. Anne acha a dieta estranha mas concebível.
+*"É isso?"* — *"Não exatamente. E mais **500 galões de vinagre**."*
+
+O erro não estava no algoritmo. Estava na **base de dados**: o vinagre aparecia como um ácido
+muito fraco, com **teor de água igual a zero**. Pelo jeito como o modelo fora formulado, quanto
+mais vinagre você bebesse, mais satisfeito estaria. Dantzig decidiu que vinagre não é alimento.
+
+**Dia 2.** A dieta volta plausível, exceto por pedir **200 tabletes de caldo por dia**. Ele
+tenta: dissolve quatro numa xícara de água quente e cospe — era salmoura pura. Liga para o
+médico: *"por que a tabela de exigências nutricionais não tem limite de sal? Sal demais não é
+perigoso?"* A resposta do médico é a frase mais importante deste capítulo:
+
+> *"Não era necessário — a maioria das pessoas tem bom senso o bastante para não consumir
+> demais."*
+
+**A restrição existia. Ela era tão óbvia para um ser humano que ninguém a escreveu.** E o que
+não está escrito não está no modelo.
+
+Dantzig pôs um limite superior de três tabletes por dia. E acrescenta, quase de passagem, a
+frase que fecha a história:
+
+> *"Foi assim que os limitantes superiores em variáveis, na programação linear, começaram."*
+
+Ou seja: **um recurso de modelagem que hoje é padrão nasceu de um erro de formulação do próprio
+inventor do método**, descoberto porque alguém tentou beber o resultado.
+
+Guarde as duas causas, porque elas são as duas que mais aparecem na sua vida profissional:
+
+| O que deu errado | A causa | Como se descobre |
+|---|---|---|
+| 500 galões de vinagre | **Dado errado** — teor de água zero | Alguém olha a resposta e ri |
+| 200 tabletes de caldo | **Restrição não escrita** — óbvia demais para ser dita | Alguém tenta executar a resposta |
+
+O modelo nunca errou. Ele respondeu, com precisão, exatamente a pergunta que foi feita.
 
 > **A ideia reaproveitável, que é o que fica.** *Escrever o problema com precisão é um ganho por
 > si só, mesmo sem meio de resolvê-lo.* Um modelo explícito pode ser criticado, comparado e
@@ -164,10 +221,20 @@ o capítulo 09 conta de onde.
 
 | Afirmação | Estado |
 |---|---|
-| Stigler formula o problema da dieta em 1945; solução heurística de US$ 39,93/ano a preços de 1939 | ⏳ localizado em busca, **não aberto na fonte** |
-| Resolvido em 1947 por nove escriturários com calculadoras de mesa, 120 dias-de-escriturário, custo ótimo US$ 39,69 | ⏳ mesma procedência |
-| A diferença de 24 centavos entre o chute e o ótimo | ⏳ mesma procedência (é a subtração dos dois acima) |
+| Stigler, *The Cost of Subsistence*, 1945; heurística de US$ 39,93/ano a preços de 1939; não afirmou ser a mais barata | ✓ **fonte primária aberta e conferida** |
+| Laderman, outono de 1947, 9 equações e 77 incógnitas, nove escriturários, ~120 dias-de-trabalho, ótimo de US$ 39,69, diferença de 24 centavos | ✓ **relato do próprio Dantzig**, aberto e conferido |
+| A *Table Cloth* e a carta de Morgenstern | ✓ mesma fonte |
+| Os 500 galões de vinagre, os 200 tabletes de caldo, a resposta do médico e a origem dos limitantes superiores | ✓ mesma fonte — Dantzig contando contra si mesmo |
 | As três lições, e a ideia de que "o que está escrito pode estar errado, e é essa a vantagem" | 📖 **interpretação deste livro** |
+
+As referências completas estão na [bibliografia](../bibliografia.md).
+
+> **Uma nota de método, porque ela ensina.** A primeira versão desta seção foi escrita a partir de
+> **resumos de busca**, sem abrir as fontes. Quando o acesso apareceu e o relato original foi
+> lido, três coisas aconteceram: um fato que parecia errado num resumo abreviado estava **certo**
+> na fonte; nomes e números ganharam precisão (Laderman, 9×77, o outono de 1947); e apareceu a
+> melhor parte da história — o vinagre —, que resumo nenhum trazia. **Ler a fonte não serve só
+> para conferir: serve para achar o que você não sabia que estava lá.**
 
 ## A intuição
 

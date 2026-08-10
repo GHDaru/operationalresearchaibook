@@ -88,8 +88,8 @@ batismo do método que finalmente as resolveu em escala.
 ### Por que a eliminação não virou o método padrão
 
 Vale saber, porque explica a estrutura deste livro. A eliminação de Fourier–Motzkin **funciona**
-e é exata. O problema é o custo: cada variável eliminada pode **multiplicar** o número de
-desigualdades, e o crescimento explode depressa. Serve para provar coisas; não serve para
+e é exata. O problema é o custo: cada variável eliminada **acrescenta** desigualdades ao sistema que
+sobra, e o número delas **cresce exponencialmente**. Serve para provar coisas; não serve para
 planejar uma fábrica.
 
 Ou seja: a geometria deu o **entendimento** e não deu a **ferramenta** — que é exatamente o que
@@ -110,12 +110,15 @@ ferramenta chega no capítulo 09.
 
 | Afirmação | Estado |
 |---|---|
-| Fourier, 1826, *Solution d'une question particulière du calcul des inégalités*; métodos algébrico **e** geométrico para a região das soluções | ⏳ localizado em busca, **não aberto na fonte** |
-| Escassez de progresso em desigualdades lineares, em contraste com as equações | ⏳ mesma procedência |
-| Redescoberta por Theodore Motzkin em 1936; hoje eliminação de Fourier–Motzkin | ⏳ mesma procedência |
-| É o mesmo Motzkin que sugeriu o nome *simplex* a Dantzig | ⏳ duas fontes distintas, ambas localizadas e não abertas |
-| Explosão do número de desigualdades a cada eliminação | ⏳ afirmação corrente na literatura; **não medida neste livro** |
+| Fourier, nos anos 1820, estudando desigualdades em mecânica, probabilidade e estatística; **métodos algébrico e geométrico** para achar a região das soluções | ✓ **fonte aberta e conferida** |
+| Desigualdades lineares são mais complicadas do que equações lineares, e ficaram para trás | ✓ mesma fonte |
+| O trabalho de Fourier foi ampliado por T. Motzkin — daí eliminação de Fourier–Motzkin | ✓ mesma fonte |
+| A eliminação de cada variável acrescenta desigualdades, e **o número delas cresce exponencialmente** | ✓ mesma fonte (antes estava aqui como "não medida") |
+| Título e ano exatos do trabalho de 1826, e a data de 1936 para Motzkin | ⏳ localizados em busca, **não abertos na fonte** |
+| É o mesmo Motzkin que sugeriu o nome *simplex* a Dantzig | ⏳ **atribuição corrente**, não confirmada em fonte primária. É a última pendência desta seção |
 | A leitura de que "a geometria deu o entendimento e não a ferramenta", e o padrão "troque de representação" | 📖 **interpretação deste livro** |
+
+As referências completas estão na [bibliografia](../bibliografia.md).
 
 ## A intuição
 

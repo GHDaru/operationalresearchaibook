@@ -433,3 +433,59 @@ história. As fontes entraram na [bibliografia](bibliografia.md).
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.10 — 2026-08-09 · As fontes de história, abertas
+
+O acesso à literatura foi liberado no ambiente de trabalho, e as afirmações históricas das três
+seções *De onde isto veio* — que nasceram todas `⏳`, localizadas em busca e **não abertas** —
+foram lidas na fonte. A maioria virou `✓`.
+
+**O que a leitura mudou, e a lição de método.** Três coisas aconteceram, e as três valem registro:
+
+1. **Um fato que parecia errado estava certo.** Um resumo secundário abreviava o relato original
+   de tal forma que os "nove escriturários" do capítulo 07 pareciam ser um erro de leitura — o
+   resumo só mencionava "nove equações". A fonte primária confirma as duas coisas: **9 equações e
+   77 incógnitas**, repartidas entre **nove escriturários**. A correção que eu ia fazer teria
+   introduzido o erro.
+2. **Nomes e números ganharam precisão.** Foi **Jack Laderman**, do *Mathematical Tables Project*
+   do National Bureau of Standards, no **outono de 1947**, resolvendo a dieta de Stigler como
+   **teste** do método recém-proposto.
+3. **Apareceu a melhor parte da história, que resumo nenhum trazia.**
+
+**O vinagre.** No início dos anos 1950, na RAND, Dantzig modelou a **própria dieta** como um
+programa linear. A primeira solução ótima pedia **500 galões de vinagre** — porque a base de dados
+listava vinagre com teor de água zero, e o objetivo era maximizar saciedade medida por peso menos
+água. Na rodada seguinte, **200 tabletes de caldo por dia**; ele tentou beber quatro dissolvidos e
+cuspiu, era salmoura. Perguntou ao médico por que a tabela de exigências não limitava o sal, e
+ouviu: *"não era necessário — a maioria das pessoas tem bom senso o bastante para não consumir
+demais"*.
+
+**A restrição existia e era óbvia demais para alguém escrevê-la.** Dantzig pôs um limite superior
+de três tabletes por dia e registrou: *"foi assim que os limitantes superiores em variáveis, na
+programação linear, começaram"*.
+
+É a melhor ilustração possível do que o capítulo 07 ensina, contada pelo inventor do método contra
+si mesmo: **o modelo responde exatamente a pergunta que você fez** — e as duas causas de erro são
+dado ruim e restrição não escrita.
+
+**Também entrou:** o batismo do termo "programação linear" por **T. J. Koopmans**, na RAND, em
+1948 — a expressão de Dantzig era *programming in a linear structure*. O capítulo 09 agora conta
+que **as duas metades do nome do campo vieram de conversa de corredor**, e nenhuma foi escolhida
+por quem inventou o método.
+
+**O que continua em aberto**, dito item a item nas tabelas de procedência dos capítulos:
+
+- **O nome *simplex* atribuído a Motzkin** — atribuição corrente, sem fonte primária. O texto que
+  fecharia isso é *Origins of the Simplex Method*, do próprio Dantzig, e a editora responde `403`
+  a acesso automatizado.
+- **O *big-M* atribuído a Charnes** — os metadados do artigo de 1952 na *Econometrica* estão
+  conferidos, mas o **conteúdo não foi lido**, então a atribuição segue corrente.
+- **A origem da letra M** — sem fonte, e continua assim. A leitura óbvia é *muito grande*; leitura
+  óbvia não é documento.
+
+**Um item saiu da coluna errada.** O crescimento exponencial das desigualdades na eliminação de
+Fourier–Motzkin estava marcado no capítulo 08 como "afirmação corrente, não medida". Está agora
+sustentado por fonte aberta.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
