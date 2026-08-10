@@ -119,3 +119,28 @@ de álgebra.
 | O capítulo virar receita de quadro sem sentido | O item 3 da narrativa (vértice = solução básica viável) é o teste: se o leitor não sai sabendo *o que a base é geometricamente*, o capítulo falhou |
 | Fase I ficar órfã entre os capítulos 09 e 10 | É a pergunta 2 do clarify, decidida antes de escrever |
 | Vídeo sem autoria conferida, como nos capítulos 07 e 08 | Dívida já declarada; se o canal autorizado cobrir Simplex, ela fecha nesta rodada |
+
+---
+
+## Emenda em curso de rodada — Princípio XII (2026-08-09)
+
+Depois de a implementação estar pronta e antes do merge, o autor leu o capítulo e pediu uma
+mudança que **não é ajuste, é requisito novo**: todo método precisa da sua história — o aperto
+que o motivou, a ideia por trás do artifício, a origem do nome. *"Não quero passar decoreba."*
+
+Isso virou o **Princípio XII** da constituição (1.1.0, [ADR 0006](../../adr/0006-o-metodo-tem-historia.md)),
+com seção obrigatória no esqueleto de capítulo e portão no build.
+
+**Por que absorvi na rodada 004 em vez de abrir a 005.** O capítulo 09 é o motivo do pedido e
+ainda não está publicado; entregá-lo sem a seção seria publicar sabendo que está incompleto pela
+régua vigente. A cadência de uma rodada por capítulo continua respeitada — o que mudou foi o
+escopo desta, e está registrado aqui em vez de crescer em silêncio.
+
+**Escopo acrescentado:**
+
+- Seção *De onde isto veio* no capítulo 09: SCOOP e 1947, *programming* como termo militar de
+  planejamento, o nome sugerido por Motzkin, e a origem e a **ideia** do *big-M*.
+- Tabela que separa **documentado** / **atribuição corrente** / **leitura deste livro**, com
+  admissão explícita da lacuna sobre a origem da letra M.
+- Seção *História dos métodos* na bibliografia, com as fontes em `⏳`.
+- Portão no `verifica-capitulos.mjs`, com dívida retroativa declarada para os capítulos 07 e 08.

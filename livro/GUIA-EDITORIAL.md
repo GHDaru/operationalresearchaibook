@@ -22,24 +22,26 @@ A ordem não é decorativa: ela é o Backward Design tornado sumário.
    exercício aponta para um deles, e o build falha se apontar para um que não existe.
 2. **O problema** — por que este assunto existe. **Comece pelo erro que alguém comete sem
    ele**, de preferência um erro de modelagem com consequência visível.
-3. **A intuição** — o método em linguagem natural e, quando possível, em geometria. Nenhuma
+3. **De onde isto veio** — obrigatória em capítulo de método (constituição, Princípio XII). Ver
+   §2.2.
+4. **A intuição** — o método em linguagem natural e, quando possível, em geometria. Nenhuma
    fórmula ainda.
-4. **A matemática** — a formulação, o teorema, a demonstração quando ela ensina. Notação
+5. **A matemática** — a formulação, o teorema, a demonstração quando ela ensina. Notação
    declarada antes do uso.
-5. **O algoritmo** — o método passo a passo, com um exemplo pequeno percorrido à mão
+6. **O algoritmo** — o método passo a passo, com um exemplo pequeno percorrido à mão
    (*worked example*).
-6. **O código** — a etapa do `po-zero`: implementação didática ao lado do solver de mercado,
+7. **O código** — a etapa do `po-zero`: implementação didática ao lado do solver de mercado,
    com os números do capítulo regeneráveis por script.
-7. **Quando não serve** — obrigatório (constituição, Princípio II). Os limites do método, o
+8. **Quando não serve** — obrigatório (constituição, Princípio II). Os limites do método, o
    que o degrada, e qual família de método assume dali em diante.
-8. **Fundamentos científicos** — 2 a 4 artigos *traduzidos para decisões* ("o resultado X
+9. **Fundamentos científicos** — 2 a 4 artigos *traduzidos para decisões* ("o resultado X
    significa que, na prática, você deve Y"); ponteiro para a [bibliografia](bibliografia.md) e
    para o [Radar](../radar/RADAR.md).
-9. **Pratique** — os exercícios (mínimo 3). Ver §4.
-10. **Assista** — os vídeos curados (mínimo 1). Ver §5.
-11. **Síntese + "o que levar"** — leitura executiva e as ideias exportáveis para o trabalho do
+10. **Pratique** — os exercícios (mínimo 3). Ver §4.
+11. **Assista** — os vídeos curados (mínimo 1). Ver §5.
+12. **Síntese + "o que levar"** — leitura executiva e as ideias exportáveis para o trabalho do
     leitor.
-12. **Verificação** — 2 a 3 perguntas abertas que testam exatamente os objetivos do item 1.
+13. **Verificação** — 2 a 3 perguntas abertas que testam exatamente os objetivos do item 1.
 
 Capítulos da camada de **fronteira** acrescentam **O estado da arte**, com a *cláusula de
 expiração* explícita (constituição, Princípio V).
@@ -54,6 +56,33 @@ expiração* explícita (constituição, Princípio V).
 
 O selo diz ao leitor se o conteúdo está fresco — o que a data de um evento citado no corpo não
 faz.
+
+### 2.2 A seção "De onde isto veio" (Princípio XII)
+
+Obrigatória em capítulo de método. Não é caixa de curiosidade: é a seção que dá ao leitor um
+**motivo para não pular para a fórmula**.
+
+O que ela precisa entregar, nesta ordem:
+
+| Elemento | A pergunta que responde |
+|---|---|
+| **O aperto** | Quem estava preso, em quê, quando. Um problema do mundo, com data e gente |
+| **O que se fazia antes** | Contra o quê o método compete. Sem isto, não dá para medir o salto |
+| **A virada** | Qual foi a ideia que destravou — em linguagem natural, sem notação |
+| **A ideia reaproveitável** | O padrão de raciocínio que serve **fora** deste algoritmo |
+| **O nome** | Se o nome tem origem, ela é contada |
+
+Regras de escrita:
+
+- **História é afirmação.** Data, autoria e atribuição exigem fonte, e fonte não confirmada na
+  primária é marcada `⏳` e **não sustenta afirmação** (Princípio III). Este é o terreno mais
+  fácil do livro para inventar, porque história inventada soa bem.
+- **Distinga o que é documentado do que é atribuição corrente.** "A literatura didática atribui
+  a X" não é a mesma frase que "X publicou em 19NN", e as duas não podem parecer iguais.
+- **Corte o que não muda nada.** Se o parágrafo sai sem o leitor perder compreensão ou
+  julgamento, ele é enfeite. O teste é o do `combater-amontoado`.
+- **Sem heroísmo.** O gênio solitário é uma história ruim e geralmente falsa: métodos nascem de
+  instituições, encomendas e restrições materiais, e é isso que ensina.
 
 ## 3. Regras de escrita permanentes
 

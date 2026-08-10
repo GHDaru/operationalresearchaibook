@@ -100,3 +100,47 @@ ambiente alcançava a fonte, e substituído por um endereço localizado em busca
 
 A detecção foi **acidental**: não existe portão para URL externa. Está no
 [plano](plan.md#o-que-quase-escapou) e virou item no ROADMAP.
+
+---
+
+## Adendo — o portão do Princípio XII
+
+Acrescentado depois da emenda constitucional 1.1.0, ainda nesta rodada.
+
+### Build, depois da emenda
+
+```
+✓ espelho de capacidades em sincronia (7 capacidades)
+✓ referências de capítulo OK: 24 referências (0 compostas) apontam para capítulos do mapa; 6 para vaga ainda não publicada — a aderência semântica é leitura humana
+✓ Grafo do livro: 19 nós, 33 arestas
+✓ Livro gerado [pt]: 13 páginas + capa em docs/ (links internos OK)
+✓ template verificado [pt]: 4 capítulos com C01/N02 + 9 páginas de aparato OK
+✓ registro de exercícios OK: 22 exercícios em 3 baterias, rubrica não publicada
+✓ consistência de ótimo OK: 19 modelo(s) resolvido(s) em aritmética exata
+```
+
+```
+24 passed, 1 warning in 1.61s
+```
+
+### Provado quebrando
+
+Renomeando a seção do capítulo 09 de `## De onde isto veio` para `## Um pouco de contexto`:
+
+```
+✗ verificação do template [pt]: 1 falha(s)
+   09-simplex: sem a seção "De onde isto veio" — Princípio XII (ou declare a dívida em SEM_ORIGEM_DECLARADO)
+```
+
+Restaurado o título, o portão volta a verde.
+
+### Um achado do próprio portão
+
+Na primeira execução ele reprovou a **introdução** (`00-introducao`), que não é capítulo de
+método e para a qual o Princípio XII não se aplica. Em vez de jogá-la na lista de dívida — o que
+teria feito o build passar e mentido sobre o escopo —, o portão passou a ter **duas listas com
+significados distintos**: `NAO_E_CAPITULO_DE_METODO` (não se aplica) e `SEM_ORIGEM_DECLARADO`
+(dívida de verdade, hoje com os capítulos 07 e 08).
+
+A distinção importa porque uma lista única esconderia, sob o mesmo nome, "não devia ter" e
+"devia ter e não tem".

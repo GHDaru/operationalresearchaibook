@@ -24,6 +24,27 @@ const MIN_LEITURA = EN ? "min read" : "min de leitura";
 const MD_LIVRO = EN ? "operations-research.md" : "pesquisa-operacional.md";
 const PDF_LIVRO = EN ? "operations-research.pdf" : "pesquisa-operacional.pdf";
 
+const RE_ORIGEM = /^##\s+De onde isto veio/m;
+
+// DUAS listas, com significados diferentes — e misturá-las seria disfarçar
+// escopo de dívida, que é o oposto do que estes portões existem para fazer.
+
+// (a) Não é capítulo de método. O Princípio XII simplesmente não se aplica:
+//     não há método cuja origem contar. Isto NÃO é dívida.
+const NAO_E_CAPITULO_DE_METODO = new Set([
+  "00-introducao",   // abertura do livro: para quem é, como se estuda
+]);
+
+// (b) É capítulo de método, publicado ANTES de o Princípio XII existir
+//     (constituição 1.1.0, 2026-08-09). Isto É dívida, e é retroativa de
+//     propósito: fingir que o princípio nasce só para o futuro seria
+//     conveniente e desonesto. Quitação no ROADMAP.
+const SEM_ORIGEM_DECLARADO = new Set([
+  "07-formulacao",   // dívida desde 2026-08-09 — de onde vem a própria ideia de escrever um modelo
+  "08-geometria",    // dívida desde 2026-08-09 — Fourier, os semiespaços, e por que o desenho veio antes do algoritmo
+]);
+const isentoDeOrigem = (slug) => NAO_E_CAPITULO_DE_METODO.has(slug) || SEM_ORIGEM_DECLARADO.has(slug);
+
 const falhas = [];
 let capitulos = 0, aparato = 0;
 
@@ -52,6 +73,19 @@ for (const item of itens) {
     if (COM_PDF && !html.includes(`href="pdf/${slug}.pdf"`)) erro("link de download .pdf ausente");
     if (!existsSync(resolve(DOCS, "md", `${slug}.md`))) erro("md/*.md não copiado");
     if (existsSync(resolve(DOCS, "pdf")) && !existsSync(resolve(DOCS, "pdf", `${slug}.pdf`))) erro("pdf/*.pdf ausente");
+
+    // Princípio XII — nenhum método cai do céu (constituição 1.1.0, ADR 0006).
+    //
+    // O capítulo de método conta o problema histórico concreto que forçou
+    // alguém a inventar o método. Sem isso, o livro entrega procedimento — e
+    // procedimento se decora.
+    //
+    // A dívida é declarada aqui, em código, e não em prosa: o que está na lista
+    // é conhecido e tem prazo; o que não está e faltar, falha o build.
+    if (!EN && !RE_ORIGEM.test(md) && !isentoDeOrigem(slug))
+      erro("sem a seção \"De onde isto veio\" — Princípio XII (ou declare a dívida em SEM_ORIGEM_DECLARADO)");
+    if (!EN && RE_ORIGEM.test(md) && SEM_ORIGEM_DECLARADO.has(slug))
+      erro("ganhou a seção de origem e continua na lista de dívida — tire-o de SEM_ORIGEM_DECLARADO");
   } else {
     aparato++;
     if (html.includes('class="cap-hero"')) erro("página do aparato ganhou C01 indevidamente");

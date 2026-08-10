@@ -142,6 +142,43 @@ máquina para otimização combinatória. Útil como ponto de partida, **não** 
 verificada de afirmação individual.
 [GitHub](https://github.com/Thinklab-SJTU/awesome-ml4co)
 
+## História dos métodos (Princípio XII)
+
+O [Princípio XII](../.specify/memory/constitution.md) exige que todo capítulo de método conte de
+onde o método veio — e exige fonte para isso. Esta seção reúne as fontes de **história**, que têm
+um problema de verificação próprio: elas são secundárias por natureza (alguém contando o que
+outro fez), e este ambiente de trabalho **não alcança arquivo acadêmico**.
+
+Por isso todas nascem `⏳`, e o texto que se apoia nelas diz isso ao leitor, na própria seção.
+
+⏳ **Air Force Salutes Project SCOOP.** *ORMS Today*, INFORMS, 2007. — Sustenta: a força-tarefa
+de junho de 1947, o nome do projeto (*Scientific Computation of Optimal Programs*), Dantzig como
+matemático-chefe, e o sentido militar de *programming* como plano ou cronograma.
+[Página](https://www.informs.org/ORMS-Today/Archived-Issues/2007/orms-12-07/Air-Force-Salutes-Project-SCOOP)
+
+⏳ **The Life and Times of the Father of Linear Programming.** *ORMS Today*, INFORMS, 2005. —
+Sustenta: o modelo construído em meados de 1947 e a ausência de método conhecido para resolvê-lo.
+[Página](https://pubsonline.informs.org/do/10.1287/orms.2005.04.15/full/)
+
+⏳ **DANTZIG, George B.** *Origins of the Simplex Method*. — O relato do próprio autor. É a fonte
+primária que fecharia boa parte destas dívidas, e é justamente a que não consegui abrir.
+[Registro](https://dl.acm.org/doi/10.1145/87252.88081)
+
+⏳ **MacTutor History of Mathematics — George Dantzig.** University of St Andrews. — Biografia de
+referência; corrobora datas e trajetória.
+[Página](https://mathshistory.st-andrews.ac.uk/Biographies/Dantzig_George/)
+
+⏳ **Atribuição do *big-M* a A. Charnes** ("método das penalidades"). — **Atribuição corrente na
+literatura didática**, repetida em material de curso, e **não confirmada em fonte primária**. O
+capítulo 09 declara esse estado explicitamente, em vez de tratá-la como fato estabelecido.
+
+> **O que falta para estas saírem do `⏳`.** Abrir as fontes. Hoje `arxiv.org`,
+> `api.crossref.org`, `api.openalex.org` e os sites das editoras respondem `403` ao proxy de
+> saída deste ambiente. É uma dívida de **acesso**, não de pesquisa, e some no dia em que o
+> acesso existir.
+
+---
+
 ## Material didático aberto
 
 ✓ **CUNHA, Alexandre Salles da.** *DCC035 — Pesquisa Operacional*, UFMG. — Curso completo com

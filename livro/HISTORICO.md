@@ -327,3 +327,57 @@ mecanismo que o produziu é o mesmo que produz os que chegam.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.8 — 2026-08-09 · O método tem história (constituição 1.1.0)
+
+Emenda constitucional pedida pelo autor, ao ler o capítulo 09:
+
+> *"Importante trazer um racional do porquê, algo histórico, filosófico, do problema que motivou
+> ter que buscar uma alternativa e solução para alguma decisão. Por exemplo: de onde veio big-M?
+> Por quê, qual a ideia. Não quero passar decoreba, o livro deve ser uma inspiração motivacional,
+> ter história."*
+
+O diagnóstico era certeiro. O capítulo 09 explicava **como** o *big-M* funciona e por que a
+mecânica é segura, e não dizia de onde a ideia veio nem qual padrão de raciocínio ela carrega.
+Assim o leitor sai capaz de executar e incapaz de reconhecer o mesmo tipo de aperto noutro
+contexto — que é a definição operacional de decoreba.
+
+**Entrou:**
+
+- **Princípio XII — Nenhum método cai do céu**, não-negociável. Constituição vai a **1.1.0**,
+  com [ADR 0006](../adr/0006-o-metodo-tem-historia.md). Cinco consequências verificáveis, entre
+  elas: **nome com origem é nome explicado**, e **todo artifício declara a ideia reaproveitável**
+  por trás dele.
+- **Seção "De onde isto veio"** no esqueleto obrigatório de capítulo, com §2.2 no
+  [Guia Editorial](GUIA-EDITORIAL.md) dizendo o que ela precisa entregar: o aperto, o que se
+  fazia antes, a virada, a ideia reaproveitável, o nome.
+- **A seção no capítulo 09.** O Simplex nasceu de um problema de logística — planejar a Força
+  Aérea dos Estados Unidos em 1947, no projeto SCOOP — e não de um problema de matemática. Com
+  o desfazimento de um mal-entendido que quase todo aluno carrega: **"programação", em
+  Programação Linear, quer dizer plano, não código.**
+- **A resposta ao pedido do autor**, sobre o *big-M*: o aperto do ovo e da galinha (o método
+  precisa de um vértice para começar, e achar o primeiro é tão difícil quanto o problema todo), e
+  a ideia que fica — *quando não há ponto de partida, invente um e cobre caro por ele* —, com os
+  lugares fora da PO onde o mesmo padrão aparece.
+- **Portão para o princípio**: `verifica-capitulos.mjs` passa a exigir a seção. Duas listas com
+  significados distintos, para não disfarçar escopo de dívida: o que **não é capítulo de método**
+  (a introdução) e o que **é dívida de verdade**.
+- Seção **História dos métodos** na [bibliografia](bibliografia.md), com as fontes e o estado de
+  cada uma.
+
+**Dívida retroativa, assumida.** Os capítulos **07 e 08 estão publicados sem a seção** e entram
+na lista de dívida declarada do portão. Fazer o princípio valer só do 09 em diante seria
+conveniente e desonesto.
+
+**A honestidade que o princípio exige de si mesmo.** História é o terreno mais fácil do livro
+para inventar, porque data errada e atribuição plausível soam bem e passam por revisão apressada.
+Por isso a seção do capítulo 09 termina com uma tabela que separa **o que é documentado**, **o
+que é atribuição corrente** e **o que é leitura deste livro** — e admite, numa linha, que não
+encontrei fonte para a pergunta mais simples de todas: **por que a letra M**. A leitura óbvia é
+*muito grande*; leitura óbvia não é documento.
+
+Todas as fontes de história nascem `⏳`: localizadas em busca, **não abertas**, porque este
+ambiente não alcança arquivo acadêmico. É dívida de acesso, não de pesquisa.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.

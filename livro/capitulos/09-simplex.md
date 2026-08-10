@@ -49,6 +49,107 @@ segundos desde o Big Bang, com folga.
 O problema, então, não é *onde* está a resposta — isso o capítulo 08 resolveu. É **como chegar
 lá sem visitar todo mundo**. É isso que o Simplex faz, e é só isso.
 
+## De onde isto veio
+
+Nenhum método deste livro caiu do céu. Todos foram inventados por alguém que estava preso, com
+prazo, e sem ferramenta. Vale a pena saber em que aperto o Simplex nasceu — porque o aperto se
+repete, com outras roupas, no problema que você vai encontrar.
+
+### O aperto: como se planeja uma organização gigantesca
+
+Em junho de 1947, a Força Aérea dos Estados Unidos montou uma força-tarefa para um problema que
+a estava sufocando: **planejar a si mesma**. Treinamento, suprimento, deslocamento de pessoal —
+tudo isso encadeado, em escala continental, com recursos que acabavam. O projeto se chamou
+**SCOOP** (*Scientific Computation of Optimal Programs*), e o matemático-chefe era **George
+Dantzig**.
+
+Aqui vale desfazer um mal-entendido que quase todo aluno carrega, e que a tradução piorou:
+
+> **"Programação", em Programação Linear, não tem nada a ver com computador.** *Programming*
+> era, naquele contexto, **termo militar para plano ou cronograma** — programação de treinamento,
+> de suprimento, de deslocamento. Programação Linear significa **planejamento linear**. O nome é
+> anterior ao uso corrente da palavra em computação, e nasceu de um problema de logística, não
+> de código.
+
+Se você achava que "programação linear" era um jeito de programar, não era distração sua: o nome
+é enganoso há setenta anos.
+
+### O que se fazia antes
+
+Planejava-se **por regras encadeadas**. Alguém decidia primeiro quantos aviões, e essa decisão
+virava dado para a decisão seguinte, que virava dado para a próxima. Cada passo era defensável e
+o conjunto não era ótimo coisa nenhuma — é exatamente o que o capítulo 07 mostrou quando refutou
+as regras gulosas, e é o que qualquer planilha encadeada ainda faz hoje.
+
+Dantzig fez a coisa que parece óbvia depois de feita: separou **o que é possível** do **que é
+melhor**. As restrições descrevem o espaço das decisões admissíveis; uma função à parte diz qual
+delas se prefere. Escrever o problema assim é meio caminho — e foi aí que ele encontrou a
+parede: o modelo estava formulado e **não existia método conhecido para resolvê-lo**. O Simplex
+nasceu dessa parede, no mesmo ano.
+
+### O nome
+
+*Simplex* não descreve nada de simples. A sugestão veio de **T. S. Motzkin**, numa conversa: as
+colunas da base mais a coluna que entra formam, no espaço, um objeto geométrico chamado
+**simplex** — o triângulo generalizado para qualquer dimensão. Cada iteração pode ser vista como
+a passagem de um simplex para outro, vizinho. Dantzig gostou e o nome pegou.
+
+Vale saber, e vale desconfiar: o método não manipula simplexes em lugar nenhum do procedimento.
+O nome é um apelido geométrico de uma conversa, não uma descrição do algoritmo — e isso é mais
+comum na matemática aplicada do que os livros deixam transparecer.
+
+### E o *big-M*, de onde saiu?
+
+Este capítulo vai usar um artifício com cara de truque. Ele tem origem e, mais importante, tem
+uma **ideia** — e a ideia vale muito mais do que o artifício.
+
+**O aperto era outro, e é um problema de ovo e galinha.** O Simplex precisa de um vértice para
+começar. Quando todas as restrições são de recurso disponível (`≤`), a origem serve de graça: não
+fazer nada é sempre viável. Mas basta uma exigência mínima — um contrato, uma especificação, uma
+demanda a atender — e a origem sai da região. Aí o algoritmo que serve para achar o melhor
+vértice **não consegue achar nem o primeiro**. E procurar um ponto viável qualquer é, por si só,
+um problema tão difícil quanto o original.
+
+**A virada:** se não existe ponto de partida, **invente um — e cobre caro por ele.**
+
+Acrescente uma quantidade fictícia que faça as contas fecharem, e ponha nela um preço tão alto
+que a primeira prioridade do algoritmo passe a ser se livrar dela. Se ele conseguir expulsar a
+ficção, você ganhou de brinde um ponto de partida legítimo e segue o método normal. Se **não**
+conseguir, a ficção que sobrou é a prova de que o problema original não tinha solução.
+
+> **A ideia reaproveitável, que é o que fica.** *Quando um problema é difícil porque não tem
+> solução fácil de encontrar, afrouxe-o até que tenha — e cobre pelo afrouxamento.* O preço faz
+> duas coisas ao mesmo tempo: empurra a solução de volta para o problema verdadeiro **e**, se ela
+> não voltar, denuncia que o problema verdadeiro era impossível.
+>
+> Esse padrão não é do Simplex. É o que está por trás das restrições flexíveis (*soft
+> constraints*), da relaxação lagrangiana, dos termos de regularização em aprendizado de máquina
+> e, fora da matemática, de qualquer sistema que prefira **abrir com um alarme** a travar.
+> Reconhecê-lo é o que transfere; decorar "restrição `≥` pede variável artificial" não.
+
+Há um subproduto elegante nisso, e ele costuma passar despercebido: o *big-M* faz o algoritmo
+responder **uma pergunta que ninguém fez**. Você perguntou "qual é o melhor plano?"; ele
+responde, de quebra, "existe algum plano?". A segunda resposta é frequentemente a mais valiosa
+das duas — e é ela que aparece quando alguém vendeu o que a fábrica não pode produzir.
+
+### O que é documentado e o que é leitura nossa
+
+O Princípio XII da [constituição](../../.specify/memory/constitution.md) exige história com
+fonte, e exige separar o que está documentado do que é interpretação. Então:
+
+| Afirmação | Estado |
+|---|---|
+| Projeto SCOOP, Força Aérea, junho de 1947, Dantzig como matemático-chefe | ⏳ localizado em busca (INFORMS, MacTutor), **não aberto na fonte** |
+| *Programming* como termo militar para plano/cronograma | ⏳ mesma procedência |
+| O nome *simplex* sugerido por T. S. Motzkin | ⏳ mesma procedência |
+| O *big-M* atribuído a A. Charnes, como "método das penalidades" | ⏳ **atribuição corrente na literatura didática**, não confirmada em fonte primária |
+| **Por que a letra M** | ❌ **não encontrei fonte.** A leitura óbvia é *Muito grande*, mas leitura óbvia não é documento, e este livro não preenche lacuna com suposição de cara de fato |
+| A leitura de que a virada foi *separar o possível do preferível*, e o padrão "afrouxe e cobre" | 📖 **interpretação deste livro**, não afirmação histórica |
+
+As fontes estão localizadas e não abertas porque este ambiente de trabalho não alcança arquivo
+acadêmico. Ver [bibliografia](../bibliografia.md) e a nota em *Fundamentos e fontes*, no fim do
+capítulo.
+
 ## A intuição
 
 Volte ao desenho da montadora, o mesmo dos dois capítulos anteriores: 10 unidades centrais de
@@ -450,9 +551,15 @@ experimento desta etapa e se regeneram rodando um script. Foi uma escolha delibe
 caso exponencial é o tipo de afirmação que normalmente se empresta de uma referência, e aqui ela
 é construída, o que a torna conferível por quem não tem acesso à referência.
 
-**O que continua em dívida.** A história do método, os resultados de complexidade em média que
-explicam por que ele funciona tão bem na prática apesar do pior caso, e a comparação sistemática
-entre regras de pivoteamento **exigem literatura primária**, e não estão aqui.
+**O que está localizado e não aberto.** Toda a seção *De onde isto veio* — SCOOP, 1947, o termo
+militar *programming*, o nome sugerido por Motzkin, a atribuição do *big-M* a Charnes — vem de
+fontes **encontradas em busca e não abertas**, e está marcada `⏳` na tabela daquela seção. Isso
+não é o mesmo que verificada: é o máximo de honestidade disponível daqui, e a diferença está
+escrita onde o leitor a vê.
+
+**O que continua em dívida.** Os resultados de complexidade em média, que explicam por que o
+método funciona tão bem na prática apesar do pior caso, e a comparação sistemática entre regras
+de pivoteamento **exigem literatura primária**, e não estão aqui.
 
 > ⏳ **Dívida declarada, com o motivo.** Este ambiente de trabalho não alcança as fontes:
 > arXiv, Crossref, OpenAlex e os sites das editoras respondem `403` ao proxy de saída. Publicar
@@ -495,6 +602,13 @@ fotos e ver o movimento.
 
 ## Síntese — o que levar
 
+- **O método nasceu de um aperto de logística, não de um problema de matemática.** Planejar a
+  Força Aérea, em 1947, sem método. E "programação" ali quer dizer **plano**, não código.
+- **A virada foi separar o possível do preferível:** restrições dizem o que cabe, uma função à
+  parte diz o que se prefere. Antes disso, planejava-se por regras encadeadas.
+- **O *big-M* é uma ideia, não um truque:** *quando não há ponto de partida, invente um e cobre
+  caro por ele.* O preço empurra a solução de volta ao problema verdadeiro — e, se ela não
+  voltar, prova que o problema era impossível.
 - **Enumerar vértices não escala:** $\binom{n+m}{m}$ cresce absurdamente. 20×20 já são 137 bilhões
   de bases.
 - **O Simplex anda de vértice em vértice, sempre subindo**, e para quando nenhuma aresta sobe.
