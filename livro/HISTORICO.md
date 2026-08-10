@@ -489,3 +489,46 @@ sustentado por fonte aberta.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.11 — 2026-08-09 · A sessão de história
+
+Rodada 005. Pesquisa concentrada, **sem publicar nada no livro** — o produto é
+[`estudos/002-historia-dos-metodos.md`](../estudos/002-historia-dos-metodos.md), insumo das
+seções "De onde isto veio" das rodadas que vêm.
+
+**A decisão de processo.** O Princípio XII passou a exigir história em todo capítulo de método.
+Pesquisar por capítulo, dentro de cada rodada, sai mais caro e sai pior — e há prova disso no
+próprio livro: a ligação entre **Motzkin** no capítulo 08 e **Motzkin** no capítulo 09 só apareceu
+porque as duas pesquisas foram feitas juntas. Em rodadas separadas, os dois capítulos teriam
+saído sem a conexão.
+
+**O que a pesquisa achou de melhor**, e que muda o encaminhamento de dois capítulos futuros:
+
+- **O fluxo máximo nasceu de um problema de bombardeio.** Ford e Fulkerson citam como motivação um
+  relatório da RAND de Harris e Ross, de 1955, **secreto por décadas**, sobre a rede ferroviária
+  soviética. E o interesse dos autores **não era o fluxo máximo: era o corte mínimo** —
+  *interdiction*, quais trechos destruir. O teorema que a sala aprende como coincidência elegante
+  tinha, na origem, **dois donos com objetivos opostos**. A dualidade deixa de ser elegância e
+  vira conflito formalizado.
+- **O problema de transporte é dez anos mais velho do que se atribui.** Tolstoĭ publicou em 1930,
+  num livro do Comissariado de Transportes soviético, com critério de ciclo negativo e uma
+  instância 10 × 68 resolvida à otimalidade. A lição não é de precedência: é que **o que entra no
+  cânone é o que é lido**, e isso depende de língua e de circulação.
+- **O método elipsoidal foi manchete de primeira página do *New York Times*** em 7 de novembro de
+  1979 — e um mês antes um jornal britânico anunciara que o caixeiro-viajante tinha sido resolvido,
+  o que é falso. É o exemplo mais antigo do handbook para a Parte XI, que ensina a ler artigo
+  aplicado. E ensina que **polinomial não quer dizer rápido**: o elipsoidal perde do Simplex na
+  prática.
+
+**O padrão de selos**, decidido pelo autor: `✓` fonte aberta e lida, `✓ᵐ` só metadados conferidos,
+`⏳` atribuição corrente não confirmada, `❌` sem fonte, `📖` leitura editorial. A distinção entre
+`✓` e `✓ᵐ` é o que impede confundir "existe e é este artigo" com "eu li e diz isso" — e é
+exatamente onde a atribuição do *big-M* a Charnes continua parada.
+
+**A fila de verificação** está no estudo, ordenada por dívida fechada por esforço. O item 1 é o
+relato de Dantzig em *Origins of the Simplex Method*: fecharia o nome *simplex* por Motzkin **e**
+a história de von Neumann e a dualidade. Está atrás de um `403` **da editora**, não da política de
+rede.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
