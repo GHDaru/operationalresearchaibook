@@ -71,44 +71,44 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 
 | Capítulo | Vídeo | Autor | Duração | Estado |
 |---|---|---|---|---|
-| 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | ⏳ | ⏳ | Provisório |
-| 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | ⏳ | ⏳ | Provisório |
-| 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | ⏳ | ⏳ | Provisório |
+| 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 18min04s | **Definitivo** |
+| 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 24min20s | **Definitivo** |
+| 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | [UNIVESP](https://www.youtube.com/@univesptv) | 18min48s | **Definitivo** |
 
-### Uma ressalva a mais no vídeo do capítulo 09
+### A dívida dos `⏳`, quitada em 2026-08-09
 
-O vídeo dos capítulos 07 e 08 vem de uma mesma série, e a correspondência com os capítulos era
-direta. O do capítulo 09 **não veio da mesma série** — ela não cobre o Simplex —, então ele foi
-localizado por busca em outro curso.
+As três fichas nasceram **provisórias**, com autor e duração marcados `⏳`, porque o ambiente de
+produção não alcançava o YouTube. O acesso foi liberado, e os três campos foram **conferidos na
+fonte**: título, autor, canal, duração e data de publicação.
 
-Isso acrescenta uma incerteza que as fichas anteriores não têm: além de autoria e duração, a
-**própria atribuição da série** ao curso que o resultado de busca indica não foi confirmada na
-fonte. O endereço existe nos resultados; quem o publicou, não conferi.
+Duas coisas que a conferência resolveu, e vale registrar as duas:
 
-Registrar isso importa porque a diferença é de grau, não de tipo, e a Videoteca não deve deixar
-duas fichas com o mesmo `⏳` esconderem níveis diferentes de dúvida.
+1. **Os capítulos 07 e 08 têm autor com nome.** São de **André Brochi**, do canal *Matemática e
+   Estatística*, publicados em 21 de maio de 2020. Enquanto o crédito era `⏳`, a Videoteca dizia
+   que curadoria sem atribuição é apropriação — e estava em dívida com a própria regra.
+2. **A ressalva extra do capítulo 09 caiu.** A ficha dele carregava uma incerteza a mais: a
+   atribuição da série a um curso público aparecia em resultado de busca e não estava confirmada.
+   **Estava certa** — é da UNIVESP, publicado em 10 de agosto de 2016.
 
-### O que foi e o que não foi conferido nos três
+### O que continua sendo leitura humana
 
 | Campo | Estado |
 |---|---|
-| Título e endereço | Verificados por busca — **não** na fonte |
-| Autor | ⏳ não conferido |
-| Duração | ⏳ não conferido |
-| O que resolve | Declarado pelo editor a partir do título e da posição na série; a aderência ao conteúdo real depende de alguém assistir |
+| Título, endereço, autor, canal, duração, data | ✓ **conferidos na fonte** |
+| **"O que resolve"** | ⚠️ **declarado pelo editor** a partir do título e da posição na série. A aderência ao conteúdo real depende de alguém assistir — e ninguém assistiu |
 
-Os dois primeiros são da mesma série ("Aula 1" e "Aula 2"), e a divisão dela — introdução e
-depois método gráfico — coincide com a dos capítulos 07 e 08. Foi por isso que entraram. O
-terceiro é de outra origem, pelo motivo dito acima.
+Esta última linha não é formalidade. O critério de entrada da política acima diz que um vídeo
+entra por aquilo que *o texto não faz bem*, e essa é uma afirmação sobre o **conteúdo**, não sobre
+o metadado. Nenhum portão a verifica, e nenhuma leitura de ficha a substitui.
 
-**Como esta lacuna fecha.** Duas condições, qualquer uma serve:
+### Sobre a fonte autorizada
 
-1. **O caminho preferido:** o autor indica os vídeos equivalentes no canal do
-   [João Sarubbi](https://www.youtube.com/@joaosarubbi), cujo uso está autorizado. Aí a ficha
-   nasce completa e o estado vira definitivo.
-2. O autor assiste aos provisórios, confirma autoria e duração, e a ficha é completada.
-
-Enquanto nenhuma das duas acontecer, o `⏳` fica — e ele é a informação, não a ausência dela.
+O caminho preferido continua sendo o do canal do
+[João Sarubbi](https://www.youtube.com/@joaosarubbi), cujo uso está autorizado pelo autor. As três
+fichas atuais entram pela régua de **demais fontes**: link, crédito visível e player de origem,
+sem cópia nem re-upload. Se o canal autorizado cobrir os mesmos assuntos, a substituição é
+preferível — não por qualidade presumida, mas porque autorização explícita vale mais do que uso
+legítimo por link.
 
 ## Marcar como assistido
 

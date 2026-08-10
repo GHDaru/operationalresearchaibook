@@ -489,3 +489,104 @@ sustentado por fonte aberta.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.11 — 2026-08-09 · A sessão de história
+
+Rodada 005. Pesquisa concentrada, **sem publicar nada no livro** — o produto é
+[`estudos/002-historia-dos-metodos.md`](../estudos/002-historia-dos-metodos.md), insumo das
+seções "De onde isto veio" das rodadas que vêm.
+
+**A decisão de processo.** O Princípio XII passou a exigir história em todo capítulo de método.
+Pesquisar por capítulo, dentro de cada rodada, sai mais caro e sai pior — e há prova disso no
+próprio livro: a ligação entre **Motzkin** no capítulo 08 e **Motzkin** no capítulo 09 só apareceu
+porque as duas pesquisas foram feitas juntas. Em rodadas separadas, os dois capítulos teriam
+saído sem a conexão.
+
+**O que a pesquisa achou de melhor**, e que muda o encaminhamento de dois capítulos futuros:
+
+- **O fluxo máximo nasceu de um problema de bombardeio.** Ford e Fulkerson citam como motivação um
+  relatório da RAND de Harris e Ross, de 1955, **secreto por décadas**, sobre a rede ferroviária
+  soviética. E o interesse dos autores **não era o fluxo máximo: era o corte mínimo** —
+  *interdiction*, quais trechos destruir. O teorema que a sala aprende como coincidência elegante
+  tinha, na origem, **dois donos com objetivos opostos**. A dualidade deixa de ser elegância e
+  vira conflito formalizado.
+- **O problema de transporte é dez anos mais velho do que se atribui.** Tolstoĭ publicou em 1930,
+  num livro do Comissariado de Transportes soviético, com critério de ciclo negativo e uma
+  instância 10 × 68 resolvida à otimalidade. A lição não é de precedência: é que **o que entra no
+  cânone é o que é lido**, e isso depende de língua e de circulação.
+- **O método elipsoidal foi manchete de primeira página do *New York Times*** em 7 de novembro de
+  1979 — e um mês antes um jornal britânico anunciara que o caixeiro-viajante tinha sido resolvido,
+  o que é falso. É o exemplo mais antigo do handbook para a Parte XI, que ensina a ler artigo
+  aplicado. E ensina que **polinomial não quer dizer rápido**: o elipsoidal perde do Simplex na
+  prática.
+
+**O padrão de selos**, decidido pelo autor: `✓` fonte aberta e lida, `✓ᵐ` só metadados conferidos,
+`⏳` atribuição corrente não confirmada, `❌` sem fonte, `📖` leitura editorial. A distinção entre
+`✓` e `✓ᵐ` é o que impede confundir "existe e é este artigo" com "eu li e diz isso" — e é
+exatamente onde a atribuição do *big-M* a Charnes continua parada.
+
+**A fila de verificação** está no estudo, ordenada por dívida fechada por esforço. O item 1 é o
+relato de Dantzig em *Origins of the Simplex Method*: fecharia o nome *simplex* por Motzkin **e**
+a história de von Neumann e a dualidade. Está atrás de um `403` **da editora**, não da política de
+rede.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.12 — 2026-08-09 · As três dívidas antigas, fechadas
+
+Com o acesso ao YouTube e à literatura liberado no ambiente, três pendências que vinham sendo
+declaradas edição após edição foram encerradas.
+
+**1. Os vídeos saíram de `⏳` e viraram definitivos.** As três fichas nasceram provisórias porque
+o ambiente não alcançava o YouTube. Agora estão conferidas na fonte:
+
+- Capítulos 07 e 08 — **André Brochi**, canal *Matemática e Estatística*, 18min04s e 24min20s,
+  publicados em 21 de maio de 2020.
+- Capítulo 09 — **UNIVESP**, 18min48s, publicado em 10 de agosto de 2016.
+
+A Videoteca dizia, na própria política, que *curadoria sem atribuição é apropriação* — e estava
+em dívida com a própria regra enquanto o autor era um `⏳`. A ressalva extra que a ficha do
+capítulo 09 carregava também caiu: a atribuição da série à UNIVESP, que aparecia só em resultado
+de busca, **estava certa**.
+
+O que **não** foi conferido continua dito: a frase "o que ele resolve" é leitura do editor a
+partir do título e da posição na série. Ninguém assistiu.
+
+**2. A ilha interativa foi operada num navegador — e ganhou portão.** Ela era o **único artefato
+publicado do livro sem verificação executável**: a lógica tinha sido corrigida na edição 0.6 e
+conferida por leitura, e ninguém a havia usado. Agora `publicar/verifica-ilha.mjs` abre o
+capítulo 08 num Chromium e opera os controles, conferindo **as afirmações do capítulo**: que a
+ilha abre com uma restrição só, que abaixo do ótimo a reta corta, no ótimo encosta e acima passa
+por cima, e que ligar a memória mata o ótimo anterior — R$ 1.500 deixa de existir e o teto cai
+para R$ 1.100, com (0, 10) saindo da tabela de vértices.
+
+Quinze verificações, todas verdes. O portão foi provado quebrando: com a ilha abrindo com a
+memória ligada — o defeito exato que a revisão da edição 0.6 encontrou à mão —, ele acusa quatro
+falhas.
+
+> **A lição de método desta edição.** A primeira versão do teste procurava a palavra "encosta" no
+> texto inteiro da ilha e acusou três falhas. **A ilha estava certa**: o rótulo do controle é
+> "Subir até encostar", e a busca casava com a legenda em vez do estado. Diagnosticar antes de
+> corrigir evitou "consertar" código correto — é a segunda vez nesta série que isso acontece, e
+> nas duas o erro estava no verificador, não no verificado.
+
+**3. Os fundamentos científicos dos capítulos 07 e 09 deixaram de declarar lacuna.**
+
+No **capítulo 09**, a contradição que o texto abria e não fechava — pior caso exponencial medido
+versus desempenho prático — agora tem resposta com fonte lida: a **análise suavizada** de
+Spielman e Teng, que mede o desempenho esperado sob pequenas perturbações da entrada e prova
+complexidade polinomial nessa medida. A leitura que fica é acionável: **o pior caso do Simplex é
+frágil** — exige coeficientes ajustados com precisão e não sobrevive a ruído.
+
+No **capítulo 07**, os dois modos de falha da formulação — dado com significado errado e
+restrição óbvia demais para ser escrita — passam a ser apresentados como **evidência de primeira
+mão**, do relato de Dantzig sobre a própria dieta, com o teste prático de cada um.
+
+**O que continua em dívida**, e agora por motivo de acesso da editora, não de política de rede:
+a comparação sistemática entre regras de pivoteamento; o conteúdo de Bixby (2002), que fica só
+como ponteiro; e a varredura sobre **qualidade de formulação**, cuja escassez é impressão
+declarada e não resultado verificado.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.

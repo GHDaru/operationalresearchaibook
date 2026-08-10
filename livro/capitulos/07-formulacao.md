@@ -413,10 +413,57 @@ Este handbook segue uma terceira via: **um caso só, percorrido até o fim**, co
 padrões deslocado para o final desta Parte. A razão é carga cognitiva — quem ainda não formulou
 um modelo inteiro não aproveita um catálogo de dez.
 
-> **Dívida declarada.** O esqueleto de capítulo pede de 2 a 4 artigos científicos traduzidos
-> para decisões nesta seção. Este capítulo não os tem: a varredura sobre ensino de formulação
-> não foi feita, e **inventar citação é pior do que admitir a lacuna** (constituição, Princípio
-> III). Está na fila do [Radar](../../radar/RADAR.md).
+### O que a literatura muda no que você faz
+
+**1. As duas maneiras de um modelo certo dar resposta errada — e como cada uma se descobre.**
+
+O relato de Dantzig sobre a própria dieta (contado acima) não é anedota: é **evidência de
+primeira mão dos dois modos de falha da formulação**, escrita por quem inventou o método.
+
+| Modo de falha | Como apareceu | Como você descobre |
+|---|---|---|
+| **Dado com significado errado** | Vinagre com teor de água zero → 500 galões | Alguém **olha** a resposta e estranha |
+| **Restrição óbvia demais para ser escrita** | Nenhum limite de sal → 200 tabletes de caldo | Alguém **tenta executar** a resposta |
+
+**O que fazer diferente, na prática:** antes de levar uma solução a quem decide, faça duas
+perguntas ao modelo. *"Que campo de dado tem um valor padrão que significa outra coisa?"* e
+*"que restrição é tão óbvia para um humano que ninguém escreveu?"* — a segunda é a mais
+perigosa, porque a resposta sai executável, coerente e impossível.
+
+**2. Uma boa heurística pode estar a menos de 1% do ótimo — e você não tem como saber.**
+
+Stigler formulou, resolveu por heurística e **declarou que não sabia se era o melhor**. Ficou a
+24 centavos por ano do ótimo. O número só virou fato quando o ótimo existiu para comparar.
+
+**O que fazer diferente:** separe **resultado bom** de **resultado com garantia**. Se você não
+tem um limitante, "está bom" é opinião — legítima, mas opinião. Dizer isso em voz alta é o que
+Stigler fez, e é o que o handbook chama de honestidade de método.
+
+**3. O que continua sem cobertura, e é dívida de verdade.**
+
+O esqueleto pede de 2 a 4 artigos traduzidos para decisões, e os dois acima vêm das **mesmas
+fontes primárias que sustentam a história** deste capítulo. Não é acidente: **a literatura sobre
+qualidade de formulação é fina quando comparada à de algoritmos** — mede-se muito o solver e
+pouco o modelo.
+
+Dizer isso é uma afirmação sobre o campo, e ela **não foi verificada por varredura sistemática**:
+é impressão de quem levantou a bibliografia desta Parte. Fica marcada como tal, e a varredura
+entra na fila do [Radar](../../radar/RADAR.md).
+
+### As fontes desta seção
+
+- ✓ **DANTZIG, G. B.** "The Diet Problem". *Interfaces*, v. 20, n. 4, p. 43–47, 1990.
+  [DOI](https://doi.org/10.1287/inte.20.4.43) — **aberta e lida**.
+- ✓ᵐ **STIGLER, G. J.** "The Cost of Subsistence". *Journal of Farm Economics*, v. 27, n. 2,
+  p. 303, 1945. [DOI](https://doi.org/10.2307/1231810) — **metadados conferidos**; o texto
+  integral não foi lido, e tudo o que este capítulo afirma sobre ele vem do relato de Dantzig.
+- ✓ᵐ **BIXBY, R. E.** "Solving Real-World Linear Programs: A Decade and More of Progress".
+  *Operations Research*, v. 50, n. 1, p. 3–15, 2002.
+  [DOI](https://doi.org/10.1287/opre.50.1.3.17780) — **metadados conferidos, conteúdo não
+  acessível** (a editora recusa acesso automatizado). Fica como ponteiro para quem tiver acesso;
+  **nenhuma afirmação deste capítulo se apoia nele**.
+
+O padrão de selos é o da [bibliografia](../bibliografia.md): `✓` lido, `✓ᵐ` só metadados.
 
 ## Pratique
 
@@ -429,7 +476,7 @@ habilidade.
 
 ## Assista
 
-**[Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q)** · autor ⏳ · duração ⏳
+**[Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q)** · [André Brochi](https://www.youtube.com/@matematicaeestatistica) · 18min04s
 
 **O que ele resolve:** o texto aqui insiste que formular é escolher a pergunta, e faz isso com um
 caso só. O vídeo cobre a introdução à Programação Linear em outro ritmo e com outro exemplo —
@@ -437,11 +484,10 @@ ouvir a mesma ideia dita por outra pessoa, com outra escolha de palavras, é o q
 Assista **depois** de tentar formular o modelo da montadora por conta própria; antes disso ele
 entrega resposta que você deveria estar construindo.
 
-> ⏳ **Este vídeo está em estado provisório.** Título e endereço foram verificados; **autoria e
-> duração não**. O ambiente de produção deste handbook não alcança o YouTube, e inventar esses
-> campos seria pior do que deixá-los em branco (constituição, Princípio III). A
-> [Videoteca](../videoteca.md) explica o estado e as duas condições que o encerram — a preferida
-> sendo a troca pelo vídeo equivalente do canal parceiro.
+> ✓ **Ficha conferida na fonte** em 2026-08-09: autor, canal, duração e data de publicação. O
+> vídeo entra por link e crédito, com o player de origem — ver a política na
+> [Videoteca](../videoteca.md). O que **não** foi conferido é o conteúdo: a frase "o que ele
+> resolve" é leitura do editor a partir do título e da posição na série, e ninguém assistiu.
 
 ## Síntese — o que levar
 

@@ -395,7 +395,7 @@ handbook em que as duas habilidades são exigidas na mesma tarefa.
 
 ## Assista
 
-**[Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E)** · autor ⏳ · duração ⏳
+**[Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E)** · [André Brochi](https://www.youtube.com/@matematicaeestatistica) · 24min20s
 
 **O que ele resolve:** este capítulo tem uma ilha interativa, e ela é boa para *experimentar* —
 subir a reta, ver a região encolher. O que ela não faz é **narrar**: alguém desenhando no quadro,
@@ -404,8 +404,10 @@ segunda passada sobre o mesmo conteúdo, no ritmo de quem está pensando em voz 
 
 É a continuação direta do vídeo do capítulo anterior, na mesma série.
 
-> ⏳ **Provisório**, pelo mesmo motivo do capítulo anterior: título e endereço verificados,
-> autoria e duração não. Ver a [Videoteca](../videoteca.md).
+> ✓ **Ficha conferida na fonte** em 2026-08-09: autor, canal, duração e data de publicação. O
+> vídeo entra por link e crédito, com o player de origem — ver a política na
+> [Videoteca](../videoteca.md). O que **não** foi conferido é o conteúdo: a frase "o que ele
+> resolve" é leitura do editor a partir do título e da posição na série, e ninguém assistiu.
 
 ## Síntese — o que levar
 

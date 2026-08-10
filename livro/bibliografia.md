@@ -214,6 +214,38 @@ conteúdo vem do levantamento acima.
 ⏳ **Data de 1936 para a redescoberta por Motzkin.** — Localizada em busca, não confirmada em fonte
 primária.
 
+### Complexidade do Simplex (fundamentos científicos do capítulo 09)
+
+✓ **SPIELMAN, D. A.; TENG, S.-H.** "Smoothed Analysis of Algorithms: Why the Simplex Algorithm
+Usually Takes Polynomial Time". *Journal of the ACM*, v. 51, p. 385–463, 2004.
+DOI [10.1145/990308.990310](https://doi.org/10.1145/990308.990310) ·
+[versão aberta](https://arxiv.org/abs/cs/0111050). — **Aberta e lida.** Reconcilia o pior caso
+exponencial com o desempenho prático: sob pequenas perturbações aleatórias da entrada, o Simplex
+tem complexidade polinomial. A leitura que o capítulo extrai: **o pior caso é frágil**.
+
+✓ᵐ **BORGWARDT, K. H.** "The average number of pivot steps required by the Simplex-Method is
+polynomial". *Zeitschrift für Operations Research*, v. 26, p. 157–177, 1982.
+DOI [10.1007/bf01917108](https://doi.org/10.1007/bf01917108). — Metadados conferidos, conteúdo
+não lido. Resultado de caso médio, sob modelo probabilístico de instâncias.
+
+⏳ **KLEE, V.; MINTY, G. J.** "How good is the simplex algorithm?", em *Inequalities III*, 1972.
+— Citação corrente, **não confirmada em fonte primária**. O handbook **não depende** dela: o cubo
+é construído e os pivôs contados em `po-zero/etapa-03-simplex`.
+
+### Formulação (fundamentos científicos do capítulo 07)
+
+✓ᵐ **BIXBY, R. E.** "Solving Real-World Linear Programs: A Decade and More of Progress".
+*Operations Research*, v. 50, n. 1, p. 3–15, 2002.
+DOI [10.1287/opre.50.1.3.17780](https://doi.org/10.1287/opre.50.1.3.17780). — Metadados
+conferidos; **conteúdo inacessível** (a editora recusa acesso automatizado). Fica como ponteiro:
+**nenhuma afirmação do handbook se apoia nele**.
+
+> **Lacuna declarada.** A literatura específica sobre **qualidade de formulação** — como se
+> avalia se um modelo está bem escrito, e não se o solver está rápido — não foi levantada por
+> varredura sistemática. A impressão de quem montou esta bibliografia é que ela é fina comparada
+> à de algoritmos, e essa impressão **não é resultado verificado**. Está na fila do
+> [Radar](../radar/RADAR.md).
+
 ### Complementar
 
 ✓ **GARILLE, Susan Garner; GASS, Saul I.** "Stigler's Diet Problem Revisited". *Operations
