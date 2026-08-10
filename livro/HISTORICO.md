@@ -532,3 +532,61 @@ rede.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.12 — 2026-08-09 · As três dívidas antigas, fechadas
+
+Com o acesso ao YouTube e à literatura liberado no ambiente, três pendências que vinham sendo
+declaradas edição após edição foram encerradas.
+
+**1. Os vídeos saíram de `⏳` e viraram definitivos.** As três fichas nasceram provisórias porque
+o ambiente não alcançava o YouTube. Agora estão conferidas na fonte:
+
+- Capítulos 07 e 08 — **André Brochi**, canal *Matemática e Estatística*, 18min04s e 24min20s,
+  publicados em 21 de maio de 2020.
+- Capítulo 09 — **UNIVESP**, 18min48s, publicado em 10 de agosto de 2016.
+
+A Videoteca dizia, na própria política, que *curadoria sem atribuição é apropriação* — e estava
+em dívida com a própria regra enquanto o autor era um `⏳`. A ressalva extra que a ficha do
+capítulo 09 carregava também caiu: a atribuição da série à UNIVESP, que aparecia só em resultado
+de busca, **estava certa**.
+
+O que **não** foi conferido continua dito: a frase "o que ele resolve" é leitura do editor a
+partir do título e da posição na série. Ninguém assistiu.
+
+**2. A ilha interativa foi operada num navegador — e ganhou portão.** Ela era o **único artefato
+publicado do livro sem verificação executável**: a lógica tinha sido corrigida na edição 0.6 e
+conferida por leitura, e ninguém a havia usado. Agora `publicar/verifica-ilha.mjs` abre o
+capítulo 08 num Chromium e opera os controles, conferindo **as afirmações do capítulo**: que a
+ilha abre com uma restrição só, que abaixo do ótimo a reta corta, no ótimo encosta e acima passa
+por cima, e que ligar a memória mata o ótimo anterior — R$ 1.500 deixa de existir e o teto cai
+para R$ 1.100, com (0, 10) saindo da tabela de vértices.
+
+Quinze verificações, todas verdes. O portão foi provado quebrando: com a ilha abrindo com a
+memória ligada — o defeito exato que a revisão da edição 0.6 encontrou à mão —, ele acusa quatro
+falhas.
+
+> **A lição de método desta edição.** A primeira versão do teste procurava a palavra "encosta" no
+> texto inteiro da ilha e acusou três falhas. **A ilha estava certa**: o rótulo do controle é
+> "Subir até encostar", e a busca casava com a legenda em vez do estado. Diagnosticar antes de
+> corrigir evitou "consertar" código correto — é a segunda vez nesta série que isso acontece, e
+> nas duas o erro estava no verificador, não no verificado.
+
+**3. Os fundamentos científicos dos capítulos 07 e 09 deixaram de declarar lacuna.**
+
+No **capítulo 09**, a contradição que o texto abria e não fechava — pior caso exponencial medido
+versus desempenho prático — agora tem resposta com fonte lida: a **análise suavizada** de
+Spielman e Teng, que mede o desempenho esperado sob pequenas perturbações da entrada e prova
+complexidade polinomial nessa medida. A leitura que fica é acionável: **o pior caso do Simplex é
+frágil** — exige coeficientes ajustados com precisão e não sobrevive a ruído.
+
+No **capítulo 07**, os dois modos de falha da formulação — dado com significado errado e
+restrição óbvia demais para ser escrita — passam a ser apresentados como **evidência de primeira
+mão**, do relato de Dantzig sobre a própria dieta, com o teste prático de cada um.
+
+**O que continua em dívida**, e agora por motivo de acesso da editora, não de política de rede:
+a comparação sistemática entre regras de pivoteamento; o conteúdo de Bixby (2002), que fica só
+como ponteiro; e a varredura sobre **qualidade de formulação**, cuja escassez é impressão
+declarada e não resultado verificado.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.

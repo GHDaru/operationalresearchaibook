@@ -568,16 +568,62 @@ Koopmans em 1948. O que **não** fechou está marcado `⏳` na tabela daquela se
 *big-M* e o nome *simplex* seguem como atribuição corrente, e a origem da letra M continua sem
 fonte nenhuma.
 
-**O que continua em dívida.** Os resultados de complexidade em média, que explicam por que o
-método funciona tão bem na prática apesar do pior caso, e a comparação sistemática entre regras
-de pivoteamento **exigem leitura de literatura primária**, e não estão aqui. Entram na fila do
-[Radar](../../radar/RADAR.md).
+### O que a literatura muda no que você faz
 
-> ⏳ **Dívida declarada, com o motivo.** Este ambiente de trabalho não alcança as fontes:
-> arXiv, Crossref, OpenAlex e os sites das editoras respondem `403` ao proxy de saída. Publicar
-> uma citação que não pude abrir violaria o Princípio III — *nenhuma URL ou DOI inventado* — e
-> seria pior do que esta lacuna. As obras-base estão na [bibliografia](../bibliografia.md), e
-> esta seção entra na fila do [Radar](../../radar/RADAR.md).
+Este capítulo deixou uma contradição em aberto e ela precisa de resposta. A seção "quando não
+serve" mostra, **medindo**, que o Simplex visita todos os $2^n$ vértices no cubo de Klee–Minty.
+E a mesma seção afirma que "na prática ele quase nunca se comporta assim". Duas afirmações que
+não convivem sem explicação — e a explicação está na literatura.
+
+**1. O pior caso é real, e é adversarial.**
+
+⏳ KLEE, V.; MINTY, G. J. "How good is the simplex algorithm?", em *Inequalities III*, 1972.
+Obra citada de forma corrente e **não confirmada em fonte primária** aqui — mas a afirmação **não
+depende dela**: o cubo está construído no `po-zero`, e os pivôs, contados. É a razão de o
+capítulo ter medido em vez de citar.
+
+**O que fazer diferente:** não escolha método por classe de complexidade de pior caso. O pior
+caso descreve a instância **construída para derrotar a regra**, e a sua instância não foi
+construída para isso.
+
+**2. Em média, o número de pivôs é polinomial.**
+
+✓ᵐ BORGWARDT, K. H. "The average number of pivot steps required by the Simplex-Method is
+polynomial". *Zeitschrift für Operations Research*, v. 26, p. 157–177, 1982.
+[DOI](https://doi.org/10.1007/bf01917108) — metadados conferidos, conteúdo não lido.
+
+O resultado é sobre um **modelo probabilístico de instâncias**. Ele explica parte do
+descompasso, e tem um limite honesto: as suas instâncias não são sorteadas de uma distribuição.
+
+**3. A reconciliação: análise suavizada.**
+
+✓ SPIELMAN, D. A.; TENG, S.-H. "Smoothed Analysis of Algorithms: Why the Simplex Algorithm
+Usually Takes Polynomial Time". *Journal of the ACM*, v. 51, p. 385–463, 2004.
+[DOI](https://doi.org/10.1145/990308.990310) · [versão aberta](https://arxiv.org/abs/cs/0111050)
+— **aberta e lida**.
+
+Os autores abrem o artigo nomeando exatamente o problema deste capítulo: a comunidade de análise
+de algoritmos é desafiada pela existência de algoritmos que **cientistas e engenheiros sabem que
+funcionam bem na prática, e cujas análises teóricas são negativas ou inconclusivas**.
+
+A saída que eles propõem é medir o desempenho **esperado sob pequenas perturbações aleatórias da
+entrada**, tomando o pior caso sobre as entradas — um meio-termo entre pior caso e caso médio. E
+provam que, nessa medida, o Simplex tem **complexidade polinomial** no tamanho da entrada e no
+desvio-padrão da perturbação.
+
+**O que fazer diferente, e é o mais útil desta seção:** a leitura correta de Klee–Minty passa a
+ser que **o pior caso do Simplex é frágil** — ele exige coeficientes ajustados com precisão, e
+some quando a instância é levemente perturbada. Isso muda o que você diz numa reunião. Em vez de
+"o Simplex é exponencial, então não use", o defensável é: *"o pior caso existe, é construído, e
+não sobrevive a ruído; ainda assim não há garantia de tempo, e um problema grande merece medição
+antes de promessa."*
+
+### O que continua em dívida
+
+A **comparação sistemática entre regras de pivoteamento** — Dantzig, Bland, maior melhoria,
+*steepest edge* — não foi levantada. É o que decidiria qual regra ensinar como padrão, e o
+capítulo hoje ensina a de Dantzig por ser a que a sala pratica, não por evidência comparativa.
+Entra na fila do [Radar](../../radar/RADAR.md).
 
 ## Pratique
 
@@ -600,17 +646,17 @@ avisar.
 
 ## Assista
 
-**[Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E)** · autor ⏳ · duração ⏳
+**[Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E)** · [UNIVESP](https://www.youtube.com/@univesptv) · 18min48s
 
 **O que ele resolve:** o pivoteamento é uma dessas coisas que se entendem melhor vendo a mão de
 alguém escrever. O texto mostra o quadro antes e o quadro depois; o vídeo mostra a **passagem** —
 que linha foi dividida por quê, que múltiplo foi subtraído de qual. É a diferença entre ver duas
 fotos e ver o movimento.
 
-> ⏳ **Provisório**, e com uma ressalva a mais do que nos capítulos anteriores: o endereço foi
-> localizado por busca, a atribuição da série a um curso público aparece no resultado da busca e
-> **não foi confirmada na fonte** — este ambiente não abre o YouTube. Ver a
-> [Videoteca](../videoteca.md).
+> ✓ **Ficha conferida na fonte** em 2026-08-09: autor, canal, duração e data de publicação. O
+> vídeo entra por link e crédito, com o player de origem — ver a política na
+> [Videoteca](../videoteca.md). O que **não** foi conferido é o conteúdo: a frase "o que ele
+> resolve" é leitura do editor a partir do título e da posição na série, e ninguém assistiu.
 
 ## Síntese — o que levar
 

@@ -109,15 +109,16 @@ planejamento e programação da produção; gestão de estoques.
 - **Portão de URL externa** — hoje a defesa contra endereço inventado é a disciplina de quem
   escreve, e disciplina não é mecanismo. Um portão que exija que toda URL de vídeo esteja na
   Videoteca com estado declarado fecharia parte do buraco. Nasceu do incidente da rodada 004.
-- **Verificar a ilha interativa do capítulo 08 em navegador** — é o único artefato publicado do
-  livro sem verificação executável.
 - **Sessão de história** — pesquisa concentrada que alimenta as seções "De onde isto veio" das
   rodadas seguintes, em vez de pesquisar capítulo a capítulo. Primeira rodada feita em 2026-08-09
   ([estudo 002](estudos/002-historia-dos-metodos.md)); a próxima cobre as Partes VI a IX e a
   fronteira. A **fila de verificação** do estudo lista o que fecharia mais dívida por esforço.
-- **Fundamentos científicos dos capítulos 07 a 09** — a seção que hoje declara lacuna nos três.
-  Não é história: são resultados (complexidade em média do Simplex, comparação entre regras de
-  pivoteamento). Com o acesso liberado, vira rodada própria.
+- **Comparação entre regras de pivoteamento** — Dantzig, Bland, maior melhoria, *steepest edge*.
+  É o que decidiria qual regra ensinar como padrão; hoje o capítulo 09 ensina a de Dantzig por ser
+  a que a sala pratica, não por evidência comparativa.
+- **Varredura sobre qualidade de formulação** — como se avalia se um modelo está bem escrito, e
+  não se o solver está rápido. A impressão de que essa literatura é fina está declarada no
+  capítulo 07 como impressão, não como resultado.
 - **Gatilho por telemetria** — exercício com taxa de acerto muito baixa e volume relevante é
   sintoma de **texto mal escrito**, não de leitor fraco. Entra na fila de revisão.
 
@@ -142,3 +143,4 @@ planejamento e programação da produção; gestão de estoques.
 | 2026-08-09 | **Princípio XII — nenhum método cai do céu.** Constituição 1.1.0 | [ADR 0006](adr/0006-o-metodo-tem-historia.md) |
 | 2026-08-09 | Dívida retroativa do Princípio XII quitada nos capítulos 07 e 08 | [Histórico](livro/HISTORICO.md) · edição 0.9 |
 | 2026-08-09 | História pesquisada em **sessão concentrada**, não capítulo a capítulo | [Spec 005](specs/005-historia-dos-metodos/spec.md) |
+| 2026-08-09 | Ilha interativa com **portão em navegador**; vídeos e fundamentos fechados | [Histórico](livro/HISTORICO.md) · edição 0.12 |

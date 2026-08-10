@@ -61,6 +61,12 @@ jobs:
       - name: Instalar Chromium (para os PDFs)
         run: npx playwright install --with-deps chromium
         working-directory: publicar
+      # A ilha interativa só pode ser verificada com navegador, então este passo
+      # vem DEPOIS da instalação do Chromium — e não dentro de `npm run build`,
+      # que precisa continuar verde no caminho do Vercel, onde não há navegador.
+      - name: Verificar a ilha interativa em navegador
+        run: npm run verifica:ilha
+        working-directory: publicar
       - name: Gerar PDFs (livro completo + por capítulo)
         run: npm run pdf
         working-directory: publicar
