@@ -1114,5 +1114,244 @@
         "status": "inviavel"
       }
     }
+  },
+  {
+    "id": "cap10.exA",
+    "capitulo": 10,
+    "serie": "cap10",
+    "variante": "A",
+    "tipo": "diagnosticar",
+    "objetivo": "O1",
+    "capacidade": "casos_especiais",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "O gerente comemorou o ilimitado",
+    "enunciado": "Uma serralheria modelou a produção de dois tipos de portão e rodou:\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad x_1 - x_2 \\le 2,\\quad x_1, x_2 \\ge 0$$\n\nO solver devolveu `Unbounded`. O gerente comercial reagiu: *\"ótimo, então não há teto para o nosso lucro — vamos vender o quanto conseguirmos!\"*\n\n1. O gerente entendeu certo? Responda em uma frase.\n2. **Onde** está o problema — no algoritmo, nos dados ou no modelo?\n3. Qual é a **primeira coisa** que você vai procurar, e por quê?\n4. Escreva a frase que você diria na reunião.",
+    "criterios": [
+      "Rejeita a leitura do gerente: `Unbounded` não é notícia sobre o mercado, é veredito sobre o modelo",
+      "Localiza o problema no **modelo**, não no algoritmo nem nos dados: o solver respondeu corretamente à pergunta que foi feita",
+      "Identifica que **falta uma restrição de capacidade**: nada no modelo limita $x_2$, que pode crescer sem fim junto com $x_1$",
+      "A frase de reunião traz a incompatibilidade com o mundo, e não o veredito técnico — algo como \"o modelo diz que não há limite para produzir, o que é falso; falta escrever algum limite\""
+    ],
+    "erro_provavel": "Responder que o modelo \"está errado\" e parar aí, ou pedir para o analista \"rodar de novo com outro solver\". Nenhum solver vai devolver coisa diferente: o modelo **é** ilimitado, e essa é a resposta correta para a pergunta como ela foi escrita. Trocar de ferramenta é o reflexo errado, e custa dias. O caminho é procurar o limite que existe na fábrica e não existe no papel — horas de máquina, matéria-prima, demanda, mão de obra.",
+    "resposta_guia": "O gerente entendeu errado: `Unbounded` não diz nada sobre o mercado, diz que o modelo permite crescer indefinidamente. O problema é do modelo — o algoritmo respondeu com precisão à pergunta que lhe foi feita. A única restrição escrita, $x_1 - x_2 \\le 2$, limita a **diferença** entre os dois tipos e não limita nenhum dos dois: basta aumentar os dois juntos que ela continua satisfeita e o lucro cresce sem fim. Falta uma restrição de capacidade — horas de máquina, material, demanda. Na reunião: \"o modelo está dizendo que dá para produzir sem limite, o que sabemos ser falso; então falta escrever algum limite que existe na fábrica — qual é?\"",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        40,
+        30
+      ],
+      "restricoes": [
+        [
+          1,
+          -1,
+          "<=",
+          2
+        ]
+      ],
+      "otimo": {
+        "status": "ilimitado"
+      }
+    }
+  },
+  {
+    "id": "cap10.exB",
+    "capitulo": 10,
+    "serie": "cap10",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O1",
+    "capacidade": "casos_especiais",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "Duas promessas que não cabem na mesma semana",
+    "enunciado": "Uma gráfica tem 4 turnos disponíveis na semana. Dois clientes têm contrato de mínimo: o cliente A exige pelo menos 3 turnos dedicados a ele, e o cliente B também exige pelo menos 3.\n\n$$\\max\\ 500x_1 + 400x_2 \\quad \\text{s.a.}\\quad x_1 + x_2 \\le 4,\\quad x_1 \\ge 3,\\quad x_2 \\ge 3,\\quad x_1, x_2 \\ge 0$$\n\nO solver devolveu `Infeasible`.\n\n1. Descreva o procedimento que você usaria para descobrir **qual** restrição está em conflito.\n2. Faça a conta que dispensa o solver e mostra a contradição.\n3. Uma analista sugere: *\"relaxa o mínimo do cliente B para 1 e roda de novo — aí fecha\"*. Qual é o risco dessa saída?\n4. O que você leva para a reunião?",
+    "criterios": [
+      "O procedimento é de isolamento: remover uma restrição por vez e resolver de novo; a que torna o modelo viável ao sair é a que está em conflito",
+      "A conta: os dois mínimos somam $3 + 3 = 6$ turnos, e só existem 4",
+      "Identifica o risco da sugestão: relaxar um mínimo contratual **no papel** não relaxa o contrato **no mundo** — produz um plano executável para um problema que não é o da gráfica",
+      "Leva à reunião a **incompatibilidade entre promessas**, não o veredito do solver: dois contratos exigem 6 turnos numa semana de 4"
+    ],
+    "erro_provavel": "Aceitar a sugestão da analista porque \"pelo menos assim o modelo roda\". Este é o erro mais caro do capítulo, e ele não deixa rastro: sai um plano bonito, factível e coerente — para um problema que a gráfica não tem. O modelo inviável estava **certo**: ele detectou, antes de qualquer pessoa, que a empresa prometeu mais do que consegue entregar. Apagar o sintoma no modelo não apaga a contradição no mundo; só transfere a descoberta para a sexta-feira, quando um dos dois clientes não for atendido.",
+    "resposta_guia": "O procedimento é isolar: tire um mínimo, resolva; tire o outro, resolva. Aqui a conta dispensa o solver — os mínimos somam 6 turnos e a semana tem 4. Não há erro de cálculo nem de algoritmo: há duas promessas incompatíveis. A sugestão de relaxar o mínimo do cliente B para 1 é perigosa porque muda o **modelo** sem mudar o **contrato**: o plano resultante é executável no papel e descumpre um acordo no mundo. O que se leva à reunião é a incompatibilidade, com número: \"os contratos de A e B exigem 6 turnos, e a semana tem 4; ou renegociamos um dos mínimos, ou abrimos turno extra, ou terceirizamos.\" A decisão é de quem assinou os contratos, não do modelo.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        500,
+        400
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          4
+        ],
+        [
+          1,
+          0,
+          ">=",
+          3
+        ],
+        [
+          0,
+          1,
+          ">=",
+          3
+        ]
+      ],
+      "otimo": {
+        "status": "inviavel"
+      }
+    }
+  },
+  {
+    "id": "cap10.exC",
+    "capitulo": 10,
+    "serie": "cap10",
+    "variante": "C",
+    "tipo": "resolver",
+    "objetivo": "O2",
+    "capacidade": "casos_especiais",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O zero que está fora da base",
+    "enunciado": "Uma marcenaria resolveu o modelo abaixo e entregou o quadro final:\n\n$$\\max\\ 6x_1 + 4x_2 \\quad \\text{s.a.}\\quad 3x_1 + 2x_2 \\le 12,\\quad x_1 + x_2 \\le 5,\\quad x_1, x_2 \\ge 0$$\n\n| base | $x_1$ | $x_2$ | $f_1$ | $f_2$ | $b$ |\n|---|---:|---:|---:|---:|---:|\n| $x_1$ | 1 | 2/3 | 1/3 | 0 | 4 |\n| $f_2$ | 0 | 1/3 | −1/3 | 1 | 1 |\n| $z$ | 0 | **0** | 2 | 0 | 24 |\n\n1. Qual é o plano lido deste quadro, e quanto ele rende?\n2. O quadro é final? Justifique pelo critério.\n3. Há um zero na linha $z$ sob $x_2$. **O que ele significa**, e por que o significado seria outro se $x_2$ estivesse na base?\n4. Pivoteie na coluna de $x_2$ e diga a que plano você chega. Compare o lucro.\n5. O gerente pergunta: *\"então qual eu executo?\"*. Responda como quem decide, não como quem calcula.",
+    "criterios": [
+      "Lê o plano $(4, 0)$ com lucro 24, e reconhece que o quadro é final porque nenhum coeficiente da linha $z$ é negativo",
+      "Interpreta o zero corretamente: $x_2$ está **fora** da base e tem custo reduzido zero, logo fazê-la entrar **não altera o lucro** — existe outro plano ótimo",
+      "Distingue o caso: se $x_2$ estivesse **na** base valendo zero, seria vértice degenerado, que é outro fenômeno",
+      "Pivoteando chega a $(2, 3)$, também com lucro 24 — e reconhece que todo o segmento entre os dois pontos rende o mesmo",
+      "Responde ao gerente escolhendo por um critério **que o modelo não captura** (risco, equipe, fornecedor, facilidade de explicar), em vez de declarar empate"
+    ],
+    "erro_provavel": "Responder ao gerente que \"tanto faz, os dois dão 24\". Está aritmeticamente certo e é uma resposta ruim: transfere a decisão de volta para quem pediu ajuda. Múltiplos ótimos não são empate — são **grau de liberdade de graça**. Todos os planos do segmento custam o mesmo à empresa, então a escolha passa a ser feita pelo que ficou de fora do modelo. Quem chega com uma família de planos equivalentes e uma recomendação decide; quem chega com \"tanto faz\", obedece.",
+    "resposta_guia": "O plano é $x_1 = 4$, $x_2 = 0$, lucro 24, e o quadro é final: nenhum coeficiente negativo na linha $z$. O zero sob $x_2$ é decisivo — $x_2$ está fora da base, então seu custo reduzido diz quanto o lucro mudaria se ela entrasse: zero. Existe outro plano ótimo. Se $x_2$ estivesse **na** base valendo zero, o fenômeno seria outro: vértice degenerado. Pivoteando na coluna de $x_2$ (razões $4 \\div \\frac{2}{3} = 6$ e $1 \\div \\frac{1}{3} = 3$; sai $f_2$) chega-se a $(2, 3)$, com $6(2) + 4(3) = 24$. Mesmo lucro, e todo o segmento entre $(4,0)$ e $(2,3)$ rende 24. Ao gerente: os dois planos custam o mesmo à empresa, então escolha pelo que o modelo não enxerga — qual estressa menos a equipe, qual usa o fornecedor mais confiável, qual deixa mais folga para imprevisto. E leve uma recomendação.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        6,
+        4
+      ],
+      "restricoes": [
+        [
+          3,
+          2,
+          "<=",
+          12
+        ],
+        [
+          1,
+          1,
+          "<=",
+          5
+        ]
+      ],
+      "otimo": {
+        "segmento": [
+          [
+            4,
+            0
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "valor": 24
+      }
+    }
+  },
+  {
+    "id": "cap10.exD",
+    "capitulo": 10,
+    "serie": "cap10",
+    "variante": "D",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "capacidade": "casos_especiais",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O zero que está dentro da base",
+    "enunciado": "Uma metalúrgica roda o modelo abaixo e obtém o quadro final:\n\n$$\\max\\ 5x_1 + 4x_2 \\quad \\text{s.a.}\\quad x_1 + x_2 \\le 6,\\quad 2x_1 + x_2 \\le 9,\\quad x_1 \\le 3,\\quad x_1, x_2 \\ge 0$$\n\n| base | $x_1$ | $x_2$ | $f_1$ | $f_2$ | $f_3$ | $b$ |\n|---|---:|---:|---:|---:|---:|---:|\n| $x_2$ | 0 | 1 | 1 | 0 | −1 | 3 |\n| $f_2$ | 0 | 0 | −1 | 1 | −1 | **0** |\n| $x_1$ | 1 | 0 | 0 | 0 | 1 | 3 |\n| $z$ | 0 | 0 | 4 | 0 | 1 | 27 |\n\nDurante a execução, o teste da razão empatou **duas vezes**.\n\n1. Qual é o plano, e ele é executável?\n2. Que fenômeno o zero em $f_2$ denuncia, e por que ele é diferente do zero do exercício anterior?\n3. O empate no teste da razão é **causa** ou **sintoma**? Explique.\n4. Um estagiário conclui que \"o modelo está errado e precisa ser refeito\". Você concorda?\n5. Descreva o procedimento para caçar a restrição redundante, e diga que conversa você vai ter depois de achá-la.",
+    "criterios": [
+      "O plano é $x_1 = 3$, $x_2 = 3$, lucro 27, e é perfeitamente executável — não há erro de conta",
+      "Identifica **vértice degenerado**: $f_2$ está **na** base valendo zero, ou seja, mais restrições passam pelo ponto do que o necessário para sustentá-lo. É o oposto do exercício anterior, em que o zero estava numa variável **fora** da base",
+      "Reconhece o empate no teste da razão como **sintoma**, não causa: ele aparece porque o vértice é sobredeterminado",
+      "Discorda do estagiário: vértice degenerado é comum e legítimo, é bandeira amarela e não defeito — as consequências são restrição possivelmente redundante e leitura de preço-sombra ambígua",
+      "O procedimento é remover uma restrição por vez e resolver de novo; a que sair sem mudar o ótimo é candidata a redundante, e a conversa seguinte é sobre **por que ela existe**"
+    ],
+    "erro_provavel": "Confundir com o exercício anterior e anunciar múltiplos ótimos. Os dois casos são zeros, e é aí que a semelhança termina: o que decide é **onde** o zero está. Fora da base, o zero é custo reduzido e anuncia outro plano de mesmo valor; **dentro** da base, o zero é o valor da própria variável e anuncia vértice sobredeterminado. Trocar um pelo outro leva a prometer flexibilidade que não existe — e a não investigar a restrição redundante que existe.",
+    "resposta_guia": "O plano é $(3, 3)$ com lucro 27, e é executável: $3+3=6 \\le 6$, $2(3)+3=9 \\le 9$, $3 \\le 3$. O zero está em $f_2$, que está **na** base — isso é vértice degenerado, e não múltiplos ótimos: no exercício anterior o zero era o custo reduzido de uma variável **fora** da base. Aqui as três restrições passam pelo mesmo ponto, e sustentar um vértice no plano precisa de duas. O empate no teste da razão é sintoma disso, não causa. O estagiário está errado: o modelo não precisa ser refeito, mas merece uma inspeção — degenerescência costuma indicar restrição redundante, e faz a leitura de preço-sombra depender de em qual base o solver parou. Para caçar a redundante, remova uma restrição por vez e resolva de novo: a que sair sem alterar o ótimo é candidata. Depois, vá à origem dela e pergunte por que ela existe — é uma conversa sobre a operação, não sobre o modelo.",
+    "modelo": {
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        5,
+        4
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          6
+        ],
+        [
+          2,
+          1,
+          "<=",
+          9
+        ],
+        [
+          1,
+          0,
+          "<=",
+          3
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          3,
+          3
+        ],
+        "valor": 27
+      }
+    }
+  },
+  {
+    "id": "cap10.exE",
+    "capitulo": 10,
+    "serie": "cap10",
+    "variante": "E",
+    "tipo": "julgar",
+    "objetivo": "O4",
+    "capacidade": "casos_especiais",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Trocou a peça e o problema sumiu",
+    "enunciado": "Um colega relata: *\"nosso modelo de programação da produção travava — o solver rodava e nunca terminava. Troquei a regra de pivoteamento e o problema sumiu. Resolvido.\"*\n\nDepois da troca, ele nota que **o teste da razão continua empatando** com a mesma frequência de antes.\n\n1. Aplique o teste que este capítulo instala. O que sumiu era do **modelo** ou do **método**? E o que ficou?\n2. Por que o colega **não** deveria dizer \"resolvido\" e parar aí?\n3. Ele quer padronizar a nova regra para todos os modelos da empresa, \"por segurança\". Que objeção você levanta, e que evidência pediria antes de decidir?\n4. Enuncie o teste em uma frase, de forma que sirva fora da Pesquisa Operacional.",
+    "criterios": [
+      "Aplica o teste: a travada **sumiu** com a troca da regra, logo era do **método**; os empates **permaneceram**, logo são do **modelo**",
+      "Explica por que \"resolvido\" é prematuro: o sintoma do modelo continua lá, e ele tem consequências próprias — provável restrição redundante e leitura de preço-sombra ambígua",
+      "Objeta à padronização com o argumento do custo: uma regra que garante terminação costuma gastar mais iterações, e o benefício aparece num caso raro. Pede **medição** — iterações sob as duas regras, nas instâncias reais da empresa",
+      "Enuncia o teste de forma transferível: o que sobrevive à troca da peça é da especificação; o que some era da implementação"
+    ],
+    "erro_provavel": "Aceitar \"resolvido\" porque o sintoma visível desapareceu. É o erro que o capítulo inteiro combate, e ele é confortável: alguém trocou uma peça, a travada acabou, todo mundo volta ao trabalho. Mas a troca de regra respondeu a uma pergunta e revelou outra — **por que este modelo é tão degenerado?** Os empates que sobraram apontam para restrições redundantes que ninguém removeu, e para preços-sombra que a próxima reunião vai ler como se fossem confiáveis.",
+    "resposta_guia": "O teste separa as duas coisas: a travada sumiu quando a regra mudou, com o modelo intacto — era defeito do **método**. Os empates no teste da razão sobreviveram à troca — são do **modelo**, e indicam vértices degenerados, provavelmente por restrições redundantes. Por isso \"resolvido\" é prematuro: o que ficou tem consequências, entre elas preço-sombra ambíguo. Sobre padronizar a regra: a objeção é de custo, porque regras que garantem terminação costumam gastar mais iterações, e a proteção vale para um caso raro. Antes de decidir, peça medição — número de iterações sob as duas regras nas instâncias reais da empresa, e a confirmação de que a resposta não muda. O teste, em uma frase: **o que sobrevive à troca da peça é da especificação; o que some era da implementação.**"
   }
 ]

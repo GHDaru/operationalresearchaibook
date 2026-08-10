@@ -1,0 +1,756 @@
+{
+  "casos": {
+    "1_vertice_degenerado": {
+      "descricao": "Montadora com um contrato que limita o total montado a 10 — exatamente o que as CPUs já limitavam. A restrição é redundante e passa pelo vértice ótimo.",
+      "regra": "dantzig",
+      "status": "otimo",
+      "pivos": 2,
+      "ponto": [
+        "8",
+        "2"
+      ],
+      "valor": "1100",
+      "caminho": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "6"
+        ],
+        [
+          "8",
+          "2"
+        ]
+      ],
+      "ciclo": null,
+      "vertice": {
+        "degenerado": true,
+        "basicas_em_zero": [
+          "f3"
+        ]
+      },
+      "otimo": {
+        "multiplos_otimos": false,
+        "colunas_com_custo_reduzido_zero": []
+      },
+      "quadro_final": "base          x1      x2      f1      f2      f3       b\n--------------------------------------------------------\nx1             1       0       2      -1       0       8\nx2             0       1      -1       1       0       2\nf3             0       0      -1       0       1       0\nz              0       0      50      50       0    1100",
+      "empates_no_teste_da_razao": [
+        {
+          "iteracao": 0,
+          "razoes": {
+            "f1": "10",
+            "f2": "6",
+            "f3": "10"
+          }
+        },
+        {
+          "iteracao": 1,
+          "razoes": {
+            "f1": "8",
+            "x2": "12",
+            "f3": "8"
+          }
+        }
+      ]
+    },
+    "2_multiplos_otimos": {
+      "descricao": "A mesma montadora com lucro (100, 200): o objetivo fica paralelo à restrição de memória, e o último contato da reta de iso-lucro é um lado inteiro, não um ponto.",
+      "regra": "dantzig",
+      "status": "otimo",
+      "pivos": 1,
+      "ponto": [
+        "0",
+        "6"
+      ],
+      "valor": "1200",
+      "caminho": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "6"
+        ]
+      ],
+      "ciclo": null,
+      "vertice": {
+        "degenerado": false,
+        "basicas_em_zero": []
+      },
+      "otimo": {
+        "multiplos_otimos": true,
+        "colunas_com_custo_reduzido_zero": [
+          "x1"
+        ]
+      },
+      "quadro_final": "base          x1      x2      f1      f2       b\n------------------------------------------------\nf1           1/2       0       1    -1/2       4\nx2           1/2       1       0     1/2       6\nz              0       0       0     100    1200",
+      "empates_no_teste_da_razao": [],
+      "extremos_do_segmento": [
+        {
+          "ponto": [
+            0,
+            6
+          ],
+          "valor": 1200
+        },
+        {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1200
+        }
+      ]
+    },
+    "3_sem_teto": {
+      "descricao": "A montadora sem nenhuma restrição de recurso — o primeiro estágio do capítulo 07. Nenhuma razão positiva no teste da razão: dá para andar para sempre.",
+      "regra": "dantzig",
+      "status": "ilimitado",
+      "pivos": 0,
+      "ponto": null,
+      "valor": null,
+      "caminho": [
+        [
+          "0",
+          "0"
+        ]
+      ],
+      "ciclo": null,
+      "vertice": {
+        "degenerado": false,
+        "basicas_em_zero": []
+      },
+      "otimo": null,
+      "quadro_final": "base          x1      x2       b\n--------------------------------\nz           -100    -150       0",
+      "empates_no_teste_da_razao": []
+    },
+    "4_sem_plano": {
+      "descricao": "A montadora com 8 unidades do Tipo 2 já vendidas: exigiriam 16 pentes e só há 12. A variável artificial sobra na base com valor positivo.",
+      "regra": "dantzig",
+      "status": "inviavel",
+      "pivos": 1,
+      "ponto": null,
+      "valor": null,
+      "caminho": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "6"
+        ]
+      ],
+      "ciclo": null,
+      "vertice": {
+        "degenerado": false,
+        "basicas_em_zero": []
+      },
+      "otimo": null,
+      "quadro_final": "base             x1         x2         f1         f2         e3         a3          b\n-------------------------------------------------------------------------------------\nf1              1/2          0          1       -1/2          0          0          4\nx2              1/2          1          0        1/2          0          0          6\na3             -1/2          0          0       -1/2         -1          1          2\nz         1/2M - 25          0          0  1/2M + 75          M          0  -2M + 900",
+      "empates_no_teste_da_razao": []
+    },
+    "5_giro_dantzig": {
+      "descricao": "A instância clássica de ciclagem, com a regra que o capítulo 09 ensina (custo reduzido mais negativo; desempate da saída pela linha de menor índice).",
+      "regra": "dantzig",
+      "status": "limite_de_iteracoes",
+      "pivos": 41,
+      "ponto": null,
+      "valor": null,
+      "caminho": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "ciclo": {
+        "houve_ciclo": true,
+        "base_repetida": [
+          "f1",
+          "f2",
+          "f3"
+        ],
+        "primeira_ocorrencia": 0,
+        "repetiu_em": 6,
+        "periodo": 6
+      },
+      "vertice": {
+        "degenerado": true,
+        "basicas_em_zero": [
+          "x3",
+          "x4"
+        ]
+      },
+      "otimo": null,
+      "quadro_final": "base          x1      x2      x3      x4      f1      f2      f3       b\n------------------------------------------------------------------------\nx3        -125/2   10500       1       0      50    -150       0       0\nx4          -1/4      40       0       1     1/3    -2/3       0       0\nf3         125/2  -10500       0       0     -50     150       1       1\nz           -1/2     120       0       0      -1       1       0       0",
+      "empates_no_teste_da_razao": [
+        {
+          "iteracao": 0,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 2,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 4,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        },
+        {
+          "iteracao": 6,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 8,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 10,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        },
+        {
+          "iteracao": 12,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 14,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 16,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        },
+        {
+          "iteracao": 18,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 20,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 22,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        },
+        {
+          "iteracao": 24,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 26,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 28,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        },
+        {
+          "iteracao": 30,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 32,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 34,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        },
+        {
+          "iteracao": 36,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 38,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        },
+        {
+          "iteracao": 40,
+          "razoes": {
+            "x3": "0",
+            "x4": "0"
+          }
+        }
+      ]
+    },
+    "5_giro_bland": {
+      "descricao": "A MESMA instância, mudando só a regra de pivoteamento: Bland — menor índice na entrada e, entre as de menor razão, a variável básica de menor índice.",
+      "regra": "bland",
+      "status": "otimo",
+      "pivos": 6,
+      "ponto": [
+        "1/25",
+        "0",
+        "1",
+        "0"
+      ],
+      "valor": "1/20",
+      "caminho": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "2/125",
+          "0",
+          "1",
+          "1/250"
+        ],
+        [
+          "1/25",
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "ciclo": null,
+      "vertice": {
+        "degenerado": false,
+        "basicas_em_zero": []
+      },
+      "otimo": {
+        "multiplos_otimos": false,
+        "colunas_com_custo_reduzido_zero": []
+      },
+      "quadro_final": "base          x1      x2      x3      x4      f1      f2      f3       b\n------------------------------------------------------------------------\nx3             0       0       1       0       0       0       1       1\nf1             0     -15       0    15/2       1    -1/2   3/100   3/100\nx1             1    -180       0       6       0       2    1/25    1/25\nz              0      15       0    21/2       0     3/2    1/20    1/20",
+      "empates_no_teste_da_razao": [
+        {
+          "iteracao": 0,
+          "razoes": {
+            "f1": "0",
+            "f2": "0"
+          }
+        },
+        {
+          "iteracao": 2,
+          "razoes": {
+            "x1": "0",
+            "x2": "0",
+            "f3": "1"
+          }
+        }
+      ]
+    }
+  },
+  "conferencia_com_solver": {
+    "1_vertice_degenerado": {
+      "status": "Optimal",
+      "ponto": [
+        8.0,
+        2.0
+      ],
+      "valor": 1100.0
+    },
+    "2_multiplos_otimos": {
+      "status": "Optimal",
+      "ponto": [
+        0.0,
+        6.0
+      ],
+      "valor": 1200.0
+    },
+    "3_sem_teto": {
+      "status": "Unbounded"
+    },
+    "4_sem_plano": {
+      "status": "Infeasible"
+    },
+    "5_giro": {
+      "status": "Optimal",
+      "ponto": [
+        0.04,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "valor": 0.05
+    }
+  },
+  "custo_da_garantia": {
+    "descricao": "Pivôs sob as duas regras nas instâncias que NÃO ciclam. Mede o preço de trocar Dantzig por Bland.",
+    "medicoes": [
+      {
+        "instancia": "montadora",
+        "pivos_dantzig": 2,
+        "pivos_bland": 2,
+        "mesmo_veredito": true,
+        "mesmo_valor": true
+      },
+      {
+        "instancia": "vertice_degenerado",
+        "pivos_dantzig": 2,
+        "pivos_bland": 2,
+        "mesmo_veredito": true,
+        "mesmo_valor": true
+      },
+      {
+        "instancia": "multiplos_otimos",
+        "pivos_dantzig": 1,
+        "pivos_bland": 2,
+        "mesmo_veredito": true,
+        "mesmo_valor": true
+      },
+      {
+        "instancia": "sem_plano",
+        "pivos_dantzig": 1,
+        "pivos_bland": 3,
+        "mesmo_veredito": true,
+        "mesmo_valor": true
+      }
+    ]
+  },
+  "tese_do_capitulo": {
+    "enunciado": "O que é do modelo sobrevive à troca do método; o que some quando se troca o método era do método.",
+    "evidencia": {
+      "mesma_instancia_duas_regras": "5_giro_dantzig vs 5_giro_bland",
+      "ciclo_com_dantzig": true,
+      "ciclo_com_bland": false,
+      "empates_persistem_no_modelo_degenerado": true
+    }
+  },
+  "ambiente": {
+    "python": "3.11.15",
+    "pulp": "3.3.2",
+    "solver": "HiGHS (via highspy)",
+    "aritmetica": "exata (fractions.Fraction)",
+    "determinismo": "sem aleatoriedade: nenhuma semente a declarar"
+  }
+}

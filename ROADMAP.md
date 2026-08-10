@@ -55,12 +55,12 @@ ordem:
 | 002 ✅ | 07 — Formulação de modelos lineares | O capítulo mais praticado do livro. Sem ele, nada do resto tem sobre o que operar |
 | 003 ✅ | 08 — A geometria da Programação Linear | Dá a intuição que o Simplex vai formalizar |
 | 004 ✅ | 09 — O método Simplex | O algoritmo por dentro, com a implementação didática do `po-zero` |
-| 005 🚧 | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
-| 006 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
-| 007 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
-| 008 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa |
-| 009 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes |
-| 010 | 15 — Modelagem aplicada em PL | O repertório de padrões, fechando a Parte II |
+| 006 ✅ | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
+| 007 🚧 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
+| 008 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
+| 009 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa |
+| 010 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes |
+| 011 | 15 — Modelagem aplicada em PL | O repertório de padrões, fechando a Parte II |
 
 ## Rodada 011 em diante — Parte I: Fundamentos
 
@@ -144,3 +144,4 @@ planejamento e programação da produção; gestão de estoques.
 | 2026-08-09 | Dívida retroativa do Princípio XII quitada nos capítulos 07 e 08 | [Histórico](livro/HISTORICO.md) · edição 0.9 |
 | 2026-08-09 | História pesquisada em **sessão concentrada**, não capítulo a capítulo | [Spec 005](specs/005-historia-dos-metodos/spec.md) |
 | 2026-08-09 | Ilha interativa com **portão em navegador**; vídeos e fundamentos fechados | [Histórico](livro/HISTORICO.md) · edição 0.12 |
+| 2026-08-09 | Degenerescência é do **modelo**; ciclagem é da **regra**. Tese da Parte II | [ADR 0007](adr/0007-fronteira-entre-modelo-e-metodo.md) — **pendente de ratificação do autor** |

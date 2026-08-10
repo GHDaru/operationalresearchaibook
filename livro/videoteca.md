@@ -74,6 +74,7 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 18min04s | **Definitivo** |
 | 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 24min20s | **Definitivo** |
 | 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | [UNIVESP](https://www.youtube.com/@univesptv) | 18min48s | **Definitivo** |
+| 10 — Casos especiais e degenerescência | [Pesquisa Operacional I — Aula 11: casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ) | [UNIVESP](https://www.youtube.com/@univesptv) | ⏳ | Provisório |
 
 ### A dívida dos `⏳`, quitada em 2026-08-09
 
@@ -89,6 +90,17 @@ Duas coisas que a conferência resolveu, e vale registrar as duas:
 2. **A ressalva extra do capítulo 09 caiu.** A ficha dele carregava uma incerteza a mais: a
    atribuição da série a um curso público aparecia em resultado de busca e não estava confirmada.
    **Estava certa** — é da UNIVESP, publicado em 10 de agosto de 2016.
+
+### O vídeo do capítulo 10, e o campo que não saiu
+
+A ficha do capítulo 10 é a única **provisória** do handbook, e por um motivo estreito: título,
+endereço e **autoria** foram conferidos na fonte, mas a **duração não**. A página do vídeo não
+devolveu o campo em nenhuma das tentativas — nem por requisição direta, nem por navegador.
+
+Registrar isso importa porque a diferença com as outras três fichas é de **um campo**, não de
+natureza. O `⏳` está no lugar exato, e não contamina o resto da ficha.
+
+**Como fecha:** basta alguém abrir o vídeo e ler a duração.
 
 ### O que continua sendo leitura humana
 

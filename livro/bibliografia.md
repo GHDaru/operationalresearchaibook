@@ -232,6 +232,41 @@ não lido. Resultado de caso médio, sob modelo probabilístico de instâncias.
 — Citação corrente, **não confirmada em fonte primária**. O handbook **não depende** dela: o cubo
 é construído e os pivôs contados em `po-zero/etapa-03-simplex`.
 
+### Degenerescência e ciclagem (capítulo 10)
+
+✓ **DANTZIG, G. B.; ORDEN, A.; WOLFE, P.** "The generalized simplex method for minimizing a linear
+form under linear inequality restraints". *Pacific Journal of Mathematics*, v. 5, n. 2,
+p. 183–195, 1955. [PDF aberto](https://msp.org/pjm/1955/5-2/pjm-v5-n2-p04-s.pdf) — **Aberta e
+lida.** Credita a Hoffman e a Wolfe os primeiros exemplos de ciclagem; registra que "a maioria dos
+problemas de fontes práticas tem sido degenerada, e nenhum jamais ciclou"; apresenta o método
+lexicográfico.
+
+✓ **HALL, J. A. J.; McKINNON, K. I. M.** "The simplest examples where the simplex method cycles and
+conditions where EXPAND fails to prevent cycling". *Mathematical Programming*, v. 100, 2004.
+DOI [10.1007/s10107-003-0488-1](https://doi.org/10.1007/s10107-003-0488-1) ·
+[arXiv](https://arxiv.org/abs/math/0012242) — **Aberta e lida.** Exemplos de ciclagem são
+construídos e raros; o problema prático é o *stalling*; o EXPAND **não tem garantia**.
+
+✓ᵐ **BEALE, E. M. L.** "Cycling in the **dual** simplex algorithm". *Naval Research Logistics
+Quarterly*, v. 2, n. 4, p. 269–275, 1955.
+DOI [10.1002/nav.3800020406](https://doi.org/10.1002/nav.3800020406). — Metadados conferidos. A
+instância que o ensino atribui a este artigo é **primal**, e o handbook **não afirma** que ela
+apareça literalmente aqui. Ver [ADR 0008](../adr/0008-atribuicao-da-instancia-que-cicla.md).
+
+✓ᵐ **BLAND, R. G.** "New Finite Pivoting **Rules** for the Simplex Method". *Mathematics of
+Operations Research*, v. 2, n. 2, p. 103–107, 1977.
+DOI [10.1287/moor.2.2.103](https://doi.org/10.1287/moor.2.2.103). — Metadados conferidos. O
+enunciado exato e a prova de terminação seguem `⏳`; o handbook **mede** a terminação.
+
+✓ᵐ **GILL, P. E.; MURRAY, W.; SAUNDERS, M. A.; WRIGHT, M. H.** "A practical anti-cycling procedure
+for linearly constrained optimization". *Mathematical Programming*, v. 45, p. 437–474, 1989.
+DOI [10.1007/BF01589114](https://doi.org/10.1007/BF01589114). — O procedimento EXPAND, dos solvers
+reais.
+
+⏳ **HOFFMAN, A. J.** "Cycling in the simplex algorithm". *National Bureau of Standards Report*
+2974, 1953. — Referência **anterior** a Beale, creditada na fonte de 1955 acima. A data do
+exemplo (1951 ou 1953) diverge entre levantamentos e **não foi resolvida**.
+
 ### Formulação (fundamentos científicos do capítulo 07)
 
 ✓ᵐ **BIXBY, R. E.** "Solving Real-World Linear Programs: A Decade and More of Progress".

@@ -109,6 +109,24 @@ desenho, é andar por uma aresta até o vértice vizinho.
 lado direito e coeficiente da coluna que entra. Não é convenção — é a única escolha que
 preserva a viabilidade.
 
+**Vértice degenerado.** Vértice sustentado por mais restrições do que o necessário — no plano,
+três retas passando pelo mesmo ponto. Na álgebra, aparece como **variável básica valendo zero**.
+É comum e legítimo: bandeira amarela, não defeito. Costuma indicar restrição redundante, e torna
+a leitura de preço-sombra ambígua.
+
+**Ciclagem.** O método pivoteia, troca a base, refaz o quadro e **não sai do ponto** — e, se uma
+base já visitada voltar, gira para sempre. Exige degenerescência, mas não decorre dela: é defeito
+da **regra de pivoteamento**, não do modelo. Rara na prática, e construída de propósito nos
+exemplos que a exibem.
+
+***Stalling*** (estagnação). Uma sequência **longa, porém finita**, de iterações sem melhora do
+objetivo. É o problema prático comum — ao contrário da ciclagem, que é o problema de livro-texto.
+
+**Regra de pivoteamento.** O critério que decide quem entra e quem sai da base. A de **Dantzig**
+escolhe o custo reduzido mais negativo e é rápida; a de **Bland** escolhe por menor índice na
+entrada e na saída, e garante terminação ao custo de mais iterações. Trocar de regra **nunca muda
+a resposta** — muda quantos passos se gasta para chegar nela.
+
 **Convexidade.** Propriedade de um conjunto em que o segmento entre dois pontos quaisquer está
 inteiro dentro dele. É o que garante, num problema linear, que todo ótimo local é global — e é
 por isso que o Simplex pode parar no primeiro vértice de onde nada melhora.

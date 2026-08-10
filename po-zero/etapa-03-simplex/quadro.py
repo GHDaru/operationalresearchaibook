@@ -151,8 +151,31 @@ def resolver(
     restricoes: list[Restricao],
     nomes: list[str] | None = None,
     limite: int = 100,
+    regra: Literal["dantzig", "bland"] = "dantzig",
 ) -> dict:
-    """Executa o Simplex de quadro e devolve **todas** as iterações."""
+    """Executa o Simplex de quadro e devolve **todas** as iterações.
+
+    O parâmetro `regra` escolhe o critério de pivoteamento, e ele existe porque
+    o capítulo 10 precisa **medir a diferença**:
+
+    - **dantzig** (padrão, o que o capítulo 09 ensina): entra o custo reduzido
+      mais negativo; sai a menor razão, desempatando pela **linha** de menor
+      índice.
+    - **bland**: entra a coluna de **menor índice** entre as de custo reduzido
+      negativo; sai, entre as de menor razão, a de **variável básica** de menor
+      índice.
+
+    Duas ressalvas, e as duas são exigência do Princípio III:
+
+    1. **O que se afirma aqui sobre as duas regras é o que a etapa 04 mede**, e
+       nada além. Que a regra de Bland termina onde a de Dantzig gira está
+       medido em `po-zero/etapa-04-casos-especiais`. Este módulo **não prova**
+       terminação, e o enunciado exato da regra no artigo original de 1977
+       segue não conferido — ver ADR 0008.
+    2. **O desempate por linha de menor índice, sozinho, não é a regra de Bland
+       e não evita ciclo nenhum.** É o desempate que a etapa 03 usa por padrão,
+       e a etapa 04 mostra a instância em que ele gira para sempre.
+    """
     colunas, corpo, lado, custos, base, artificiais = montar(lucros, restricoes, nomes)
     n_dec = len(lucros)
     iteracoes: list[Iteracao] = []
@@ -190,7 +213,10 @@ def resolver(
             iteracoes.append(it)
             break
 
-        entra = min(candidatos, key=lambda j: (linha_z[j].m, linha_z[j].n, j))
+        if regra == "bland":
+            entra = min(candidatos)                       # menor ÍNDICE de coluna
+        else:
+            entra = min(candidatos, key=lambda j: (linha_z[j].m, linha_z[j].n, j))
         it.entra = colunas[entra]
 
         # Teste da razão: até onde dá para andar antes de alguma básica zerar.
@@ -203,9 +229,13 @@ def resolver(
             break
 
         melhor = min(razoes.values())
-        # Empate no teste da razão é degenerescência; desempata pelo menor
-        # índice (regra de Bland parcial), que é o que evita ciclagem.
-        sai = min(i for i, r in razoes.items() if r == melhor)
+        # Empate no teste da razão é o sintoma de degenerescência. Como se
+        # desempata decide se o método termina:
+        #   - dantzig: pela LINHA de menor índice. Simples, e não impede ciclo.
+        #   - bland:   pela VARIÁVEL BÁSICA de menor índice. É a metade que
+        #              falta para a garantia de terminação.
+        empatados = [i for i, r in razoes.items() if r == melhor]
+        sai = min(empatados, key=lambda i: base[i]) if regra == "bland" else min(empatados)
         it.sai = colunas[base[sai]]
         iteracoes.append(it)
 
