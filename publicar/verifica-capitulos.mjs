@@ -38,11 +38,13 @@ const NAO_E_CAPITULO_DE_METODO = new Set([
 // (b) É capítulo de método, publicado ANTES de o Princípio XII existir
 //     (constituição 1.1.0, 2026-08-09). Isto É dívida, e é retroativa de
 //     propósito: fingir que o princípio nasce só para o futuro seria
-//     conveniente e desonesto. Quitação no ROADMAP.
-const SEM_ORIGEM_DECLARADO = new Set([
-  "07-formulacao",   // dívida desde 2026-08-09 — de onde vem a própria ideia de escrever um modelo
-  "08-geometria",    // dívida desde 2026-08-09 — Fourier, os semiespaços, e por que o desenho veio antes do algoritmo
-]);
+//     conveniente e desonesto.
+//
+//     **A lista está vazia, e isso é um estado que vale defender.** Os
+//     capítulos 07 e 08 nasceram devendo e a dívida foi quitada no mesmo dia
+//     (edição 0.9). Uma entrada nova aqui é sempre aceitável — o que não é
+//     aceitável é ela ficar.
+const SEM_ORIGEM_DECLARADO = new Set([]);
 const isentoDeOrigem = (slug) => NAO_E_CAPITULO_DE_METODO.has(slug) || SEM_ORIGEM_DECLARADO.has(slug);
 
 const falhas = [];

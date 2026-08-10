@@ -111,10 +111,6 @@ planejamento e programação da produção; gestão de estoques.
   Videoteca com estado declarado fecharia parte do buraco. Nasceu do incidente da rodada 004.
 - **Verificar a ilha interativa do capítulo 08 em navegador** — é o único artefato publicado do
   livro sem verificação executável.
-- **Quitar a dívida do Princípio XII nos capítulos 07 e 08** — os dois foram publicados antes de
-  o princípio existir e estão na lista de dívida declarada do portão. O 07 pede a origem da
-  própria ideia de escrever um modelo; o 08, Fourier e por que a geometria veio antes do
-  algoritmo. Raia leve cada um, se a pesquisa render; plena, se não.
 - **Gatilho por telemetria** — exercício com taxa de acerto muito baixa e volume relevante é
   sintoma de **texto mal escrito**, não de leitor fraco. Entra na fila de revisão.
 
@@ -137,3 +133,4 @@ planejamento e programação da produção; gestão de estoques.
 | 2026-08-09 | Simplex ensinado pelo **quadro**; Fase I / *big-M* dentro do capítulo 09 | [Spec 004](specs/004-cap09-simplex/spec.md) · clarify |
 | 2026-08-09 | Portão de consistência de ótimo **construído** — a dívida da edição 0.6 | `publicar/verifica-otimos.mjs` |
 | 2026-08-09 | **Princípio XII — nenhum método cai do céu.** Constituição 1.1.0 | [ADR 0006](adr/0006-o-metodo-tem-historia.md) |
+| 2026-08-09 | Dívida retroativa do Princípio XII quitada nos capítulos 07 e 08 | [Histórico](livro/HISTORICO.md) · edição 0.9 |

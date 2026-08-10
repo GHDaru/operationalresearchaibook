@@ -1,6 +1,6 @@
 # 08 — A geometria da Programação Linear
 
-> **Conteúdo revisado em 2026-08** · última revisão 2026-08-07 · [histórico](../HISTORICO.md)
+> **Conteúdo revisado em 2026-08** · última revisão 2026-08-09 · [histórico](../HISTORICO.md)
 
 ## Objetivos de aprendizagem
 
@@ -35,6 +35,87 @@ Então por que gastar um capítulo inteiro com um método que só serve para doi
 intuição que ele instala continua valendo em qualquer dimensão**. O Simplex não faz nada além
 de caminhar pelos vértices que você vai enxergar aqui. Quem viu o desenho entende o algoritmo;
 quem não viu, decora o algoritmo.
+
+## De onde isto veio
+
+O desenho não é um recurso didático que alguém inventou para facilitar a vida do aluno. Ele é,
+historicamente, **como o assunto foi entendido pela primeira vez** — e por mais de um século foi
+tudo o que havia.
+
+### O aperto: a matemática sabia resolver igualdades e travava nas desigualdades
+
+Esta é a assimetria que causa estranheza quando se olha de perto. Sistemas de **equações**
+lineares já eram território dominado no século XIX: eliminação, determinantes, matrizes, tudo
+resolvido e ensinado. Sistemas de **desigualdades** lineares, não. O progresso foi escasso, e o
+atraso durou décadas.
+
+Por quê? Porque os dois objetos são de naturezas diferentes:
+
+> Uma **equação** fixa um ponto — ou uma reta, ou um plano: algo que a álgebra da época sabia
+> manipular. Uma **desigualdade** descreve uma **região**, e não havia álgebra para regiões.
+> Faltava, literalmente, o que escrever.
+
+É o mesmo desconforto que o leitor sente ao encontrar a primeira restrição `≤`: com `=` você
+resolve; com `≤`, resolve o quê?
+
+### A virada: Fourier, e a decisão de olhar
+
+Em **1826**, **Joseph Fourier** — o mesmo das séries de Fourier — publicou um trabalho com o
+título modesto de *Solution d'une question particulière du calcul des inégalités*. Ele vinha
+esbarrando em desigualdades em problemas de mecânica, probabilidade e estatística, e fez duas
+coisas.
+
+A primeira foi **algébrica**: um procedimento para eliminar variáveis de um sistema de
+desigualdades, uma por vez.
+
+A segunda é a deste capítulo: um método **geométrico** para achar a **região das soluções**. Em
+vez de procurar uma álgebra que ainda não existia, ele mudou de representação para uma em que
+"região" é um objeto natural — algo que se desenha e se olha.
+
+**Cento e vinte anos antes de existir o Simplex, a região viável já estava desenhada.**
+
+### O nome, e um fio que atravessa dois capítulos
+
+O procedimento algébrico de Fourier foi esquecido e **redescoberto em 1936 por Theodore
+Motzkin**, que o transformou em algoritmo sistemático, fundado na geometria dos conjuntos
+convexos. Por isso hoje ele se chama **eliminação de Fourier–Motzkin**.
+
+Guarde o sobrenome. **É o mesmo Motzkin** que, alguns anos depois, numa conversa com Dantzig,
+sugeriu o nome de um algoritmo que você vai encontrar no próximo capítulo — o **Simplex**. A
+mesma pessoa está nas duas pontas: na redescoberta de como olhar para desigualdades, e no
+batismo do método que finalmente as resolveu em escala.
+
+### Por que a eliminação não virou o método padrão
+
+Vale saber, porque explica a estrutura deste livro. A eliminação de Fourier–Motzkin **funciona**
+e é exata. O problema é o custo: cada variável eliminada pode **multiplicar** o número de
+desigualdades, e o crescimento explode depressa. Serve para provar coisas; não serve para
+planejar uma fábrica.
+
+Ou seja: a geometria deu o **entendimento** e não deu a **ferramenta** — que é exatamente o que
+este capítulo vai dizer de si mesmo em "quando não serve". O desenho ensina e não trabalha. A
+ferramenta chega no capítulo 09.
+
+> **A ideia reaproveitável, que é o que fica.** *Quando a álgebra não te dá alça, troque de
+> representação.* Fourier não inventou uma álgebra nova para desigualdades — ele mudou o
+> problema para um terreno onde o objeto que lhe interessava, a região, já era natural de
+> enxergar.
+>
+> Mudar de representação até o problema ficar visível é um movimento geral, e provavelmente o
+> mais barato de todos: é o que faz alguém desenhar a arquitetura num guardanapo, converter uma
+> regra de negócio numa tabela de decisão, ou plotar os dados antes de modelar. **Nada do
+> problema muda; muda o que você consegue ver dele.**
+
+### O que é documentado e o que é leitura nossa
+
+| Afirmação | Estado |
+|---|---|
+| Fourier, 1826, *Solution d'une question particulière du calcul des inégalités*; métodos algébrico **e** geométrico para a região das soluções | ⏳ localizado em busca, **não aberto na fonte** |
+| Escassez de progresso em desigualdades lineares, em contraste com as equações | ⏳ mesma procedência |
+| Redescoberta por Theodore Motzkin em 1936; hoje eliminação de Fourier–Motzkin | ⏳ mesma procedência |
+| É o mesmo Motzkin que sugeriu o nome *simplex* a Dantzig | ⏳ duas fontes distintas, ambas localizadas e não abertas |
+| Explosão do número de desigualdades a cada eliminação | ⏳ afirmação corrente na literatura; **não medida neste livro** |
+| A leitura de que "a geometria deu o entendimento e não a ferramenta", e o padrão "troque de representação" | 📖 **interpretação deste livro** |
 
 ## A intuição
 
@@ -324,6 +405,11 @@ segunda passada sobre o mesmo conteúdo, no ritmo de quem está pensando em voz 
 > autoria e duração não. Ver a [Videoteca](../videoteca.md).
 
 ## Síntese — o que levar
+
+- **O desenho não é muleta didática: foi como o assunto se entendeu primeiro.** Fourier achava a
+  região das soluções geometricamente em 1826, 120 anos antes de existir o Simplex.
+- **Quando a álgebra não dá alça, troque de representação.** Nada do problema muda; muda o que
+  você consegue ver dele.
 
 - **Cada variável é um eixo; cada ponto é um plano de produção.** Inclusive os impossíveis.
 - **A não-negatividade não é formalidade:** sem ela existe rota de fuga, e o lucro escapa.

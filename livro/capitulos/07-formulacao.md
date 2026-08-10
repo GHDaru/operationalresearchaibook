@@ -1,6 +1,6 @@
 # 07 — Formulação de modelos lineares
 
-> **Conteúdo revisado em 2026-08** · última revisão 2026-08-07 · [histórico](../HISTORICO.md)
+> **Conteúdo revisado em 2026-08** · última revisão 2026-08-09 · [histórico](../HISTORICO.md)
 
 ## Objetivos de aprendizagem
 
@@ -96,6 +96,78 @@ recurso de cada vez.
 
 **É por isso que o método existe.** E o método começa aqui: em escrever o problema de um jeito
 que uma máquina possa responder — o que é o assunto deste capítulo.
+
+## De onde isto veio
+
+Antes de aprender a formular, vale saber que **formular já valeu a pena quando ninguém sabia
+resolver**. É a história mais útil deste capítulo, porque ela diz exatamente onde está o
+trabalho.
+
+### O aperto: alimentar gente ao menor custo possível
+
+Em 1945, o economista **George Stigler** publicou uma pergunta de aparência modesta: dada uma
+lista de alimentos, cada um com composição nutricional e preço conhecidos, **qual é a combinação
+mais barata que atende às necessidades diárias mínimas?**
+
+A pergunta não era acadêmica. Alimentar populações e tropas com orçamento apertado era problema
+concreto, e a resposta valia dinheiro de verdade.
+
+Stigler fez o que este capítulo ensina: **escreveu o modelo**. O que se escolhe (quanto de cada
+alimento), o que se aceita (preços e composição), o que limita (as exigências nutricionais), e a
+única medida a minimizar (o custo). O modelo ficou pronto, correto e completo.
+
+**E ele não tinha como resolvê-lo.** Não existia método. Stigler chutou — de forma inteligente,
+por tentativa e eliminação — e chegou a uma dieta de **US$ 39,93 por ano**, a preços de 1939. Ele
+próprio registrou que não havia como provar que aquilo era o melhor possível.
+
+### O que aconteceu depois — e por que isto importa para você
+
+Dois anos depois, em 1947, o método apareceu (é o capítulo 09). A dieta de Stigler foi das
+primeiras coisas de porte a serem resolvidas com ele. O custo do cálculo, à época:
+
+> **Nove escriturários, com calculadoras de mesa manuais, 120 dias-de-escriturário de trabalho.**
+> Resultado: **US$ 39,69 por ano**.
+
+Guarde os dois números lado a lado. O chute do Stigler estava a **24 centavos por ano** do ótimo
+verdadeiro — errou por menos de 1%. E foram precisos quatro meses de trabalho humano para
+descobrir isso.
+
+Três lições saem daí, e nenhuma delas é sobre dieta:
+
+1. **A formulação sobrevive ao método.** O modelo de 1945 continuou válido quando o método de
+   1947 chegou; hoje ele roda em milissegundos, sem uma vírgula alterada. **O custo de calcular
+   despencou; o custo de formular, não.** É por isso que este capítulo existe e o solver é uma
+   caixa-preta de uma linha.
+2. **Uma heurística boa pode estar muito perto do ótimo — e você não tem como saber.** Os 24
+   centavos só viraram fato *depois* de existir o ótimo para comparar. Sem ele, "acho que está
+   bom" continua sendo fé. É a diferença entre uma resposta boa e uma resposta com **garantia**,
+   e é o que o handbook chama de limitante.
+3. **O modelo responde exatamente a pergunta que você fez.** A dieta ótima da época era
+   nutricionalmente impecável e ninguém a comeria: farinha, repolho, feijão seco, dia após dia.
+   O modelo não errou — ele minimizou custo sujeito a nutrientes, que foi o que se pediu.
+   Palatabilidade não estava no modelo, então não estava na resposta.
+
+> **A ideia reaproveitável, que é o que fica.** *Escrever o problema com precisão é um ganho por
+> si só, mesmo sem meio de resolvê-lo.* Um modelo explícito pode ser criticado, comparado e
+> auditado — alguém pode apontar a restrição que falta. Uma decisão tomada "por experiência" não
+> oferece nada disso: não há onde apontar o dedo.
+>
+> Esse padrão vale muito além da PO. É a diferença entre um requisito escrito e um combinado de
+> corredor, entre um teste automatizado e "eu conferi", entre um critério de aceite e um
+> "ficou bom". **O que está escrito pode estar errado — e é essa a vantagem.**
+
+E fica um aviso sobre o nome do campo. Você vai ler "Programação Linear" o capítulo inteiro, e
+**"programação" ali não quer dizer o que você está imaginando**. A palavra vem de outro lugar, e
+o capítulo 09 conta de onde.
+
+### O que é documentado e o que é leitura nossa
+
+| Afirmação | Estado |
+|---|---|
+| Stigler formula o problema da dieta em 1945; solução heurística de US$ 39,93/ano a preços de 1939 | ⏳ localizado em busca, **não aberto na fonte** |
+| Resolvido em 1947 por nove escriturários com calculadoras de mesa, 120 dias-de-escriturário, custo ótimo US$ 39,69 | ⏳ mesma procedência |
+| A diferença de 24 centavos entre o chute e o ótimo | ⏳ mesma procedência (é a subtração dos dois acima) |
+| As três lições, e a ideia de que "o que está escrito pode estar errado, e é essa a vantagem" | 📖 **interpretação deste livro** |
 
 ## A intuição
 
@@ -305,6 +377,12 @@ entrega resposta que você deveria estar construindo.
 > sendo a troca pelo vídeo equivalente do canal parceiro.
 
 ## Síntese — o que levar
+
+- **A formulação sobrevive ao método.** Stigler escreveu o problema da dieta em 1945 sem saber
+  resolvê-lo; o modelo continuou válido quando o método chegou, dois anos depois. O custo de
+  calcular despencou — o de formular, não.
+- **Escrever o problema com precisão é ganho por si só**, mesmo sem meio de resolvê-lo: o que
+  está escrito pode ser criticado, comparado e corrigido. É essa a vantagem.
 
 - **Sem restrição, o problema é ilimitado.** Restrição não é burocracia: é o que torna a
   pergunta respondível.

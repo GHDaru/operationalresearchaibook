@@ -172,6 +172,23 @@ referência; corrobora datas e trajetória.
 literatura didática**, repetida em material de curso, e **não confirmada em fonte primária**. O
 capítulo 09 declara esse estado explicitamente, em vez de tratá-la como fato estabelecido.
 
+⏳ **DANTZIG, George B.** *The Diet Problem*. — Sustenta o capítulo 07: Stigler formula em 1945,
+solução heurística de US$ 39,93/ano a preços de 1939, e a resolução de 1947 por nove
+escriturários com calculadoras de mesa em 120 dias-de-escriturário, chegando a US$ 39,69.
+[Cópia localizada](https://www.mpi-inf.mpg.de/fileadmin/inf/d1/teaching/winter18/Ideen/Materialien/Dantzig-Diet.pdf)
+
+⏳ **Stigler's Diet Problem Revisited.** *Operations Research*, INFORMS, 2001. — Corrobora os
+números acima e o reexame do problema com solvers modernos.
+[Página](https://pubsonline.informs.org/doi/pdf/10.1287/opre.49.1.1.11187)
+
+⏳ **FOURIER, Joseph.** *Solution d'une question particulière du calcul des inégalités*, 1826. —
+Sustenta o capítulo 08: os métodos algébrico e **geométrico** para achar a região das soluções de
+um sistema de desigualdades, e o contraste com o estado avançado da teoria das equações.
+
+⏳ **Eliminação de Fourier–Motzkin** — redescoberta por **Theodore Motzkin** em 1936, formalizada
+como algoritmo sobre a geometria dos conjuntos convexos. É o mesmo Motzkin que sugeriu o nome
+*simplex* a Dantzig, o que liga os capítulos 08 e 09.
+
 > **O que falta para estas saírem do `⏳`.** Abrir as fontes. Hoje `arxiv.org`,
 > `api.crossref.org`, `api.openalex.org` e os sites das editoras respondem `403` ao proxy de
 > saída deste ambiente. É uma dívida de **acesso**, não de pesquisa, e some no dia em que o

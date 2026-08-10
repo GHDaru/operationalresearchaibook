@@ -381,3 +381,55 @@ ambiente não alcança arquivo acadêmico. É dívida de acesso, não de pesquis
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.9 — 2026-08-09 · A dívida retroativa do Princípio XII, quitada
+
+A edição anterior criou o Princípio XII e deixou os capítulos 07 e 08 na lista de dívida
+declarada do portão. Esta edição quita a dívida **no mesmo dia em que ela nasceu**, e a lista
+volta a ficar vazia.
+
+**Capítulo 07 — a formulação que valeu a pena sem método.** Em 1945 o economista George Stigler
+escreveu o problema da dieta — a combinação mais barata de alimentos que atende às exigências
+nutricionais — e **não tinha como resolvê-lo**. Chutou, por tentativa e eliminação: US$ 39,93 por
+ano, a preços de 1939, sem prova de que fosse o melhor.
+
+Dois anos depois o método existia. Nove escriturários, com calculadoras de mesa manuais, gastaram
+**120 dias-de-escriturário** para chegar a US$ 39,69. O chute do Stigler errou por **24 centavos
+por ano**.
+
+É a história certa para um capítulo de formulação, porque o que ela ensina é onde está o
+trabalho: **o custo de calcular despencou; o de formular, não.** O modelo de 1945 roda hoje em
+milissegundos sem uma vírgula alterada. E a dieta ótima da época era impecável e intragável —
+farinha, repolho, feijão seco —, o que diz a coisa mais importante do capítulo: **o modelo
+responde exatamente a pergunta que você fez.**
+
+Ideia reaproveitável: *escrever o problema com precisão é ganho por si só, mesmo sem meio de
+resolvê-lo.* O que está escrito pode ser criticado, comparado e corrigido — e é essa a vantagem.
+
+**Capítulo 08 — o desenho não é muleta didática.** A assimetria histórica: no século XIX a teoria
+dos sistemas de **equações** lineares estava dominada, e a das **desigualdades** mal saía do
+lugar. A razão é a que o leitor sente na primeira restrição `≤`: uma equação fixa um ponto; uma
+desigualdade descreve uma **região**, e não havia álgebra para regiões.
+
+Em **1826**, Joseph Fourier — o das séries — publicou dois métodos para o problema: um algébrico,
+de eliminação de variáveis, e um **geométrico**, para achar a região das soluções. Em vez de
+inventar a álgebra que faltava, mudou de representação para uma em que "região" já era natural.
+**Cento e vinte anos antes do Simplex, a região viável já estava desenhada.**
+
+O método algébrico foi esquecido e redescoberto em 1936 por **Theodore Motzkin** — hoje
+eliminação de Fourier–Motzkin. E aqui um fio que liga os dois capítulos: **é o mesmo Motzkin**
+que sugeriu a Dantzig o nome *simplex*. A mesma pessoa nas duas pontas.
+
+Ideia reaproveitável: *quando a álgebra não dá alça, troque de representação.* Nada do problema
+muda; muda o que você consegue ver dele.
+
+**A lista de dívida do portão está vazia** — e o comentário no código defende esse estado: uma
+entrada nova ali é sempre aceitável; o que não é aceitável é ela ficar.
+
+**Procedência.** Todas as afirmações históricas destas duas seções são `⏳`: localizadas em busca,
+**não abertas na fonte**. Cada seção termina com a tabela que separa documentado, atribuição
+corrente e leitura deste livro — inclusive marcando o que é interpretação editorial e não
+história. As fontes entraram na [bibliografia](bibliografia.md).
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
