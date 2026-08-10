@@ -144,3 +144,30 @@ significados distintos**: `NAO_E_CAPITULO_DE_METODO` (não se aplica) e `SEM_ORI
 
 A distinção importa porque uma lista única esconderia, sob o mesmo nome, "não devia ter" e
 "devia ter e não tem".
+
+---
+
+## Adendo 2 — o acesso apareceu, e a tabela acima envelheceu
+
+**2026-08-09, mais tarde.** O autor liberou os domínios acadêmicos na política de rede do
+ambiente. Duas linhas da tabela *"O que não foi verificado"* deixaram de valer, e deixá-las
+intactas faria este arquivo mentir sobre o estado do livro.
+
+| Item | Estado naquela tabela | Estado agora |
+|---|---|---|
+| **Fundamentos científicos / fontes acadêmicas** | ❌ lacuna declarada, `403` no proxy | ✅ **arXiv, Crossref, OpenAlex, MacTutor e INFORMS abertos e lidos.** As três seções *De onde isto veio* foram verificadas na fonte; o que restou está marcado item a item nas tabelas de procedência dos capítulos |
+| **Autoria e duração do vídeo** | ❌ não conferidas | ❌ **inalterado.** O YouTube não foi liberado |
+
+**O que continua sem fonte**, e agora por motivo diferente — não é mais bloqueio de política, é a
+editora recusando acesso automatizado (`403` de origem) ou a fonte não existir:
+
+- O nome *simplex* atribuído a Motzkin — o texto de Dantzig que fecharia isso está atrás de um
+  `403` da editora.
+- A atribuição do *big-M* a Charnes — metadados conferidos, conteúdo não lido.
+- A origem da letra M — sem fonte nenhuma.
+
+**Um achado de método, registrado porque muda como se trabalha aqui.** Ao ler a fonte primária,
+um fato do capítulo 07 que um resumo secundário fazia parecer errado — os "nove escriturários" —
+mostrou-se **correto**. A correção que eu estava prestes a fazer teria introduzido o erro.
+Resumo de busca não é fonte, nem para confirmar nem para desmentir.
+
