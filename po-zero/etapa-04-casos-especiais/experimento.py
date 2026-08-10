@@ -129,12 +129,19 @@ def main() -> None:
     ]:
         d = analisar(rot, "", lucros, rest, regra="dantzig")
         b = analisar(rot, "", lucros, rest, regra="bland")
+        com_solucao = d["status"] == "otimo" and b["status"] == "otimo"
         custo_da_garantia.append({
             "instancia": rot,
             "pivos_dantzig": d["pivos"],
             "pivos_bland": b["pivos"],
             "mesmo_veredito": d["status"] == b["status"],
-            "mesmo_valor": d["valor"] == b["valor"],
+            # `None == None` é verdade vazia: sem solução, não há valor nem ponto
+            # a comparar, e dizer "sim" na tabela publicada seria enganoso.
+            "mesmo_valor": (d["valor"] == b["valor"]) if com_solucao else None,
+            # A pergunta que faltava, e cuja ausência deixou a prosa afirmar
+            # "Bland nunca muda a resposta" — o que é FALSO quando há mais de um
+            # plano ótimo. Apontado pela revisão independente da rodada 006.
+            "mesmo_ponto": (d["ponto"] == b["ponto"]) if com_solucao else None,
         })
 
     # O solver de mercado como testemunha independente nos casos com resposta.
@@ -176,7 +183,7 @@ def main() -> None:
     )
 
     for m in custo_da_garantia:
-        print(f"custo da garantia · {m['instancia']:20s} dantzig={m['pivos_dantzig']} bland={m['pivos_bland']} mesmo veredito={m['mesmo_veredito']} mesmo valor={m['mesmo_valor']}")
+        print(f"custo da garantia · {m['instancia']:20s} dantzig={m['pivos_dantzig']} bland={m['pivos_bland']} veredito={m['mesmo_veredito']} valor={m['mesmo_valor']} ponto={m['mesmo_ponto']}")
     for nome, c in casos.items():
         extra = ""
         if c["ciclo"]:

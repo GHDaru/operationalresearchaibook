@@ -18,7 +18,7 @@
 | III | Evidência acima de retórica | Duas fontes primárias **lidas**; o que não abriu está `⏳` no [ADR 0008](../../adr/0008-atribuicao-da-instancia-que-cicla.md). **Mas**: no momento em que este plano foi submetido ao gate, os números "Dantzig cicla / Bland termina" já estavam afirmados na spec e no ADR 0007 **sem artefato que os regenerasse**, e a *docstring* de `quadro.py` afirmava que Bland "prova terminação" e "é mais lento" — as duas sem fonte e sem medição | ⚠️ **corrigido durante a rodada** — ver §"O que o guardião barrou" |
 | IV | Fonte-base é o experimento executável | `po-zero/etapa-04-casos-especiais`, CPU, solver aberto, saída determinística | ✅ planejado |
 | V | Arquitetura em três camadas | Capítulo de núcleo | ✅ |
-| VI | Atualização por Radar | Os artigos lidos entram na bibliografia e no Radar | ✅ planejado |
+| VI | Atualização por Radar | Os artigos lidos entram na bibliografia e no Radar. **A ordem foi invertida**: entraram primeiro na bibliografia, e o Radar só foi atualizado depois que a revisão independente apontou | ⚠️ **corrigido, com a dívida registrada na própria página do Radar** |
 | VII | Livro vivo | Selo de datação; edição no histórico | ✅ planejado |
 | VIII | Português canônico | Só PT (ADR 0002). *Stalling* mantido como termo consagrado, com tradução ao lado na 1ª ocorrência | ✅ |
 | IX | Sigla nunca nasce nua | PL aberta na 1ª ocorrência do capítulo; verbetes novos no glossário | ✅ planejado |
@@ -84,10 +84,21 @@ Quatro blocos, nesta ordem — e a ordem é a do Guia Editorial:
 | Risco | Mitigação |
 |---|---|
 | **Quebrar a etapa 03**, que está publicada | Já verificado por hash: saída idêntica. O portão de reprodutibilidade roda de novo no fim |
-| Ciclagem virar curiosidade sem consequência | O experimento mede **as duas regras na mesma instância**; a consequência é a escolha de regra, e o preço dela é **medido** (`custo_da_garantia`): Bland gasta mais pivôs em 2 das 4 instâncias testadas e **nunca** muda o veredito nem o valor |
+| Ciclagem virar curiosidade sem consequência | O experimento mede **as duas regras na mesma instância**; o preço da troca é **medido** (`custo_da_garantia`): Bland gasta mais pivôs em 2 das 4 instâncias e nunca muda o **valor** — mas **muda o plano** quando há mais de um ótimo |
 | O capítulo ficar curto em mecânica | Previsto no ADR 0007: a mecânica vai para a etapa 04 e para exercícios de *ler a saída* |
 | Afirmar o enunciado exato da regra de Bland sem ter lido o artigo | A implementação declara **qual** desempate usa e que a correspondência com o artigo é `⏳` |
 | Repetir o defeito de confiar em resumo de busca | Nesta rodada, tudo que recebeu `✓` foi **aberto por `curl` e lido**, e os arquivos ficam listados na verificação com tamanho e código de resposta |
+
+## Desvio declarado do esqueleto de capítulo
+
+O Guia Editorial §2 pede, entre outros, os itens "A intuição", "A matemática" e "O algoritmo".
+**Este capítulo não os tem como seções**, e o desvio é deliberado: ele não apresenta um método
+novo — apresenta **conduta diante de vereditos de um método já ensinado**. Não há intuição a
+instalar nem algoritmo a percorrer; há leitura de quadro e decisão.
+
+O que substitui: cada veredito é uma seção com detecção (quando inédita), diagnóstico e conduta.
+O portão só exige a seção "De onde isto veio", então este desvio passaria sem registro — e é
+justamente por isso que ele está declarado aqui. Apontado pela revisão independente.
 
 ## O que o guardião barrou
 

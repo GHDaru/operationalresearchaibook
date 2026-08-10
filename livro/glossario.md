@@ -125,7 +125,8 @@ objetivo. É o problema prático comum — ao contrário da ciclagem, que é o p
 **Regra de pivoteamento.** O critério que decide quem entra e quem sai da base. A de **Dantzig**
 escolhe o custo reduzido mais negativo e é rápida; a de **Bland** escolhe por menor índice na
 entrada e na saída, e garante terminação ao custo de mais iterações. Trocar de regra **nunca muda
-a resposta** — muda quantos passos se gasta para chegar nela.
+o valor ótimo** — mas pode mudar **qual** plano ótimo você recebe, quando há mais de um, e muda
+quantos passos se gasta para chegar lá.
 
 **Convexidade.** Propriedade de um conjunto em que o segmento entre dois pontos quaisquer está
 inteiro dentro dele. É o que garante, num problema linear, que todo ótimo local é global — e é

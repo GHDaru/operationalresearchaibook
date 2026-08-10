@@ -21,7 +21,7 @@ regra de Bland termina é **medido** nesta etapa, não demonstrado (ver ADR 0008
 from __future__ import annotations
 
 import sys
-from fractions import Fraction as F
+from fractions import Fraction, Fraction as F
 from pathlib import Path
 
 # O Simplex é o do capítulo 09. Reusar em vez de duplicar é decisão de projeto,
@@ -83,9 +83,14 @@ def analisar(nome: str, descricao: str, lucros, restricoes, regra="dantzig", lim
         "vertice": degenerado(final),
         "otimo": multiplos_otimos(final, len(lucros)) if r["status"] == "otimo" else None,
         "quadro_final": imprimir(final),
+        # Empate que IMPORTA é empate **no mínimo** — é ele que decide quem sai e
+        # produz o pivô degenerado. Uma versão anterior deste instrumento marcava
+        # qualquer razão repetida, o que fazia o capítulo chamar de "empate" um
+        # par de razões iguais fora do mínimo, que não decide nada. Apontado pela
+        # revisão independente da rodada 006.
         "empates_no_teste_da_razao": [
-            {"iteracao": it.numero, "razoes": it.razoes}
+            {"iteracao": it.numero, "razoes": it.razoes, "minimo": fmt(min(Fraction(v) for v in it.razoes.values()))}
             for it in r["iteracoes"]
-            if len(it.razoes) > 1 and len(set(it.razoes.values())) < len(it.razoes)
+            if it.razoes and [Fraction(v) for v in it.razoes.values()].count(min(Fraction(v) for v in it.razoes.values())) > 1
         ],
     }

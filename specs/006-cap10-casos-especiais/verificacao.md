@@ -169,3 +169,56 @@ Restaurados os dois, os portões voltam a verde.
 | Prioridade de Hoffman: 1951 ou 1953 | ⏳ | Divergência entre levantamentos |
 | Charnes (1952) → origem do *big-M* | ⏳ | Dívida herdada da rodada 004 |
 | **Revisão em contexto fresco** | ⏳ | Próximo passo. Quem executa não verifica |
+
+
+---
+
+## Revisão independente — o que ela encontrou
+
+Rodada por agente em contexto fresco, contra a spec, o plano e a constituição. Veredito:
+**APROVAR COM CORREÇÕES**, cinco obrigatórias. Todas corrigidas.
+
+| # | Achado | Severidade | Situação |
+|---|---|---|---|
+| 1 | **"Bland nunca muda a resposta" é falso.** Em `multiplos_otimos` as duas regras entregam planos diferentes — (0,6) e (8,2) — com o mesmo valor. E o capítulo, duas seções antes, argumenta que *qual* plano se escolhe importa | **BLOQUEIA MERGE** | ✅ Corrigido no capítulo, no glossário e no plano. O instrumento ganhou `mesmo_ponto`, para que a frase só possa ser escrita como a medição permitir |
+| 2 | **O "empate" da iteração 0 não é empate no teste da razão.** As razões 10 e 10 não estão no mínimo (que é 6), logo não decidem saída nem produzem pivô degenerado. O instrumento marcava qualquer razão repetida | **CORRIGIR ANTES** | ✅ `vereditos.py` passa a exigir empate **no mínimo**; o capítulo explica a distinção em vez de escondê-la |
+| 3 | **`cap10.exD` dizia "empatou duas vezes"** — empatou uma | **CORRIGIR ANTES** | ✅ Enunciado, critério e resposta-guia corrigidos |
+| 4 | **Radar não atualizado.** Sete fontes entraram na bibliografia sem passar pelo Radar, contra a regra que a própria página declara | **CORRIGIR ANTES** | ✅ Sete linhas acrescentadas, e a **inversão de ordem registrada na própria página** |
+| 5 | **Sigla nua:** "as 10 CPUs" sem apresentação por extenso no documento | **CORRIGIR ANTES** | ✅ Corrigido |
+| 6 | Bloco apresentado como saída de console que o programa não imprime | SUGESTÃO | ✅ Substituído pela linha real |
+| 7 | O objetivo **O3** não era testado na seção Verificação; "quatro vereditos" onde são cinco; desvio do esqueleto não declarado; `mesmo_valor` comparando `None` com `None` | SUGESTÃO | ✅ Todos corrigidos |
+
+**O achado 1 merece destaque, porque a correção melhorou o capítulo.** A verdade é mais
+interessante do que a minha afirmação errada: Bland nunca muda o **valor**, mas pode mudar **qual
+plano ótimo** você recebe. Isso reforça o Veredito 3 de um jeito que eu não tinha visto — quando
+há mais de um ótimo, **a escolha do plano está sendo feita pela regra de pivoteamento**, e não
+por critério de negócio. Se essa escolha importa, ela não pode ser deixada para o solver.
+
+**Padrão que se repete e vale nomear:** os achados 1, 2 e 3 têm a mesma raiz — **a prosa afirmou
+mais do que o instrumento media**. A correção, nos três casos, não foi mudar a prosa: foi
+**melhorar a medição** até que ela suportasse a afirmação, ou obrigar a afirmação a encolher.
+
+### Verificação depois das correções
+
+```
+✓ espelho de capacidades em sincronia (8 capacidades)
+✓ referências de capítulo OK: 52 referências; 7 para vaga ainda não publicada
+✓ Grafo do livro: 22 nós, 47 arestas
+✓ Livro gerado [pt]: 14 páginas + capa em docs/ (links internos OK)
+✓ template verificado [pt]: 5 capítulos com C01/N02 + 9 páginas de aparato OK
+✓ registro de exercícios OK: 27 exercícios em 4 baterias, rubrica não publicada
+✓ consistência de ótimo OK: 23 modelo(s) resolvido(s) em aritmética exata
+✓ ilha interativa operada em navegador: 15 verificações, 0 falhas
+24 passed, 1 warning
+```
+
+**Reprodutibilidade após a correção do instrumento:**
+
+```
+etapa-04  1f5ea14f3bb21e01b06e2357b14c77bf  (idêntico em duas execuções)
+etapa-03  0d427a9fe3756e0c6de46f2ac93a16c8  (inalterado desde a rodada 004)
+```
+
+O hash da etapa 04 mudou em relação ao registrado acima (`fb41eb6c…`) **porque o instrumento
+mudou** — passou a exigir empate no mínimo e a medir `mesmo_ponto`. Os números do capítulo foram
+reconferidos contra a nova saída.

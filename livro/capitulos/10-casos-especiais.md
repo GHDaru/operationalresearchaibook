@@ -238,12 +238,18 @@ A folga do contrato, $f_3$, está **na base valendo zero**. Isso é um **vértic
 restrições passando pelo mesmo ponto do que o necessário para sustentá-lo — exatamente o que o
 capítulo 08 mostrou no desenho, agora em álgebra.
 
-O sintoma aparece antes, no caminho: nas duas iterações houve **empate no teste da razão**.
+O sintoma aparece antes, no caminho — e vale olhar com cuidado, porque é fácil ver empate onde
+não há:
 
 ```
-iteração 0 — razões: f1 = 10, f2 = 6, f3 = 10     ← empate entre f1 e f3
-iteração 1 — razões: f1 = 8,  x2 = 12, f3 = 8     ← empate outra vez
+iteração 0 — razões: f1 = 10, f2 = 6, f3 = 10     mínimo = 6, único
+iteração 1 — razões: f1 = 8,  x2 = 12, f3 = 8     mínimo = 8, EMPATADO
 ```
+
+Na iteração 0 duas razões são iguais (10 e 10) e **isso não é o sintoma**: elas não estão no
+mínimo, então não decidem quem sai e não produzem pivô degenerado. **O empate que importa é o
+empate no mínimo**, e ele acontece uma vez, na iteração 1 — é ali que o método fica sem critério
+para escolher entre $f_1$ e $f_3$, e é dali que sai a básica em zero.
 
 ### Vértice degenerado não é defeito
 
@@ -294,26 +300,38 @@ Agora a **mesma instância**, com o modelo intacto, trocando **só a regra de pi
 Bland — menor índice na entrada e, entre as de menor razão, a variável básica de menor índice:
 
 ```
-5_giro_bland    [bland]    otimo                pivôs=6
-                ponto=(1/25, 0, 1, 0)  z=1/20   nenhuma base repetida
+5_giro_bland             [bland  ] otimo                pivôs=  6 ponto=['1/25', '0', '1', '0']
 ```
 
-Seis pivôs. Nenhuma base repetida. **O HiGHS chega ao mesmo ponto.**
+Seis pivôs, e o detector de ciclo **não encontra base repetida** — ao contrário do caso anterior.
+**O HiGHS chega ao mesmo ponto**, $(0{,}04;\ 0;\ 1;\ 0)$ com valor $0{,}05$.
 
 ### O custo da garantia
 
 Trocar de regra não é grátis, e este handbook mede em vez de afirmar:
 
-| Instância | Pivôs com Dantzig | Pivôs com Bland | Mesmo veredito? | Mesmo valor? |
-|---|---:|---:|---|---|
-| Montadora | 2 | 2 | sim | sim |
-| Vértice degenerado | 2 | 2 | sim | sim |
-| Múltiplos ótimos | 1 | 2 | sim | sim |
-| Sem plano | 1 | 3 | sim | sim |
+| Instância | Pivôs com Dantzig | Pivôs com Bland | Mesmo veredito? | Mesmo valor? | **Mesmo plano?** |
+|---|---:|---:|---|---|---|
+| Montadora | 2 | 2 | sim | sim | sim |
+| Vértice degenerado | 2 | 2 | sim | sim | sim |
+| **Múltiplos ótimos** | 1 | 2 | sim | sim | **não** |
+| Sem plano | 1 | 3 | sim | — | — |
 
-Bland **nunca** muda a resposta, e custa mais pivôs em metade das instâncias testadas. É o
-formato clássico de um seguro: você paga sempre, e o benefício aparece num caso que quase nunca
-ocorre.
+Duas leituras, e a segunda surpreende.
+
+**A primeira:** Bland custa mais pivôs em metade das instâncias e **nunca muda o valor ótimo**. É
+o formato clássico de um seguro — você paga sempre, e o benefício aparece num caso que quase
+nunca ocorre.
+
+**A segunda:** na instância com **mais de um plano ótimo**, as duas regras entregam **planos
+diferentes** — Dantzig para em $(0, 6)$ e Bland em $(8, 2)$, ambos rendendo R$ 1.200. O valor não
+muda; **o plano muda**.
+
+> Isto reforça o Veredito 3 de um jeito incômodo: quando existe mais de um plano ótimo, **qual
+> deles você recebe é decidido pela regra de pivoteamento**, não por você — e por nenhum critério
+> de negócio. Se a escolha entre os planos importa, e a seção anterior argumentou que importa,
+> então ela **não pode ser deixada para o solver**: tem de ser feita explicitamente, depois de o
+> quadro anunciar que há empate.
 
 Por isso **os solvers de mercado não usam Bland o tempo todo**. Eles usam regras rápidas e
 acionam proteção quando desconfiam. E vale saber, porque impede um final feliz falso: o
@@ -411,8 +429,9 @@ montados. Vale como segunda passada sobre a mecânica que aqui foi deslocada par
 
 ## Síntese — o que levar
 
-- **Quatro vereditos não são um plano, e cada um tem conduta própria.** O capítulo 09 ensinou a
-  detectar dois; aqui se aprende o que fazer com os quatro.
+- **Cinco situações em que o Simplex não entrega um plano**, e cada uma tem conduta própria. O
+  capítulo 09 ensinou a detectar duas; aqui se aprende a detectar as outras três e o que fazer
+  com todas.
 - **`Infeasible` é contradição entre promessas**, não erro de conta. Isole a restrição em conflito
   e leve a incompatibilidade, não o erro.
 - **`Unbounded` quase nunca é boa notícia:** é restrição que ninguém escreveu.
@@ -434,7 +453,9 @@ montados. Vale como segunda passada sobre a mecânica que aqui foi deslocada par
    ele, e o que isso muda na reunião? *(O2)*
 2. O modelo devolveu `Unbounded` e o gerente comercial comemorou. Em duas frases, o que você diz
    — e qual é a primeira coisa que você vai procurar? *(O1)*
-3. Um colega troca a regra de pivoteamento do solver e relata que "o problema sumiu". Que
+3. Um quadro final tem uma variável de folga **na base valendo zero**. Que hipótese você levanta
+   sobre o modelo, e qual é o teste mais barato para confirmá-la? *(O3)*
+4. Um colega troca a regra de pivoteamento do solver e relata que "o problema sumiu". Que
    pergunta você faz antes de aceitar que o problema estava resolvido? *(O4)*
 
 ### Leitura executiva

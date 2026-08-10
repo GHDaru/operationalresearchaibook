@@ -38,20 +38,13 @@
       "quadro_final": "base          x1      x2      f1      f2      f3       b\n--------------------------------------------------------\nx1             1       0       2      -1       0       8\nx2             0       1      -1       1       0       2\nf3             0       0      -1       0       1       0\nz              0       0      50      50       0    1100",
       "empates_no_teste_da_razao": [
         {
-          "iteracao": 0,
-          "razoes": {
-            "f1": "10",
-            "f2": "6",
-            "f3": "10"
-          }
-        },
-        {
           "iteracao": 1,
           "razoes": {
             "f1": "8",
             "x2": "12",
             "f3": "8"
-          }
+          },
+          "minimo": "8"
         }
       ]
     },
@@ -434,7 +427,8 @@
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 2,
@@ -442,21 +436,24 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 4,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 6,
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 8,
@@ -464,21 +461,24 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 10,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 12,
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 14,
@@ -486,21 +486,24 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 16,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 18,
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 20,
@@ -508,21 +511,24 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 22,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 24,
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 26,
@@ -530,21 +536,24 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 28,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 30,
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 32,
@@ -552,21 +561,24 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 34,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 36,
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 38,
@@ -574,14 +586,16 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 40,
           "razoes": {
             "x3": "0",
             "x4": "0"
-          }
+          },
+          "minimo": "0"
         }
       ]
     },
@@ -657,7 +671,8 @@
           "razoes": {
             "f1": "0",
             "f2": "0"
-          }
+          },
+          "minimo": "0"
         },
         {
           "iteracao": 2,
@@ -665,7 +680,8 @@
             "x1": "0",
             "x2": "0",
             "f3": "1"
-          }
+          },
+          "minimo": "0"
         }
       ]
     }
@@ -712,28 +728,32 @@
         "pivos_dantzig": 2,
         "pivos_bland": 2,
         "mesmo_veredito": true,
-        "mesmo_valor": true
+        "mesmo_valor": true,
+        "mesmo_ponto": true
       },
       {
         "instancia": "vertice_degenerado",
         "pivos_dantzig": 2,
         "pivos_bland": 2,
         "mesmo_veredito": true,
-        "mesmo_valor": true
+        "mesmo_valor": true,
+        "mesmo_ponto": true
       },
       {
         "instancia": "multiplos_otimos",
         "pivos_dantzig": 1,
         "pivos_bland": 2,
         "mesmo_veredito": true,
-        "mesmo_valor": true
+        "mesmo_valor": true,
+        "mesmo_ponto": false
       },
       {
         "instancia": "sem_plano",
         "pivos_dantzig": 1,
         "pivos_bland": 3,
         "mesmo_veredito": true,
-        "mesmo_valor": true
+        "mesmo_valor": null,
+        "mesmo_ponto": null
       }
     ]
   },
