@@ -38,6 +38,10 @@ Os princípios específicos deste handbook, resumidos:
 9. **Sigla nunca nasce nua** — primeira ocorrência por extenso, em todo documento.
 10. **Direitos autorais** — texto autoral; material de terceiros não é reproduzido aqui.
 11. **DoD verificável** — build verde e testes verdes, com a saída colada.
+12. **Nenhum método cai do céu** — todo capítulo de método conta **de onde o método veio**: o
+    aperto histórico, o que se fazia antes, a virada, a **ideia reaproveitável** e a origem do
+    nome. Este handbook não passa decoreba. História é afirmação e exige fonte (Princípio III);
+    **inventar história é pior do que omiti-la**, porque é convincente.
 
 As regras de escrita — método pedagógico, esqueleto de capítulo, sintaxe de exercício e
 vídeo — estão no [`livro/GUIA-EDITORIAL.md`](livro/GUIA-EDITORIAL.md). Leia antes de escrever

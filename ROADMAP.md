@@ -54,8 +54,8 @@ ordem:
 |---|---|---|
 | 002 ✅ | 07 — Formulação de modelos lineares | O capítulo mais praticado do livro. Sem ele, nada do resto tem sobre o que operar |
 | 003 ✅ | 08 — A geometria da Programação Linear | Dá a intuição que o Simplex vai formalizar |
-| 004 | 09 — O método Simplex | O algoritmo por dentro, com a implementação didática do `po-zero` |
-| 005 | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
+| 004 ✅ | 09 — O método Simplex | O algoritmo por dentro, com a implementação didática do `po-zero` |
+| 005 🚧 | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
 | 006 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
 | 007 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
 | 008 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa |
@@ -106,9 +106,11 @@ planejamento e programação da produção; gestão de estoques.
 - **Janela trimestral de revisão** — reconferir vídeos (link morto é dívida do livro),
   reexecutar os experimentos do `po-zero` com as versões correntes de biblioteca e solver,
   atualizar as datas de captura.
-- **Portão de consistência de exercício** — verificar que todo exercício cujo enunciado afirme
-  uma solução ótima seja consistente com o modelo que ele apresenta. É o portão que teria pego
-  sozinho o defeito que a revisão da edição 0.6 encontrou à mão.
+- **Portão de URL externa** — hoje a defesa contra endereço inventado é a disciplina de quem
+  escreve, e disciplina não é mecanismo. Um portão que exija que toda URL de vídeo esteja na
+  Videoteca com estado declarado fecharia parte do buraco. Nasceu do incidente da rodada 004.
+- **Verificar a ilha interativa do capítulo 08 em navegador** — é o único artefato publicado do
+  livro sem verificação executável.
 - **Gatilho por telemetria** — exercício com taxa de acerto muito baixa e volume relevante é
   sintoma de **texto mal escrito**, não de leitor fraco. Entra na fila de revisão.
 
@@ -128,3 +130,7 @@ planejamento e programação da produção; gestão de estoques.
 | 2026-08-06 | **Uma rodada Maestro por capítulo** | Este documento |
 | 2026-08-06 | Materiais de terceiros em repositório privado separado; histórico purgado | [ADR 0005](adr/0005-materiais-em-repositorio-privado.md) |
 | 2026-08-09 | Rodadas 002 e 003 aprovadas e publicadas na `main` | [Histórico](livro/HISTORICO.md) · edição 0.6 |
+| 2026-08-09 | Simplex ensinado pelo **quadro**; Fase I / *big-M* dentro do capítulo 09 | [Spec 004](specs/004-cap09-simplex/spec.md) · clarify |
+| 2026-08-09 | Portão de consistência de ótimo **construído** — a dívida da edição 0.6 | `publicar/verifica-otimos.mjs` |
+| 2026-08-09 | **Princípio XII — nenhum método cai do céu.** Constituição 1.1.0 | [ADR 0006](adr/0006-o-metodo-tem-historia.md) |
+| 2026-08-09 | Dívida retroativa do Princípio XII quitada nos capítulos 07 e 08 | [Histórico](livro/HISTORICO.md) · edição 0.9 |

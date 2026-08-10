@@ -4,7 +4,8 @@
 > prática. **Todo agente e humano DEVE ler este documento antes de qualquer trabalho.**
 > Emendas via Architecture Decision Record (ADR) + bump de versão.
 >
-> **Versão:** 1.0.0 · **Ratificada:** 2026-08-06
+> **Versão:** 1.1.0 · **Ratificada:** 2026-08-06 · **Emendada:** 2026-08-09
+> ([ADR 0006](../../adr/0006-o-metodo-tem-historia.md) — Princípio XII)
 >
 > Esta constituição **herda** a metodologia [Maestro](https://github.com/GHDaru/maestro)
 > (`docs/governance/principles.md`), cujos oito princípios valem aqui integralmente. Os
@@ -41,6 +42,9 @@ Consequências:
 2. Todo método novo é apresentado com **pelo menos um modelo mal formulado** e o que ele
    produz — o erro é material didático, não constrangimento.
 3. Todo capítulo de método responde explicitamente: *quando este método não serve?*
+
+O **Princípio XII** estende este: além do problema abstrato que o método resolve, o capítulo
+conta o **problema histórico concreto** que forçou alguém a inventá-lo.
 
 ### III. Evidência acima de retórica
 
@@ -142,6 +146,38 @@ cd chat-companion/backend && python -m pytest -q    # backend do tutor
 
 Além disso: histórico atualizado, fontes verificadas, e **revisão por agente em contexto
 fresco** — quem executa não verifica (Maestro, Princípio II).
+
+### XII. Nenhum método cai do céu (NÃO-NEGOCIÁVEL)
+
+Todo método deste handbook foi inventado por **alguém**, que estava **preso** num problema
+concreto, numa data, com meios limitados. Um capítulo que apresenta o método sem essa história
+entrega um procedimento — e procedimento, o aluno decora. **Este handbook não passa decoreba.**
+
+A razão não é ornamental. Quem sabe *que problema forçou o método a existir* consegue
+reconhecer, anos depois e noutro contexto, quando está diante do mesmo tipo de aperto — e é isso
+que transfere. Quem só sabe executar o procedimento tem uma habilidade que expira com a prova.
+
+Consequências:
+
+1. **Todo capítulo de método tem a seção "De onde isto veio"**: o problema do mundo que motivou
+   a busca, quem estava preso nele, quando, e **o que se fazia antes** — porque o método só faz
+   sentido contra a alternativa que ele substituiu.
+2. **Nome com história é nome explicado.** *Simplex*, *big-M*, *branch and bound*, *húngaro*:
+   quando o nome tem origem, ela é contada. Nome inexplicado é ruído que o leitor memoriza sem
+   ganhar nada.
+3. **A ideia antes da mecânica.** Todo artifício técnico declara **a ideia reaproveitável** que
+   há por trás dele — o padrão de raciocínio que serve fora daquele algoritmo. Um artifício sem
+   ideia é truque, e truque não se transfere.
+4. **História é afirmação, e vale o Princípio III.** Data, autoria e atribuição exigem fonte.
+   Não confirmada na fonte primária é marcada `⏳` e **não sustenta afirmação**. Inventar
+   história é pior do que omiti-la, porque é convincente.
+5. **A história tem de mudar alguma coisa.** Se o trecho pode ser removido sem que o leitor
+   perca compreensão ou julgamento, ele é curiosidade — e curiosidade decorativa é amontoado.
+   Ela entra porque ensina, não porque enfeita.
+
+O teste desta seção é simples: **o leitor deve terminá-la querendo continuar.** Um handbook de
+otimização compete com a tentação de pular para a fórmula; a história é o que dá ao leitor um
+motivo para não pular.
 
 ---
 

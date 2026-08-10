@@ -194,6 +194,7 @@ const COMPANION_CAPS = [
   { chave: "exercicios", rotulo: "Exercícios", libera: 1 },
   { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
+  { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },
 ];
 const capituloDe = (titulo) => parseInt((String(titulo).match(/^\s*(\d+)/) || [])[1], 10) || 0;
 function companionSnippet(chapter) {

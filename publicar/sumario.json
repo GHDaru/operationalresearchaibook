@@ -37,9 +37,14 @@
           "teaser": "Onde a resposta deixa de ser um número que veio de fora e vira um lugar que dá para apontar."
         },
         {
+          "arquivo": "livro/capitulos/09-simplex.md",
+          "titulo": "09 — O método Simplex",
+          "teaser": "Como percorrer vértices sem enxergá-los — e por que parar no primeiro topo é seguro."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Sete vagas declaradas",
-          "teaser": "Simplex, degenerescência, Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
+          "titulo": "⬜ Seis vagas declaradas",
+          "teaser": "Degenerescência, Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
         }
       ]
     },

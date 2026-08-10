@@ -73,8 +73,22 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 |---|---|---|---|---|
 | 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | ⏳ | ⏳ | Provisório |
 | 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | ⏳ | ⏳ | Provisório |
+| 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | ⏳ | ⏳ | Provisório |
 
-### O que foi e o que não foi conferido nestes dois
+### Uma ressalva a mais no vídeo do capítulo 09
+
+O vídeo dos capítulos 07 e 08 vem de uma mesma série, e a correspondência com os capítulos era
+direta. O do capítulo 09 **não veio da mesma série** — ela não cobre o Simplex —, então ele foi
+localizado por busca em outro curso.
+
+Isso acrescenta uma incerteza que as fichas anteriores não têm: além de autoria e duração, a
+**própria atribuição da série** ao curso que o resultado de busca indica não foi confirmada na
+fonte. O endereço existe nos resultados; quem o publicou, não conferi.
+
+Registrar isso importa porque a diferença é de grau, não de tipo, e a Videoteca não deve deixar
+duas fichas com o mesmo `⏳` esconderem níveis diferentes de dúvida.
+
+### O que foi e o que não foi conferido nos três
 
 | Campo | Estado |
 |---|---|
@@ -83,8 +97,9 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | Duração | ⏳ não conferido |
 | O que resolve | Declarado pelo editor a partir do título e da posição na série; a aderência ao conteúdo real depende de alguém assistir |
 
-Os dois são da mesma série ("Aula 1" e "Aula 2"), e a divisão dela — introdução e depois método
-gráfico — coincide com a dos capítulos 07 e 08. Foi por isso que entraram.
+Os dois primeiros são da mesma série ("Aula 1" e "Aula 2"), e a divisão dela — introdução e
+depois método gráfico — coincide com a dos capítulos 07 e 08. Foi por isso que entraram. O
+terceiro é de outra origem, pelo motivo dito acima.
 
 **Como esta lacuna fecha.** Duas condições, qualquer uma serve:
 

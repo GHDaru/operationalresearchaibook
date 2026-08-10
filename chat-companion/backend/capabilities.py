@@ -42,6 +42,10 @@ REGISTRO = [
     {"chave": "geometria", "rotulo": "Geometria e método gráfico", "libera": 8, "tools": (),
      "descricao": "Ajudo a enxergar a região viável, a subir a reta de iso-lucro e a achar as "
                   "restrições que sustentam o vértice ótimo."},
+    {"chave": "simplex", "rotulo": "Simplex de quadro", "libera": 9, "tools": (),
+     "descricao": "Acompanho o quadro iteração a iteração: quem entra, quem sai pelo teste da "
+                  "razão, e em que vértice cada quadro põe você. Confiro o seu pivoteamento — "
+                  "não o faço no seu lugar."},
 ]
 
 MODOS = ("avancado", "progressivo")

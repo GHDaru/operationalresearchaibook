@@ -263,3 +263,229 @@ mesmo apresenta. Está em `specs/003-cap08-geometria/tasks.md`.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), revisado por
 agente independente em contexto fresco, sob curadoria e responsabilidade editorial humanas.
+
+### Edição 0.7 — 2026-08-09 · Capítulo 09: o método Simplex
+
+Rodada 004. Diferente das duas anteriores, **o conteúdo não veio de uma narrativa de sala** —
+o autor respondeu ao *clarify* que não havia uma, e aprovou a proposta da especificação. Fica
+registrado: a sequência didática deste capítulo é proposta editorial, não sequência já testada
+com alunos.
+
+Duas decisões do autor no gate: o veículo é o **quadro** (*tableau*), e a **Fase I / *big-M***
+entra neste capítulo em vez de virar capítulo próprio.
+
+**Entrou:**
+
+- **[Capítulo 09 — O método Simplex](capitulos/09-simplex.md)**, encadeado na promessa que o 08
+  deixou aberta. O algoritmo chega a (8, 2) e R$ 1.100 em duas iterações, **pisando exatamente
+  nos vértices que o desenho do capítulo anterior mostrou**.
+- A ponte central do capítulo: **vértice = solução básica viável**. A tabela de bases da
+  montadora é, linha por linha, a mesma tabela de pares de retas do capítulo 08.
+- ***Big-M* com uma segunda instância da mesma história**: cinco unidades do Tipo 2 já vendidas
+  tiram a origem da região viável. O plano vira (2, 5) e R$ 950 — o compromisso custou R$ 150.
+- A resposta à dívida do capítulo 07: **por que a ganância do Simplex não engana**, se duas
+  regras gulosas foram refutadas lá. Porque ela escolhe só a direção do próximo passo, e o teste
+  da razão escolhe o tamanho.
+- **[Etapa 03 do `po-zero`](../po-zero/etapa-03-simplex/)** — Simplex de quadro em aritmética
+  exata, com *big-M* simbólico e todos os quadros guardados.
+- **Oito exercícios** (`cap09`, A–H), com três dedicados ao erro de conclusão sobre conta certa.
+- Capacidade `simplex` no tutor, nos dois lados do espelho.
+- Doze verbetes novos no [glossário](glossario.md): forma padrão, base, solução básica viável,
+  custo reduzido, pivoteamento, teste da razão, convexidade, entre outros.
+
+**O portão que faltava, construído.** A edição 0.6 deixou como trabalho o portão que teria pego
+sozinho o defeito do `cap07.exC`. Ele existe: `publicar/verifica-otimos.mjs` resolve, em
+aritmética exata sobre racionais, **todo modelo declarado numa rubrica** e confere o ótimo
+afirmado. Foram anexados modelos verificáveis aos onze exercícios anteriores que afirmavam um
+ótimo; hoje são dezenove modelos conferidos a cada build. O portão foi provado quebrando: com o
+defeito histórico reintroduzido, ele acusa e nomeia o ótimo verdadeiro (103.500).
+
+O portão tem duas metades, e a segunda importa tanto quanto a primeira: se a rubrica afirma um
+ótimo e **não** há modelo declarado, o build falha. Sem isso, bastaria omitir o campo para o
+exercício voltar ao estado em que o defeito nasceu.
+
+**O pior caso, medido em vez de citado.** A afirmação de que o Simplex tem pior caso exponencial
+costuma vir emprestada da literatura. Aqui o cubo de Klee–Minty é **construído** pelo
+experimento, e os pivôs são contados: 3, 7, 15, 31, 63 e 127 para $n$ de 2 a 7 — sempre
+$2^n - 1$. A troca foi deliberada, e nasceu de uma limitação: como as fontes acadêmicas não são
+alcançáveis deste ambiente, uma afirmação que pudesse ser medida foi medida.
+
+**Um erro meu, pego antes de publicar.** O rascunho do capítulo trazia um endereço de vídeo do
+YouTube que eu **inventei** — exatamente o que o Princípio III proíbe. Foi substituído por um
+localizado em busca real. Registrar isso aqui é o ponto: o defeito não chegou ao leitor, mas o
+mecanismo que o produziu é o mesmo que produz os que chegam.
+
+**Dívidas declaradas:**
+
+- **O vídeo do capítulo 09 tem uma ressalva a mais** que os anteriores: não é da mesma série, e
+  a atribuição da série ao curso indicado pela busca **não foi confirmada na fonte**. Está dito
+  na [Videoteca](videoteca.md).
+- **A seção de fundamentos científicos declara a lacuna.** arXiv, Crossref, OpenAlex e os sites
+  das editoras respondem `403` ao proxy de saída deste ambiente. História do método,
+  complexidade em média e comparação entre regras de pivoteamento seguem sem literatura
+  primária.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.8 — 2026-08-09 · O método tem história (constituição 1.1.0)
+
+Emenda constitucional pedida pelo autor, ao ler o capítulo 09:
+
+> *"Importante trazer um racional do porquê, algo histórico, filosófico, do problema que motivou
+> ter que buscar uma alternativa e solução para alguma decisão. Por exemplo: de onde veio big-M?
+> Por quê, qual a ideia. Não quero passar decoreba, o livro deve ser uma inspiração motivacional,
+> ter história."*
+
+O diagnóstico era certeiro. O capítulo 09 explicava **como** o *big-M* funciona e por que a
+mecânica é segura, e não dizia de onde a ideia veio nem qual padrão de raciocínio ela carrega.
+Assim o leitor sai capaz de executar e incapaz de reconhecer o mesmo tipo de aperto noutro
+contexto — que é a definição operacional de decoreba.
+
+**Entrou:**
+
+- **Princípio XII — Nenhum método cai do céu**, não-negociável. Constituição vai a **1.1.0**,
+  com [ADR 0006](../adr/0006-o-metodo-tem-historia.md). Cinco consequências verificáveis, entre
+  elas: **nome com origem é nome explicado**, e **todo artifício declara a ideia reaproveitável**
+  por trás dele.
+- **Seção "De onde isto veio"** no esqueleto obrigatório de capítulo, com §2.2 no
+  [Guia Editorial](GUIA-EDITORIAL.md) dizendo o que ela precisa entregar: o aperto, o que se
+  fazia antes, a virada, a ideia reaproveitável, o nome.
+- **A seção no capítulo 09.** O Simplex nasceu de um problema de logística — planejar a Força
+  Aérea dos Estados Unidos em 1947, no projeto SCOOP — e não de um problema de matemática. Com
+  o desfazimento de um mal-entendido que quase todo aluno carrega: **"programação", em
+  Programação Linear, quer dizer plano, não código.**
+- **A resposta ao pedido do autor**, sobre o *big-M*: o aperto do ovo e da galinha (o método
+  precisa de um vértice para começar, e achar o primeiro é tão difícil quanto o problema todo), e
+  a ideia que fica — *quando não há ponto de partida, invente um e cobre caro por ele* —, com os
+  lugares fora da PO onde o mesmo padrão aparece.
+- **Portão para o princípio**: `verifica-capitulos.mjs` passa a exigir a seção. Duas listas com
+  significados distintos, para não disfarçar escopo de dívida: o que **não é capítulo de método**
+  (a introdução) e o que **é dívida de verdade**.
+- Seção **História dos métodos** na [bibliografia](bibliografia.md), com as fontes e o estado de
+  cada uma.
+
+**Dívida retroativa, assumida.** Os capítulos **07 e 08 estão publicados sem a seção** e entram
+na lista de dívida declarada do portão. Fazer o princípio valer só do 09 em diante seria
+conveniente e desonesto.
+
+**A honestidade que o princípio exige de si mesmo.** História é o terreno mais fácil do livro
+para inventar, porque data errada e atribuição plausível soam bem e passam por revisão apressada.
+Por isso a seção do capítulo 09 termina com uma tabela que separa **o que é documentado**, **o
+que é atribuição corrente** e **o que é leitura deste livro** — e admite, numa linha, que não
+encontrei fonte para a pergunta mais simples de todas: **por que a letra M**. A leitura óbvia é
+*muito grande*; leitura óbvia não é documento.
+
+Todas as fontes de história nascem `⏳`: localizadas em busca, **não abertas**, porque este
+ambiente não alcança arquivo acadêmico. É dívida de acesso, não de pesquisa.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.9 — 2026-08-09 · A dívida retroativa do Princípio XII, quitada
+
+A edição anterior criou o Princípio XII e deixou os capítulos 07 e 08 na lista de dívida
+declarada do portão. Esta edição quita a dívida **no mesmo dia em que ela nasceu**, e a lista
+volta a ficar vazia.
+
+**Capítulo 07 — a formulação que valeu a pena sem método.** Em 1945 o economista George Stigler
+escreveu o problema da dieta — a combinação mais barata de alimentos que atende às exigências
+nutricionais — e **não tinha como resolvê-lo**. Chutou, por tentativa e eliminação: US$ 39,93 por
+ano, a preços de 1939, sem prova de que fosse o melhor.
+
+Dois anos depois o método existia. Nove escriturários, com calculadoras de mesa manuais, gastaram
+**120 dias-de-escriturário** para chegar a US$ 39,69. O chute do Stigler errou por **24 centavos
+por ano**.
+
+É a história certa para um capítulo de formulação, porque o que ela ensina é onde está o
+trabalho: **o custo de calcular despencou; o de formular, não.** O modelo de 1945 roda hoje em
+milissegundos sem uma vírgula alterada. E a dieta ótima da época era impecável e intragável —
+farinha, repolho, feijão seco —, o que diz a coisa mais importante do capítulo: **o modelo
+responde exatamente a pergunta que você fez.**
+
+Ideia reaproveitável: *escrever o problema com precisão é ganho por si só, mesmo sem meio de
+resolvê-lo.* O que está escrito pode ser criticado, comparado e corrigido — e é essa a vantagem.
+
+**Capítulo 08 — o desenho não é muleta didática.** A assimetria histórica: no século XIX a teoria
+dos sistemas de **equações** lineares estava dominada, e a das **desigualdades** mal saía do
+lugar. A razão é a que o leitor sente na primeira restrição `≤`: uma equação fixa um ponto; uma
+desigualdade descreve uma **região**, e não havia álgebra para regiões.
+
+Em **1826**, Joseph Fourier — o das séries — publicou dois métodos para o problema: um algébrico,
+de eliminação de variáveis, e um **geométrico**, para achar a região das soluções. Em vez de
+inventar a álgebra que faltava, mudou de representação para uma em que "região" já era natural.
+**Cento e vinte anos antes do Simplex, a região viável já estava desenhada.**
+
+O método algébrico foi esquecido e redescoberto em 1936 por **Theodore Motzkin** — hoje
+eliminação de Fourier–Motzkin. E aqui um fio que liga os dois capítulos: **é o mesmo Motzkin**
+que sugeriu a Dantzig o nome *simplex*. A mesma pessoa nas duas pontas.
+
+Ideia reaproveitável: *quando a álgebra não dá alça, troque de representação.* Nada do problema
+muda; muda o que você consegue ver dele.
+
+**A lista de dívida do portão está vazia** — e o comentário no código defende esse estado: uma
+entrada nova ali é sempre aceitável; o que não é aceitável é ela ficar.
+
+**Procedência.** Todas as afirmações históricas destas duas seções são `⏳`: localizadas em busca,
+**não abertas na fonte**. Cada seção termina com a tabela que separa documentado, atribuição
+corrente e leitura deste livro — inclusive marcando o que é interpretação editorial e não
+história. As fontes entraram na [bibliografia](bibliografia.md).
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.
+
+### Edição 0.10 — 2026-08-09 · As fontes de história, abertas
+
+O acesso à literatura foi liberado no ambiente de trabalho, e as afirmações históricas das três
+seções *De onde isto veio* — que nasceram todas `⏳`, localizadas em busca e **não abertas** —
+foram lidas na fonte. A maioria virou `✓`.
+
+**O que a leitura mudou, e a lição de método.** Três coisas aconteceram, e as três valem registro:
+
+1. **Um fato que parecia errado estava certo.** Um resumo secundário abreviava o relato original
+   de tal forma que os "nove escriturários" do capítulo 07 pareciam ser um erro de leitura — o
+   resumo só mencionava "nove equações". A fonte primária confirma as duas coisas: **9 equações e
+   77 incógnitas**, repartidas entre **nove escriturários**. A correção que eu ia fazer teria
+   introduzido o erro.
+2. **Nomes e números ganharam precisão.** Foi **Jack Laderman**, do *Mathematical Tables Project*
+   do National Bureau of Standards, no **outono de 1947**, resolvendo a dieta de Stigler como
+   **teste** do método recém-proposto.
+3. **Apareceu a melhor parte da história, que resumo nenhum trazia.**
+
+**O vinagre.** No início dos anos 1950, na RAND, Dantzig modelou a **própria dieta** como um
+programa linear. A primeira solução ótima pedia **500 galões de vinagre** — porque a base de dados
+listava vinagre com teor de água zero, e o objetivo era maximizar saciedade medida por peso menos
+água. Na rodada seguinte, **200 tabletes de caldo por dia**; ele tentou beber quatro dissolvidos e
+cuspiu, era salmoura. Perguntou ao médico por que a tabela de exigências não limitava o sal, e
+ouviu: *"não era necessário — a maioria das pessoas tem bom senso o bastante para não consumir
+demais"*.
+
+**A restrição existia e era óbvia demais para alguém escrevê-la.** Dantzig pôs um limite superior
+de três tabletes por dia e registrou: *"foi assim que os limitantes superiores em variáveis, na
+programação linear, começaram"*.
+
+É a melhor ilustração possível do que o capítulo 07 ensina, contada pelo inventor do método contra
+si mesmo: **o modelo responde exatamente a pergunta que você fez** — e as duas causas de erro são
+dado ruim e restrição não escrita.
+
+**Também entrou:** o batismo do termo "programação linear" por **T. J. Koopmans**, na RAND, em
+1948 — a expressão de Dantzig era *programming in a linear structure*. O capítulo 09 agora conta
+que **as duas metades do nome do campo vieram de conversa de corredor**, e nenhuma foi escolhida
+por quem inventou o método.
+
+**O que continua em aberto**, dito item a item nas tabelas de procedência dos capítulos:
+
+- **O nome *simplex* atribuído a Motzkin** — atribuição corrente, sem fonte primária. O texto que
+  fecharia isso é *Origins of the Simplex Method*, do próprio Dantzig, e a editora responde `403`
+  a acesso automatizado.
+- **O *big-M* atribuído a Charnes** — os metadados do artigo de 1952 na *Econometrica* estão
+  conferidos, mas o **conteúdo não foi lido**, então a atribuição segue corrente.
+- **A origem da letra M** — sem fonte, e continua assim. A leitura óbvia é *muito grande*; leitura
+  óbvia não é documento.
+
+**Um item saiu da coluna errada.** O crescimento exponencial das desigualdades na eliminação de
+Fourier–Motzkin estava marcado no capítulo 08 como "afirmação corrente, não medida". Está agora
+sustentado por fonte aberta.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
+responsabilidade editorial humanas.

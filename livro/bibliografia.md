@@ -142,6 +142,88 @@ máquina para otimização combinatória. Útil como ponto de partida, **não** 
 verificada de afirmação individual.
 [GitHub](https://github.com/Thinklab-SJTU/awesome-ml4co)
 
+## História dos métodos (Princípio XII)
+
+O [Princípio XII](../.specify/memory/constitution.md) exige que todo capítulo de método conte de
+onde o método veio — e exige fonte para isso. Esta seção reúne as fontes de **história**.
+
+> **Nota de estado, 2026-08-09.** Estas entradas nasceram todas `⏳` porque o ambiente de trabalho
+> não alcançava arquivo acadêmico. Com o acesso liberado, as fontes foram **abertas e lidas**, e a
+> maioria virou `✓`. O que continua `⏳` está marcado item a item, e o motivo é dito.
+
+### Origem do Simplex e da Programação Linear
+
+✓ **DANTZIG, George B.** "The Diet Problem". *Interfaces*, v. 20, n. 4, p. 43–47, 1990.
+DOI [10.1287/inte.20.4.43](https://doi.org/10.1287/inte.20.4.43). — **Fonte primária do capítulo
+07.** Relato do próprio Dantzig: o modelo de Stigler, a computação de Laderman em 1947 (9 equações
+e 77 incógnitas, nove escriturários, ~120 dias-de-trabalho, ótimo de US$ 39,69), a *Table Cloth*,
+e o episódio da própria dieta — os 500 galões de vinagre, os 200 tabletes de caldo e a origem dos
+limitantes superiores em variáveis.
+
+✓ **STIGLER, George J.** "The Cost of Subsistence". *Journal of Farm Economics*, v. 27, n. 2,
+p. 303, 1945. DOI [10.2307/1231810](https://doi.org/10.2307/1231810). — O artigo que formula o
+problema da dieta. Metadados conferidos no Crossref; o **texto integral não foi lido**, e tudo o
+que o handbook afirma sobre o conteúdo vem do relato de Dantzig acima.
+
+✓ **"Air Force Salutes Project SCOOP".** *OR/MS Today*, INFORMS, dez. 2007. — **Fonte do
+capítulo 09**: a força-tarefa de junho de 1947, um mês antes de a Força Aérea virar ramo separado;
+o nome Projeto SCOOP (*Scientific Computation of Optimal Programs*) dado depois; Dantzig como
+matemático-chefe.
+[Página](https://www.informs.org/ORMS-Today/Archived-Issues/2007/orms-12-07/Air-Force-Salutes-Project-SCOOP)
+
+✓ **MacTutor History of Mathematics — George Dantzig.** University of St Andrews. — Sustenta o
+sentido militar de *programming* ("planos ou cronogramas para treinamento, suprimento logístico ou
+deslocamento de pessoal"), a expressão original de Dantzig (*programming in a linear structure*) e
+o batismo do termo "linear programming" por **T. J. Koopmans**, na RAND, em 1948. Cita
+diretamente *Linear Programming and Extensions* (Dantzig, 1963).
+[Página](https://mathshistory.st-andrews.ac.uk/Biographies/Dantzig_George/)
+
+⏳ **DANTZIG, George B.** "Origins of the simplex method". In: *A History of Scientific Computing*,
+p. 141–151, 1990. DOI [10.1145/87252.88081](https://doi.org/10.1145/87252.88081). — Metadados
+conferidos; **o texto continua inacessível** (a editora responde `403` a acesso automatizado). É a
+fonte que fecharia a atribuição do nome *simplex* a Motzkin.
+
+⏳ **Atribuição do nome *simplex* a T. S. Motzkin.** — Atribuição corrente, repetida em material
+didático e em levantamentos históricos; **não confirmada em fonte primária**.
+
+### O *big-M*
+
+✓ **CHARNES, A.** "Optimality and Degeneracy in Linear Programming". *Econometrica*, v. 20, n. 2,
+p. 160, 1952. DOI [10.2307/1907845](https://doi.org/10.2307/1907845). — Metadados conferidos no
+Crossref. É a referência a que a literatura didática atribui o método das penalidades.
+
+⏳ **Atribuição do *big-M* a Charnes.** — O **conteúdo** do artigo acima não foi lido, então a
+atribuição segue como corrente e não confirmada. O capítulo 09 declara isso ao leitor.
+
+❌ **A origem da letra M.** — Sem fonte. A leitura óbvia é *muito grande*; leitura óbvia não é
+documento.
+
+### Geometria das desigualdades lineares
+
+✓ **Levantamento histórico sobre o Simplex e sistemas de desigualdades**, arXiv:2305.03730. —
+**Fonte do capítulo 08**: Fourier nos anos 1820, estudando desigualdades em mecânica, probabilidade
+e estatística; os métodos **algébrico e geométrico** para achar a região das soluções; a ampliação
+por T. Motzkin; e o fato de que cada eliminação de variável acrescenta desigualdades cujo número
+**cresce exponencialmente**.
+[PDF](https://arxiv.org/abs/2305.03730)
+
+⏳ **FOURIER, Joseph.** *Solution d'une question particulière du calcul des inégalités*, 1826. —
+Título e ano localizados em busca; **a obra não foi aberta**. O que o handbook afirma sobre o
+conteúdo vem do levantamento acima.
+
+⏳ **Data de 1936 para a redescoberta por Motzkin.** — Localizada em busca, não confirmada em fonte
+primária.
+
+### Complementar
+
+✓ **GARILLE, Susan Garner; GASS, Saul I.** "Stigler's Diet Problem Revisited". *Operations
+Research*, v. 49, n. 1, p. 1–13, 2001.
+DOI [10.1287/opre.49.1.1.11187](https://doi.org/10.1287/opre.49.1.1.11187). — Metadados
+conferidos; texto **não lido** (editora responde `403`). Reexame do problema com solvers modernos;
+entra na fila do [Radar](../radar/RADAR.md).
+
+---
+
 ## Material didático aberto
 
 ✓ **CUNHA, Alexandre Salles da.** *DCC035 — Pesquisa Operacional*, UFMG. — Curso completo com

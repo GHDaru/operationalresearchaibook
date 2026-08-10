@@ -20,13 +20,35 @@ import { fileURLToPath } from "node:url";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const RAIZ = resolve(AQUI, "..");
+const falhasIniciais = [];
 
-const sumario = JSON.parse(readFileSync(resolve(AQUI, "sumario.json"), "utf8"));
+// O universo de capítulos que existem é o MAPA, não o sumário publicado.
+//
+// A primeira versão deste portão media o sumário — e isso confundia "publicado"
+// com "existe". Neste handbook os dois são coisas diferentes de propósito: o
+// mapa declara 77 vagas em três camadas, e o livro cresce publicando-as fora de
+// ordem (ADR 0004). Um capítulo de método que diz "ciclagem é assunto do
+// capítulo 10" está fazendo o trabalho que o mapa existe para permitir — dizer
+// ao leitor ONDE a resposta vai morar. Barrar isso empurraria o texto a fingir
+// que a lacuna não tem endereço.
+//
+// O que continua sendo defeito, e o portão continua pegando: número que não
+// está no mapa (dedo trocado, remapeamento parcial), par repetido e intervalo
+// decrescente.
+const mapa = readFileSync(resolve(RAIZ, "livro/mapa-do-handbook.md"), "utf8");
 const CAPITULOS = new Set(
+  [...mapa.matchAll(/^\|[^|\n]*\|\s*(\d{2})\s+—\s/gm)].map((m) => Number(m[1]))
+);
+// Os já publicados, para o portão poder DIZER quantas referências apontam para
+// vaga ainda não escrita — em vez de deixar o número invisível.
+const sumario = JSON.parse(readFileSync(resolve(AQUI, "sumario.json"), "utf8"));
+const PUBLICADOS = new Set(
   sumario.partes.flatMap((p) => p.itens)
     .map((i) => (i.titulo || "").match(/^\s*(\d+)\s*—/))
     .filter(Boolean).map((m) => Number(m[1]))
 );
+if (CAPITULOS.size < PUBLICADOS.size)
+  falhasIniciais.push("o mapa declara menos capítulos do que o sumário publica — um dos dois está errado");
 
 // O HISTORICO registra edições anteriores à renumeração e traz nota dizendo
 // isso; seus números são de época e não devem ser conferidos contra o sumário
@@ -40,8 +62,8 @@ const FONTES = [
 // O acento vem em NFD no repositório: casar por classe negada, não por "í".
 const RE = /cap[^\s]{0,6}tulos?\s+(\d{1,2})(?:\s*(?:[eaà]|–|—|-)\s*(\d{1,2}))?|caps?\.\s*(\d{1,2})(?:\s*(?:[eaà]|–|—|-)\s*(\d{1,2}))?/gi;
 
-const falhas = [];
-let refs = 0, compostas = 0;
+const falhas = [...falhasIniciais];
+let refs = 0, compostas = 0, paraVaga = 0;
 
 for (const { dir, arquivos } of FONTES) {
   const lista = arquivos || readdirSync(dir).filter((f) => f.endsWith(".md"));
@@ -56,10 +78,12 @@ for (const { dir, arquivos } of FONTES) {
         const onde = `${arq}:${i + 1}`;
         const texto = m[0].replace(/\s+/g, " ");
         refs++;
-        if (!CAPITULOS.has(a)) falhas.push(`${onde}: "${texto}" — capítulo ${String(a).padStart(2, "0")} não existe no sumário`);
+        if (!CAPITULOS.has(a)) falhas.push(`${onde}: "${texto}" — capítulo ${String(a).padStart(2, "0")} não existe no mapa do handbook`);
+        else if (!PUBLICADOS.has(a)) paraVaga++;
         if (b === null) continue;
         compostas++;
-        if (!CAPITULOS.has(b)) falhas.push(`${onde}: "${texto}" — capítulo ${String(b).padStart(2, "0")} não existe no sumário`);
+        if (!CAPITULOS.has(b)) falhas.push(`${onde}: "${texto}" — capítulo ${String(b).padStart(2, "0")} não existe no mapa do handbook`);
+        else if (!PUBLICADOS.has(b)) paraVaga++;
         if (b === a) falhas.push(`${onde}: "${texto}" — o par cita o mesmo capítulo duas vezes (sintoma clássico de remapeamento parcial)`);
         if (b < a) falhas.push(`${onde}: "${texto}" — intervalo/par em ordem decrescente`);
       }
@@ -72,4 +96,4 @@ if (falhas.length) {
   falhas.forEach((f) => console.error("   " + f));
   process.exit(1);
 }
-console.log(`✓ referências de capítulo OK: ${refs} referências (${compostas} compostas) apontam para capítulos existentes — a aderência semântica é leitura humana`);
+console.log(`✓ referências de capítulo OK: ${refs} referências (${compostas} compostas) apontam para capítulos do mapa; ${paraVaga} para vaga ainda não publicada — a aderência semântica é leitura humana`);
