@@ -211,7 +211,7 @@ prova forte seria estática, sobre a árvore de *imports*, e está no `ROADMAP`.
 | A15 | M | ✅ **CI** no glossário e no mapa de siglas do motor |
 | A16 | H | ✅ edição 0.14, **incluindo a dívida de URL** |
 | A17 | H | ✅ numeração deslocada, `007 🚧` desmarcado, item de URL marcado como aberto |
-| A18 | H | ⏳ **revisão em contexto fresco — pendente** |
+| A18 | H | ⚠️ **parcial** — ver abaixo |
 | A19 | M | ✅ este arquivo |
 | A20 | M | ✅ `reconfere-fontes.yml`, mensal, abre issue ao divergir |
 
@@ -226,3 +226,9 @@ Dito aqui porque um `verificacao.md` que só lista verdes é propaganda.
    atestar que um humano leu. A defesa é revisão humana e o *diff* (ADR 0010).
 4. **A reconferência mensal ainda não rodou** — o workflow existe e nunca disparou. A defesa
    contra auto-atestação está **instalada**, não **exercida**.
+5. **A revisão em contexto fresco rodou uma vez e REPROVOU.** Os cinco achados foram corrigidos e
+   viraram teste — mas **não houve segunda revisão sobre as correções**, e correção não se
+   auto-verifica. O merge foi autorizado pelo autor nesse estado, em 2026-08-12, junto com a
+   liberação do GitHub Pages. Fica registrado aqui em vez de o critério A18 aparecer cumprido:
+   o que existe é uma revisão que reprovou e um conjunto de correções testadas, não uma revisão
+   que aprovou.
