@@ -545,8 +545,12 @@ ganham. Capítulo 14.
 
 **4. Degenerescência pode travar.** Quando o teste da razão empata, o Simplex pode pivotear sem
 sair do lugar e, no limite, **ciclar** — voltar a uma base já visitada e girar para sempre.
-Existem regras de desempate que provam terminação; o código desta etapa usa a mais simples
-(menor índice) e **não** trata o caso completo. Capítulo 10.
+
+Existem regras de desempate que garantem terminação, e **esta implementação não usa nenhuma
+delas**. Ela desempata pela **linha** de menor índice, o que é a escolha mais simples possível e
+**não evita ciclo nenhum**: o capítulo 10 exibe a instância em que este mesmo código gira para
+sempre, e mostra que trocar a regra de pivoteamento pela de Bland faz o método terminar em seis
+pivôs. Capítulo 10.
 
 **5. O modelo continua sendo linear.** Nada aqui atenua o Princípio do capítulo 07: se a
 realidade tem custo fixo, ganho de escala ou decisão de sim-ou-não, a resposta do Simplex é

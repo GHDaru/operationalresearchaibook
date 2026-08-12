@@ -64,6 +64,9 @@ Três coisas valem a leitura:
   com estoque +1 — e bate com o que a linha z do quadro final já mostrava (R$ 50 para cada um
   dos dois recursos). O capítulo 12 vai chamar isso de preço-sombra; aqui é só um número
   registrado, com duas procedências independentes.
-- **Ciclagem não é tratada.** O desempate do teste da razão usa o menor índice, que evita os
-  casos conhecidos, mas o assunto é do capítulo 10 e fingir cobertura aqui seria pior do que
-  declarar a lacuna.
+- **Ciclagem não é tratada, e a cobertura aqui é zero.** O desempate do teste da razão usa a
+  **linha** de menor índice — o que **não** é a regra de Bland e **não evita ciclo nenhum**. A
+  etapa 04 exibe a instância em que este código gira para sempre. Uma versão anterior desta nota
+  dizia que o desempate "evita os casos conhecidos": era falso, e foi corrigido na rodada 006.
+  Desde então `resolver` aceita `regra="bland"`, que na mesma instância termina — mudança aditiva,
+  com a saída desta etapa verificada byte a byte.

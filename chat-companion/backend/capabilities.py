@@ -42,6 +42,10 @@ REGISTRO = [
     {"chave": "geometria", "rotulo": "Geometria e método gráfico", "libera": 8, "tools": (),
      "descricao": "Ajudo a enxergar a região viável, a subir a reta de iso-lucro e a achar as "
                   "restrições que sustentam o vértice ótimo."},
+    {"chave": "casos_especiais", "rotulo": "Casos especiais e degenerescência", "libera": 10, "tools": (),
+     "descricao": "Ajudo a ler um veredito que não é um plano — inviável, ilimitado, mais de um "
+                  "ótimo, vértice degenerado — e a decidir o que fazer com ele. Distingo defeito "
+                  "de modelo de defeito de regra de pivoteamento."},
     {"chave": "simplex", "rotulo": "Simplex de quadro", "libera": 9, "tools": (),
      "descricao": "Acompanho o quadro iteração a iteração: quem entra, quem sai pelo teste da "
                   "razão, e em que vértice cada quadro põe você. Confiro o seu pivoteamento — "

@@ -42,9 +42,14 @@
           "teaser": "Como percorrer vértices sem enxergá-los — e por que parar no primeiro topo é seguro."
         },
         {
+          "arquivo": "livro/capitulos/10-casos-especiais.md",
+          "titulo": "10 — Casos especiais e degenerescência",
+          "teaser": "Quando o solver não devolve um plano — e o que cada veredito diz sobre o seu modelo."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Seis vagas declaradas",
-          "teaser": "Degenerescência, Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
+          "titulo": "⬜ Cinco vagas declaradas",
+          "teaser": "Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
         }
       ]
     },

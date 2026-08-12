@@ -590,3 +590,71 @@ declarada e não resultado verificado.
 
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), sob curadoria e
 responsabilidade editorial humanas.
+
+### Edição 0.13 — 2026-08-09 · Capítulo 10: casos especiais e degenerescência
+
+Rodada 006, executada em **long run autorizado pelo autor**, com a instrução de consultar
+especialistas nas decisões, registrar em ADR e prosseguir. Foi a primeira rodada em que o
+**gate de plano aconteceu antes da implementação** desde que ele foi pulado na rodada 004.
+
+**O que o capítulo entrega.** Quatro vereditos que não são um plano — inviável, ilimitado, mais
+de um ótimo, vértice degenerado — e um quinto caso em que o método não termina. Para cada um, a
+**conduta**: o que investigar, o que renegociar, o que dizer na reunião.
+
+**A tese, medida em vez de afirmada:**
+
+> **O que é do modelo sobrevive à troca do método. O que some quando você troca o método era do
+> método.**
+
+Ela sai de um experimento controlado na [etapa 04 do `po-zero`](../po-zero/etapa-04-casos-especiais/):
+a mesma instância, com o modelo intacto, resolvida com duas regras de pivoteamento. Com a regra
+de Dantzig — a que o capítulo 09 ensina — o Simplex **cicla**, com período 6, sem sair do ponto
+$(0,0,0,0)$. Com a de Bland, **termina em 6 pivôs**. E no modelo degenerado os empates no teste
+da razão **continuam existindo sob as duas regras**. A ciclagem some: era da regra. A
+degenerescência fica: é do modelo.
+
+**Duas fontes primárias abertas e lidas**, e uma delas dá a tese do capítulo escrita pelos
+próprios autores do método, em 1955: *"embora a maioria dos problemas que surgem de fontes
+práticas tenha sido degenerada, nenhum jamais ciclou"* (Dantzig, Orden e Wolfe). A segunda, de
+2004, corrige um mal-entendido comum — o problema prático não é o ciclo, é o ***stalling***, a
+estagnação finita — e registra que o procedimento anticiclagem dos solvers reais **não tem
+garantia**.
+
+**Três decisões editoriais foram a especialista e viraram ADR**, porque o autor estava ausente:
+
+- [ADR 0007](../adr/0007-fronteira-entre-modelo-e-metodo.md) — a fronteira entre os capítulos 09
+  e 10 (detecção já ensinada vira linha de tabela; detecção inédita vira seção) e o lugar da
+  degenerescência no discurso do livro.
+- [ADR 0008](../adr/0008-atribuicao-da-instancia-que-cicla.md) — a atribuição da instância que
+  cicla, em três camadas, e a instância condutora do capítulo.
+
+**A atribuição merece nota,** porque contraria o que quase todo material didático faz. A
+instância de ciclagem costuma ser creditada a Beale (1955) sem ressalva. A fonte de 1955 lida
+aqui credita os **primeiros** exemplos a **Hoffman** e a **Wolfe**; e o artigo de Beale se chama
+*"Cycling in the **dual** simplex algorithm"*, enquanto a instância que circula é **primal**. O
+handbook diz as três camadas e não afirma o que não conferiu.
+
+**O que o guardião de processo barrou, e que estava certo.** O plano foi submetido antes de
+qualquer linha de capítulo e voltou com cinco ressalvas. Quatro eram defeitos reais e foram
+corrigidos: uma afirmação de que a regra de Bland "prova terminação" e "é mais lenta", escrita
+por mim no código **sem fonte e sem medição**; uma frase falsa no README da etapa 03, dizendo que
+o desempate por menor índice "evita os casos conhecidos"; uma decisão tomada e não registrada em
+ADR; e a ausência do arquivo de verificação. O "mais lenta" virou **medição**: Bland nunca muda a
+resposta e gasta mais pivôs em duas das quatro instâncias testadas.
+
+**Correção em capítulo publicado.** A seção "quando não serve" do capítulo 09 dizia que o código
+"usa a mais simples (menor índice)" para desempatar, o que sugeria cobertura parcial contra
+ciclagem. **A cobertura é zero**, e o capítulo 10 exibe a instância em que aquele mesmo código
+gira para sempre. A frase foi reescrita.
+
+**Dívida declarada:** o vídeo do capítulo 10 é o único **provisório** do handbook, e por um campo
+só — título, endereço e autoria conferidos na fonte; a duração não saiu da página em nenhuma
+tentativa.
+
+**Pendente de ratificação do autor**, e dito aqui porque o guardião apontou com razão: a tese
+fixada no ADR 0007 governa a Parte II inteira, e a alteração do capítulo 09 mexe em texto já
+publicado. Ambas vão ao gate de merge como itens explícitos.
+
+**Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), com decisões
+submetidas a agentes especialistas e registradas em ADR, sob curadoria e responsabilidade
+editorial humanas.
