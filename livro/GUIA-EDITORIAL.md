@@ -179,6 +179,20 @@ testam mesmo os objetivos declarados, ou testam o que foi fácil de perguntar?
 "Escrever é reescrever." Nenhum trecho novo é publicado sem esse passo — e **quem escreveu não
 revisa** (Maestro, Princípio II): a revisão final passa por agente em contexto fresco.
 
+**Uma terceira lente, a partir da rodada 008: a skill `humanizer`.** Ela procura marcas de
+escrita automática — símbolo inflado, linguagem promocional, atribuição vaga, regra de três
+mecânica, frases de enchimento. É diferente do que as outras duas fazem: a revisão
+*developmental* olha **estrutura**, o *copyedit* olha **superfície**, e esta olha **procedência
+do estilo**.
+
+Ela **sugere; quem decide é quem assina o livro** — e a razão é concreta: este guia é um estilo
+declarado, e uma ferramenta genérica pode "corrigir" escolha deliberada. Duas coisas que ela não
+manda: prosa que carrega **medição** (número com procedência exige frase dura, Princípio XI) e
+texto **já publicado** (alteração de capítulo no ar é gate do autor).
+
+Apontamento **recusado fica declarado**, com o motivo, na verificação da rodada. Recusa sem
+motivo registrado é a ferramenta virando carimbo.
+
 ## 9. Siglas e glossário (política)
 
 - **Toda sigla é apresentada por extenso na 1ª ocorrência** de cada documento — "*Mixed

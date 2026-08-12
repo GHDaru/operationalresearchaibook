@@ -8,7 +8,15 @@
       "Um único período, e tudo que entra no estoque é vendido — a demanda não é restrição, por desenho.",
       "Lucros e estoques são arbitrados para que o ótimo seja uma mistura. Nenhum número aqui é medição de campo."
     ],
-    "reaproveitamento": "A mesma instância atravessa os capítulos de formulação, geometria e Simplex. O leitor vê o mesmo problema por três lentes."
+    "reaproveitamento": "A mesma instância atravessa os capítulos de formulação, geometria e Simplex. O leitor vê o mesmo problema por três lentes.",
+    "omissao_deliberada": {
+      "o_que": "A restrição de TEMPO DE MONTAGEM — 48 min por unidade do Tipo 1, 60 min por unidade do Tipo 2, 480 min disponíveis — existe na versão de sala e NÃO está aqui.",
+      "por_que": "Encenação pedagógica do autor: a restrição é introduzida no capítulo de programação inteira, e é ela que produz o ótimo fracionário. Sem ela, o ótimo desta instância cai em (8, 2) — inteiro por construção, o que é conveniente para ensinar Simplex e enganoso se ninguém avisar.",
+      "o_que_acontece_quando_ela_entra": "Com as três restrições, o ótimo vai para (20/3, 8/3), com Z = 3200/3 ≈ R$ 1.066,67. Sete computadores e dois terços não se montam — e é exatamente esse desconforto que abre a programação inteira.",
+      "onde_ela_entra": "Vaga 23 — Modelagem com variáveis inteiras e binárias.",
+      "verificado_em": "2026-08-12, com o Simplex da etapa 03, em aritmética exata.",
+      "NAO_CORRIJA": "Esta ausência não é erro de transcrição. Acrescentar a terceira restrição aqui, sem coordenar com o capítulo 23, destrói a montagem e muda os números de quatro capítulos publicados."
+    }
   },
   "componentes": {
     "cpu": {"estoque": 10, "rotulo": "CPUs"},

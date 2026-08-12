@@ -62,7 +62,7 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 | ✅ | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
 | 🚧 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
 | ⬜ | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. |
-| ⬜ | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. |
+| ⬜ | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. **Recebe as regras de precificação** (*Dantzig*, *steepest edge*, *devex*), remetidas do capítulo 11 por decisão editorial de 2026-08-12. |
 | ⬜ | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
 | ⬜ | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
 
@@ -82,7 +82,7 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| ⬜ | 23 — Modelagem com variáveis inteiras e binárias | Ativação, escolha, lógica condicional, *big-M* — e o preço de cada truque. |
+| ⬜ | 23 — Modelagem com variáveis inteiras e binárias | Ativação, escolha, lógica condicional, *big-M* — e o preço de cada truque. **Recebe a terceira restrição da montadora** (tempo de montagem), omitida de propósito desde o capítulo 07: é ela que produz o ótimo fracionário `(20/3, 8/3)` e abre a integralidade. Ver a ficha da instância em `po-zero/etapa-01-formulacao/instancias/montadora.json`. |
 | ⬜ | 24 — Qualidade da formulação | Por que dois modelos corretos do mesmo problema levam horas e segundos. |
 | ⬜ | 25 — *Branch and bound* | A enumeração inteligente: limitantes, poda e estratégias de ramificação. |
 | ⬜ | 26 — Planos de corte e *branch and cut* | Apertar a relaxação: cortes de Gomory, de cobertura e os do solver. |

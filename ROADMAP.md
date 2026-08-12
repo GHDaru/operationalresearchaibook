@@ -56,11 +56,19 @@ ordem:
 | 003 ✅ | 08 — A geometria da Programação Linear | Dá a intuição que o Simplex vai formalizar |
 | 004 ✅ | 09 — O método Simplex | O algoritmo por dentro, com a implementação didática do `po-zero` |
 | 006 ✅ | 10 — Casos especiais e degenerescência | **Capítulo próprio por decisão editorial** — nenhuma das duas obras-base trata em separado, e é onde o aluno descobre que o problema está no modelo |
-| 007 🚧 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
-| 008 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
-| 009 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa |
-| 010 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes |
-| 011 | 15 — Modelagem aplicada em PL | O repertório de padrões, fechando a Parte II |
+| 007 ✅ | *(rodada de motor)* — Portão de fontes | Inserida pelo autor em 2026-08-12, fora da ordem prevista. Ver a nota de numeração abaixo |
+| 008 🚧 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
+| 009 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
+| 010 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa. **Recebe as regras de precificação**, remetidas do 11 (2026-08-12) — o capítulo 10 prometeu a continuação e ela chega aqui |
+| 011 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes |
+| 012 | 15 — Modelagem aplicada em PL | O repertório de padrões, fechando a Parte II |
+
+> **Nota de numeração, 2026-08-12.** A rodada 007 estava reservada ao capítulo 11 e o autor
+> inseriu no lugar dela uma rodada de motor; a Parte II deslocou uma unidade daqui para baixo.
+> A regra que isso fixa: **a numeração é sequencial na pasta `specs/`, e este `ROADMAP` é ordem
+> de ataque, não contrato.** Registrada no [ADR 0010](adr/0010-a-semantica-do-selo.md), anexo R2 —
+> junto com R1, que classifica **rodada de motor como raia plena**, não leve, porque mexe no que
+> barra publicação.
 
 ## Rodada 011 em diante — Parte I: Fundamentos
 
@@ -106,9 +114,29 @@ planejamento e programação da produção; gestão de estoques.
 - **Janela trimestral de revisão** — reconferir vídeos (link morto é dívida do livro),
   reexecutar os experimentos do `po-zero` com as versões correntes de biblioteca e solver,
   atualizar as datas de captura.
-- **Portão de URL externa** — hoje a defesa contra endereço inventado é a disciplina de quem
-  escreve, e disciplina não é mecanismo. Um portão que exija que toda URL de vídeo esteja na
-  Videoteca com estado declarado fecharia parte do buraco. Nasceu do incidente da rodada 004.
+- **Portão de URL externa — CONTINUA ABERTO, e subiu de prioridade.** Hoje a defesa contra
+  endereço inventado é a disciplina de quem escreve, e disciplina não é mecanismo. Um portão que
+  exija que toda URL de vídeo esteja na Videoteca com estado declarado fecharia parte do buraco.
+  Nasceu do incidente da rodada 004 — **uma URL de vídeo inventada**.
+  > **A rodada 007 NÃO fechou este item, e é importante não confundir os dois.** O portão de
+  > fontes cobre **identificador de objeto digital (DOI)**: 12 das ~25 entradas da bibliografia.
+  > URL comum, página institucional, curso gravado e identificador do arXiv seguem sem
+  > mecanismo — e **o incidente que motivou a rodada 007 continuaria passando por ela**. Portão
+  > que cria confiança maior do que sua cobertura é pior do que portão nenhum, então isto está
+  > dito também na própria bibliografia e no cabeçalho do `verifica-fontes.mjs`.
+- **Prova por capítulo** *(pedido do autor, 2026-08-12 — vira rodada própria)*. Hoje o livro tem
+  **exercício**: treino, com devolutiva que explica, corrigido no servidor. **Prova é outro
+  objeto** — cobre o capítulo inteiro, tem nota, e provavelmente não devolve o gabarito na hora.
+  Mexe no registro editorial (`livro/exercicios.json`), no backend de correção e no gating.
+  > **A pergunta de fundo, que é do autor:** a prova é para o **aluno se autoavaliar** ou é
+  > **instrumento de avaliação da turma**? As duas respostas produzem sistemas diferentes — a
+  > segunda exige identidade do aluno, e o handbook hoje é anônimo por princípio.
+- **Quadro passo a passo, com o pivô visível** *(2026-08-12)*. O autor usa em sala uma versão do
+  Simplex que mostra **onde o pivô está** — seta na linha, seta na coluna, elemento em caixa — e
+  o quadro a cada iteração. O `po-zero` calcula tudo isso e **não mostra**. É a diferença entre
+  "vi o quadro" e "acompanhei o método". Entra como ilha interativa nos capítulos 09 e 10, e a
+  rodada 008 já produz a comparação passo a passo entre o quadro completo e a forma revisada,
+  que é a demonstração central do capítulo 11.
 - **Sessão de história** — pesquisa concentrada que alimenta as seções "De onde isto veio" das
   rodadas seguintes, em vez de pesquisar capítulo a capítulo. Primeira rodada feita em 2026-08-09
   ([estudo 002](estudos/002-historia-dos-metodos.md)); a próxima cobre as Partes VI a IX e a

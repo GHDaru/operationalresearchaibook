@@ -1,0 +1,102 @@
+name: Publicar no GitHub Pages
+
+# O merge na `main` é o que publica (CLAUDE.md). Este workflow é o que torna
+# essa frase verdadeira — até aqui ela descrevia uma intenção sem mecanismo.
+#
+# DUAS DECISÕES QUE VALEM SER LIDAS:
+#
+# 1. O `docs/` NÃO é versionado (`.gitignore:11`). O site é gerado a cada
+#    publicação e sobe como artefato — nunca como commit. Sem isso, o
+#    repositório carregaria HTML gerado, e todo merge viraria conflito binário
+#    num diretório que ninguém revisa.
+#
+# 2. A publicação roda os SETE portões, via `npm run build`, e não só o
+#    `build.mjs`. O deploy do Vercel constrói com `SEM_PDF=1 node build.mjs &&
+#    SEM_PDF=1 node verifica-capitulos.mjs` — pulando `verifica-fontes`,
+#    `verifica-espelho`, `verifica-referencias`, `verifica-exercicios` e
+#    `verifica-otimos`. Aqui isso não se repete: **o que não passa nos portões
+#    não é publicado.** Portão que o caminho de publicação contorna não é
+#    portão, é decoração.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "livro/**"
+      - "publicar/**"
+      - "chat-companion/**"
+      - ".github/workflows/publicar.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Uma publicação por vez; a fila não cancela a que está no ar.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # O corpus do tutor é regerado a cada publicação: o chat nunca responde
+      # por uma versão antiga do livro.
+      - name: Regerar o corpus do tutor
+        run: pip install -q -r requirements.txt && python build_corpus.py
+        working-directory: chat-companion/backend
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar dependências do motor
+        run: npm ci
+        working-directory: publicar
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+      # `npm run build` = os seis portões encadeados + a geração do site.
+      # Se um reprovar, o passo falha e NADA é publicado.
+      - name: Gerar o site e rodar os portões
+        run: npm run build
+        working-directory: publicar
+
+      - name: Instalar Chromium (para os PDFs e a ilha)
+        run: npx playwright install --with-deps chromium
+        working-directory: publicar
+
+      # O sétimo portão: a ilha operada em navegador de verdade.
+      - name: Verificar a ilha interativa
+        run: npm run verifica:ilha
+        working-directory: publicar
+
+      - name: Gerar os PDFs
+        run: npm run pdf
+        working-directory: publicar
+
+      - name: Limpar o temporário de impressão
+        run: rm -f docs/_print.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

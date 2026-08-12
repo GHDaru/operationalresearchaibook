@@ -658,3 +658,64 @@ publicado. Ambas vão ao gate de merge como itens explícitos.
 **Produção:** conteúdo redigido com apoio de agente de IA (Claude, Anthropic), com decisões
 submetidas a agentes especialistas e registradas em ADR, sob curadoria e responsabilidade
 editorial humanas.
+
+### Edição 0.14 — 2026-08-12 · O selo vira medição
+
+Rodada de **motor**, não de capítulo: nada foi escrito no livro. O que mudou é o que o livro
+consegue provar sobre si mesmo.
+
+**O problema.** O handbook tinha um sistema de selos de procedência honesto — `✓`, `✓ᵐ`, `⏳`,
+`❌` — e **nenhum deles verificado por máquina**. O `✓` ao lado de um identificador de objeto
+digital (DOI, *Digital Object Identifier*) era palavra de quem escreveu. Um dígito trocado
+passava; um DOI inventado passava. Não é hipótese: na edição 0.9 uma URL de vídeo **foi
+inventada** e só apareceu por acidente, ao tentar abri-la.
+
+**Entrou:**
+
+- **`publicar/verifica-fontes.mjs`** — portão do `npm run build`, antes da geração do site.
+  Roda **offline**, comparando a bibliografia com `livro/fontes.lock.json`, versionado.
+- **`publicar/atualiza-fontes.mjs`** (`npm run fontes`) — o gerador, com rede, sob demanda.
+  **Recusa rodar em integração contínua (CI)**, para que o reparo diante de um build vermelho
+  nunca seja "regerar até ficar verde".
+- **Legenda de selos completa** nesta bibliografia: cinco selos, com o que cada um **prova** e
+  o que **não** prova.
+- **Reconferência mensal agendada** (`.github/workflows/reconfere-fontes.yml`), que compara o
+  travamento contra os registros e abre issue se divergir.
+- **[ADR 0009](../adr/0009-portao-de-fontes-doi-inexistente.md)** e
+  **[ADR 0010](../adr/0010-a-semantica-do-selo.md)**.
+
+**A virada de enquadramento.** A pergunta "este DOI existe?" não é para o Crossref nem para o
+OpenAlex — são índices de **metadados**, com cobertura parcial por construção. Existência é
+decidida pelo *Handle System*. Com isso, "obra real não indexada" deixou de ser exceção a
+negociar e virou estado **normal e aprovável**, e o caso restante — o registro nega o DOI —
+não tem instância legítima, porque o reparo é apagar o identificador. **Não há lista de
+exceções.**
+
+**O que a rodada derrubou de si mesma.** O limiar de comparação de títulos entrou no plano como
+"0,70, o mesmo que um guia externo documenta" — citação sem fonte nomeável. Medido, caiu duas
+vezes: primeiro o extrator (o *regex* casava o **nome do autor em negrito** antes do título),
+depois a própria ideia de limiar único (o pior par legítimo ficou **abaixo** do melhor
+impostor). A correção foi de critério — contenção antes de bigramas — e o limiar medido é
+**0,78**, com janela de 0,440.
+
+**O portão apanhou o próprio defeito.** Na primeira execução, o parser leu 11 entradas onde havia
+12, e a contagem independente reprovou. Causa: `\z` **não existe em regex de JavaScript** — é a
+letra `z` literal, e o corpo da entrada terminava no primeiro `z` minúsculo. A entrada perdida
+era a de Gill et al., cujo título contém "optimi**z**ation".
+
+**A dívida que esta edição NÃO paga, dita em voz alta:** o portão cobre **12 das 31 obras** da
+bibliografia — 39%. Livro impresso, página institucional, curso gravado e identificador do arXiv
+continuam sendo afirmação humana — e **o incidente que motivou esta rodada, a URL de vídeo
+inventada, continuaria passando por ela**. O item "Portão de URL externa" segue aberto no
+[ROADMAP](../ROADMAP.md) e subiu de prioridade. Portão que cria confiança maior do que sua
+cobertura é pior do que portão nenhum.
+
+**Verificação:** build verde nos dois caminhos (`npm run build` e `SEM_PDF=1`), 24 testes do
+tutor verdes, e **20 verificações destrutivas** — cada reprovação que o portão promete foi provada
+quebrando-o de propósito.
+
+**A revisão independente reprovou a primeira versão**, e cinco achados viraram correção mais
+teste. O mais grave era o portão ficar verde tendo verificado nada quando os índices de metadados
+caíssem: o canário só exercitava o registro. O mais simples, e o mais constrangedor: o portão
+conferia o **texto** do link e não o **endereço** — trocar só o destino passava. E o número de
+cobertura publicado estava errado: são 12 de **31 obras**, 39%, não "cerca de 25".

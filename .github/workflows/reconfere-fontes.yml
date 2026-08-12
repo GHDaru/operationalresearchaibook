@@ -1,0 +1,110 @@
+name: Reconferência das fontes
+
+# POR QUE ESTE WORKFLOW EXISTE, e ele é a peça mais importante do portão de
+# fontes — mais do que o portão.
+#
+# O `verifica-fontes.mjs` compara a bibliografia contra `livro/fontes.lock.json`.
+# Os dois saem da MESMA MÃO, na mesma tarde. Se uma entrada estiver errada nos
+# dois, o build fica verde para sempre e o erro ganha um carimbo de máquina que
+# não merece — e o risco líquido do portão passa a ser NEGATIVO, porque hoje o
+# leitor sabe que o selo é afirmação humana e depois suporia que é medição.
+#
+# O diff do travamento defende contra desatenção. Não defende contra o autor
+# conferindo o próprio trabalho. Só uma reconferência INDEPENDENTE e periódica,
+# contra o mundo e não contra o arquivo, transforma auto-atestação em medição ao
+# longo do tempo.
+#
+# Ver ADR 0009, e o bloqueio B2 do guardião no plano da rodada 007.
+
+on:
+  schedule:
+    - cron: "17 6 1 * *"   # dia 1 de cada mês
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  reconferir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # O gerador recusa rodar com CI definido (ADR 0009, D8) — de propósito,
+      # para que ninguém "regere até ficar verde" diante de um build vermelho.
+      # Aqui a intenção é a oposta e explícita: reconferir, num arquivo à parte,
+      # SEM tocar o travamento versionado.
+      - name: Regerar o travamento numa cópia
+        env:
+          CI: ""
+        run: |
+          cp livro/fontes.lock.json /tmp/lock-versionado.json
+          cd publicar && node atualiza-fontes.mjs | tee /tmp/saida-gerador.txt
+
+      # "Não consegui perguntar" NUNCA vira "confere". Em indeterminado o gerador
+      # reempurra a entrada antiga verbatim, e o diff daria vazio — anunciando
+      # que o travamento confere com um registro que não foi consultado.
+      - name: Nenhum DOI pode ter ficado sem consulta
+        run: |
+          n=$(grep -oP 'RECONFERENCIA indeterminados=\K[0-9]+' /tmp/saida-gerador.txt || echo 0)
+          echo "indeterminados: $n"
+          if [ "$n" != "0" ]; then
+            echo "✗ $n DOI(s) não puderam ser consultados — a reconferência deste mês não vale."
+            grep 'RECONFERENCIA' /tmp/saida-gerador.txt
+            exit 1
+          fi
+
+      - name: Comparar com o que está versionado
+        id: diff
+        run: |
+          python3 - <<'PY'
+          import json, os, sys
+          def limpa(p):
+              d = json.load(open(p))
+              return {f["doi"].lower(): {k: v for k, v in f.items() if k != "verificado_em"}
+                      for f in d["fontes"]}
+          antes, agora = limpa("/tmp/lock-versionado.json"), limpa("livro/fontes.lock.json")
+          linhas = []
+          for doi in sorted(set(antes) | set(agora)):
+              a, b = antes.get(doi), agora.get(doi)
+              if a == b: continue
+              if a is None:   linhas.append(f"+ {doi} apareceu no registro")
+              elif b is None: linhas.append(f"- {doi} sumiu do registro")
+              else:
+                  for k in sorted(set(a) | set(b)):
+                      if a.get(k) != b.get(k):
+                          linhas.append(f"~ {doi} · {k}: {a.get(k)!r} → {b.get(k)!r}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"divergiu={'sim' if linhas else 'nao'}\n")
+          open("/tmp/divergencia.txt", "w").write("\n".join(linhas) or "(sem divergência)")
+          print("\n".join(linhas) or "✓ travamento confere com o registro")
+          PY
+
+      - name: Abrir issue quando divergir
+        if: steps.diff.outputs.divergiu == 'sim'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const corpo = fs.readFileSync('/tmp/divergencia.txt', 'utf8');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Reconferência das fontes divergiu — ${new Date().toISOString().slice(0,10)}`,
+              body: [
+                'A reconferência mensal encontrou diferença entre `livro/fontes.lock.json`',
+                'e o que os registros respondem hoje.',
+                '',
+                'Isto **não** é necessariamente defeito: metadados de registro são corrigidos',
+                'com o tempo. Mas é a única checagem que olha o travamento contra o mundo,',
+                'em vez de olhar a bibliografia contra o travamento — leia antes de regerar.',
+                '',
+                '```', corpo, '```',
+                '',
+                'Reparo: `cd publicar && npm run fontes`, e leia o diff.',
+              ].join('\n'),
+            });

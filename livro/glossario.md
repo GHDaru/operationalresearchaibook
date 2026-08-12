@@ -54,6 +54,7 @@ Ao introduzir uma sigla nova, adicione-a **nos dois lugares**.
 | **ISBN** | *International Standard Book Number* | Identificador de livro |
 | **API** | *Application Programming Interface* | Interface de programação de aplicações |
 | **CPU** | *Central Processing Unit* | Unidade central de processamento |
+| **CI** | *Continuous Integration* | Integração contínua: a automação que roda build e testes a cada envio |
 | **GB** | *gigabyte* | Unidade de capacidade de memória |
 | **JSON** | *JavaScript Object Notation* | Formato de arquivo de dados usado pelas instâncias do `po-zero` |
 

@@ -356,6 +356,7 @@ const SIGLAS = {
   ISBN: "International Standard Book Number", ORCID: "Open Researcher and Contributor ID",
   ADR: "Architecture Decision Record", DoD: "Definition of Done",
   CPU: "Central Processing Unit — unidade central de processamento",
+  CI: "Continuous Integration — integração contínua",
   GB: "gigabyte", JSON: "JavaScript Object Notation",
 };
 const RE_SIGLAS = new RegExp("\\b(" + Object.keys(SIGLAS).sort((a, b) => b.length - a.length).join("|") + ")\\b", "g");

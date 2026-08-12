@@ -1,0 +1,89 @@
+{
+  "coletado_em": "2026-08-12",
+  "entradas": [
+    {
+      "selo": "✓",
+      "doi": "10.1287/inte.20.4.43",
+      "titulo_declarado": "The Diet Problem",
+      "titulo_registrado": "The Diet Problem",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓",
+      "doi": "10.2307/1231810",
+      "titulo_declarado": "The Cost of Subsistence",
+      "titulo_registrado": "The Cost of Subsistence",
+      "via": "crossref"
+    },
+    {
+      "selo": "⏳",
+      "doi": "10.1145/87252.88081",
+      "titulo_declarado": "Origins of the simplex method",
+      "titulo_registrado": "Origins of the simplex method",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓",
+      "doi": "10.2307/1907845",
+      "titulo_declarado": "Optimality and Degeneracy in Linear Programming",
+      "titulo_registrado": "Optimality and Degeneracy in Linear Programming",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓",
+      "doi": "10.1145/990308.990310",
+      "titulo_declarado": "Smoothed Analysis of Algorithms: Why the Simplex Algorithm Usually Takes Polynomial Time",
+      "titulo_registrado": "Smoothed analysis of algorithms",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓ᵐ",
+      "doi": "10.1007/bf01917108",
+      "titulo_declarado": "The average number of pivot steps required by the Simplex-Method is polynomial",
+      "titulo_registrado": "The Average number of pivot steps required by the Simplex-Method is polynomial",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓",
+      "doi": "10.1007/s10107-003-0488-1",
+      "titulo_declarado": "The simplest examples where the simplex method cycles and conditions where EXPAND fails to prevent cycling",
+      "titulo_registrado": "The simplest examples where the simplex method cycles and conditions where expand fails to prevent cycling",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓ᵐ",
+      "doi": "10.1002/nav.3800020406",
+      "titulo_declarado": "Cycling in the **dual** simplex algorithm",
+      "titulo_registrado": "Cycling in the dual simplex algorithm",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓ᵐ",
+      "doi": "10.1287/moor.2.2.103",
+      "titulo_declarado": "New Finite Pivoting **Rules** for the Simplex Method",
+      "titulo_registrado": "New Finite Pivoting Rules for the Simplex Method",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓ᵐ",
+      "doi": "10.1007/BF01589114",
+      "titulo_declarado": "A practical anti-cycling procedure for linearly constrained optimization",
+      "titulo_registrado": "A practical anti-cycling procedure for linearly constrained optimization",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓ᵐ",
+      "doi": "10.1287/opre.50.1.3.17780",
+      "titulo_declarado": "Solving Real-World Linear Programs: A Decade and More of Progress",
+      "titulo_registrado": "Solving Real-World Linear Programs: A Decade and More of Progress",
+      "via": "crossref"
+    },
+    {
+      "selo": "✓",
+      "doi": "10.1287/opre.49.1.1.11187",
+      "titulo_declarado": "Stigler's Diet Problem Revisited",
+      "titulo_registrado": "Stigler's Diet Problem Revisited",
+      "via": "crossref"
+    }
+  ]
+}
