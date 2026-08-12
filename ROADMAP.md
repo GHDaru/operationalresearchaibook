@@ -124,6 +124,19 @@ planejamento e programação da produção; gestão de estoques.
   > mecanismo — e **o incidente que motivou a rodada 007 continuaria passando por ela**. Portão
   > que cria confiança maior do que sua cobertura é pior do que portão nenhum, então isto está
   > dito também na própria bibliografia e no cabeçalho do `verifica-fontes.mjs`.
+- **Prova por capítulo** *(pedido do autor, 2026-08-12 — vira rodada própria)*. Hoje o livro tem
+  **exercício**: treino, com devolutiva que explica, corrigido no servidor. **Prova é outro
+  objeto** — cobre o capítulo inteiro, tem nota, e provavelmente não devolve o gabarito na hora.
+  Mexe no registro editorial (`livro/exercicios.json`), no backend de correção e no gating.
+  > **A pergunta de fundo, que é do autor:** a prova é para o **aluno se autoavaliar** ou é
+  > **instrumento de avaliação da turma**? As duas respostas produzem sistemas diferentes — a
+  > segunda exige identidade do aluno, e o handbook hoje é anônimo por princípio.
+- **Quadro passo a passo, com o pivô visível** *(2026-08-12)*. O autor usa em sala uma versão do
+  Simplex que mostra **onde o pivô está** — seta na linha, seta na coluna, elemento em caixa — e
+  o quadro a cada iteração. O `po-zero` calcula tudo isso e **não mostra**. É a diferença entre
+  "vi o quadro" e "acompanhei o método". Entra como ilha interativa nos capítulos 09 e 10, e a
+  rodada 008 já produz a comparação passo a passo entre o quadro completo e a forma revisada,
+  que é a demonstração central do capítulo 11.
 - **Sessão de história** — pesquisa concentrada que alimenta as seções "De onde isto veio" das
   rodadas seguintes, em vez de pesquisar capítulo a capítulo. Primeira rodada feita em 2026-08-09
   ([estudo 002](estudos/002-historia-dos-metodos.md)); a próxima cobre as Partes VI a IX e a

@@ -51,6 +51,7 @@ que está publicada.
 
 | Medição | O que ela prova |
 |---|---|
+| **A mesma instância resolvida pelas duas formas, passo a passo, lado a lado** — com o pivô visível: qual linha, qual coluna, qual elemento | É a demonstração central. Sem ver os dois caminhos, "a forma revisada faz menos trabalho" é retórica. Vem do formato que o autor usa em sala |
 | Forma revisada e quadro dão **a mesma resposta** nas instâncias das etapas 03 e 04 | O capítulo é sobre implementação, não sobre método. Se a resposta mudar, o capítulo está errado |
 | **Contagem de operações** e de valores tocados por iteração, nas duas formas, em instâncias de tamanho crescente | O ganho da forma revisada deixa de ser afirmação e vira curva |
 | **Densidade** da matriz nas instâncias sintéticas | Mostra que o ganho depende da esparsidade — e some quando ela some |

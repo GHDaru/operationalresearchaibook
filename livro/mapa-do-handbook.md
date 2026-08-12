@@ -82,7 +82,7 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| ⬜ | 23 — Modelagem com variáveis inteiras e binárias | Ativação, escolha, lógica condicional, *big-M* — e o preço de cada truque. |
+| ⬜ | 23 — Modelagem com variáveis inteiras e binárias | Ativação, escolha, lógica condicional, *big-M* — e o preço de cada truque. **Recebe a terceira restrição da montadora** (tempo de montagem), omitida de propósito desde o capítulo 07: é ela que produz o ótimo fracionário `(20/3, 8/3)` e abre a integralidade. Ver a ficha da instância em `po-zero/etapa-01-formulacao/instancias/montadora.json`. |
 | ⬜ | 24 — Qualidade da formulação | Por que dois modelos corretos do mesmo problema levam horas e segundos. |
 | ⬜ | 25 — *Branch and bound* | A enumeração inteligente: limitantes, poda e estratégias de ramificação. |
 | ⬜ | 26 — Planos de corte e *branch and cut* | Apertar a relaxação: cortes de Gomory, de cobertura e os do solver. |
