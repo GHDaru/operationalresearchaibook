@@ -91,6 +91,7 @@ a ser *por que o ganho só aparece em escala que não cabe aqui*, o que também 
 | **A21** | M | O solver aberto confere o ótimo de toda instância publicada — **testemunha independente**, como na etapa 04 |
 | **A22** | M | `po-zero/etapa-03-simplex/resultados.json` permanece **byte a byte idêntico** (`0d427a9f…`) |
 | **A23** | M | O corpus do tutor e `livro/exercicios.json` são regenerados e o gating por capítulo cobre o 11 |
+| **A24** | H | O rascunho passa pela skill **`humanizer`** antes do commit, e **os apontamentos recusados ficam declarados** na verificação, com o motivo. *Ela sugere; quem decide é quem assina o livro* |
 
 ## Clarify
 

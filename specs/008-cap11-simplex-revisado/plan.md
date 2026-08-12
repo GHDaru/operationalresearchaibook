@@ -145,6 +145,35 @@ diferença de método.
 | **densidade da instância** (entrada) ≠ **preenchimento** (saída) | A mesma palavra para as duas convida ao raciocínio circular |
 | Limiar de estagnação **no código antes** da primeira execução, com a cascata mapeada | O corte condicional afeta O4, os exercícios que rastreiam O4 (**quebram o build**), o capítulo 10 e o tutor — o plano declarava um elo de quatro |
 
+## A `humanizer` na revisão — o que ela faz e o que não decide
+
+Skill instalada pelo autor e adotada nesta rodada (**A24**). Baseada no guia *"Signs of AI
+writing"* da Wikipédia: caça símbolo inflado, linguagem promocional, análise superficial em
+*-ing*, atribuição vaga, excesso de travessão, regra de três, vocabulário típico de IA, voz
+passiva, paralelismo negativo e frases de enchimento.
+
+**Por que aqui, e por que agora.** O capítulo 11 é o mais abstrato da Parte II, e texto abstrato
+é onde o enchimento se esconde melhor. O especialista de didática avisou: *"um capítulo em 780
+linhas costuma ser um de 660 com 120 de reafirmação"* — e o **corte zero** do ranking abaixo
+depende justamente de achar essas 120. Achá-las por conta própria é ruim: quem escreveu não
+enxerga a própria muleta.
+
+Ela também preenche uma lacuna real do ferramental: `combater-amontoado` olha **densidade**, o
+`didatica-editor` olha **forma pedagógica**, e nenhum dos dois olha **marca de escrita
+automática**. É complementar, não redundante.
+
+**Os três limites, declarados antes de usar:**
+
+| Limite | Por quê |
+|---|---|
+| **Sugere, não edita** | O `GUIA-EDITORIAL.md` é um estilo **declarado**, com esqueleto próprio. Uma skill genérica pode "corrigir" escolha deliberada — a regra de três, por exemplo, é padrão legítimo na enumeração de vereditos, e o capítulo 10 a usa de propósito |
+| **Não amolece medição** | *"12 pares legítimos em 1,000, janela 0,440"* não é linguagem promocional; é resultado. O Princípio XI exige frase dura onde há número, e passada cega a amoleceria |
+| **Não toca texto publicado sozinha** | Rodá-la sobre os capítulos 09 e 10 seria alteração de artefato publicado, e isso passa pelo gate do autor |
+
+**O que fica registrado:** os apontamentos **recusados**, com o motivo — do mesmo jeito que já se
+faz com o `guardiao-processo` e o `review`. Recusa sem motivo registrado é a skill virando
+carimbo.
+
 ## Ranking de corte
 
 > **Correção de circularidade.** A primeira versão indicava o ranking como mitigação do risco
