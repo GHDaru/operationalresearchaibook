@@ -1,105 +1,131 @@
-# Spec 007 — O selo vira medição
+# Spec 007 — Portão de fontes: o identificador vira medição
 
-**Data:** 2026-08-12 · **Raia:** plena · **Estado:** aprovada para plano
+**Data:** 2026-08-12 · **Raia:** plena · **Estado:** **aguardando ratificação do autor** (ver
+"O que é do autor", ao fim)
+
+> **Correção de honestidade.** A primeira versão desta spec dizia "Estado: aprovada para plano"
+> sem nomear quem aprovou. O gate do autor sobre a especificação não é delegável (constituição,
+> Governança) e eu não o tinha. A linha estava reivindicando uma aprovação que não existia.
 
 ## O problema
 
-O handbook tem um sistema de selos de procedência — `✓`, `✓ᵐ`, `⏳`, `❌` — e ele funciona: 44
-marcas de pendência espalhadas por onze arquivos dizem, item a item, o que ainda não foi
-confirmado. É honesto e é raro.
+O handbook tem um sistema de selos de procedência — `✓`, `✓ᵐ`, `⏳`, `❌` — e ele funciona. É
+honesto e é raro.
 
-**Mas nenhum selo é verificado por máquina.** O `✓` ao lado de um DOI é uma afirmação minha. Se
-eu inventar um DOI, ou trocar um dígito, ou confundir o volume, **nada no `npm run build`
-percebe** — os sete portões existentes verificam capítulo, exercício, referência interna,
-espelho de capacidades, ótimo e ilha. Nenhum olha para a bibliografia.
+**Mas nenhum selo é verificado por máquina.** O `✓` ao lado de um identificador de objeto digital
+(DOI, *Digital Object Identifier*) é uma afirmação minha. Se eu inventar um DOI, ou trocar um
+dígito, ou colar o DOI de outro trabalho, **nada no `npm run build` percebe** — os seis portões
+encadeados verificam capítulo, exercício, referência interna, espelho de capacidades e ótimo; o
+sétimo, o da ilha, roda fora da cadeia. Nenhum olha a bibliografia.
 
-Isto contradiz o Princípio XI no ponto exato em que ele mais importa: *prove, não declare*. E não
-é risco hipotético. Na rodada 004 uma URL de vídeo **foi inventada** e só foi apanhada por
-acidente, ao tentar abri-la — o registro está no `HISTORICO.md`. A defesa contra DOI inventado é,
-hoje, o meu cuidado. Cuidado não é portão.
+Isto contradiz o Princípio XI no ponto em que ele mais importa: *prove, não declare*. E não é
+risco hipotético. Na rodada 004 uma URL de vídeo **foi inventada** e só foi apanhada por acidente,
+ao tentar abri-la — o registro está no `HISTORICO.md`. A defesa contra identificador inventado é,
+hoje, o meu cuidado. **Cuidado não é portão.**
 
-Há ainda um defeito menor e imediato: a **legenda de selos** da bibliografia (linhas 11–14)
-declara só `✓` e `⏳`, enquanto o arquivo usa quatro selos. O leitor encontra `✓ᵐ` e `❌` sem
-dicionário.
+Defeito menor e imediato: a **legenda de selos** da bibliografia declara dois selos e o arquivo
+usa quatro. O leitor encontra `✓ᵐ` e `❌` sem dicionário.
 
-## O que esta rodada faz
+### A contagem, com o comando que a reproduz
 
-Transforma o selo de **afirmação** em **medição**, com o mesmo padrão que o handbook aplica a
-tudo o mais: um portão que roda no `npm run build` e barra o que não se sustenta.
+A primeira versão desta spec dizia "44 marcas de pendência em onze arquivos" sem o comando — e o
+número **não era reprodutível**: depende de quais diretórios entram, e a spec não declarava
+quais. Corrigido:
 
-### Fora de escopo, declarado
+```bash
+grep -rc "⏳" --include="*.md" livro/ radar/ adr/ estudos/ | grep -v ":0"    # 50 marcas
+grep -o "doi\.org/10\.[0-9]\{4\}" livro/bibliografia.md | wc -l              # 12 DOIs
+```
 
-- **Ler o que está atrás de paywall.** As editoras respondem `403` a acesso automatizado. Um DOI
-  que resolve prova que a referência **existe** e que os metadados batem — não prova que alguém
-  leu o texto. O selo `✓ᵐ` continua significando exatamente isso, e o portão **não** pode
-  promovê-lo a `✓`.
-- **Verificar URL que não seja DOI.** Vídeos, páginas do INFORMS e do MacTutor ficam de fora
-  desta rodada. O motivo é técnico e é dito no plano.
-- **Fechar as pendências históricas de conteúdo** — a atribuição do nome *simplex* a Motzkin, a
-  origem da letra M, a data de Hoffman. Essas dependem de leitura humana em acervo, não de API.
+## Cobertura — o que esta rodada NÃO alcança
+
+Declarado em número, porque o título promete mais do que o portão entrega e essa diferença é
+precisamente o tipo de coisa que este handbook não deixa o leitor inferir.
+
+| | |
+|---|---|
+| Entradas na bibliografia | ~25 |
+| **Entradas com DOI, que o portão verifica** | **12** |
+| Entradas que continuam sendo afirmação humana | ~13 — Lachtermacher, Arenales, Hillier, Winston, MacTutor, INFORMS, Blum & Roli, UFMG, Sarubbi, e os quatro identificadores do arXiv |
+
+**Depois desta rodada, mais da metade da bibliografia continua sem portão.**
+
+E o mais importante: **o incidente que motiva esta spec — a URL de vídeo inventada — continuaria
+passando.** URL comum está fora de escopo (o motivo técnico está no plano). O item "Portão de URL
+externa" do `ROADMAP` **permanece aberto**, e é provavelmente mais urgente do que este. Um portão
+que cria confiança maior do que sua cobertura é pior do que portão nenhum.
+
+### Também fora de escopo
+
+- **Ler o que está atrás de paywall.** As editoras respondem `403` a acesso automatizado. DOI que
+  resolve prova que a referência **existe** e que os metadados batem — não prova que alguém leu.
+  O portão **não pode** promover `✓ᵐ` a `✓` ([ADR 0010](../../adr/0010-a-semantica-do-selo.md)).
+- **Fechar as pendências históricas de conteúdo** — o nome *simplex* atribuído a Motzkin, a origem
+  da letra M, a data de Hoffman. Dependem de leitura humana em acervo, não de interface de
+  programação de aplicações (API).
 
 ## Objetivos
 
 | # | Objetivo |
 |---|---|
-| **O1** | Todo DOI citado na bibliografia resolve, e o título e o ano que o handbook declara batem com o que o registro público devolve |
-| **O2** | O portão roda **sem rede** de forma determinística, e não trava o build quando a rede falha |
-| **O3** | A legenda de selos declara os quatro selos que o arquivo de fato usa |
-| **O4** | Um DOI inventado, ou um ano trocado, **quebra o build** — e isso é demonstrado quebrando-o de propósito |
+| **O1** | Todo DOI da bibliografia **existe no registro**, e o trabalho que ele identifica é o que o handbook declara — título, ano e primeiro autor |
+| **O2** | O portão roda **sem tocar a rede** no caminho `build`, de forma determinística |
+| **O3** | A legenda declara os cinco selos, com o que cada um prova |
+| **O4** | **DOI inventado quebra o build** — inclusive o modo típico, sufixo fabricado sob prefixo verdadeiro — e **DOI deslocado** também |
+| **O5** | O verde do portão **significa alguma coisa**: ele não pode passar por não ter verificado nada |
 
 ## Critérios de aceite
 
-Verificáveis por máquina, salvo onde declarado.
+`M` = verificável por máquina · `H` = gate humano, declarado como tal.
 
-| # | Critério | Como se verifica |
-|---|---|---|
-| **A1** | Existe `publicar/verifica-fontes.mjs`, encadeado no script `build` do `package.json` | `grep verifica-fontes publicar/package.json` |
-| **A2** | Existe `livro/fontes.lock.json` com, para cada DOI da bibliografia, os metadados resolvidos, a fonte que resolveu e a data da resolução | o arquivo existe e tem uma entrada por DOI |
-| **A3** | Rodar o portão **sem rede** compara a bibliografia contra o *lock* e passa | `npm run build` com a rede indisponível termina verde |
-| **A4** | Rodar `node verifica-fontes.mjs --atualizar` renova o *lock* a partir de Crossref, com OpenAlex como segunda camada | a data no *lock* muda; o campo de origem diz qual camada respondeu |
-| **A5** | DOI presente na bibliografia e **ausente** do *lock* falha o portão com mensagem que nomeia o DOI | teste destrutivo |
-| **A6** | Título divergente entre bibliografia e *lock*, acima do limiar, falha o portão | teste destrutivo |
-| **A7** | A legenda de selos da bibliografia lista `✓`, `✓ᵐ`, `⏳` e `❌`, e o portão barra o uso de selo não declarado na legenda | teste destrutivo |
-| **A8** | Nenhuma credencial no repositório; o portão funciona sem chave de API | `grep` por chave; o portão roda numa árvore limpa |
-| **A9** | `specs/007-atribuicoes-pendentes/verificacao.md` traz a saída colada dos testes destrutivos | leitura |
-| **A10** | O `ROADMAP.md` fica coerente com a numeração real das rodadas | leitura |
+| # | | Critério | Como se verifica |
+|---|---|---|---|
+| **A1** | M | `verifica-fontes.mjs` roda no `build` **antes de `build.mjs`**, junto dos demais verificadores, e o caminho `SEM_PDF=1` também fica verde | `npm run build` e `SEM_PDF=1 npm run build` |
+| **A2** | M | Contagem independente do parser: `grep -o "doi\.org/10\.[0-9]\{4\}" livro/bibliografia.md \| wc -l` = **12** = nº de entradas do travamento. Divergência **reprova** | teste destrutivo |
+| **A3** | M | No caminho `build`, o portão **não faz nenhuma chamada de rede** — provado instrumentando o cliente, não desligando a rede | teste com stub que falha se chamado |
+| **A4** | H | `npm run fontes` renova o travamento a partir de `doi.org` + Crossref + OpenAlex, com saída e data coladas | caminho manual |
+| **A5** | M | DOI na bibliografia e **ausente** do travamento reprova, nomeando o DOI | teste destrutivo |
+| **A6** | M | **DOI fabricado** (`10.1287/opre.99.9.9.99999`) reprova | teste destrutivo |
+| **A7** | M | **DOI deslocado** — DOI real de outro trabalho — reprova por divergência de ano ou autor | teste destrutivo |
+| **A8** | M | Título divergente **acima do limiar medido** reprova; truncamento de subtítulo **passa** | teste destrutivo |
+| **A9** | M | Selo usado e não declarado na legenda reprova | teste destrutivo |
+| **A10** | M | Travamento com chave fora da lista fechada, ou campo de texto > 300 caracteres, reprova (Princípio X) | teste destrutivo |
+| **A11** | M | Entrada com DOI que o parser **não consegue interpretar** reprova — falha por ignorância é falha, nunca aprovação | teste destrutivo |
+| **A12** | M | `npm run fontes` duas vezes produz travamento idêntico a menos da data | comparação de hash |
+| **A13** | M | Nenhuma credencial no repositório; o portão roda sem chave de API | `grep` |
+| **A14** | M | `python -m pytest -q` do backend verde | saída colada |
+| **A15** | M | Glossário e mapa de siglas do motor ganham **CI** (*Continuous Integration*, integração contínua) | `grep` nos dois |
+| **A16** | H | `HISTORICO.md` registra a edição, **incluindo** que o buraco de URL continua aberto | leitura |
+| **A17** | H | `ROADMAP.md` corrigido: numeração deslocada, `007 🚧` desmarcado, item "Portão de URL externa" **explicitamente ainda aberto** | leitura |
+| **A18** | H | **Revisão em contexto fresco** — quem executa não verifica (constituição XI; Maestro II) | relatório anexado |
+| **A19** | M | `verificacao.md` traz a saída colada de **todos** os testes destrutivos e a **primeira execução crua** do portão | leitura + presença |
+| **A20** | M | Existe reconferência **agendada** do travamento na integração contínua, que falha ou abre issue se divergir | leitura do workflow |
 
-## Perguntas de clarify
+## Clarify
 
-Três, e as três têm resposta defensável sem o autor — ficam registradas com a decisão tomada e o
-motivo, para ele reverter se discordar.
+**C1 — O portão deve exigir rede?** **Não.** Build que só passa com rede é build frágil, e o
+custo zero é requisito. O travamento versionado é a fonte de verdade; a rede só entra em
+`npm run fontes`. Mesmo contrato que `verifica-ilha.mjs` já usa para o navegador: **degradar
+declarando**. *Resolvido por mim; é aplicação do Princípio IV, reversível.*
 
-**C1 — O portão deve exigir rede?**
-**Não.** Um build que só passa com rede é um build frágil, e o handbook declara custo zero e
-reprodutibilidade como requisito. O *lock* versionado é a fonte de verdade do portão; a rede só
-entra quando alguém pede `--atualizar`. Isto segue o mesmo padrão que o `verifica-ilha.mjs` já
-usa para o navegador: **degradar declarando**, nunca travar em silêncio.
+**C2 — Um DOI que não resolve deve reprovar?** **Sim, quando o registro nega a existência.** Esta
+era a pergunta que eu havia respondido errado, com um exemplo (Hoffman) que **não tem DOI** e
+portanto não a exigia. A consulta ao especialista mostrou que o enquadramento estava errado:
+existência é decidida pelo *Handle System*, não por índice de metadados. Ver
+[ADR 0009](../../adr/0009-portao-de-fontes-doi-inexistente.md) e
+[ADR 0010](../../adr/0010-a-semantica-do-selo.md). *Levada a ADR e **listada para ratificação do
+autor**.*
 
-**C2 — Um DOI que não resolve deve reprovar a referência?**
-**Não automaticamente.** O guia externo que li nesta sessão formula bem: *ausência de índice não
-é prova de fabricação* — o registro pode existir e não estar indexado (literatura cinzenta,
-relatório técnico, obra antiga). O caso vivo é o **Hoffman, NBS Report 2974, 1953**, que não
-aparece nem no Crossref nem no OpenAlex e **existe**. Conduta: entrada sem DOI é legítima e o
-portão a ignora; entrada **com** DOI tem de resolver, porque aí o handbook afirmou um
-identificador.
+**C3 — O portão pode promover selo?** **Nunca.** [ADR 0010](../../adr/0010-a-semantica-do-selo.md),
+D2. *Levada a ADR.*
 
-**C3 — O portão pode promover selo sozinho?**
-**Não, nunca.** Resolver um DOI prova existência e metadados — é exatamente o significado de
-`✓ᵐ`. Deixar a máquina escrever `✓` seria a máquina afirmando que um humano leu. O portão
-**verifica** selo; quem **atribui** selo é quem leu.
+## O que é do autor, e está esperando
 
-## O conflito de numeração, e como foi resolvido
+Nada aqui foi publicado; tudo vive na branch, que é reversível.
 
-O `ROADMAP.md` reserva a **rodada 007 para o capítulo 11**. O autor, nesta sessão, mandou a 007
-ser esta — o fechamento das atribuições — e o capítulo 11 virar a 008.
-
-A decisão é do autor e está tomada. A consequência é mecânica: a tabela da Parte II desloca em
-uma unidade a partir daqui, e o `ROADMAP.md` é corrigido nesta rodada (**A10**). Fica o registro
-de que a numeração das rodadas é **sequencial na pasta `specs/`**, e não uma promessa do
-`ROADMAP` — que é ordem de ataque, não contrato.
-
-## Por que agora, e não depois
-
-Porque o custo cresce. Cada rodada de capítulo acrescenta referências, e cada referência
-acrescentada sem portão é uma afirmação que ninguém mais vai reconferir. São 25 entradas hoje.
-São 77 vagas no mapa. O portão entra enquanto a bibliografia ainda cabe numa leitura.
+1. **A semântica do selo** (ADR 0010) governa toda automação futura da bibliografia, não só esta
+   rodada.
+2. **DOI inexistente reprova, sem allowlist** (ADR 0009, D1). É a decisão que muda o que o
+   handbook aceita como fonte.
+3. **A numeração**: o `ROADMAP` reservava a 007 para o capítulo 11; sua ordem desloca a Parte II
+   em uma unidade.
