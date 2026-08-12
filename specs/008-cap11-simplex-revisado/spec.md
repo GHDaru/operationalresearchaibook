@@ -59,7 +59,7 @@ que está publicada.
 | Uma instância que **estagna** — muitas iterações sem melhora, e finitas | Separa estagnação de ciclagem com o instrumento, não com a prosa |
 
 **Compromisso de honestidade, declarado antes de medir:** se a forma revisada **não** ganhar nas
-instâncias que este handbook consegue construir em CPU, isso entra no capítulo como resultado. O
+instâncias que este handbook consegue construir na CPU (*Central Processing Unit*, unidade central de processamento), isso entra no capítulo como resultado. O
 livro não vai afirmar um ganho que o experimento não mostrar — e a explicação, nesse caso, passa
 a ser *por que o ganho só aparece em escala que não cabe aqui*, o que também é conteúdo.
 
@@ -71,13 +71,26 @@ a ser *por que o ganho só aparece em escala que não cabe aqui*, o que também 
 | **A2** | M | Seção **"De onde isto veio"** (Princípio XII), com a ideia reaproveitável declarada |
 | **A3** | M | Seção **"quando não serve"** (Princípio II) |
 | **A4** | M | `po-zero/etapa-05-revisado` regenera todos os números do capítulo por script, com saída determinística |
-| **A5** | M | A forma revisada devolve **a mesma resposta** que a etapa 03 em todas as instâncias publicadas — verificado por comparação, não por leitura |
-| **A6** | M | As **duas dívidas** dos capítulos 09 e 10 são pagas e o texto diz de onde vieram |
-| **A7** | M | Build verde, `verifica-fontes` verde, 24+ testes do tutor verdes |
+| **A5** | M | A forma revisada devolve **o mesmo vértice e o mesmo valor** que a etapa 03 em todas as instâncias publicadas. *"Mesma resposta" era ambíguo num livro que acabou de ensinar múltiplos ótimos: sob mais de um ótimo o valor não muda e o plano muda* |
+| **A6a** | M | A edição do capítulo 09 (linhas 625-630) dá endereço à comparação entre regras: `git diff` mostra "capítulo 13" |
+| **A6b** | H | O capítulo 11 ancora explicitamente nas duas promessas — capítulos 09 e 10 — e diz de onde vieram |
+| **A7** | M | Build verde, `verifica-fontes` verde, e **pelo menos um teste NOVO** do tutor para a capacidade de A8. *"24+ testes" já estava satisfeito hoje: são exatamente 24 — piso que o passado cumpre não é piso* |
 | **A8** | M | Capacidade nova do tutor nos dois lados do espelho |
 | **A9** | H | `HISTORICO.md`, `videoteca.md`, `glossario.md`, `bibliografia.md` e Radar atualizados |
 | **A10** | H | **Revisão em contexto fresco** |
-| **A11** | M | Toda fonte nova com DOI passa pelo portão da rodada 007 — **é o primeiro capítulo que nasce sob o portão** |
+| **A11** | M | Toda fonte nova com identificador de objeto digital (DOI, *Digital Object Identifier*) passa pelo portão da rodada 007 — **é o primeiro capítulo que nasce sob o portão**. A cobertura é declarada em número na verificação: as fontes históricas prováveis deste capítulo (relatórios técnicos dos anos 1950) tipicamente **não têm DOI** e ficam fora do alcance |
+| **A12** | M | `wc -l livro/capitulos/11-*.md` ≤ **722** — o tamanho medido do capítulo 09. Checkpoint aos 450 |
+| **A13** | M | Os blocos de mecânica (ponte + matemática + algoritmo + código) ≤ **50%** das linhas do capítulo. É o instrumento do risco "virar capítulo de engenharia de software" |
+| **A14** | M | A seção "De onde isto veio" **não afirma o aperto histórico sem fonte**: ou há fonte aberta, ou o aperto é declarado `⏳` |
+| **A15** | M | O capítulo entra em `publicar/sumario.json` e no mapa — *é possível escrever o capítulo inteiro e ele não existir no livro* |
+| **A16** | M | A **caixa que fecha a ponte** existe: o capítulo diz que calcular $B^{-1}$ é o que solver nenhum faz. *O plano a chama de "a linha mais importante do capítulo" e ela não tinha critério* |
+| **A17** | M | O verbete **custo reduzido** do glossário passa a trazer a leitura por preço, $c_j - y^\top a_j$ |
+| **A18** | M | **Todo objetivo** (O1–O5) tem ≥1 exercício. *Com 5 objetivos e piso de 3 exercícios, dois deles em ponto flutuante, O1/O2/O3 poderiam terminar sem evidência — Backward Design invertido* |
+| **A19** | M | A `etapa-05` publica semente, versões, máquina, critério de parada e a **convenção de contagem**; e **todas** as instâncias geradas, não as que mostraram o efeito ([ADR 0012](../../adr/0012-o-desenho-da-medicao-do-capitulo-11.md)) |
+| **A20** | M | A **saída crua da primeira execução** é colada na verificação, antes de qualquer ajuste — critério herdado da rodada 007 |
+| **A21** | M | O solver aberto confere o ótimo de toda instância publicada — **testemunha independente**, como na etapa 04 |
+| **A22** | M | `po-zero/etapa-03-simplex/resultados.json` permanece **byte a byte idêntico** (`0d427a9f…`) |
+| **A23** | M | O corpus do tutor e `livro/exercicios.json` são regenerados e o gating por capítulo cobre o 11 |
 
 ## Clarify
 
@@ -101,15 +114,30 @@ desempenho, junto da sensibilidade.
 > tem de dizer isso em voz alta, com o endereço — silenciar a promessa seria pior do que adiá-la.
 > O `ROADMAP` e a vaga 13 do mapa registram o recebimento.
 
-**C2 (fatoração LU) e C4 (ponto flutuante)** — em consulta ao especialista de didática, por serem
-questões de dosagem pedagógica e não de identidade do livro. A recomendação entra aqui e vira
-ADR se alterar o esqueleto.
+**C2 — Fatoração LU entra?** → **Sim, como caixa-preta declarada em voz alta, com o
+envelhecimento MEDIDO.** Nem conteúdo com rigor (seria meio capítulo de métodos numéricos), nem
+fora (o verbo "refatora" **já está publicado** no capítulo 09, e verbo publicado sem referente é
+jargão órfão). A âncora é barata porque reusa o que o leitor já fez: *o pivoteamento do capítulo
+09 já é eliminação de Gauss, e fatorar é guardar essa eliminação em vez de jogá-la fora.*
+**Sem a medição do envelhecimento, o assunto cai para uma frase.**
+
+**C4 — Até onde vai o ponto flutuante?** → **Uma ideia só, em seção própria:** *tolerância é
+decisão de modelagem e tem unidade*. Fica fora tudo que é representação de número — IEEE 754,
+mantissa, épsilon de máquina, condicionamento. Fecha uma dívida do capítulo 09 que ninguém tinha
+cobrado: o 09 ensinou que **$M$ pequeno demais mente sobre inviabilidade**; num solver real $M$ é
+obrigatoriamente um número, e **$M$ grande demais mente sobre viabilidade**. O aluno conhece
+metade da simetria.
+
+*As duas decisões vêm de consulta ao especialista de didática, revisada depois que o autor
+respondeu C1 e C3. **Alteram o esqueleto do Guia Editorial** — duas seções novas — e por isso
+estão registradas no [ADR 0012](../../adr/0012-o-desenho-da-medicao-do-capitulo-11.md) e
+declaradas como desvio no plano.*
 
 ## Riscos que a spec já enxerga
 
 | Risco | Por que importa |
 |---|---|
-| **Virar capítulo de engenharia de software** | O leitor é aluno de PO. A pergunta é "por que o solver não faz o que eu fiz", não "como escrever um solver" |
+| **Virar capítulo de engenharia de software** | O leitor é aluno de Pesquisa Operacional (PO). A pergunta é "por que o solver não faz o que eu fiz", não "como escrever um solver" |
 | **Afirmar ganho sem medir** | Já declarado acima: o compromisso é publicar o que o experimento mostrar |
 | **A etapa 05 duplicar a 03** | A 03 foi parametrizada na rodada 006 em vez de duplicada. A 05 deve reusar `Restricao`, `CustoM` e as instâncias — e a comparação exige que as duas leiam a **mesma** entrada |
 | **Estagnação virar palavra** | Se o experimento não produzir uma instância que estagne de verdade, o capítulo não pode ensinar a diagnosticá-la |
