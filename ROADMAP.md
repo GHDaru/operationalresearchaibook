@@ -59,7 +59,7 @@ ordem:
 | 007 ✅ | *(rodada de motor)* — Portão de fontes | Inserida pelo autor em 2026-08-12, fora da ordem prevista. Ver a nota de numeração abaixo |
 | 008 🚧 | 11 — Simplex revisado e implementação eficiente | Por que o solver real não faz o que o quadro faz |
 | 009 | 12 — Dualidade | **Logo após o Simplex**, como em Arenales e não como em Lachtermacher: a leitura econômica do preço-sombra é o que dá sentido ao algoritmo |
-| 010 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa |
+| 010 | 13 — Análise de sensibilidade e pós-otimização | A parte que o gestor de fato usa. **Recebe as regras de precificação**, remetidas do 11 (2026-08-12) — o capítulo 10 prometeu a continuação e ela chega aqui |
 | 011 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes |
 | 012 | 15 — Modelagem aplicada em PL | O repertório de padrões, fechando a Parte II |
 

@@ -39,6 +39,10 @@ verdade.
 | **O4** | Diagnosticar **estagnação** e distingui-la de ciclagem e de lentidão — encadeando no capítulo 10 |
 | **O5** | Explicar por que a **tolerância numérica** é decisão de modelagem, e o que dá errado quando ela é escolhida por acaso |
 
+> **O1 sobrevive porque o autor escolheu construir a ponte** (C1). Na opção "ficar no nível da
+> ideia", este objetivo teria de cair — e está registrado aqui para que a relação entre a decisão
+> e o objetivo fique rastreável.
+
 ## O que a rodada mede (Princípio IV)
 
 Uma etapa nova do `po-zero`, `etapa-05-revisado`, que **não** ensina um método novo: ela mostra o
@@ -74,29 +78,31 @@ a ser *por que o ganho só aparece em escala que não cabe aqui*, o que também 
 | **A10** | H | **Revisão em contexto fresco** |
 | **A11** | M | Toda fonte nova com DOI passa pelo portão da rodada 007 — **é o primeiro capítulo que nasce sob o portão** |
 
-## Perguntas de clarify — vão ao autor
+## Clarify
 
-Estas eu **não** resolvo sozinho, porque mudam o que o capítulo é.
+**C1 — Qual é o piso de álgebra linear?** → **Construir a ponte dentro do capítulo.**
+*Decisão do autor, 2026-08-12.* A forma revisada exige matriz inversa e resolução de sistema, e o
+handbook nunca exigiu isso: o capítulo 08 foi geométrico e o 09, aritmético. A lacuna é real, e
+fechá-la aqui **paga adiantado** o capítulo 12 (dualidade) e o 14 (pontos interiores) — que
+precisariam da mesma ponte. O capítulo fica mais longo; ninguém fica para trás.
 
-**C1 — Qual é o piso de álgebra linear?** A forma revisada exige matriz inversa e resolução de
-sistema. O handbook nunca exigiu isso do leitor até aqui: o capítulo 08 foi geométrico e o 09 foi
-aritmético. Três posições possíveis, e elas produzem capítulos diferentes:
-*(a)* assumir álgebra linear e seguir em notação matricial;
-*(b)* construir a ponte dentro do capítulo, gastando espaço com $B^{-1}$;
-*(c)* ficar em nível de ideia, sem inverter matriz explicitamente, e mandar o rigor para a etapa
-do `po-zero`.
+> Consequência para o esqueleto: a ponte é uma seção própria, **antes** de "A matemática", e o
+> Guia Editorial manda que ela venha depois da intuição. O custo reduzido é apresentado **como
+> preço-sombra**, porque essa leitura é a que o capítulo 12 vai reaproveitar.
 
-**C2 — Fatoração LU entra?** É o que os solvers de verdade fazem, e é o passo que explica
-"refatorar". Mas é um capítulo inteiro de métodos numéricos se for feito com rigor. Entra como
-**caixa-preta com consequência declarada**, ou como conteúdo?
+**C3 — Onde ficam as regras de precificação?** → **No capítulo 13.**
+*Decisão do autor, 2026-08-12.* O 11 fica com uma tese só: estrutura de dados e álgebra. O
+catálogo (*Dantzig*, *steepest edge*, *devex*) e a comparação medida vão para a análise de
+desempenho, junto da sensibilidade.
 
-**C3 — Regras de precificação** (*Dantzig, steepest edge, devex*) entram aqui ou viram o miolo do
-capítulo 13? O capítulo 10 já ensinou que trocar a regra muda o caminho e pode mudar qual ótimo
-se recebe; *devex* é a continuação natural dessa conversa, mas também é assunto de desempenho.
+> **Dívida declarada, e ela é visível ao leitor.** O capítulo 10 prometeu que a conversa sobre
+> regra de pivoteamento continuaria; agora ela continua **dois capítulos depois**. O capítulo 11
+> tem de dizer isso em voz alta, com o endereço — silenciar a promessa seria pior do que adiá-la.
+> O `ROADMAP` e a vaga 13 do mapa registram o recebimento.
 
-**C4 — Até onde vai a conversa sobre ponto flutuante?** O item 4 do capítulo 10 abriu a porta.
-Fechar essa dívida com honestidade custa espaço, e o risco é o capítulo virar aula de análise
-numérica em vez de aula de Pesquisa Operacional (PO).
+**C2 (fatoração LU) e C4 (ponto flutuante)** — em consulta ao especialista de didática, por serem
+questões de dosagem pedagógica e não de identidade do livro. A recomendação entra aqui e vira
+ADR se alterar o esqueleto.
 
 ## Riscos que a spec já enxerga
 
