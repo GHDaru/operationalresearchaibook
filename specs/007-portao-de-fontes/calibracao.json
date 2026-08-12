@@ -1,0 +1,15 @@
+{
+  "medido_em": "2026-08-12",
+  "pares_legitimos": 12,
+  "pares_impostores": 132,
+  "pior_legitimo": {
+    "doi": "10.1287/inte.20.4.43",
+    "s": 1
+  },
+  "melhor_impostor": {
+    "par": "10.1145/87252.88081 × 10.1287/moor.2.2.103",
+    "s": 0.56
+  },
+  "janela": 0.43999999999999995,
+  "limiar_sugerido": 0.78
+}
