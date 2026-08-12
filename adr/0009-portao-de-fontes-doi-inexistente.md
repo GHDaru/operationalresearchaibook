@@ -8,7 +8,7 @@ revisada e verificada antes de gravar
 
 A rodada 007 cria `publicar/verifica-fontes.mjs`, portão do `npm run build` que confere os
 identificadores de objeto digital (DOI, *Digital Object Identifier*) declarados em
-`livro/bibliografia.md`. São **12 DOIs** em cerca de 25 entradas.
+`livro/bibliografia.md`. São **12 DOIs** em **31 obras distintas** — 39% (a contagem está na spec, com o comando).
 
 O objetivo declarado: **um DOI inventado quebra o build.** O motivo é um incidente real — na
 rodada 004 uma URL de vídeo foi **inventada**, e só foi descoberta por acidente, ao tentar
@@ -98,9 +98,22 @@ vem de **prova positiva de existência**, não da palavra de quem escreveu a ent
 
 ### D3 — O portão compara o trabalho declarado com o registrado, não só a existência
 
-Para cada DOI `resolvido`, o travamento guarda **ano** e **sobrenome do primeiro autor**; o
-portão compara com o que a entrada declara. Divergência **reprova**, imprimindo os dois valores.
-É o único teste que pega o DOI deslocado.
+Para cada DOI `resolvido`, o travamento guarda **título**, **ano** e **sobrenome do primeiro
+autor**.
+
+| Campo | Divergência | Por quê |
+|---|---|---|
+| **título** | **reprova** | Critério medido: contenção antes de bigramas, limiar 0,78 |
+| **ano** | **reprova** | É exato, e é o erro de citação mais comum |
+| **primeiro autor** | **avisa** | A ordem de autoria diverge entre índices com frequência suficiente para que exigir posição gerasse falso vermelho — e falso vermelho crônico ensina a desligar o portão |
+
+> **Esta tabela corrige o ADR, não o código.** A primeira versão escrevia "divergência
+> **reprova**" para os três campos, enquanto o portão sempre avisou no autor. A revisão
+> independente apontou que era o **ADR** — o documento que vai à ratificação — que estava errado.
+> O comportamento do código é o defensável; a promessa é que estava larga.
+
+E **`resolvido` exige conteúdo**: título ou ano nulos reprovam. Sem isso, `null == null` virava
+acordo tácito e um travamento vazio passava contado como "12 resolvidos".
 
 O **título** é comparado com o critério medido nesta rodada — **contenção antes de bigramas,
 limiar 0,78** — e não com o 0,70 que o plano trazia sem procedência. A calibração está em
@@ -221,8 +234,8 @@ convite**.
   de vídeo inventada**, e ela **continuaria passando**. Está dito na spec, no `HISTORICO.md` e no
   `ROADMAP.md`: o item "Portão de URL externa" **continua aberto**, e é provavelmente mais urgente
   do que este. Portão que cria confiança maior que sua cobertura é pior do que portão nenhum.
-- **Cobertura declarada:** 12 DOIs em ~25 entradas. Depois desta rodada, **mais da metade da
-  bibliografia continua sendo afirmação humana** — livros, páginas institucionais e identificadores
+- **Cobertura declarada:** 12 DOIs em 31 obras — **61% da bibliografia continua sendo afirmação
+  humana** — livros, páginas institucionais e identificadores
   do arXiv ficam fora.
 - Depende de serviço externo **no momento da geração**. D5 transforma indisponibilidade em aborto
   ruidoso, não a elimina.

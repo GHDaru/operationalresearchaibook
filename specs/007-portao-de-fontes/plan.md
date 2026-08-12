@@ -15,7 +15,7 @@
 | I | É um treino, não uma leitura | Rodada de **motor**, não de capítulo: não deve exercício nem vídeo | ✅ não se aplica |
 | II | Modelar antes de resolver | Não há método novo | ✅ não se aplica |
 | III | Evidência acima de retórica | **É o princípio que a rodada serve** — mas o plano o violava. O limiar 0,70 entrou como "o mesmo que o guia externo documenta": citação sem fonte nomeável, num plano cuja rodada existe para eliminar números sem procedência. A cobertura real (12 de ~25) não estava declarada, e a contagem de "44 marcas" não era reprodutível | ⚠️ **corrigido**: o limiar virou **experimento** (`calibracao.json`, limiar 0,78 medido); cobertura e comandos declarados na spec |
-| IV | Fonte-base é o experimento executável | Portão em CPU, sem chave paga, offline por padrão. O travamento **é** o artefato que regenera o resultado. O caminho `--atualizar` ganhou *fixture* e é reexecutável | ✅ |
+| IV | Fonte-base é o experimento executável | Portão em CPU, sem chave paga, offline por padrão. O travamento **é** o artefato que regenera o resultado. O caminho `npm run fontes` ganhou *fixture* e é reexecutável | ✅ |
 | V | Arquitetura em três camadas | Aparato editorial | ✅ |
 | VI | Atualização por Radar | Nenhum artigo novo no corpus. O guia externo consultado é **ferramenta de processo**, não fonte do livro — e está **nomeado e datado** no ADR 0009, porque fundamenta desenho | ✅ |
 | VII | Livro vivo | `HISTORICO.md` (A16); cada entrada do travamento carrega `verificado_em` | ✅ planejado |
@@ -134,7 +134,7 @@ janela             → 0,440      limiar medido: 0,78
 | **Falso verde**: passar sem ter verificado nada | O portão **imprime a contagem** e A2 exige que ela bata com uma contagem independente |
 | Crossref mudar de contrato | O travamento protege: só `npm run fontes` quebraria, e na cara de quem pediu |
 | Travamento virar carimbo | *Diff* + reconferência agendada (A20). O *diff* defende contra desatenção; o agendamento, contra auto-atestação |
-| Limiar aceitar título errado | É triagem, não prova: por isso **ano e primeiro autor são exatos**, e a reprovação mostra os dois valores |
+| Limiar aceitar título errado | É triagem, não prova: por isso o **ano é exato** (o autor **avisa** — ver ADR 0009, D3), e a reprovação mostra os dois valores |
 | **O portão criar confiança maior que a cobertura** | Declarado em número na spec, no `HISTORICO` e no `ROADMAP`: 12 de ~25, e a URL de vídeo — o incidente que motivou tudo — **continua sem mecanismo** |
 
 ## Desvio declarado

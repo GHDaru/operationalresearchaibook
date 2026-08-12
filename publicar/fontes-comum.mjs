@@ -43,7 +43,17 @@ const RE_ENTRADA = new RegExp(
 // na seção de fronteira, cujo caminho de URL contém um DOI que a entrada NÃO
 // declara. Confundir os dois inventaria uma referência que o handbook não fez —
 // que é, ironicamente, o defeito que este portão existe para impedir.
-const RE_DOI = /DOI\s*\[([^\]]+)\]/;
+// Captura o RÓTULO **e** o ENDEREÇO, e o portão exige que coincidam.
+//
+// A primeira versão capturava só o rótulo — `DOI\s*\[([^\]]+)\]` — e o alvo do
+// link nunca era comparado com nada. Uma entrada podia exibir um DOI verdadeiro
+// e levar o leitor a outro: trocar só o `href` passava verde.
+//
+//   DOI [10.1287/inte.20.4.43](https://doi.org/10.1287/opre.66.6.6666)   → ✓ OK
+//
+// Numa rodada que existe para impedir identificador inventado, o identificador
+// que o leitor de fato USA é o do link. Apontado pela revisão independente.
+const RE_DOI = /DOI\s*\[([^\]]+)\]\(\s*https?:\/\/(?:dx\.)?doi\.org\/([^)\s]+)\s*\)/;
 
 // Título: ordem explícita, nunca alternância única.
 //
@@ -132,11 +142,27 @@ export function leBibliografia(caminho) {
     const corpo = m[2];
     selosUsados.add(selo);
 
-    const doi = corpo.match(RE_DOI)?.[1]?.trim();
-    if (!doi) continue;                       // entrada sem DOI é legítima (ADR 0010, D4)
+    const casa = corpo.match(RE_DOI);
+    if (!casa) {
+      // Entrada sem DOI é legítima (ADR 0010, D4). Mas entrada que MENCIONA
+      // "DOI [" e não casa o formato completo é defeito, não ausência — falhar
+      // alto em vez de ignorar em silêncio.
+      if (/DOI\s*\[/.test(corpo)) {
+        const l = texto.slice(0, m.index).split("\n").length;
+        defeitos.push(`bibliografia.md:${l}: entrada com "DOI [" que não casa o formato \`DOI [x](https://doi.org/x)\``);
+      }
+      continue;
+    }
+    const doi = casa[1].trim();
+    const alvo = decodeURIComponent(casa[2].trim());
 
     const linha = texto.slice(0, m.index).split("\n").length;
     const onde = `bibliografia.md:${linha}`;
+
+    // O rótulo e o endereço têm de ser o mesmo identificador. DOI é insensível
+    // a caixa por especificação, então a comparação também é.
+    if (doi.toLowerCase() !== alvo.toLowerCase())
+      defeitos.push(`${onde}: o texto do link diz ${doi} e o endereço leva a ${alvo} — o leitor clica no segundo`);
 
     let titulo = "";
     for (const re of EXTRATORES_TITULO) {

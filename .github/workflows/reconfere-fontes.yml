@@ -43,7 +43,20 @@ jobs:
           CI: ""
         run: |
           cp livro/fontes.lock.json /tmp/lock-versionado.json
-          cd publicar && node atualiza-fontes.mjs
+          cd publicar && node atualiza-fontes.mjs | tee /tmp/saida-gerador.txt
+
+      # "Não consegui perguntar" NUNCA vira "confere". Em indeterminado o gerador
+      # reempurra a entrada antiga verbatim, e o diff daria vazio — anunciando
+      # que o travamento confere com um registro que não foi consultado.
+      - name: Nenhum DOI pode ter ficado sem consulta
+        run: |
+          n=$(grep -oP 'RECONFERENCIA indeterminados=\K[0-9]+' /tmp/saida-gerador.txt || echo 0)
+          echo "indeterminados: $n"
+          if [ "$n" != "0" ]; then
+            echo "✗ $n DOI(s) não puderam ser consultados — a reconferência deste mês não vale."
+            grep 'RECONFERENCIA' /tmp/saida-gerador.txt
+            exit 1
+          fi
 
       - name: Comparar com o que está versionado
         id: diff

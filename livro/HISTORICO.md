@@ -703,13 +703,19 @@ impostor). A correção foi de critério — contenção antes de bigramas — e
 letra `z` literal, e o corpo da entrada terminava no primeiro `z` minúsculo. A entrada perdida
 era a de Gill et al., cujo título contém "optimi**z**ation".
 
-**A dívida que esta edição NÃO paga, dita em voz alta:** o portão cobre **12 das ~25 entradas**
-da bibliografia. Livro impresso, página institucional, curso gravado e identificador do arXiv
+**A dívida que esta edição NÃO paga, dita em voz alta:** o portão cobre **12 das 31 obras** da
+bibliografia — 39%. Livro impresso, página institucional, curso gravado e identificador do arXiv
 continuam sendo afirmação humana — e **o incidente que motivou esta rodada, a URL de vídeo
 inventada, continuaria passando por ela**. O item "Portão de URL externa" segue aberto no
 [ROADMAP](../ROADMAP.md) e subiu de prioridade. Portão que cria confiança maior do que sua
 cobertura é pior do que portão nenhum.
 
 **Verificação:** build verde nos dois caminhos (`npm run build` e `SEM_PDF=1`), 24 testes do
-tutor verdes, e **15 verificações destrutivas** — cada reprovação que o portão promete foi
-provada quebrando-o de propósito.
+tutor verdes, e **20 verificações destrutivas** — cada reprovação que o portão promete foi provada
+quebrando-o de propósito.
+
+**A revisão independente reprovou a primeira versão**, e cinco achados viraram correção mais
+teste. O mais grave era o portão ficar verde tendo verificado nada quando os índices de metadados
+caíssem: o canário só exercitava o registro. O mais simples, e o mais constrangedor: o portão
+conferia o **texto** do link e não o **endereço** — trocar só o destino passava. E o número de
+cobertura publicado estava errado: são 12 de **31 obras**, 39%, não "cerca de 25".

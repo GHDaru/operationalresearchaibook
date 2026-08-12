@@ -8,7 +8,7 @@
 // tentar abri-la.
 //
 // O QUE ESTE PORTÃO NÃO COBRE, e precisa ser dito aqui para não criar confiança
-// maior do que a cobertura: 12 dos ~25 registros da bibliografia têm DOI. Livros,
+// maior do que a cobertura: 12 das 31 obras da bibliografia têm DOI — 39%. Livros,
 // páginas institucionais e identificadores do arXiv continuam sendo afirmação
 // humana. E o incidente que motivou tudo — URL de vídeo — CONTINUA PASSANDO. O
 // item "Portão de URL externa" segue aberto no ROADMAP.
@@ -54,7 +54,14 @@ if (!existsSync(TRAVAMENTO)) {
 }
 const trava = JSON.parse(readFileSync(TRAVAMENTO, "utf8"));
 const fontes = trava.fontes || [];
-const porDoi = new Map(fontes.map((f) => [String(f.doi).toLowerCase(), f]));
+const porDoi = new Map();
+for (const f of fontes) {
+  const k = String(f.doi).toLowerCase();
+  // Sem esta checagem o último vence em silêncio, e uma entrada boa pode ser
+  // rebaixada por uma duplicata sem que nada apareça.
+  if (porDoi.has(k)) falhas.push(`travamento: ${f.doi} aparece mais de uma vez`);
+  porDoi.set(k, f);
+}
 
 // --- 4. Princípio X vira teste, não promessa -------------------------------
 // O Crossref devolve `abstract`, `license` e `funder`. Gravar a resposta crua
@@ -68,7 +75,7 @@ for (const f of fontes) {
     if (typeof v === "string" && v.length > MAX_TEXTO)
       falhas.push(`travamento: ${f.doi} tem "${k}" com ${v.length} caracteres (teto ${MAX_TEXTO}) — cheira a texto de terceiro`);
   }
-  if (f.estado && !ESTADOS.includes(f.estado))
+  if (!ESTADOS.includes(f.estado))
     falhas.push(`travamento: ${f.doi} com estado desconhecido "${f.estado}"`);
 }
 
@@ -109,6 +116,16 @@ for (const e of entradas) {
   }
 
   resolvidos++;
+
+  // `resolvido` SIGNIFICA que há metadados. Sem esta checagem, um travamento
+  // com título e ano nulos passava como "12 resolvidos" sem um aviso sequer —
+  // as comparações abaixo só agem quando os dois lados são não-nulos, e
+  // `null == null` virava acordo tácito. Apontado pela revisão independente.
+  if (f.titulo == null || f.ano == null) {
+    falhas.push(`${e.onde}: ${e.doi} está como "resolvido" no travamento e não tem ${f.titulo == null ? "título" : "ano"} — ` +
+                `estado e conteúdo divergem; rode \`npm run fontes\``);
+    continue;
+  }
 
   // O trabalho declarado é o trabalho registrado? É o único teste que pega o
   // DOI DESLOCADO — DOI real, de outro artigo, colado na entrada errada.

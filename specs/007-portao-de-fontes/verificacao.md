@@ -126,12 +126,19 @@ $ npm run build
 ✓ registro de exercícios OK: 27 exercícios em 4 baterias, rubrica não publicada
 ✓ consistência de ótimo OK: 23 modelo(s) resolvido(s) em aritmética exata
 
-$ SEM_PDF=1 npm run build        # o caminho do Vercel
+$ SEM_PDF=1 npm run build
 ✓ (idem, verde)
 
 $ cd chat-companion/backend && python -m pytest -q
 24 passed, 1 warning in 2.41s
 ```
+
+> **Correção factual.** Uma versão anterior rotulou `SEM_PDF=1 npm run build` como "o caminho do
+> Vercel". **Não é.** O `vercel.json` constrói com `SEM_PDF=1 node build.mjs && SEM_PDF=1 node
+> verifica-capitulos.mjs` — **pula `verifica-fontes` e os outros quatro portões**. O merge é
+> conferido porque a integração contínua roda `npm run build`; a **publicação** não passa por
+> portão nenhum. É defeito **pré-existente**, herdado pelos outros portões, e não regressão desta
+> rodada — mas quem lê "portão do build" precisa saber. Entra no `ROADMAP`.
 
 ## Os testes destrutivos
 
@@ -139,30 +146,56 @@ Um portão sem teste de falha é um portão que **se presume** funcionar.
 
 ```
 $ bash specs/007-portao-de-fontes/testes-destrutivos.sh
-✓ T0   bibliografia e travamento como estão
-✓ A5   DOI na bibliografia e fora do travamento          → "não está no travamento"
-✓ A6   DOI que o registro nega                            → "NÃO EXISTE no registro"
-✓ A7   trabalho registrado ≠ trabalho declarado           → "título diverge do registro"
-✓ A8a  título sem relação reprova
-✓ A8b  subtítulo cortado no registro PASSA                (o caso legítimo)
-✓ A8c  ano diverge do registro
-✓ A9   selo fora da legenda
-✓ A10a chave fora do contrato                             → Princípio X
+✓ T0  bibliografia e travamento como estão
+✓ A5  DOI na bibliografia e fora do travamento
+✓ A6  DOI que o registro nega
+✓ A7  trabalho registrado ≠ trabalho declarado
+✓ A8a título sem relação reprova
+✓ A8b subtítulo cortado no registro passa
+✓ A8c ano diverge do registro
+✓ A9  selo fora da legenda
+✓ A10a chave fora do contrato
 ✓ A10b texto acima de 300 caracteres
-✓ A11  título não extraível é DEFEITO, não omissão
-✓ A2   contagem bruta ≠ contagem do parser
-✓ A3   o portão não tocou a rede
-✓ A12  travamento idêntico a menos da data (83669ae6c1309137dbd46e55233631f2)
-✓ D8   o gerador recusou rodar com CI=1
+✓ A11 título não extraível é DEFEITO, não omissão
+✓ A2  contagem bruta ≠ contagem do parser
+✓ R1  o endereço do link é conferido, não só o rótulo
+✓ R2  estado e conteúdo não podem divergir (null == null)
+✓ R3  duplicata no travamento não passa em silêncio
+✓ R4  estado vazio reprova
+✓ R5  DOI malformado não é ignorado
+✓ A3  o portão não tocou a rede
+✓ A12 travamento idêntico a menos da data (83669ae6c1309137dbd46e55233631f2)
+✓ D8  o gerador recusou rodar com CI=1
 ──────────────────────────────────────────
-15 verificação(ões) OK · 0 falha(s)
+20 verificação(ões) OK · 0 falha(s)
 ```
 
-**A3 merece nota de método.** O critério original dizia "rodar com a rede indisponível", que não
+### O que a revisão independente encontrou, e o que virou teste
+
+A primeira revisão **reprovou o merge** com cinco achados. Todos confirmados por medição antes de
+aceitos, e os cinco viraram correção **mais teste** — porque correção sem teste é promessa:
+
+| Achado | O que era | Onde virou teste |
+|---|---|---|
+| Queda dos índices produzia build verde com zero verificação | O canário só exercitava `doi.org`. Com Crossref e OpenAlex fora, as 12 entradas viravam `registrado-sem-metadados`, com título e ano **nulos**, e nada abortava — era o bloqueio B3 do plano voltando pela única porta não coberta | canário agora exercita **os dois** caminhos; rebaixamento de qualquer tipo conta no limiar de degradação; `indeterminado` distinguido de `ausente` |
+| O portão conferia o **rótulo** do DOI, não o endereço | Trocar só o `href` passava verde — e o identificador que o leitor usa é o do link | **R1** |
+| A reconferência mensal dizia "confere" para DOI não consultado | Em `indeterminado` o gerador reempurra a entrada antiga, o diff dá vazio, e o workflow anuncia conferência sobre um título que o registro nunca devolveu | linha `RECONFERENCIA indeterminados=N` + passo que **falha** o workflow |
+| `null == null` virava acordo | Travamento `resolvido` com título e ano nulos passava como "12 resolvidos", sem um aviso | **R2** |
+| O denominador publicado estava errado | "12 de cerca de 25" — medido, são **36 linhas com selo**, 31 obras distintas. Cobertura real **39%**, não 48% | contagem com o comando, na spec e na bibliografia |
+
+Mais três, sem bloqueio: duplicata no travamento (**R3**), `estado` vazio (**R4**) e `DOI [`
+malformado tratado como ausência (**R5**).
+
+**A3 merece nota de método, e uma ressalva.** O critério original dizia "rodar com a rede indisponível", que não
 é reproduzível em integração contínua nem aqui. O guardião mandou trocar por algo mais forte, e
 o teste hoje **prova a ausência da dependência**: substitui `fetch`, `http.get`, `https.request`
 e toda a família de `child_process` por funções que abortam o processo, e então importa o portão.
-Se ele tentar sair para a rede por qualquer caminho, o teste falha.
+
+**A ressalva, apontada pela revisão:** *import* nomeado de módulo nativo em ESM **não enxerga** a
+mutação posterior de `module.exports`, e `net`, `dns`, `http2` e `undici` não são cobertos. Hoje o
+fato vale — o portão importa apenas `node:fs`, `node:path` e `node:url` — mas **o teste não
+pegaria a regressão que existe para pegar**. Fica declarado como o que é: verificação parcial. A
+prova forte seria estática, sobre a árvore de *imports*, e está no `ROADMAP`.
 
 ## Rastreamento dos critérios de aceite
 

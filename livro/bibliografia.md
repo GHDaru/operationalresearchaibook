@@ -29,8 +29,11 @@ não provam uma linha do que ela afirma.
 > **O que é verificado por máquina, e o que não é.** Os identificadores de objeto digital
 > (DOI, *Digital Object Identifier*) desta página passam por portão no `npm run build`: o DOI
 > tem de existir no registro, e o trabalho que ele identifica tem de ser o que está declarado
-> aqui. São **12 das cerca de 25 entradas**. Livro impresso, página institucional e
+> aqui. São **12 de 31 obras distintas — 39%**. Livro impresso, página institucional e
 > identificador do arXiv **continuam sendo afirmação humana** — assim como toda URL comum.
+>
+> A conta, reproduzível: `grep -cE "^(✓ᵐ|✓|⏳|❌|📖) " livro/bibliografia.md` dá **36**;
+> quatro dessas linhas são **atribuições**, não obras, e uma obra aparece duas vezes.
 
 ---
 

@@ -145,6 +145,41 @@ PY
 espera "A2  contagem bruta ≠ contagem do parser" reprova "$TMP/a2.md" "$LOCK0" "contagem divergente"
 
 echo
+echo "=== R1 — link mentiroso: rótulo verdadeiro, endereço trocado ==="
+sed 's|DOI \[10.1287/inte.20.4.43\](https://doi.org/10.1287/inte.20.4.43)|DOI [10.1287/inte.20.4.43](https://doi.org/10.1287/opre.66.6.6666)|' "$BIB0" > "$TMP/r1.md"
+espera "R1  o endereço do link é conferido, não só o rótulo" reprova "$TMP/r1.md" "$LOCK0" "o leitor clica no segundo"
+
+echo
+echo "=== R2 — 'resolvido' com título e ano nulos ==="
+python3 -c "
+import json;d=json.load(open('$LOCK0'))
+for f in d['fontes']:
+    if 'inte.20.4.43' in f['doi']: f['titulo']=None; f['ano']=None; f['primeiro_autor']=None
+json.dump(d,open('$TMP/r2.json','w'),indent=2,ensure_ascii=False)"
+espera "R2  estado e conteúdo não podem divergir (null == null)" reprova "$BIB0" "$TMP/r2.json" "estado e conteúdo divergem"
+
+echo
+echo "=== R3 — DOI duplicado no travamento ==="
+python3 -c "
+import json;d=json.load(open('$LOCK0'))
+d['fontes'].append(dict(d['fontes'][0]))
+json.dump(d,open('$TMP/r3.json','w'),indent=2,ensure_ascii=False)"
+espera "R3  duplicata no travamento não passa em silêncio" reprova "$BIB0" "$TMP/r3.json" "aparece mais de uma vez"
+
+echo
+echo "=== R4 — estado ausente ou vazio ==="
+python3 -c "
+import json;d=json.load(open('$LOCK0'))
+d['fontes'][0]['estado']=''
+json.dump(d,open('$TMP/r4.json','w'),indent=2,ensure_ascii=False)"
+espera "R4  estado vazio reprova" reprova "$BIB0" "$TMP/r4.json" "estado desconhecido"
+
+echo
+echo "=== R5 — 'DOI [' que não casa o formato é DEFEITO, não ausência ==="
+sed 's|DOI \[10.2307/1907845\](https://doi.org/10.2307/1907845)|DOI [10.2307/1907845]|' "$BIB0" > "$TMP/r5.md"
+espera "R5  DOI malformado não é ignorado" reprova "$TMP/r5.md" "$LOCK0" "não casa o formato"
+
+echo
 echo "=== A3 — zero chamadas de rede no caminho do build ==="
 cat > "$TMP/sem-rede.mjs" <<'JS'
 // Prova a AUSÊNCIA da dependência de rede, que é mais forte do que simular
@@ -169,20 +204,26 @@ rm -f ./__sem-rede.mjs
 
 echo
 echo "=== A12 — idempotência do travamento ==="
-h1=$(python3 -c "
-import json,hashlib
-d=json.load(open('$LOCK0'))
+# O arquivo versionado é PRESERVADO e restaurado. A primeira versão deste teste
+# prometia não tocá-lo e rodava o gerador em cima dele; e como o código de saída
+# não era checado, sem rede o gerador abortava nos canários, nada era escrito, e
+# h1 == h2 declarava idempotência que não havia sido exercida.
+cp "$LOCK0" "$TMP/lock-versionado.json"
+hash_sem_data() { python3 -c "
+import json,hashlib,sys
+d=json.load(open(sys.argv[1]))
 for f in d['fontes']: f.pop('verificado_em',None)
-print(hashlib.md5(json.dumps(d,sort_keys=True).encode()).hexdigest())")
-cp "$LOCK0" "$TMP/lock-antes.json"
-node atualiza-fontes.mjs >/dev/null 2>&1
-h2=$(python3 -c "
-import json,hashlib
-d=json.load(open('$LOCK0'))
-for f in d['fontes']: f.pop('verificado_em',None)
-print(hashlib.md5(json.dumps(d,sort_keys=True).encode()).hexdigest())")
-if [ "$h1" = "$h2" ]; then echo "✓ A12 travamento idêntico a menos da data ($h1)"; ok=$((ok+1))
-else echo "✗ A12 travamento mudou entre duas execuções: $h1 → $h2"; falhou=$((falhou+1)); fi
+print(hashlib.md5(json.dumps(d,sort_keys=True).encode()).hexdigest())" "$1"; }
+h1=$(hash_sem_data "$LOCK0")
+if node atualiza-fontes.mjs >"$TMP/gerador.log" 2>&1; then
+  h2=$(hash_sem_data "$LOCK0")
+  if [ "$h1" = "$h2" ]; then echo "✓ A12 travamento idêntico a menos da data ($h1)"; ok=$((ok+1))
+  else echo "✗ A12 travamento mudou entre duas execuções: $h1 → $h2"; falhou=$((falhou+1)); fi
+else
+  echo "⚠ A12 NÃO exercida: o gerador não completou (sem rede?) — dívida declarada, não verde falso"
+  tail -3 "$TMP/gerador.log" | sed 's/^/      /'
+fi
+cp "$TMP/lock-versionado.json" "$LOCK0"   # o repositório volta como estava
 
 echo
 echo "=== D8 — o gerador recusa rodar em integração contínua ==="

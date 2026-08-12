@@ -44,11 +44,18 @@ precisamente o tipo de coisa que este handbook não deixa o leitor inferir.
 
 | | |
 |---|---|
-| Entradas na bibliografia | ~25 |
+| Linhas com selo | **36** — `grep -cE "^(✓ᵐ\|✓\|⏳\|❌\|📖) "` |
+| Dessas, **atribuições** (afirmação, não obra) | 4 |
+| Obras distintas (descontada 1 duplicata) | **31** |
 | **Entradas com DOI, que o portão verifica** | **12** |
-| Entradas que continuam sendo afirmação humana | ~13 — Lachtermacher, Arenales, Hillier, Winston, MacTutor, INFORMS, Blum & Roli, UFMG, Sarubbi, e os quatro identificadores do arXiv |
+| **Obras que continuam sendo afirmação humana** | **19** — os livros-base, Hillier, Winston, MacTutor, INFORMS, Blum & Roli, `awesome-ml4co`, o survey de ALNS, Dantzig–Orden–Wolfe, Fourier, Klee & Minty, Hoffman, UFMG, Sarubbi e os identificadores do arXiv |
 
-**Depois desta rodada, mais da metade da bibliografia continua sem portão.**
+**Depois desta rodada, 61% da bibliografia continua sem portão.**
+
+> **Este número já esteve errado nesta própria spec**, que publicava "12 de cerca de 25" — 48% —
+> sem o comando que o reproduzisse, na mesma página em que exige comando para toda contagem. A
+> revisão independente mediu 36 linhas com selo e a estimativa caiu. É o defeito que a rodada foi
+> combater, cometido na frase que promete não cometê-lo.
 
 E o mais importante: **o incidente que motiva esta spec — a URL de vídeo inventada — continuaria
 passando.** URL comum está fora de escopo (o motivo técnico está no plano). O item "Portão de URL
@@ -86,7 +93,7 @@ que cria confiança maior do que sua cobertura é pior do que portão nenhum.
 | **A4** | H | `npm run fontes` renova o travamento a partir de `doi.org` + Crossref + OpenAlex, com saída e data coladas | caminho manual |
 | **A5** | M | DOI na bibliografia e **ausente** do travamento reprova, nomeando o DOI | teste destrutivo |
 | **A6** | M | **DOI fabricado** (`10.1287/opre.99.9.9.99999`) reprova | teste destrutivo |
-| **A7** | M | **DOI deslocado** — DOI real de outro trabalho — reprova por divergência de ano ou autor | teste destrutivo |
+| **A7** | M | **DOI deslocado** — DOI real de outro trabalho — reprova por divergência de **título ou ano** (autor **avisa**, ver ADR 0009 D3) | teste destrutivo |
 | **A8** | M | Título divergente **acima do limiar medido** reprova; truncamento de subtítulo **passa** | teste destrutivo |
 | **A9** | M | Selo usado e não declarado na legenda reprova | teste destrutivo |
 | **A10** | M | Travamento com chave fora da lista fechada, ou campo de texto > 300 caracteres, reprova (Princípio X) | teste destrutivo |
