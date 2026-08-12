@@ -8,10 +8,29 @@ citadas, nunca reproduzidas (constituição, Princípio X).
 
 ## Estado de verificação
 
-| Selo | Significa |
-|---|---|
-| ✓ | Fonte verificada: metadados conferidos em catálogo oficial ou na própria obra |
-| ⏳ | Referência ainda não confirmada na fonte — **não sustenta afirmação no texto** |
+Cada selo diz **o que foi provado**, e a distinção que sustenta o sistema é entre os dois
+primeiros: **existir não é dizer.** Metadados conferidos provam que a obra existe e é aquela;
+não provam uma linha do que ela afirma.
+
+| Selo | Nome | O que prova | O que **não** prova |
+|---|---|---|---|
+| ✓ | verificada | **Um humano abriu a fonte e leu** o trecho que sustenta a afirmação | — |
+| ✓ᵐ | metadados | O registro **existe** e autor, título, ano e veículo conferem | Nada sobre o conteúdo |
+| ⏳ | atribuição corrente | A afirmação circula na literatura e **não foi confirmada na fonte** | **Não sustenta afirmação no texto** |
+| ❌ | sem fonte | Foi procurado e **não foi encontrado** | — |
+| 📖 | leitura editorial | Interpretação **autoral**, declarada como tal | — |
+
+> **Quem escreve o selo.** Só quem leu. Nenhum portão, agente ou script promove selo: o
+> `verifica-fontes.mjs` confere identificadores e é somente leitura, e o teto do que qualquer
+> automação pode sustentar é `✓ᵐ` — porque resolver um identificador prova existência e
+> metadados, que é exatamente o significado desse selo. Ver
+> [ADR 0010](../adr/0010-a-semantica-do-selo.md).
+
+> **O que é verificado por máquina, e o que não é.** Os identificadores de objeto digital
+> (DOI, *Digital Object Identifier*) desta página passam por portão no `npm run build`: o DOI
+> tem de existir no registro, e o trabalho que ele identifica tem de ser o que está declarado
+> aqui. São **12 das cerca de 25 entradas**. Livro impresso, página institucional e
+> identificador do arXiv **continuam sendo afirmação humana** — assim como toda URL comum.
 
 ---
 

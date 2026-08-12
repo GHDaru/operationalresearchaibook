@@ -1,0 +1,161 @@
+{
+  "gerado_por": "publicar/atualiza-fontes.mjs",
+  "contrato": [
+    "doi",
+    "estado",
+    "prefixo",
+    "registrante",
+    "titulo",
+    "primeiro_autor",
+    "ano",
+    "container",
+    "fonte",
+    "verificado_em"
+  ],
+  "fontes": [
+    {
+      "doi": "10.1002/nav.3800020406",
+      "estado": "resolvido",
+      "prefixo": "10.1002",
+      "registrante": "Wiley",
+      "titulo": "Cycling in the dual simplex algorithm",
+      "primeiro_autor": "Beale",
+      "ano": 1955,
+      "container": "Naval Research Logistics Quarterly",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1007/BF01589114",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "A practical anti-cycling procedure for linearly constrained optimization",
+      "primeiro_autor": "Gill",
+      "ano": 1989,
+      "container": "Mathematical Programming",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1007/bf01917108",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "The Average number of pivot steps required by the Simplex-Method is polynomial",
+      "primeiro_autor": "Borgwardt",
+      "ano": 1982,
+      "container": "Zeitschrift für Operations Research",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1007/s10107-003-0488-1",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "The simplest examples where the simplex method cycles and conditions where expand fails to prevent cycling",
+      "primeiro_autor": "Hall",
+      "ano": 2004,
+      "container": "Mathematical Programming",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1145/87252.88081",
+      "estado": "resolvido",
+      "prefixo": "10.1145",
+      "registrante": "Association for Computing Machinery (ACM)",
+      "titulo": "Origins of the simplex method",
+      "primeiro_autor": "Dantzig",
+      "ano": 1990,
+      "container": "A history of scientific computing",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1145/990308.990310",
+      "estado": "resolvido",
+      "prefixo": "10.1145",
+      "registrante": "Association for Computing Machinery (ACM)",
+      "titulo": "Smoothed analysis of algorithms",
+      "primeiro_autor": "Spielman",
+      "ano": 2004,
+      "container": "Journal of the ACM",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1287/inte.20.4.43",
+      "estado": "resolvido",
+      "prefixo": "10.1287",
+      "registrante": "Institute for Operations Research and the Management Sciences (INFORMS)",
+      "titulo": "The Diet Problem",
+      "primeiro_autor": "Dantzig",
+      "ano": 1990,
+      "container": "Interfaces",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1287/moor.2.2.103",
+      "estado": "resolvido",
+      "prefixo": "10.1287",
+      "registrante": "Institute for Operations Research and the Management Sciences (INFORMS)",
+      "titulo": "New Finite Pivoting Rules for the Simplex Method",
+      "primeiro_autor": "Bland",
+      "ano": 1977,
+      "container": "Mathematics of Operations Research",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1287/opre.49.1.1.11187",
+      "estado": "resolvido",
+      "prefixo": "10.1287",
+      "registrante": "Institute for Operations Research and the Management Sciences (INFORMS)",
+      "titulo": "Stigler's Diet Problem Revisited",
+      "primeiro_autor": "Garille",
+      "ano": 2001,
+      "container": "Operations Research",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.1287/opre.50.1.3.17780",
+      "estado": "resolvido",
+      "prefixo": "10.1287",
+      "registrante": "Institute for Operations Research and the Management Sciences (INFORMS)",
+      "titulo": "Solving Real-World Linear Programs: A Decade and More of Progress",
+      "primeiro_autor": "Bixby",
+      "ano": 2002,
+      "container": "Operations Research",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.2307/1231810",
+      "estado": "resolvido",
+      "prefixo": "10.2307",
+      "registrante": "JSTOR",
+      "titulo": "The Cost of Subsistence",
+      "primeiro_autor": "Stigler",
+      "ano": 1945,
+      "container": "Journal of Farm Economics",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    },
+    {
+      "doi": "10.2307/1907845",
+      "estado": "resolvido",
+      "prefixo": "10.2307",
+      "registrante": "JSTOR",
+      "titulo": "Optimality and Degeneracy in Linear Programming",
+      "primeiro_autor": "Charnes",
+      "ano": 1952,
+      "container": "Econometrica",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-12"
+    }
+  ]
+}
