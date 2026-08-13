@@ -231,9 +231,11 @@ teste que compara **este texto** à medição.
 
 <div data-bateria="cap20"></div>
 
-Três exercícios. O primeiro escreve o modelo único para dois problemas que pareciam diferentes; o
-segundo explica a integralidade e prevê quando ela cai; o terceiro é o mais prático da Parte —
-diagnosticar um modelo que começou de rede e deixou de ser.
+Quatro exercícios. O primeiro escreve a equação de conservação de um nó — a única restrição
+estrutural do modelo — e descobre no fim por que oferta e demanda têm de fechar; o segundo escreve
+o modelo único para problemas que pareciam diferentes; o terceiro explica a integralidade e prevê
+quando ela cai; o quarto é o mais prático da Parte — diagnosticar um modelo que começou de rede e
+deixou de ser.
 
 ## Assista
 

@@ -266,10 +266,10 @@ const SEM_MODELO_DECLARADO = new Set([
   "cap18.exC", // classifica quatro decisões de projeto de rede escritas em prosa.
                // Não há modelo numérico; "ótimo" aparece na discussão de qual
                // problema tem guloso ótimo e qual não tem.
-  "cap19.exA", // rede de fluxo com sete nós. O fluxo máximo (15) e a capacidade
+  "cap19.exB", // rede de fluxo com sete nós. O fluxo máximo (15) e a capacidade
                // do corte (15) são medidos na mesma suíte, e o capítulo 19 os
                // publica com teste que o lê.
-  "cap20.exC", // diagnostica um modelo de distribuição descrito em PROSA, com
+  "cap20.exD", // diagnostica um modelo de distribuição descrito em PROSA, com
                // quatro restrições nomeadas e nenhum número. "Ótimo" aparece na
                // discussão do que se perde ao arredondar.
   "cap21.exA", // designação 3×3 escrita como transporte — seis variáveis, não

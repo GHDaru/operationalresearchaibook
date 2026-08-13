@@ -163,8 +163,9 @@ que está fazendo.
 
 <div data-bateria="cap19"></div>
 
-Três exercícios. O primeiro calcula o fluxo à mão e encontra o corte; o segundo é o que vira
-decisão — onde investir, e onde não adianta; o terceiro traduz um problema que não parece fluxo.
+Quatro exercícios. O primeiro só lê o desenho, e já derruba a intuição de que a aresta mais larga é
+a mais importante; o segundo calcula o fluxo à mão e encontra o corte; o terceiro é o que vira
+decisão — onde investir, e onde não adianta; o quarto traduz um problema que não parece fluxo.
 
 ## Assista
 

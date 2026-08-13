@@ -245,6 +245,36 @@ def test_a_aresta_de_maior_capacidade_nao_esta_no_corte(texto19):
     assert "**Investir numa aresta fora do corte não muda nada.**" in texto19
 
 
+def _arestas_desenhadas(texto: str) -> set:
+    """Extrai `a --N--> b` de um diagrama em texto.
+
+    A lookahead no destino é necessária: num encadeamento `a --1--> b --2--> c`
+    o `b` é destino de um salto e origem do seguinte, e um casamento que
+    consumisse o destino perderia metade das arestas.
+    """
+    import re
+    return {(u, v, int(cap))
+            for u, cap, v in re.findall(r"(\w+)\s*--(\d+)-*>\s*(?=(\w+))", texto)}
+
+
+def test_todo_desenho_da_rede_de_fluxo_e_a_rede_medida(texto19, exercicios):
+    """A rede aparece no capítulo **e** em enunciados de exercício. Toda cópia
+    é uma chance de divergir, então todas são conferidas contra a instância.
+    """
+    medidas = {(u, v, int(c)) for u, saidas in REDE.items() for v, c in saidas.items()}
+    fontes = [("capítulo 19", texto19)]
+    fontes += [(i, e["enunciado"]) for i, e in exercicios.items()
+               if i.startswith("cap19.") and "--" in e["enunciado"]]
+    for nome, texto in fontes:
+        desenhadas = _arestas_desenhadas(texto)
+        if not desenhadas:
+            continue
+        assert desenhadas == medidas, (
+            f"o desenho em {nome} não é a rede medida.\n"
+            f"  só no desenho: {sorted(desenhadas - medidas)}\n"
+            f"  só na medição: {sorted(medidas - desenhadas)}")
+
+
 def test_o_diagrama_do_capitulo_19_e_a_rede_medida(texto19):
     """O desenho publicado **é** a instância, aresta por aresta.
 
