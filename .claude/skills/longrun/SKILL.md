@@ -58,7 +58,7 @@ A delegação é de **julgamento**, e não dissolve o que não é questão de pe
 | **Direito autoral e dado pessoal** (D9.8) | Não é reversível por *branch*: a distribuição é que causa o dano. Foi o caso do Sci-Hub, recusado |
 | **Fonte não confirmada não sustenta afirmação** (Princípio III) | Delegação não cria evidência |
 
-> **O merge saiu desta lista em 2026-08-13, por decisão do autor** — constituição 1.2.0,
+> **O merge saiu desta lista em 2026-08-13, por decisão do autor** — constituição 2.0.0,
 > [ADR 0015](../../../adr/0015-longrun-inclui-o-merge-ate-a-v0.md). **Enquanto a v0 não fechar**,
 > o agente mergeia e publica sem esperar aprovação. A exceção **expira sozinha** ao fim da v0: não
 > é preciso revogá-la, é preciso estendê-la.
