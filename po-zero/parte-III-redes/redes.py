@@ -457,13 +457,22 @@ def pert_por_simulacao(faixas: dict, tarefas: dict, criticas: list[str],
     a, b = resumo(projeto), resumo(so_o_caminho)
     atrasos = sum(1 for x in projeto if x > sum(F(o + 4 * m + p, 6) for t, (o, m, p)
                                                 in faixas.items() if t in criticas))
+    # Estas duas medidas existem para desmentir uma frase fácil: "adotar a média
+    # dá 50% de chance de estourar". Isso é a definição de MEDIANA. Numa
+    # distribuição assimétrica à direita — que é o caso de todo prazo de projeto —
+    # a média fica ACIMA da mediana, e estourá-la é menos provável que 50%.
+    acima_da_media = sum(1 for x in projeto if x > a["media"])
+    acima_da_mediana = sum(1 for x in projeto if x > a["mediana"])
     return {
         "amostras": amostras,
         "semente": semente,
+        "distribuicao": "triangular(otimista, pessimista, provavel)",
         "projeto": a,
         "so_o_caminho_declarado": b,
         "merge_bias": round(a["media"] - b["media"], 4),
         "prob_de_estourar_a_estimativa_do_pert": round(atrasos / amostras, 4),
+        "prob_de_estourar_a_media_simulada": round(acima_da_media / amostras, 4),
+        "prob_de_estourar_a_mediana_simulada": round(acima_da_mediana / amostras, 4),
     }
 
 
@@ -584,6 +593,32 @@ def mst_por_enumeracao(arestas: list[tuple]) -> dict:
             "metodo": "enumeração de árvores geradoras"}
 
 
+def custo_de_proibir(arestas: list[tuple], u: str, v: str) -> dict:
+    """Quanto custa **proibir** uma aresta da árvore ótima?
+
+    A resposta intuitiva — *"custa o que a aresta valia"* — está errada, e esta
+    medição existe para mostrar isso com número. Proibir a aresta `a–c`, que
+    custa 3, encarece a árvore em 4: a substituta não é a próxima aresta da
+    lista, é a **melhor reconexão disponível depois que a topologia mudou**.
+
+    A perda pode ser maior ou menor que o peso da aresta proibida. Publicar a
+    lição no sentido errado seria pior do que não publicá-la.
+    """
+    proibida = {(u, v), (v, u)}
+    restantes = [a for a in arestas if (a[0], a[1]) not in proibida]
+    com = mst_por_enumeracao(arestas)
+    sem = mst_por_enumeracao(restantes)
+    peso = next(a[2] for a in arestas if (a[0], a[1]) in proibida)
+    return {
+        "aresta_proibida": [u, v, str(peso)],
+        "custo_com": com["custo"],
+        "custo_sem": sem["custo"],
+        "arestas_sem": sem["arestas"],
+        "perda": str(F(sem["custo"]) - F(com["custo"])),
+        "perda_maior_que_o_peso_da_aresta": F(sem["custo"]) - F(com["custo"]) > peso,
+    }
+
+
 # ---------------------------------------------------------------------------
 # 3c. DESIGNAÇÃO — a integralidade de graça, de novo, e agora em 0/1
 # ---------------------------------------------------------------------------
@@ -622,6 +657,57 @@ EQUIPE = {
     ("bruno", "relatorio"): 6, ("bruno", "auditoria"): 4, ("bruno", "treinamento"): 3,
     ("clara", "relatorio"): 5, ("clara", "auditoria"): 8, ("clara", "treinamento"): 1,
 }
+
+
+def designacao_por_ponto_interior(custos: list[list[float]], crossover: str) -> dict:
+    """O contraexemplo que delimita a garantia de integralidade.
+
+    A unimodularidade total garante que **existe vértice ótimo inteiro** — não
+    que a resposta de qualquer solver seja inteira. Um método de pontos
+    interiores ([capítulo 14](../../livro/capitulos/14-pontos-interiores.md))
+    não para em vértice: ele converge para o **centro da face ótima**. Quando o
+    ótimo é único, a face é um ponto e a distinção não aparece. Quando há
+    empate — e designação empata o tempo todo —, o centro da face é fracionário.
+
+    Com empate — `n × n` de custos todos iguais — a saída medida sem *crossover*
+    é `1/n` em toda variável. Com *crossover* ligado, o método volta a um vértice
+    e a saída é 0/1. Com ótimo único, a face é um ponto e a saída sai 0/1 dos
+    dois jeitos.
+
+    Não é defeito do solver: é o que pontos interiores fazem, e é por isso que
+    *crossover* existe.
+
+    Um aviso de projeto de experimento, porque custou uma tentativa: custo da
+    forma `a_i + b_j` **não** serve de instância de ótimo único. Toda designação
+    soma `Σa + Σb`, então tudo empata, e o "controle" mede o mesmo que o caso.
+    """
+    import highspy
+    import numpy as np
+
+    n = len(custos)
+    vazio_i, vazio_f = np.array([], dtype=np.int32), np.array([], dtype=np.float64)
+    h = highspy.Highs()
+    h.setOptionValue("output_flag", False)
+    h.setOptionValue("solver", "ipm")
+    h.setOptionValue("run_crossover", crossover)
+    for i in range(n):
+        for j in range(n):
+            h.addCol(float(custos[i][j]), 0.0, 1.0, 0, vazio_i, vazio_f)
+    for i in range(n):  # cada pessoa faz exatamente uma tarefa
+        h.addRow(1, 1, n, np.array([i * n + j for j in range(n)], dtype=np.int32),
+                 np.ones(n))
+    for j in range(n):  # cada tarefa recebe exatamente uma pessoa
+        h.addRow(1, 1, n, np.array([i * n + j for i in range(n)], dtype=np.int32),
+                 np.ones(n))
+    h.run()
+    valores = [round(v, 6) for v in h.getSolution().col_value]
+    return {
+        "n": n, "crossover": crossover,
+        "objetivo": round(h.getObjectiveValue(), 6),
+        "valores": valores,
+        "todos_binarios": all(abs(v - round(v)) < 1e-6 for v in valores),
+        "versao_do_highs": h.version(),
+    }
 
 
 def rede_com_ramos(k: int) -> tuple[dict, dict, list[str]]:
@@ -707,6 +793,10 @@ if __name__ == "__main__":
     kr, enu = kruskal(CIDADES), mst_por_enumeracao(CIDADES)
     print(f"  árvore por Kruskal: custo {kr['custo']}  ·  por enumeração de TODAS as "
           f"árvores: {enu['custo']}  ·  batem: {kr['custo'] == enu['custo']}")
+    pr = custo_de_proibir(CIDADES, "a", "c")
+    print(f"  proibir a aresta a–c (que vale {pr['aresta_proibida'][2]}): a árvore passa de "
+          f"{pr['custo_com']} para {pr['custo_sem']}  ·  perda {pr['perda']}  ·  "
+          f"perda MAIOR que o peso da aresta: {pr['perda_maior_que_o_peso_da_aresta']}")
     tg, te = tsp_guloso(CIDADES, "a"), tsp_exato(CIDADES, "a")
     perda = F(tg["custo"]) - F(te["custo"])
     print(f"  roteiro guloso: {tg['custo']} ({' → '.join(tg['rota'])})")
@@ -718,6 +808,23 @@ if __name__ == "__main__":
     print("=" * 82)
     dg = designacao(EQUIPE)
     print(f"  custo {dg['custo']:g}  ·  todos 0/1: {dg['todos_binarios']}  ·  {dg['escolhidos']}")
+    print()
+
+    print("3d. ONDE A GARANTIA PARA: ponto interior sem crossover, com empate")
+    print("=" * 82)
+    # `empate`: toda designação custa 3, a face ótima é o politopo inteiro.
+    # `unico`: a instância da EQUIPE, cujo ótimo é único (custo 9).
+    instancias = {
+        "empate": [[1, 1, 1], [1, 1, 1], [1, 1, 1]],
+        "unico": [[EQUIPE[(p, t)] for t in ("relatorio", "auditoria", "treinamento")]
+                  for p in ("ana", "bruno", "clara")],
+    }
+    pi = {f"{nome}_crossover_{c}": designacao_por_ponto_interior(m, c)
+          for nome, m in instancias.items() for c in ("off", "on")}
+    for k, v in pi.items():
+        print(f"  {k:<22} objetivo {v['objetivo']:g}  ·  todos 0/1: {v['todos_binarios']}"
+              f"  ·  {v['valores'][:3]}...")
+    print("  → a garantia é sobre VÉRTICE, não sobre a saída de qualquer método.")
     print()
 
     print("4. CPM — caminho crítico e folga")
@@ -757,8 +864,10 @@ if __name__ == "__main__":
         "fluxo_maximo": f,
         "transporte": {"integral": tr, "estrutura_quebrada": qb},
         "arvore_e_roteiro": {"mst_kruskal": kr, "mst_por_enumeracao": enu,
+                             "custo_de_proibir_a_c": pr,
                              "tsp_guloso": tg, "tsp_exato": te, "perda_do_guloso": str(perda)},
         "designacao": dg,
+        "designacao_por_ponto_interior": pi,
         "cpm": c,
         "pert": {"formula": pf, "simulacao": ps, "varredura_de_ramos": varredura},
         "versoes": {"aritmetica": "fractions.Fraction (exata), exceto a simulação do PERT",

@@ -145,8 +145,14 @@ Na ordem, porque a ordem economiza trabalho:
    **tente**, porque muita coisa que parece não linear vira linear com uma mudança de variável ou
    uma aproximação por partes declarada.
 2. **Alguma decisão é indivisível?** Meio caminhão, meia fábrica e meio funcionário não existem.
-   Se existir, você está em Programação Inteira Mista — **MILP**, na sigla consagrada —, e o custo
-   muda de patamar.
+   Se existir, você **provavelmente** está em Programação Inteira Mista — **MILP**, na sigla
+   consagrada —, e o custo muda de patamar. **A ressalva importa, e tem um capítulo inteiro:** há
+   uma família de problemas — os de **rede** — em que a resposta sai inteira sozinha, sem que
+   ninguém declare variável inteira e sem pagar nada por isso. O
+   [capítulo 20](20-fluxo-custo-minimo.md) mede o caso. Antes de aceitar o custo do inteiro,
+   pergunte se o seu modelo é de rede: **declarar `Integer` num problema de rede é pagar por uma
+   garantia que a estrutura já dava de graça** — e ainda perder a análise de sensibilidade do
+   [capítulo 13](13-sensibilidade.md) junto.
 3. **Algum parâmetro é uma previsão?** Demanda, preço e tempo de viagem quase sempre são. Se forem,
    a pergunta seguinte é **qual critério de risco** — e essa pergunta é de quem decide, não de quem
    modela.
@@ -170,7 +176,7 @@ por isso que a promessa dela é a mais curta das três.
 
 ## Quando não serve
 
-Classificar cedo demais é um erro real, e ele tem quatro formas:
+Classificar cedo demais é um erro real, e ele tem cinco formas:
 
 **1. Quando a classe ainda depende de decisão de modelagem, e não do problema.** O mesmo problema
 de negócio pode virar linear ou não linear conforme o que se escolhe como variável. Declarar a
@@ -191,6 +197,13 @@ classificação, e todos derrubam projeto.
 **4. Quando a resposta é "não modele".** Vale sempre lembrar o [capítulo 02](02-ciclo-de-modelagem.md):
 antes de escolher a classe, é preciso ter passado pela pergunta de quem vai decidir diferente por
 causa disso.
+
+**5. Quando "indivisível" é lido como "inteiro".** É o erro que este capítulo mais arrisca produzir,
+porque o mapa acima é prescritivo e curto. Que a decisão seja indivisível diz respeito ao
+**enunciado**; que o modelo precise de variável inteira diz respeito à **forma das restrições**. Nos
+problemas de rede as duas coisas se separam, e o [capítulo 20](20-fluxo-custo-minimo.md) mede a
+separação. Antes de classificar como MILP por causa de uma indivisibilidade, verifique se o modelo
+é de rede — se for, a integralidade já estava garantida.
 
 ## Fundamentos e fontes
 

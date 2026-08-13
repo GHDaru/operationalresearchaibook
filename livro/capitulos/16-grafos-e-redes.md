@@ -14,14 +14,16 @@ pergunta que se quer responder.
 
 ## O problema
 
-Metade da Pesquisa Operacional (PO) aplicada é rede por baixo, e a maior parte dela **não se
-apresenta como rede**. Escalonar turnos, alocar máquinas, planejar produção mês a mês, casar
+Boa parte da Pesquisa Operacional (PO) aplicada é rede por baixo, e quase nada dela **se
+apresenta como rede**. (*"Boa parte"* é impressão editorial, e fica assim: este handbook não
+levantou proporção nenhuma, e um número aqui seria inventado.) Escalonar turnos, alocar máquinas, planejar produção mês a mês, casar
 candidatos com vagas: nenhum desses enunciados menciona grafo, e todos os quatro viram grafo com
 uma tradução de duas linhas.
 
 > **A habilidade desta Parte não é resolver rede. É enxergá-la.** Quem enxerga ganha acesso a
-> métodos que resolvem em segundos o que o modelo genérico resolve em minutos — e, como a Parte
-> inteira vai mostrar, a **garantias** que o modelo genérico não tem.
+> métodos especializados e — o que esta Parte de fato mede — a **garantias** que o modelo genérico
+> não tem. A vantagem de tempo é real e **não é medida aqui**: este handbook não cronometrou
+> nenhum dos métodos desta Parte, e por isso não publica comparação de desempenho.
 
 O erro caro deste capítulo:
 
@@ -61,8 +63,10 @@ o que é estrutura do que é decoração.
 
 ### A origem do nome
 
-**"Grafo"** vem do inglês *graph*, no sentido de **diagrama** — e não de gráfico estatístico. O
-termo foi cunhado no século XIX, em química, para os diagramas de ligação entre átomos. **"Nó"** e
+**"Grafo"** vem do inglês *graph*, no sentido de **diagrama** — e não de gráfico estatístico. A
+literatura didática credita o cunho ao século XIX, na química, para os diagramas de ligação entre
+átomos; **este handbook não confirmou essa origem em fonte primária**, e ela fica como atribuição
+corrente. **"Nó"** e
 **"aresta"** carregam a metáfora do desenho; a literatura em inglês usa *vertex* e *edge*, e a
 tradução consagrada em português mistura as duas famílias sem prejuízo.
 
@@ -72,7 +76,8 @@ tradução consagrada em português mistura as duas famílias sem prejuízo.
 |---|---|
 | As pontes de Königsberg e a resolução por Euler em 1736 | ⏳ **atribuição corrente**, repetida em toda a literatura didática; este handbook **não localizou** a fonte primária por identificador nesta rodada |
 | A origem de *graph* como diagrama químico no século XIX | ⏳ **atribuição corrente**, não confirmada em fonte primária |
-| Os números citados desta Parte | ✓ **medidos** em `po-zero/parte-III-redes`, com teste que compara o texto publicado à medição |
+| Os números que os capítulos 17 a 22 publicam | ✓ **medidos** em `po-zero/parte-III-redes`, com teste que compara o texto publicado à medição |
+| Qualquer vantagem de **tempo** dos métodos especializados | ❌ **não medida**. Este handbook não cronometrou nada nesta Parte, e por isso não publica comparação de desempenho |
 
 > As duas primeiras linhas são `⏳` e ficam assim até alguém abrir a fonte. A história de
 > Königsberg é boa demais para ser contada sem ressalva — **é justamente das histórias boas que o
@@ -163,7 +168,8 @@ desenhadas no quadro.
 
 - **A habilidade desta Parte é enxergar a rede**, não resolvê-la. Quem enxerga ganha método e
   ganha garantia.
-- **Euler jogou fora o mapa.** A força de um grafo está no que ele se recusa a representar.
+- **A demonstração atribuída a Euler jogou fora o mapa.** A força de um grafo está no que ele se
+  recusa a representar.
 - **Duas escolhas decidem quase tudo:** a aresta tem sentido? O número é custo ou capacidade?
 - **Estoque é aresta que atravessa o tempo** — e é assim que planejamento multiperíodo vira rede.
 - **Grafo representa relação binária.** Restrição sobre três coisas de uma vez não é aresta.
@@ -187,7 +193,10 @@ Metade da Pesquisa Operacional aplicada é rede por baixo, e quase nada dela se 
 rede: escalonar turnos, planejar produção mês a mês, casar candidatos com vagas e sequenciar
 tarefas são todos grafos depois de uma tradução de duas linhas. A habilidade que esta Parte
 ensina, portanto, **não é resolver redes — é enxergá-las**, e quem enxerga ganha duas coisas:
-métodos especializados que resolvem em segundos, e **garantias** que o modelo genérico não oferece.
+**métodos especializados**, que exploram a estrutura em vez de tratar o problema como um sistema
+qualquer, e **garantias** que o modelo genérico não oferece — a principal delas medida no
+capítulo 20. A vantagem de desempenho dos métodos especializados é real e consagrada, mas **este
+handbook não a cronometrou**, e por isso não publica número.
 O vocabulário necessário é curto — nó, aresta, direção, peso, caminho, ciclo, corte, árvore
 geradora — e duas escolhas de representação decidem quase tudo, ambas derivadas da pergunta: a
 aresta tem sentido, e o número nela é custo ou capacidade? Trocar custo por capacidade produz um

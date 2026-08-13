@@ -21,6 +21,15 @@ de projeto:
 > binária, não paga nenhum *branch-and-bound* — e a resposta sai em unidades executáveis. Medido:
 > custo **220**, **todos os embarques inteiros**, num modelo em que ninguém pediu integralidade.
 
+**Antes de seguir, uma palavra sobre "relaxação linear", porque ela pressupõe um modelo que este
+capítulo nunca vai escrever.** O problema honesto é inteiro: *"quantos contêineres inteiros vão de
+cada fábrica para cada loja"*. A **relaxação** dele é o mesmo modelo com a exigência de
+integralidade removida — as variáveis passam a poder valer 12,5. É a definição do
+[glossário](../glossario.md), e é o que quase todo método inteiro resolve primeiro, para ter um
+limitante. O que este capítulo mede é que, em rede, **essa etapa intermediária já é a resposta
+final**: relaxar não custou nada, porque não havia nada a relaxar. Por isso o modelo que você vai
+ver escrito aqui é Programação Linear pura — o inteiro nunca precisa ser escrito.
+
 O leitor que vem do [capítulo 04](04-classificacao-e-escolha.md) sabe o preço de exigir
 integralidade: o teorema do vértice cai, o custo de resolução muda de patamar, e a prova de
 otimalidade passa a vir de limitante. Aqui está o caso em que **não é preciso pagar esse preço**.
@@ -58,8 +67,9 @@ desempenho, não de modelagem.
 
 ### A origem do nome
 
-**"Transbordo"** (*transshipment*) é o nó que não produz nem consome: a carga passa por ele. O
-nome vem do transporte marítimo, em que a carga muda de navio no meio do caminho. **"Totalmente
+**"Transbordo"** (*transshipment*) é o nó que não produz nem consome: a carga passa por ele. A
+leitura de que o nome venha do transporte marítimo — em que a carga muda de navio no meio do
+caminho — é **editorial**, e não etimologia conferida. **"Totalmente
 unimodular"** — a propriedade que faz este capítulo funcionar — quer dizer que **todo** determinante
 de toda submatriz quadrada é 0, 1 ou −1. A atribuição do resultado que liga essa propriedade à
 integralidade é `⏳` neste handbook.
@@ -69,6 +79,7 @@ integralidade é `⏳` neste handbook.
 | Afirmação | Estado |
 |---|---|
 | Que a matriz de incidência de um grafo dirigido seja totalmente unimodular | 📖 **leitura editorial** de resultado clássico; o handbook **não reproduz a demonstração** |
+| A origem marítima do termo *transbordo* | 📖 **leitura editorial**; não é etimologia conferida |
 | A atribuição do teorema que liga unimodularidade total à integralidade dos vértices | ⏳ **atribuição corrente**, não confirmada em fonte primária nesta rodada |
 | Que o transporte desta página custe 220 com todos os embarques inteiros | ✓ **medido** em `po-zero/parte-III-redes`, com teste que compara este texto à medição |
 | Que uma restrição transversal leve o ótimo a 223,33 com quatro embarques fracionários | ✓ **medido**, na mesma suíte |
@@ -97,7 +108,14 @@ resposta:
 **Todos inteiros.** E não por sorte, nem por arredondamento do solver: por **estrutura**. A matriz
 de restrições de um problema de rede é totalmente unimodular, e com oferta e demanda inteiras
 **todo vértice da região viável é inteiro**. Como o Simplex para num vértice
-([capítulo 08](08-geometria.md)), a resposta não tem como sair fracionária.
+([capítulo 08](08-geometria.md)), a resposta que ele devolve é inteira.
+
+> **Leia a frase anterior com cuidado, porque ela tem duas pernas e a segunda costuma cair.** O
+> teorema garante que **existe vértice ótimo inteiro** — não que a saída de um método qualquer seja
+> inteira. Quem entrega o inteiro é o **Simplex**, porque ele para em vértice. Um método de pontos
+> interiores ([capítulo 14](14-pontos-interiores.md)) não para em vértice: ele converge para o meio
+> da face ótima. Enquanto o ótimo é único, a face é um ponto e a distinção não aparece. Quando há
+> empate, aparece — e a quinta entrada de *"quando não serve"*, abaixo, mede exatamente isso.
 
 > **O que isso vale, em uma frase.** Um problema que parecia exigir programação inteira — e
 > portanto o custo de resolução que o [capítulo 04](04-classificacao-e-escolha.md) descreve — é
@@ -122,6 +140,15 @@ Os fracionários são `fabrica_1 → loja_b` = **1,67**, `fabrica_1 → loja_c` 
 **Nada avisou.** O solver disse `Optimal` nos dois casos. A restrição do pátio é razoável, é real,
 e é a coisa mais natural do mundo de se acrescentar — e ao entrar ela tirou a matriz da família de
 rede. A propriedade não é do assunto; é da **forma das restrições**.
+
+> **O nome disso, porque ele vai voltar.** Uma **restrição transversal** é uma restrição que
+> **mistura arestas que não compartilham nó** — aqui, uma rota da `fabrica_1` somada a uma rota da
+> `fabrica_2` dentro da mesma desigualdade. É exatamente o que a conservação de fluxo nunca faz:
+> cada equação de nó só fala das arestas **daquele** nó. Uma restrição transversal atravessa a
+> estrutura, e é por isso que a unimodularidade não sobrevive a ela. O termo reaparece nos
+> capítulos [16](16-grafos-e-redes.md) e [21](21-transporte-designacao.md) com este sentido, e é
+> o critério prático para desconfiar de um modelo de rede: **procure a restrição que soma arestas
+> de nós diferentes.**
 
 > **A regra prática que sai daí, e ela é curta:** toda vez que você acrescentar uma restrição que
 > **não** seja "o que entra num nó sai dele", desconfie da integralidade. Se a resposta precisar
@@ -165,6 +192,24 @@ matriz tenha nada de errado.
 
 **4. Quando o custo não é linear no volume.** Desconto por quantidade quebra a linearidade antes
 de quebrar a rede.
+
+**5. Quando o método usado não para num vértice.** Este é o caso que a estrutura *não* protege, e é
+o mais fácil de esquecer, porque a matriz continua unimodular e os dados continuam inteiros — só o
+**método** mudou. Medido nesta Parte, numa designação 3×3 em que todas as designações custam o
+mesmo:
+
+| Instância | Método | Objetivo | Saída |
+|---|---|---|---|
+| Empate no ótimo | pontos interiores, *crossover* **desligado** | 3 | **1/3 em toda variável** |
+| Empate no ótimo | pontos interiores, *crossover* ligado | 3 | 0/1 |
+| Ótimo único (a equipe do [capítulo 21](21-transporte-designacao.md)) | pontos interiores, *crossover* desligado | 9 | 0/1 |
+
+A linha do meio e a de baixo são o **controle**: sem elas, o resultado de cima poderia ser solver
+ruim em vez de método diferente. Com elas, a leitura é única — o `1/3` é um ponto **ótimo**, tão
+ótimo quanto o inteiro, e o que o produziu foi a combinação de **empate no ótimo** com um método
+que não termina em vértice. O *crossover* existe justamente para desfazer isso, e vem ligado por
+padrão nos solvers de prateleira. **Desligá-lo em nome de desempenho é o gesto que quebra a
+garantia deste capítulo sem tocar em uma linha do modelo.**
 
 ## Fundamentos e fontes
 

@@ -12,8 +12,10 @@
 
 ## O problema
 
-Este capítulo fecha a Parte III com o modelo de rede mais usado do mundo — e com o resultado mais
-incômodo dela:
+Este capítulo fecha a Parte III com o **Método do Caminho Crítico** (CPM, do inglês *Critical
+Path Method*) e a **Técnica de Avaliação e Revisão de Programas** (PERT, *Program Evaluation and
+Review Technique*) — dois modelos de rede que qualquer curso de gestão de projetos ensina, e o
+resultado mais incômodo desta Parte:
 
 > A fórmula do PERT publica **21 dias** para o projeto desta página. Simulado, ele leva **24,48
 > dias** em média e **estoura a estimativa em 82,3% das amostras**. O método não erra por pouco:
@@ -63,15 +65,16 @@ chega.
 
 ### A origem do nome
 
-**CPM** é *Critical Path Method*; **PERT** é *Program Evaluation and Review Technique*. Os dois
-nasceram no fim dos anos 1950, em contextos diferentes — um industrial, outro militar — e a
-atribuição precisa é `⏳` neste handbook.
+As duas siglas dizem o que os métodos fazem: **CPM** aponta o caminho crítico; **PERT** avalia e
+revisa um programa de trabalho. A literatura didática os data do **fim dos anos 1950**, em contextos
+distintos — um industrial, outro militar —, e **este handbook não abriu nenhuma fonte primária**:
+data, contexto e atribuição ficam `⏳`, e nenhuma das três sustenta afirmação nesta página.
 
 ### Procedência
 
 | Afirmação | Estado |
 |---|---|
-| As origens do CPM e do PERT no fim dos anos 1950 | ⏳ **atribuição corrente**; este handbook **não abriu** as fontes primárias |
+| As origens do CPM e do PERT, a datação no fim dos anos 1950 e os contextos industrial e militar | ⏳ **atribuições correntes**; este handbook **não abriu** nenhuma fonte primária |
 | Que a fórmula do PERT use a média $(o+4m+p)/6$ | 📖 **leitura editorial** de procedimento de manual |
 | A duração 18, as folgas, e o caminho crítico do projeto desta página | ✓ **medidos** em `po-zero/parte-III-redes`, em aritmética exata |
 | Os 21 dias da fórmula, os 24,48 simulados, os 82,3% de estouro e o viés de 0,49 | ✓ **medidos** por simulação com **semente declarada** |
@@ -117,7 +120,17 @@ vezes**, com semente declarada:
 | | Medido |
 |---|---|
 | Duração média do projeto | **24,48** |
+| Duração mediana | **24,30** |
+| Percentil 90 | **29,35** |
 | Probabilidade de estourar os 21 dias | **82,3%** |
+
+> **A escolha de modelagem que precisa ficar declarada, porque metade do desvio sai dela.** Cada
+> duração é sorteada de uma distribuição **triangular** sobre (otimista, provável, pessimista), cuja
+> média é $(o + m + p)/3$. A fórmula do PERT usa outra média — $(o + 4m + p)/6$, que pesa o valor
+> provável quatro vezes mais. Para `especificar` (4, 5, 12), uma dá 7,0 e a outra dá 6,0. **Um dia
+> de diferença por tarefa, antes de qualquer efeito de rede.** Trocar a triangular por outra família
+> mudaria os números desta página; o que **não** mudaria é a separação da seção seguinte, porque ela
+> compara duas medições feitas nos mesmos sorteios.
 
 **Duas causas diferentes produzem esse desvio, e só uma é defeito do método.** Misturá-las daria
 um número grande e sem significado, então elas foram separadas:
@@ -134,9 +147,24 @@ idêntico — mesma distribuição, mesmos números sorteados —, então a dife
 | O projeto inteiro | 24,48 |
 | **Diferença — o viés do método** | **0,49** |
 
+**Este viés tem nome, e vale fixá-lo agora porque a literatura e os exercícios usam os três.** Em
+inglês é ***merge bias***; em português aparece como **viés de convergência** (de caminhos) ou,
+como aqui, **o viés do método**. São a mesma coisa: **o projeto espera a mais lenta entre as
+tarefas paralelas, e a média de um máximo é maior que o máximo das médias**. Está no
+[glossário](../glossario.md).
+
 **O viés é 0,49 dia**, e não os ~3,5 que a comparação ingênua sugeriria. O resto do desvio vem da
-**distribuição amostrada não ter a mesma média que a fórmula supõe** — o que é uma escolha de
-modelagem, não um defeito do PERT.
+**triangular não ter a mesma média que a fórmula do PERT supõe** — $(o+m+p)/3$ contra
+$(o+4m+p)/6$ —, o que é uma escolha de modelagem, não um defeito do PERT.
+
+> **E uma frase de sala de aula que não sobrevive à medição.** Diz-se que *"adotar a média dá 50% de
+> chance de estourar, porque metade das realizações fica acima dela"*. A segunda metade da frase é a
+> definição de **mediana**, não de média. Prazo de projeto é assimétrico à direita — a cauda longa é
+> a de atraso —, então a média fica **acima** da mediana e é estourada um pouco **menos** que
+> metade das vezes. Medido aqui: a média simulada (24,48) é estourada em **48,1%** das amostras, e
+> a mediana (24,30) em **50,0%** exatos. A diferença é pequena e não muda o veredito — nenhuma das
+> duas é compromisso —, mas o argumento correto é *"quase metade"*, e quem diz "por definição, metade"
+> está trocando as duas medidas de lugar.
 
 > **Esta honestidade custa a manchete e vale a pena.** Seria mais impressionante publicar "o PERT
 > erra 3,5 dias". Seria também falso: a maior parte desse número não é do método.

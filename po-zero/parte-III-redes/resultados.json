@@ -178,6 +178,39 @@
       ],
       "metodo": "enumeração de árvores geradoras"
     },
+    "custo_de_proibir_a_c": {
+      "aresta_proibida": [
+        "a",
+        "c",
+        "3"
+      ],
+      "custo_com": "17",
+      "custo_sem": "21",
+      "arestas_sem": [
+        [
+          "a",
+          "e",
+          "7"
+        ],
+        [
+          "b",
+          "c",
+          "5"
+        ],
+        [
+          "c",
+          "e",
+          "3"
+        ],
+        [
+          "d",
+          "e",
+          "6"
+        ]
+      ],
+      "perda": "4",
+      "perda_maior_que_o_peso_da_aresta": true
+    },
     "tsp_guloso": {
       "rota": [
         "a",
@@ -213,6 +246,80 @@
       "clara->treinamento"
     ],
     "todos_binarios": true
+  },
+  "designacao_por_ponto_interior": {
+    "empate_crossover_off": {
+      "n": 3,
+      "crossover": "off",
+      "objetivo": 3.0,
+      "valores": [
+        0.333333,
+        0.333333,
+        0.333333,
+        0.333333,
+        0.333333,
+        0.333333,
+        0.333333,
+        0.333333,
+        0.333333
+      ],
+      "todos_binarios": false,
+      "versao_do_highs": "1.15.1"
+    },
+    "empate_crossover_on": {
+      "n": 3,
+      "crossover": "on",
+      "objetivo": 3.0,
+      "valores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        -0.0,
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "todos_binarios": true,
+      "versao_do_highs": "1.15.1"
+    },
+    "unico_crossover_off": {
+      "n": 3,
+      "crossover": "off",
+      "objetivo": 9.0,
+      "valores": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "todos_binarios": true,
+      "versao_do_highs": "1.15.1"
+    },
+    "unico_crossover_on": {
+      "n": 3,
+      "crossover": "on",
+      "objetivo": 9.0,
+      "valores": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "todos_binarios": true,
+      "versao_do_highs": "1.15.1"
+    }
   },
   "cpm": {
     "duracao": "18",
@@ -253,6 +360,7 @@
     "simulacao": {
       "amostras": 20000,
       "semente": 20260813,
+      "distribuicao": "triangular(otimista, pessimista, provavel)",
       "projeto": {
         "media": 24.47570614758423,
         "mediana": 24.299298051766208,
@@ -264,7 +372,9 @@
         "p90": 29.163050413884132
       },
       "merge_bias": 0.49,
-      "prob_de_estourar_a_estimativa_do_pert": 0.8229
+      "prob_de_estourar_a_estimativa_do_pert": 0.8229,
+      "prob_de_estourar_a_media_simulada": 0.4808,
+      "prob_de_estourar_a_mediana_simulada": 0.5
     },
     "varredura_de_ramos": [
       {

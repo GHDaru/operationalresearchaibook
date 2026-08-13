@@ -86,8 +86,7 @@ Uma distribuição pequena o bastante para conferir à mão:
 
 ```
 fabrica --10--> centro_norte --6--> loja_a --6--> mercado
-fabrica --8---> centro_sul   --6--> loja_b --4--> mercado
-                centro_sul   --3--> loja_b
+fabrica --8---> centro_sul   --3--> loja_b --4--> mercado
                 centro_sul   --7--> loja_c --5--> mercado
                 centro_norte --6--> loja_b
 ```

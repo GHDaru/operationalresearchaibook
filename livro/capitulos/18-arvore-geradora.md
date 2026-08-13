@@ -37,6 +37,16 @@ puxar fibra. A pergunta é sempre a mesma — **que ligações construir para qu
 conectados, ao menor custo total** — e ela tem duas partes que se resolvem juntas: *quais* ligações
 e *quantas*.
 
+**O que se fazia antes** era desenhar à mão e conferir: um engenheiro traçava um conjunto de
+ligações que parecia razoável, somava o custo, e tentava outro. Funciona com cinco pontos e falha
+com quarenta, por dois motivos ao mesmo tempo — o número de configurações explode, e **não há como
+saber se a que se desenhou é a melhor**. A segunda falha é a pior: ela não aparece. Um traçado
+razoável e caro é indistinguível de um traçado ótimo, para quem não tem com o que comparar.
+
+> **Quem estava preso nisso, e quando, é `⏳` neste handbook.** A motivação por eletrificação e
+> telefonia é atribuição corrente da literatura didática, e não foi confirmada em fonte primária
+> nesta rodada.
+
 A segunda parte tem resposta fechada e vale saber: com $n$ pontos, **toda** solução conectada sem
 desperdício tem exatamente $n - 1$ ligações. Uma a menos desconecta; uma a mais fecha ciclo, e
 ciclo é gasto que não conecta ninguém novo.
@@ -47,9 +57,13 @@ O método é curto o bastante para caber numa frase: **ordene as ligações pelo
 uma que não feche ciclo**. Ele é guloso — decide olhando só o presente — e, ao contrário da
 maioria dos gulosos, **é ótimo, com prova**.
 
-A prova cabe em duas linhas e é a razão de este capítulo existir: se você corta o grafo em dois
-lados quaisquer, **a aresta mais barata que atravessa o corte está em alguma árvore ótima**. Isso é
-a *propriedade do corte*, e é ela — e não a sorte — que autoriza o guloso.
+O que autoriza isso tem nome: se você corta o grafo em dois lados quaisquer, **a aresta mais
+barata que atravessa o corte está em alguma árvore ótima**. É a *propriedade do corte*, e é ela — e
+não a sorte — que sustenta o guloso.
+
+> **Este capítulo enuncia a propriedade e não a demonstra**, do mesmo jeito que o
+> [capítulo 19](19-fluxo-maximo.md) exibe o teorema do corte mínimo em vez de prová-lo. Dizer isso
+> é mais honesto do que chamar o enunciado de prova.
 
 ### A ideia reaproveitável
 
@@ -97,6 +111,26 @@ cidades, e o algoritmo para.
 > árvores geradoras** da instância e toma a mais barata — e chega ao mesmo 17. Chegar ao mesmo
 > número por dois caminhos é o que separa uma medição de uma coincidência, e é a mesma disciplina
 > que o [capítulo 12](12-dualidade.md) usa ao montar o dual como problema próprio.
+
+### O que custa proibir uma ligação
+
+A pergunta aparece em todo projeto real — *"e se essa rota não estiver disponível?"* — e a resposta
+intuitiva está errada. Proibindo **a–c**, que custa 3:
+
+| | Custo |
+|---|---|
+| Árvore ótima | **17** |
+| Árvore ótima sem `a–c` | **21** |
+| **Perda** | **4** |
+
+**A aresta valia 3 e a perda foi 4.** O custo de proibir uma ligação **não é o custo dela** — aqui é
+maior. A razão é que a substituta não é a próxima aresta da lista: com `a–c` fora, o nó `a` fica
+isolado do resto e precisa da melhor reconexão **disponível depois que a topologia mudou**, que é
+`a–e` (7). A árvore inteira se reorganiza, e a conta é entre árvores, não entre arestas.
+
+> **A leitura para levar:** a pergunta *"quanto vale esta ligação?"* só tem resposta em relação ao
+> resto da rede. É o mesmo hábito de raciocínio do preço-sombra do [capítulo 13](13-sensibilidade.md)
+> — o valor de um recurso é o que muda no **ótimo** quando ele falta, e não o preço na etiqueta.
 
 ## O mesmo gesto, no problema ao lado
 
@@ -146,7 +180,8 @@ tanto, a pergunta é de fluxo, e é o [capítulo 19](19-fluxo-maximo.md).
 
 **4. Quando nem todo mundo precisa ser ligado.** Se dá para deixar pontos de fora, ou usar pontos
 intermediários que não estavam no conjunto, o problema é outro — **árvore de Steiner** — e ele é
-NP-difícil, ao contrário deste.
+**NP**-difícil (*não determinístico polinomial*, [capítulo 05](05-complexidade.md)), ao contrário
+deste.
 
 ## Fundamentos e fontes
 

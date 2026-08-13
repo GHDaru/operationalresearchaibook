@@ -25,7 +25,9 @@ O erro caro deste capítulo é o gesto que parece cuidado e é desperdício:
 
 > Alguém declara `cat="Binary"` porque *"pessoa não se divide"*, e paga o custo de resolução da
 > programação inteira num problema em que a estrutura já garantia a resposta. Em instâncias
-> pequenas ninguém percebe; em instâncias grandes, a diferença é de minutos para horas — **e a
+> pequenas ninguém percebe; em instâncias grandes o método muda de patamar, porque passa a haver
+> *branch-and-bound* onde não precisava haver — **este handbook não cronometrou essa diferença**, e
+> por isso não publica número. O que ele afirma é o outro custo, que independe de tempo: **a
 > análise de sensibilidade some junto**, porque modelo inteiro não tem preço-sombra.
 
 ## De onde isto veio
@@ -33,8 +35,9 @@ O erro caro deste capítulo é o gesto que parece cuidado e é desperdício:
 ### O aperto: os mesmos três problemas, em três apostilas
 
 Transporte, designação e transbordo chegaram ao ensino como três assuntos, cada um com o seu
-método tabular — o do canto noroeste, o húngaro, o de aproximação de Vogel. Aprendia-se a
-preencher três tabelas diferentes, e a semelhança entre elas ficava por conta do aluno.
+método tabular — o do canto noroeste, o húngaro, o de aproximação de Vogel, **nomes correntes cuja
+história este handbook não abriu em fonte primária** (⏳). Aprendia-se a preencher três tabelas
+diferentes, e a semelhança entre elas ficava por conta do aluno.
 
 ### A virada: perceber que os três eram um
 
@@ -96,6 +99,15 @@ O modelo declara `lowBound=0, upBound=1` — **contínuo**. A saída:
 | **Custo total** | **9** |
 
 **Todos os valores saem 0 ou 1**, e nenhuma variável foi declarada binária.
+
+> **Uma condição, e ela não é detalhe.** O que a estrutura garante é que **existe vértice ótimo
+> 0/1**. Quem entrega esse vértice é o Simplex, que para em vértice. Se o solver for de pontos
+> interiores com *crossover* desligado **e** houver empate no ótimo — duas pessoas igualmente boas
+> nas mesmas tarefas, que é o caso mais comum de todos em escala real —, a saída pode vir
+> fracionária, e **ótima**. O [capítulo 20](20-fluxo-custo-minimo.md) mede isso: numa designação
+> 3×3 de custos todos iguais, a resposta sai **1/3 em toda variável**. O conselho deste capítulo —
+> *não declare `Binary`* — vale com o *crossover* ligado, que é o padrão. **Desligou o *crossover*,
+> confira a saída.**
 
 > **Repare no que a solução ótima faz, porque é contraintuitivo.** `clara` é a mais rápida em
 > `treinamento` (1 hora) **e** seria melhor que `bruno` em `relatorio` (5 contra 6). O ótimo dá

@@ -9,7 +9,7 @@
 **O2.** **Reconhecer a hipótese que Dijkstra usa sem declarar**, e prever o que acontece quando ela
 não vale.
 
-**O3.** **Escolher** entre Dijkstra, Bellman-Ford e um modelo de Programação Linear a partir do que
+**O3.** **Escolher** entre Dijkstra, Bellman-Ford e um modelo de Programação Linear (PL) a partir do que
 o problema tem, e não do que é mais conhecido.
 
 ## O problema
@@ -56,8 +56,9 @@ porta ao lado.
 ### A origem do nome
 
 **Bellman-Ford** carrega dois nomes porque tem duas origens independentes, e a atribuição é
-`⏳` neste handbook. **"Relaxar" uma aresta** é o verbo do método e vem da física: uma corda tensa
-que se afrouxa até acomodar. A cada passada, as distâncias "afrouxam" para o valor menor que ainda
+`⏳` neste handbook. **"Relaxar" uma aresta** é o verbo do método, e a leitura de que ele venha da
+metáfora física — uma corda tensa que se afrouxa até acomodar — é **leitura editorial**, não
+etimologia documentada. A cada passada, as distâncias "afrouxam" para o valor menor que ainda
 cabe.
 
 ### Procedência
@@ -131,6 +132,34 @@ Ele relaxa **todas** as arestas, $|V| - 1$ vezes. Isso é mais caro — e compra
 
 Um método que devolve *"esta pergunta não tem resposta"* é melhor do que um que devolve um número
 qualquer, e o [capítulo 10](10-casos-especiais.md) já tinha dito isso sobre `Infeasible`.
+
+## Os problemas que não parecem caminho
+
+A promessa desta Parte é **enxergar a rede** ([capítulo 16](16-grafos-e-redes.md)), e caminho mínimo
+é onde ela rende mais, porque "caminho" quase nunca aparece no enunciado. Quatro casos:
+
+| A situação | O nó é | A aresta é | O peso é |
+|---|---|---|---|
+| **Trocar ou reformar** um equipamento ao longo de 5 anos | o ano | *"comprei no ano `i`, troco no ano `j`"* | custo de compra + manutenção − revenda |
+| **Cortar uma barra** de comprimento 100 em pedaços encomendados | o comprimento já cortado | um corte | desperdício daquele corte |
+| **Converter moedas** em sequência (real → euro → iene → real) | a moeda | a conversão possível | **−log** da taxa |
+| **Corrigir um texto** para outro, letra a letra | o par de posições | inserir, apagar ou trocar | 1 por operação |
+
+O primeiro é o mais útil e o menos óbvio. *"Quando trocar o caminhão?"* não tem cara de rede — mas
+uma política de troca **é** uma sequência de decisões ao longo do tempo, e toda sequência do ano 0
+ao ano 5 é um caminho. O mínimo desse grafo é a política mais barata, e sai em milissegundos de um
+problema que, enumerado, teria $2^5$ políticas.
+
+> **O terceiro merece um aviso, porque ele é a armadilha do capítulo.** Com **−log** da taxa,
+> multiplicar taxas vira somar pesos, e o caminho mínimo acha a melhor sequência de conversões. Só
+> que uma oportunidade de arbitragem — ganhar dinheiro dando a volta — é exatamente um **ciclo
+> negativo**. Dijkstra não pode ser usado aqui: os pesos são negativos sempre que a taxa for maior
+> que 1, e o método devolveria um número silenciosamente errado, como este capítulo mediu.
+> **Bellman-Ford é obrigatório**, e o veredito *"ciclo negativo"* deixa de ser aviso de erro para
+> virar **a resposta que se procurava**.
+
+Repare no que muda: o mesmo veredito é defeito num problema e produto no outro. **Quem enxerga a
+rede escolhe o método pela pergunta, e não pelo tamanho da instância.**
 
 ## Quando não serve
 

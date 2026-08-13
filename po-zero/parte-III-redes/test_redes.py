@@ -119,7 +119,8 @@ def test_a_bateria_do_capitulo_17_existe(exercicios):
 # CAPÍTULO 18 — a árvore, e o mesmo gesto no problema ao lado
 # ===========================================================================
 
-from redes import (CIDADES, REDE, fluxo_maximo, kruskal, mst_por_enumeracao,  # noqa: E402
+from redes import (CIDADES, REDE, custo_de_proibir, fluxo_maximo, kruskal,  # noqa: E402
+                   mst_por_enumeracao,
                    tsp_exato, tsp_guloso)
 
 CAP18 = RAIZ / "livro/capitulos/18-arvore-geradora.md"
@@ -151,6 +152,29 @@ def test_a_arvore_minima_confere_por_dois_caminhos():
 
 def test_o_custo_da_arvore_esta_no_capitulo(texto18):
     assert f"**Custo total: {kruskal(CIDADES)['custo']}.**" in texto18
+
+
+def test_o_custo_de_proibir_uma_aresta_confere(texto18):
+    """O único número da Parte III que era publicado sem medição — e era o único
+    errado. O gabarito de `cap18.exA` dizia 19 (o certo é 21) e tirava daí a
+    moral invertida: *"a perda é menor que o custo da aresta"*. É maior.
+    """
+    p = custo_de_proibir(CIDADES, "a", "c")
+    assert p["custo_com"] == "17" and p["custo_sem"] == "21"
+    assert p["perda"] == "4"
+    assert p["perda_maior_que_o_peso_da_aresta"] is True, \
+        "a instância parou de sustentar a lição: a perda deixou de superar o peso da aresta"
+    assert f"| Árvore ótima sem `a–c` | **{p['custo_sem']}** |" in texto18
+    assert f"| **Perda** | **{p['perda']}** |" in texto18
+
+
+def test_o_gabarito_do_exercicio_18A_bate_com_a_medicao(exercicios):
+    """O erro nasceu num gabarito, não no capítulo — então o teste lê o gabarito."""
+    p = custo_de_proibir(CIDADES, "a", "c")
+    ex = exercicios["cap18.exA"]
+    texto = " ".join(ex["criterios"]) + " " + ex["resposta_guia"]
+    assert f"**{p['custo_sem']}**" in texto, "o gabarito não publica o custo medido"
+    assert "**19**" not in texto, "o valor errado voltou ao gabarito"
 
 
 def test_o_guloso_perde_no_roteiro():
@@ -221,6 +245,28 @@ def test_a_aresta_de_maior_capacidade_nao_esta_no_corte(texto19):
     assert "**Investir numa aresta fora do corte não muda nada.**" in texto19
 
 
+def test_o_diagrama_do_capitulo_19_e_a_rede_medida(texto19):
+    """O desenho publicado **é** a instância, aresta por aresta.
+
+    Este teste nasceu de um defeito real: o diagrama trazia
+    `centro_sul --6--> loja_b`, aresta que não existe em `REDE` — o 6 é de
+    `centro_norte`. O fluxo máximo continuava 15 nas duas leituras, então
+    nenhum teste de número pegava. Um leitor conferindo à mão, sim.
+    """
+    import re
+    desenhadas = set()
+    # A lookahead no destino é necessária: num encadeamento `a --1--> b --2--> c`
+    # o `b` é destino de um salto e origem do seguinte, e um casamento que
+    # consumisse o destino perderia metade das arestas.
+    for u, cap, v in re.findall(r"(\w+)\s*--(\d+)-*>\s*(?=(\w+))", texto19):
+        desenhadas.add((u, v, int(cap)))
+    medidas = {(u, v, int(c)) for u, saidas in REDE.items() for v, c in saidas.items()}
+    assert desenhadas == medidas, (
+        "o diagrama do capítulo 19 não é a rede medida.\n"
+        f"  só no desenho: {sorted(desenhadas - medidas)}\n"
+        f"  só na medição: {sorted(medidas - desenhadas)}")
+
+
 def test_o_capitulo_19_diz_que_exibe_e_nao_demonstra(texto19):
     """A honestidade que separa medir um caso de provar um teorema."""
     assert "não prova" in texto19 and "exibe" in texto19
@@ -237,6 +283,7 @@ def test_as_baterias_de_18_e_19_existem(exercicios):
 
 from redes import (AMOSTRAS_PERT, CUSTO, DEMANDA, EQUIPE, FAIXAS, OFERTA,  # noqa: E402
                    PROJETO, SEMENTE, caminho_critico, designacao,
+                   designacao_por_ponto_interior,
                    pert_pela_formula, pert_por_simulacao, transporte,
                    transporte_com_estrutura_quebrada, varredura_de_ramos)
 
@@ -311,6 +358,38 @@ def test_a_designacao_sai_binaria_sem_variavel_binaria(texto21):
         assert f"| `{p} → {t}` | 1 |" in texto21, f"a designação {par} não confere"
 
 
+def test_a_garantia_de_integralidade_para_no_ponto_interior(texto20, texto21):
+    """Onde a garantia acaba — e o controle que prova que o limite é esse.
+
+    A unimodularidade total garante que **existe vértice ótimo inteiro**. Ela
+    não garante que o método usado pare num vértice. Com empate no ótimo e
+    pontos interiores sem *crossover*, a saída medida é fracionária, e o
+    objetivo continua ótimo — não é erro numérico, é outro ponto ótimo.
+
+    O controle é a instância de ótimo único (a EQUIPE do capítulo): ali a face
+    ótima é um ponto, e a saída sai 0/1 mesmo sem *crossover*. Sem esse
+    controle, o experimento não distinguiria "ponto interior" de "solver ruim".
+    """
+    empatado = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+    unico = [[EQUIPE[(p, t)] for t in ("relatorio", "auditoria", "treinamento")]
+             for p in ("ana", "bruno", "clara")]
+
+    sem_crossover = designacao_por_ponto_interior(empatado, "off")
+    assert sem_crossover["todos_binarios"] is False, \
+        "o contraexemplo do ponto interior morreu — os capítulos 20 e 21 dependem dele"
+    assert sem_crossover["objetivo"] == 3, "o ponto fracionário tem de ser ÓTIMO"
+    assert all(abs(v - 1 / 3) < 1e-5 for v in sem_crossover["valores"])
+
+    assert designacao_por_ponto_interior(empatado, "on")["todos_binarios"] is True
+    # o controle: ótimo único → a face é um ponto → 0/1 dos dois jeitos
+    assert designacao_por_ponto_interior(unico, "off")["todos_binarios"] is True
+    assert designacao_por_ponto_interior(unico, "off")["objetivo"] == 9
+
+    for texto in (texto20, texto21):
+        assert "crossover" in texto, \
+            "o capítulo garante integralidade sem dizer onde a garantia para"
+
+
 def test_o_codigo_da_designacao_nao_declara_binaria():
     """A afirmação central do capítulo 21, verificada no FONTE e não na saída.
 
@@ -363,6 +442,46 @@ def test_a_formula_subestima_e_o_capitulo_publica_quanto(texto22, pert):
     assert f"**{media}**" in texto22, f"a média simulada não confere: {media}"
     pct = f"{s['prob_de_estourar_a_estimativa_do_pert'] * 100:.1f}".replace(".", ",")
     assert f"**{pct}%**" in texto22, f"a probabilidade de estouro não confere: {pct}%"
+
+
+def test_a_mediana_e_o_p90_publicados_conferem(texto22, pert):
+    """Estes dois números eram publicados no enunciado de `cap22.exC` e não
+    apareciam em capítulo nenhum — número sem dono, que o leitor não podia
+    rastrear. Agora estão na página, e presos à medição."""
+    _, s = pert
+    for chave in ("mediana", "p90"):
+        valor = f"{s['projeto'][chave]:.2f}".replace(".", ",")
+        assert f"**{valor}**" in texto22, f"{chave} não confere: {valor}"
+
+
+def test_o_capitulo_22_declara_a_distribuicao_amostrada(texto22, pert):
+    """A escolha de modelagem que responde por 3 dos 3,5 dias de desvio.
+
+    O capítulo declarava a semente e omitia a distribuição — e um critério de
+    `cap22.exB` cobrava do aluno justamente "triangular contra a média beta".
+    Exercício insolúvel com o texto na mão.
+    """
+    _, s = pert
+    assert s["distribuicao"].startswith("triangular")
+    assert "triangular" in texto22, "a distribuição amostrada não está declarada"
+    assert "(o + m + p)/3" in texto22 or "(o+m+p)/3" in texto22, \
+        "o capítulo não diz qual é a média da distribuição que ele amostra"
+
+
+def test_media_e_mediana_nao_sao_a_mesma_coisa(texto22, pert):
+    """Contra a frase fácil: "metade das realizações fica acima da média".
+
+    Isso é a definição de mediana. A medição separa as duas, e o capítulo
+    tem de publicar a separação — senão a frase volta.
+    """
+    _, s = pert
+    assert s["prob_de_estourar_a_mediana_simulada"] == 0.5
+    assert s["prob_de_estourar_a_media_simulada"] < 0.5, \
+        "a distribuição deixou de ser assimétrica à direita — a lição do capítulo mudou"
+    assert s["projeto"]["media"] > s["projeto"]["mediana"]
+    for chave in ("prob_de_estourar_a_media_simulada", "prob_de_estourar_a_mediana_simulada"):
+        pct = f"{s[chave] * 100:.1f}".replace(".", ",")
+        assert f"**{pct}%**" in texto22, f"{chave} não aparece no capítulo: {pct}%"
 
 
 def test_o_vies_isolado_confere(texto22, pert):
