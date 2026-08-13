@@ -2614,5 +2614,71 @@
     ],
     "erro_provavel": "Citar o caso porque \"é de uma consultoria séria\". A seriedade de quem publica não substitui a informação que falta: sem linha de base, escopo e período, \"30%\" não é um resultado, é um número. E o erro simétrico é descartar o caso por ser propaganda — ele pode ser inteiramente verdadeiro. A postura útil não é acreditar nem descartar: é **pedir o que falta**, e notar que a ausência dessas informações é, ela própria, uma informação sobre o que o caso pode sustentar.",
     "resposta_guia": "As três perguntas: **qual é a linha de base** dos 30%; **o que mais mudou** no período além do projeto; e **o que está dentro** de \"custos logísticos\". Cada uma pode inverter a leitura — comparar com o orçado em vez do realizado, por exemplo, transforma economia em variação de planejamento. Linhas de base possíveis: o custo do ano anterior, o custo orçado, um cenário simulado sem o projeto, ou a média do setor — e as quatro dão números muito diferentes. A distinção entre operação anterior e cenário simulado decide quase tudo porque a primeira mistura o efeito do modelo com volume, preço de combustível e renegociações que aconteceram no mesmo ano, enquanto a segunda depende inteiramente de o cenário contrafactual ter sido construído com honestidade — e ele não é observável. Mesmo tudo correto, o caso pode não se aplicar a você por escala (uma malha de 11 centros não se comporta como uma de 200) ou por ponto de partida (quem estava muito mal melhora muito com pouco). Reescrita útil: *\"Comparado ao custo logístico realizado no ano anterior, com volume ajustado e escopo limitado a frete e armazenagem, a malha redesenhada operou 30% mais barata no primeiro ano; no mesmo período o preço médio do diesel caiu 6%.\"*"
+  },
+  {
+    "capitulo": 2,
+    "serie": "cap02",
+    "capacidade": "ciclo_modelagem",
+    "contexto": "livro",
+    "id": "cap02.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Em que etapa está cada um",
+    "enunciado": "Cinco frases ouvidas em corredores de empresa. Para **cada uma**: diga em que etapa do ciclo aquele projeto está, **qual entregável está faltando**, e qual é a próxima coisa a fazer.\n\n| | A frase |\n|---|---|\n| **a** | *\"O modelo roda em 4 minutos. Estamos vendo se dá para chegar a 2.\"* |\n| **b** | *\"Rodamos e deu 18% de economia. Vamos preparar a apresentação.\"* |\n| **c** | *\"A diretoria quer um estudo de otimização da malha. Começamos semana que vem.\"* |\n| **d** | *\"O time de operações disse que o plano não dá para executar por causa dos turnos.\"* |\n| **e** | *\"Entregamos o relatório em março. Não sei se usaram.\"* |\n\n6. Uma dessas cinco frases descreve um projeto que **está bem**, ainda que pareça problema. Qual, e por quê?\n7. Duas delas descrevem o **mesmo** defeito, em momentos diferentes. Quais, e qual é o defeito?",
+    "criterios": [
+      "**(a)** etapa 3 avançada — falta dizer **o que a resposta autoriza**; a próxima coisa não é acelerar o solver, é perguntar se 4 minutos já resolve o problema de quem decide",
+      "**(b)** etapa 3 terminando e pulando a 4 — falta **validação**: rodar contra o histórico e ouvir quem opera, antes da apresentação",
+      "**(c)** etapa 1 não iniciada — falta a frase com a alavanca, a medida e quem executa; a próxima coisa é essa conversa, não o cronograma",
+      "**(d)** etapa 4 **funcionando** — a objeção da operação é uma restrição faltando, dita em português, e o projeto volta à etapa 2 com informação nova",
+      "Identifica **(d)** como o projeto que está bem, e **(b)** e **(e)** como o mesmo defeito em momentos diferentes: ninguém garantiu que alguém decidiria diferente por causa do modelo"
+    ],
+    "erro_provavel": "Ler **(d)** como fracasso. É o item que separa quem entendeu o ciclo de quem decorou as etapas: a operação dizendo *\"não dá para executar\"* é a **etapa 4 fazendo exatamente o que ela existe para fazer** — trazendo à tona uma restrição que o modelo não tinha. O projeto volta à formulação com informação que não existia antes, e isso é progresso, não retrabalho. O erro simétrico é ler **(a)** como projeto adiantado: acelerar de 4 para 2 minutos é trabalho de engenharia que ninguém pediu, enquanto a pergunta \"o que este número autoriza decidir?\" segue sem resposta.",
+    "resposta_guia": "**(a)** Etapa 3, e adiantada — mas o entregável dela não é só a solução, é a solução **mais o que ela autoriza**. A próxima coisa não é acelerar o solver: é perguntar se 4 minutos atrapalham alguém, e se a resposta vem com faixa de validade. **(b)** Etapa 3 terminando e a 4 sendo pulada: falta validar contra o histórico e contra quem opera antes de qualquer apresentação — 18% de economia sem confronto com a realidade costuma esconder uma restrição que ninguém escreveu. **(c)** Etapa 1 sequer começou: não há alavanca, medida nem responsável, e o cronograma está sendo feito antes da pergunta. **(d)** Etapa 4 funcionando: a objeção *\"não dá por causa dos turnos\"* é uma restrição faltando, dita em português, e o projeto volta à etapa 2 com informação nova. **(e)** Etapa 5 falhando, ou nunca planejada. O projeto que está **bem** é o (d). E (b) e (e) são o mesmo defeito em momentos diferentes: em nenhum dos dois alguém garantiu, na etapa 1, que existiria quem decidisse diferente por causa do modelo — em (b) isso ainda dá para consertar; em (e), não."
+  },
+  {
+    "capitulo": 2,
+    "serie": "cap02",
+    "capacidade": "ciclo_modelagem",
+    "contexto": "livro",
+    "id": "cap02.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "dificil",
+    "titulo": "O modelo que nunca errou",
+    "enunciado": "Uma consultoria entrega o relatório final de um projeto de dimensionamento de frota. Entre as conclusões:\n\n> *\"O modelo foi executado 47 vezes ao longo do projeto e **não apresentou nenhuma inconsistência**. Recomendamos a redução de 12 para 9 veículos, com economia anual de R$ 2,1 milhões.\"*\n\n1. A frase em negrito é apresentada como qualidade. Por que ela é, na verdade, **motivo de preocupação**?\n2. Que **três** confrontos você pediria antes de aceitar a recomendação? Diga o que cada um pode revelar.\n3. Suponha que, ao rodar com os dados do ano passado, o modelo recomende 8 veículos — enquanto a operação real usou 12 e deu conta. O que isso indica, e o que **não** indica?\n4. A operação diz: *\"não dá para reduzir para 9 porque em dia de pico a gente usa todos os 12\"*. Isso é objeção, ou é dado? O que você faz com ela?\n5. Reescreva a frase do relatório de modo que ela seja **informativa** — isto é, que diga o que o modelo foi testado a fazer e o que ele não foi.",
+    "criterios": [
+      "Explica que \"nunca apresentou inconsistência\" descreve **ausência de teste**, não qualidade: um modelo só erra quando alguém o confronta, e 47 execuções sem confronto são 47 repetições da mesma suposição",
+      "Propõe três confrontos concretos — contra o **histórico**, contra **quem opera**, e contra o **próprio modelo** por sensibilidade —, dizendo o que cada um pode revelar",
+      "Lê a divergência do item 3 como **restrição faltando**, não como prova de que a operação é ineficiente; e reconhece que ela **não** indica que o modelo esteja errado — indica que há informação fora dele",
+      "Trata a fala da operação como **dado**, não como resistência: \"em dia de pico usamos todos\" é uma restrição de pico que o modelo não tem, e ela volta para a etapa 2",
+      "Reescreve a frase declarando o que foi testado e o que não foi — no espírito de \"o modelo foi confrontado com X e Y; não foi confrontado com Z\""
+    ],
+    "erro_provavel": "Aceitar \"nunca apresentou inconsistência\" como sinal de robustez. É a inversão exata: um modelo que nunca errou em 47 execuções ou foi muito bem validado — e aí o relatório diria **contra o quê** — ou nunca foi confrontado com nada capaz de contrariá-lo. A segunda hipótese é de longe a mais comum, e a frase, como está escrita, não distingue as duas. O segundo erro é tratar a objeção da operação como resistência à mudança: \"em dia de pico usamos todos os 12\" não é opinião, é **uma restrição de pico dita em português**, e descartá-la é jogar fora a informação mais barata que o projeto vai receber.",
+    "resposta_guia": "A frase preocupa porque descreve **ausência de teste**, não qualidade: um modelo só erra quando alguém o confronta com algo capaz de contrariá-lo, e 47 execuções sem confronto são 47 repetições da mesma suposição. Os três confrontos: contra o **histórico** — rodar com os dados do ano passado e comparar com o que de fato foi feito —, contra **quem opera** — mostrar a recomendação e ouvir a objeção —, e contra o **próprio modelo** — mexer nos dados e ver se a resposta muda de forma que faça sentido. Se, com os dados do ano passado, o modelo recomenda 8 e a operação usou 12 dando conta, isso indica que **há restrição fora do modelo**: quase nunca significa que a operação foi ineficiente por quatro veículos inteiros. E não indica que o modelo esteja errado — indica que ele está incompleto. A fala sobre o dia de pico é **dado**, não objeção: é uma restrição de pico, e ela volta para a etapa 2 como restrição nova, provavelmente mudando a recomendação. Reescrita informativa: *\"O modelo foi confrontado com o histórico de 12 meses e com a equipe de operação; não foi confrontado com cenários de pico sazonal nem com indisponibilidade de veículo por manutenção. Nas condições testadas, recomenda 9 veículos.\"*"
+  },
+  {
+    "capitulo": 2,
+    "serie": "cap02",
+    "capacidade": "ciclo_modelagem",
+    "contexto": "livro",
+    "id": "cap02.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Quando a resposta é não modelar",
+    "enunciado": "Quatro pedidos chegam na mesma semana. Para **cada um**, decida: **modelar** ou **não modelar**? Justifique pelo critério do capítulo, e diga o que você entrega no lugar quando a resposta for não.\n\n| | O pedido |\n|---|---|\n| **a** | *\"Preciso decidir o layout da loja nova que abre em três meses. É a primeira loja nesse formato.\"* |\n| **b** | *\"Todo dia às 6h alguém decide como distribuir 400 entregas entre 18 motoristas. Hoje é no olho.\"* |\n| **c** | *\"Quero um modelo que prove que a fusão das duas plantas compensa. A diretoria já decidiu fazer.\"* |\n| **d** | *\"Precisamos otimizar o estoque, mas o sistema não registra a data de validade dos lotes.\"* |\n\n5. Em dois casos a resposta \"não modelar\" **não** significa \"não faça nada\". Quais, e o que você entrega?\n6. Um dos quatro é o caso em que modelar tem o **maior retorno possível**. Qual, e o que o torna tão favorável?",
+    "criterios": [
+      "**(a)** não modelar — decisão **única**, sem repetição que pague o ciclo, e sem dado histórico do formato; entrega-se um roteiro de critérios e uma comparação de alternativas",
+      "**(b)** **modelar**, e é o caso de maior retorno: decisão **diária**, com alavanca clara, medida única e restrições reais — o ciclo se paga em dias",
+      "**(c)** não modelar — a decisão já está tomada e o modelo serviria de cobertura técnica; reconhecer isso é competência profissional, e o que se pode entregar é uma análise honesta dos riscos, dita como tal",
+      "**(d)** não modelar **ainda**: o projeto é de **dado**, não de otimização, e entregar isso cedo é o serviço mais valioso — sem validade de lote não há modelo de estoque perecível que se sustente",
+      "Identifica que **(a)** e **(d)** são os casos em que não modelar vem acompanhado de entrega, e **(b)** como o de maior retorno, pela repetição diária"
+    ],
+    "erro_provavel": "Aceitar **(c)**. É o pedido mais confortável dos quatro — vem com escopo claro, patrocínio da diretoria e resultado esperado conhecido — e é o único em que o trabalho técnico serve para **encerrar** uma discussão em vez de informá-la. Um modelo encomendado para provar uma conclusão já tomada não é modelo, é apresentação com equações; e quem o constrói empresta credibilidade a uma decisão que não examinou. O segundo erro é tratar **(d)** como \"modele com o que tem\": sem data de validade não existe modelo de estoque perecível que se sustente, e produzir um seria o caso do capítulo — modelo bom com dado inventado, pior do que nenhum porque tem aparência de rigor.",
+    "resposta_guia": "**(a)** Não modelar: a decisão é única, não há repetição que pague o ciclo, e é a primeira loja do formato — não há histórico para validar. Entregue um roteiro de critérios e uma comparação estruturada de alternativas, que é útil e honesto. **(b)** Modelar, e é o caso de maior retorno dos quatro: a decisão acontece **todo dia**, a alavanca é clara (a distribuição), a medida é única e as restrições são reais. Um ciclo completo se paga em dias, e o modelo passa a rodar sozinho. **(c)** Não modelar: a decisão já foi tomada e o modelo serviria de cobertura técnica. Isso não é cinismo, é reconhecer a natureza do pedido — e o que se pode entregar, se houver espaço, é uma análise dos riscos da fusão dita como análise de riscos, não como prova de que compensa. **(d)** Não modelar ainda: sem data de validade dos lotes não há modelo de estoque perecível que se sustente. O projeto é **de dado**, e dizer isso na primeira semana é o serviço mais valioso possível — o contrário é entregar um modelo com aparência de rigor sobre informação que não existe. Os casos em que \"não modelar\" vem com entrega são o (a) e o (d)."
   }
 ]

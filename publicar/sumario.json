@@ -23,9 +23,15 @@
           "teaser": "Escrito depois da Parte II de propósito: não promete o que o campo entrega — presta contas do que já foi medido."
         },
         {
+          "arquivo": "livro/capitulos/02-ciclo-de-modelagem.md",
+          "titulo": "02 — O ciclo de modelagem",
+          "maturidade": "v0",
+          "teaser": "O projeto raramente morre no algoritmo — e as duas pontas do ciclo são onde o dinheiro se perde."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Cinco vagas declaradas",
-          "teaser": "O ciclo de modelagem, anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
+          "titulo": "⬜ Quatro vagas declaradas",
+          "teaser": "Anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
         }
       ]
     },

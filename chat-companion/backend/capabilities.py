@@ -40,6 +40,10 @@ REGISTRO = [
      "descricao": "Aplico com você as quatro perguntas que decidem se um problema é de Pesquisa "
                   "Operacional — há alavanca? há medida única? há restrição? dá para dizer o que a "
                   "resposta NÃO autoriza? — e ajudo a julgar um caso publicado."},
+    {"chave": "ciclo_modelagem", "rotulo": "O ciclo de modelagem", "libera": 2, "tools": (),
+     "descricao": "Situo com você a tarefa nas cinco etapas — definir, formular, resolver, validar, "
+                  "implantar — e cobro o entregável que falta. Pergunto sempre a mesma coisa antes "
+                  "de ajudar a formular: quem vai decidir diferente por causa disto?"},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

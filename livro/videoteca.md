@@ -72,6 +72,7 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | Capítulo | Vídeo | Autor | Duração | Estado |
 |---|---|---|---|---|
 | 01 — O que é Pesquisa Operacional | [O que é Pesquisa Operacional — EP 1](https://www.youtube.com/watch?v=y5zDojg3hzo) | [João Sarubbi](https://www.youtube.com/@joaosarubbi) | 7min28s | **Definitivo** · fonte autorizada |
+| 02 — O ciclo de modelagem | [Modelagem matemática 1 em Pesquisa Operacional](https://www.youtube.com/watch?v=H2R-b-RDxf4) | [Acerte as Contas!](https://www.youtube.com/@acerteascontas) | 15min28s | **Definitivo** |
 | 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 18min04s | **Definitivo** |
 | 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 24min20s | **Definitivo** |
 | 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | [UNIVESP](https://www.youtube.com/@univesptv) | 18min48s | **Definitivo** |

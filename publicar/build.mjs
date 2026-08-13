@@ -238,6 +238,7 @@ const COMPANION_CAPS = [
   { chave: "mapa", rotulo: "Mapa do handbook", libera: 0 },
   { chave: "exercicios", rotulo: "Exercícios", libera: 1 },
   { chave: "o_que_e_po", rotulo: "O que é (e o que não é) PO", libera: 1 },
+  { chave: "ciclo_modelagem", rotulo: "O ciclo de modelagem", libera: 2 },
   { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
   { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },

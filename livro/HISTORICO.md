@@ -1316,3 +1316,42 @@ método", contradizendo a ADR 0013 D3, que mudou a unidade para a **Parte**.
 > com maiúscula. O `replace` silencioso teria passado despercebido se o script não imprimisse a
 > contagem, e esta edição já estaria publicando "dívida quitada" com a dívida intacta. **Toda
 > substituição deste repositório imprime quantas casou**, e é por isso.
+
+### Edição 0.29 — 2026-08-13 · A Parte I começa: o que é PO, e o ciclo que a sustenta
+
+Com a Programação Linear (PL) publicada, a Parte I passa a ser escrita — **nesta ordem de
+propósito**, que é a inversão declarada no [Roadmap](../ROADMAP.md). O capítulo 01 não promete o
+que o campo entrega: ele **presta contas** do que já foi medido nas etapas do `po-zero` e
+publicado nos capítulos 07 a 15. Um capítulo de abertura escrito antes teria feito a promessa
+sem ter como cumpri-la.
+
+**Entrou:**
+
+- **[Capítulo 01 — O que é Pesquisa Operacional](capitulos/01-o-que-e-po.md)**, 🟡 v0. As quatro
+  perguntas que decidem se um problema é de PO — há alavanca? há medida única? há restrição? dá
+  para dizer o que a resposta **não** autoriza? — e o exercício de julgar um caso publicado por
+  elas.
+- **[Capítulo 02 — O ciclo de modelagem](capitulos/02-ciclo-de-modelagem.md)**, 🟡 v0. As cinco
+  etapas e o entregável de cada uma, com a etapa 4 — validação — tratada como a mais pulada. O
+  sintoma que o capítulo ensina a reconhecer é sempre o mesmo: **o modelo nunca errou**, não por
+  ser bom, mas porque ninguém deu a ele a chance de errar.
+- **Seis exercícios** e **dois vídeos**, um por capítulo. O do capítulo 01 estreia — enfim — o
+  canal de **João Sarubbi** (CEFET-MG), que é a fonte curada primária desta Videoteca desde a
+  rodada de fundação e que nunca tinha sido usada.
+- **Duas capacidades no tutor**, `o_que_e_po` (libera 1) e `ciclo_modelagem` (libera 2). A
+  segunda cobra sempre a mesma pergunta antes de ajudar a formular qualquer coisa: **quem vai
+  decidir diferente por causa disto?**
+
+**O que o portão pegou, e vale registrar.** O capítulo 02 nasceu com a seção intitulada *"Quando
+não modelar"*. Está substantivamente certa — cinco casos em que modelar é a resposta errada —, e
+mesmo assim **o build falhou**: o Princípio II é não-negociável e o portão procura a seção pelo
+nome. Renomear para *"Quando não serve — quando não modelar"* não é burocracia satisfeita: é o
+capítulo assumindo que **o ciclo também é um método**, e que a régua que ele aplica ao Simplex se
+aplica a ele mesmo.
+
+**A dívida que os dois capítulos declaram, e não disfarçam:** a origem do ciclo em cinco etapas,
+`❌` procurada e não localizada em fonte primária; e a afirmação corrente de que projetos de PO
+fracassam mais por definição e adoção do que por método — `⏳`, **não medida aqui e não citada de
+memória**. Os dois capítulos nascem 🟡 porque nenhum dos dois produz número próprio: os que
+aparecem são citação dos capítulos que os mediram, com teste que compara o texto publicado à
+medição.
