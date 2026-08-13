@@ -1,0 +1,217 @@
+{
+  "pior_caso_do_cubo": [
+    {
+      "n": 2,
+      "vertices": 4,
+      "esperado": 3,
+      "status": "otimo",
+      "pivos": 3
+    },
+    {
+      "n": 3,
+      "vertices": 8,
+      "esperado": 7,
+      "status": "otimo",
+      "pivos": 7
+    },
+    {
+      "n": 4,
+      "vertices": 16,
+      "esperado": 15,
+      "status": "otimo",
+      "pivos": 15
+    },
+    {
+      "n": 5,
+      "vertices": 32,
+      "esperado": 31,
+      "status": "otimo",
+      "pivos": 31
+    },
+    {
+      "n": 6,
+      "vertices": 64,
+      "esperado": 63,
+      "status": "otimo",
+      "pivos": 63
+    },
+    {
+      "n": 7,
+      "vertices": 128,
+      "esperado": 127,
+      "status": "otimo",
+      "pivos": 127
+    }
+  ],
+  "pior_caso_perturbado": {
+    "n": 6,
+    "amostras": 200,
+    "medicoes": [
+      {
+        "n": 6,
+        "magnitude": "1/1000",
+        "amostras": 200,
+        "minimo": 63,
+        "mediana": "63",
+        "maximo": 63,
+        "intactas": 200,
+        "puro": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/100",
+        "amostras": 200,
+        "minimo": 63,
+        "mediana": "63",
+        "maximo": 63,
+        "intactas": 200,
+        "puro": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/10",
+        "amostras": 200,
+        "minimo": 49,
+        "mediana": "63",
+        "maximo": 63,
+        "intactas": 147,
+        "puro": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/4",
+        "amostras": 200,
+        "minimo": 23,
+        "mediana": "49",
+        "maximo": 63,
+        "intactas": 18,
+        "puro": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/2",
+        "amostras": 200,
+        "minimo": 13,
+        "mediana": "33",
+        "maximo": 63,
+        "intactas": 2,
+        "puro": 63
+      }
+    ]
+  },
+  "varredura_em_n": {
+    "1/100": [
+      {
+        "n": 4,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 15
+      },
+      {
+        "n": 5,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 31
+      },
+      {
+        "n": 6,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 63
+      },
+      {
+        "n": 7,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 127
+      },
+      {
+        "n": 8,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 255
+      }
+    ],
+    "1/10": [
+      {
+        "n": 4,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 15
+      },
+      {
+        "n": 5,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 23,
+        "puro": 31
+      },
+      {
+        "n": 6,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 20,
+        "puro": 63
+      },
+      {
+        "n": 7,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 13,
+        "puro": 127
+      },
+      {
+        "n": 8,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 7,
+        "puro": 255
+      }
+    ]
+  },
+  "instancias_aleatorias": [
+    {
+      "n": 5,
+      "amostras": 200,
+      "minimo": 1,
+      "mediana": "2",
+      "maximo": 6,
+      "pior_caso_construido": 31
+    },
+    {
+      "n": 10,
+      "amostras": 200,
+      "minimo": 1,
+      "mediana": "4",
+      "maximo": 12,
+      "pior_caso_construido": 1023
+    },
+    {
+      "n": 15,
+      "amostras": 200,
+      "minimo": 2,
+      "mediana": "5",
+      "maximo": 16,
+      "pior_caso_construido": 32767
+    },
+    {
+      "n": 20,
+      "amostras": 200,
+      "minimo": 2,
+      "mediana": "7",
+      "maximo": 19,
+      "pior_caso_construido": 1048575
+    }
+  ],
+  "versoes": {
+    "python": "3.11.15",
+    "aritmetica": "fractions.Fraction (exata)"
+  },
+  "semente_base": 20260813
+}

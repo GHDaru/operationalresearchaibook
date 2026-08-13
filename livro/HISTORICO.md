@@ -1167,3 +1167,492 @@ cai para 🔵. Importa duplamente porque o teto do portão de razão é `3 × �
 
 **Verificação:** nove portões verdes com os dois novos incluídos, `40 passed` no `po-zero`,
 `24 passed` no backend.
+
+### Edição 0.25 — 2026-08-13 · O capítulo 09 perde o ✅, e o que a revisão achou junto
+
+A revisão em contexto fresco que faltava ao capítulo 09 foi feita — e **rebaixou o selo para 🔵**.
+O capítulo é genuinamente medido: todo número publicado sai da etapa 03, reproduz com o mesmo
+`md5` e concorda com o HiGHS por **veredito**, não só por ponto. O que ele não tinha era a revisão
+que o ✅ promete, e ela achou defeitos em conteúdo **publicado**.
+
+**Duas afirmações que o próprio livro desmente com medição.** A caixa da garantia dizia que trocar
+a regra de pivoteamento *"muda quantas iterações o método gasta — nunca **onde** ele termina"*, e o
+[capítulo 10](capitulos/10-casos-especiais.md) mede o contrário: com múltiplos ótimos, Dantzig para
+num plano e Bland em outro. Dizia também que *"enquanto houver custo reduzido negativo, existe
+vértice melhor"* — falso sob degenerescência, e se fosse verdade a ciclagem de período 6 que o
+capítulo 10 exibe não poderia existir. **Corrigido**: a garantia agora afirma o que sobrevive — o
+**valor** ótimo não muda — e as duas qualificações apontam para onde foram medidas.
+
+**Uma fórmula errada na primeira tabela do capítulo.** *"Um modelo em forma padrão com $n$
+variáveis e $m$ restrições tem $\binom{n+m}{m}$ bases"* — em forma padrão com $n$ variáveis são
+$\binom{n}{m}$. O enunciado agora diz o que o script calcula e o que o exercício A já cobrava
+corretamente: $n$ variáveis de decisão **mais** $m$ folgas.
+
+**A terceira reincidência do mesmo defeito.** O corpo afirmava como fato a cena de Motzkin
+batizando o método, enquanto a tabela de procedência do mesmo capítulo marcava `⏳`. É o defeito
+que apareceu no 12, voltou no 14 e agora aparece no 09 — em conteúdo publicado há mais tempo.
+Corrigido, e com a lição preservada de um jeito que **não depende da atribuição**: o método não
+manipula simplex nenhum, e isso se verifica lendo o algoritmo.
+
+**Dois erros menores de história, em afirmações seladas `✓`:** o economista é **T. C.** Koopmans, e
+a inicial errada veio da própria fonte consultada, propagada sem conferência; e a frase *"um mês
+antes de a Força Aérea existir"* estava mais forte do que a fonte, que ancora o mês ao *National
+Security Act* de 26/07/1947 — a Força Aérea só existe como ramo em 18/09. **A fonte estava `✓` e a
+paráfrase excedia o que ela cobria**, o que é um modo de errar que o selo não pega.
+
+**Dívida declarada, junto:** o capítulo maximiza do início ao fim e nunca instalava a convenção de
+minimização — que o exercício H cobrava. A convenção entrou; o tratamento próprio de minimização,
+inclusive o que muda no *big-M*, fica declarado como dívida.
+
+**Efeito no freio, e ele é o ponto.** O handbook fica em **🟡7 · 🔵2 · ✅3**, e o teto do portão de
+razão cai de 12 para **9**. Restam **duas** vagas 🟡 antes de o build ficar vermelho — o lote da
+Parte I, planejado com seis capítulos, **não cabe mais**. É exatamente o que a ADR 0013 D2 queria
+que acontecesse: um ✅ que não se sustentava estava afrouxando o freio com dado próprio.
+
+### Edição 0.26 — 2026-08-13 · O selo passa a exigir evidência, e cinco capítulos sobem
+
+A revisão do capítulo 09 mostrou o que acontece quando um selo não tem evidência atrás: ele
+afrouxa o freio com dado próprio. A resposta não foi rebaixar aquele capítulo e seguir — foi tirar
+do humano a decisão sobre o selo, do mesmo jeito que o `verifica-otimos.mjs` tirou do humano a
+conferência de aritmética.
+
+**O que o portão passou a exigir.** A ADR 0013 D2 define 🔵 como *"🟡 mais experimento no `po-zero`
+que regenera cada número"*. A evidência mais forte que este repositório sabe produzir disso é o
+**teste que lê o arquivo do capítulo** — o vínculo criado na rodada 009, depois de duas faixas
+erradas terem sido publicadas. Ele quebra quando a medição muda e o texto não, **e vice-versa**.
+
+Agora: capítulo declarado 🔵 ou ✅ **sem** teste que o leia falha o build; e capítulo declarado 🟡
+**com** teste que o leia também falha, porque o selo está abaixo do que a evidência sustenta.
+
+**Cinco capítulos subiram, e quem decidiu foi o portão.** Ao instalar a regra, o build acusou
+`12-dualidade`, `13-sensibilidade`, `14-pontos-interiores`, `15-modelagem-aplicada` e
+`38-convexidade` como declarados 🟡 tendo evidência de 🔵. Não houve auto-avaliação: a lista saiu da
+medição.
+
+**Dívida declarada, retroativa de propósito.** Os capítulos 07 a 10 foram medidos **antes** de o
+vínculo automático existir — têm `experimento.py`, `resultados.json` e reprodutibilidade por `md5`
+conferida à mão. Fingir que o vínculo existe seria mentir; rebaixá-los por uma prática que não
+existia quando foram escritos apagaria medição real. Entram em `SEM_VINCULO_AUTOMATICO`, em código,
+e **cada entrada é trabalho pendente, não isenção permanente** — o portão avisa quando uma delas
+for quitada e alguém esquecer de tirá-la da lista.
+
+**Estado:** 🟡2 · 🔵7 · ✅3. O teto do portão de razão é 9 e há 2 capítulos em 🟡 — o lote da Parte I
+volta a caber, com folga de cinco vagas.
+
+**Provado quebrando** nos dois sentidos antes de entrar.
+
+### Edição 0.27 — 2026-08-13 · O portão da procedência, e o que ele não pega
+
+O defeito "o corpo afirma o que a tabela nega" apareceu **quatro** vezes, em quatro capítulos —
+12, 14, 09 e agora **08**, encontrado por este portão. Prometer atenção não conserta padrão que
+reincide, então ele virou código.
+
+**O que ele mede.** Para cada linha `⏳`/`❌` da tabela de Procedência, extrai os termos que carregam
+a afirmação — nomes próprios e anos. Se um deles aparece no corpo, exige **ressalva por perto**.
+
+**A calibração mudou a regra, e a mudança importa.** A primeira versão exigia o glifo `⏳` e acusou
+o capítulo 10 por dizer *"costuma ser atribuída a Beale (1955)"* — que é exatamente a ressalva que a
+constituição pede, escrita em português em vez de em símbolo. Exigir o glifo seria exigir
+formatação, e portão que persegue formatação treina quem escreve a satisfazê-lo em vez de a pensar.
+O portão passou a procurar a **marca de atribuição**, no glifo ou na prosa.
+
+**Uma limitação declarada, e ela é do parser, não do texto.** Linha de estado **misto** —
+`✓ᵐ metadados; ⏳ enunciado exato` — fica fora do alcance: o portão não sabe a que metade da célula
+cada termo pertence, e chutar produziria o falso vermelho que ele existe para não produzir. Duas
+linhas do handbook estão nesse caso, e elas continuam sendo leitura humana.
+
+**O defeito real que ele achou:** o capítulo 08 — que carrega selo ✅ — afirmava como fato a
+redescoberta de Fourier–Motzkin em 1936 e a cena da conversa com Dantzig, com as duas marcadas `⏳`
+na própria tabela. Corrigido, e com a lição preservada de um jeito que não depende da atribuição.
+
+**O QUE ELE NÃO PEGA, medido e dito.** Ele cobre a forma **grosseira** — termo sem ressalva
+nenhuma por perto. Não cobre o termo ressalvado num lugar e afirmado em outro, que é o caso
+original do capítulo 12: removendo a ressalva de lá, o portão continua verde. A régua estrita foi
+medida e acusou "Karmarkar" num capítulo que trata de Karmarkar do início ao fim — troca um buraco
+por falso vermelho crônico. **Proximidade não decide se uma frase afirma**, e o resto continua
+sendo leitura humana. O ganho real é outro: o padrão tem nome, tem quatro ocorrências documentadas,
+e entra na instrução de toda revisão em contexto fresco.
+
+### Edição 0.28 — 2026-08-13 · Os cadernos entram, e entram sem poder derivar
+
+O autor acrescentou os **cadernos Colab** ao escopo da v0. Decisão de médio impacto pela régua da
+skill `longrun`: foi a comitê de três lentes, cada recomendação foi reconferida por medição
+própria, e o resultado está na
+[ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md).
+
+**A decisão central:** o caderno é **invólucro que importa o script**, nunca cópia. O `.py` é a
+fonte única; o caderno clona o repositório, importa o módulo e chama funções — e **`def` e `class`
+são proibidos nas células**. Uma cópia em caderno da função que publicou `13/2` ainda estaria
+exibindo o número errado hoje, com ar de autoridade.
+
+**A alternativa que parecia melhor foi testada e quebra.** Gerar o caderno a partir do `.py` por
+conversor falha em `NameError: name '__file__' is not defined` — os módulos resolvem caminho por
+`Path(__file__)`, que não existe num caderno. Consertar exigiria refatorar seis módulos, contra o
+pedido explícito de simplicidade.
+
+**Saída gravada no `.ipynb` é defeito, não conveniência.** Uma célula com saída salva é número
+publicado **fora de qualquer portão** — a classe de defeito das duas faixas erradas, ressuscitada
+num artefato que o build não olha. O caderno é commitado limpo, e o teste falha se não estiver.
+
+**O caderno faz o que a página não faz**, ou não vale existir: uma célula **"mexa aqui"** e **o
+erro rodado antes da correção**. No livro, o certo e o errado aparecem lado a lado e o leitor nunca
+chega a errar; no caderno ele roda o telefonema, se compromete com uma conclusão, e **só então** vê
+o prejuízo de R$ 350 aparecer. É o exercício `diagnosticar` encenado.
+
+**Sete testes por caderno**, sem Jupyter e sem rede: `.ipynb` é JSON, e o clone vira um atalho para
+a árvore de trabalho — então o caderno roda contra o código de **hoje**, não o publicado. O
+sétimo é o que eu ia esquecer: **caderno órfão falha**. Ele pegou este na primeira execução.
+
+**E o comitê achou um buraco maior que a decisão:** o CI **nunca rodou** os testes do `po-zero`. O
+filtro `paths:` não incluía o diretório e não havia passo que os executasse — as seis suítes que
+sustentam o selo 🔵 nunca tinham rodado lá. Consertado **antes** do primeiro caderno, porque
+acrescentar artefato novo a um pipeline que não cobre o antigo é multiplicar o buraco.
+
+**Dívida quitada de quebra:** o `po-zero/README.md` ainda dizia "Uma etapa por capítulo de
+método", contradizendo a ADR 0013 D3, que mudou a unidade para a **Parte**.
+
+> **Nota de método, porque o episódio é instrutivo.** A primeira tentativa de corrigir usou a
+> frase que o parecer citou, em minúscula, e substituiu **zero** ocorrências — o texto real começa
+> com maiúscula. O `replace` silencioso teria passado despercebido se o script não imprimisse a
+> contagem, e esta edição já estaria publicando "dívida quitada" com a dívida intacta. **Toda
+> substituição deste repositório imprime quantas casou**, e é por isso.
+
+### Edição 0.29 — 2026-08-13 · A Parte I começa: o que é PO, e o ciclo que a sustenta
+
+Com a Programação Linear (PL) publicada, a Parte I passa a ser escrita — **nesta ordem de
+propósito**, que é a inversão declarada no [Roadmap](../ROADMAP.md). O capítulo 01 não promete o
+que o campo entrega: ele **presta contas** do que já foi medido nas etapas do `po-zero` e
+publicado nos capítulos 07 a 15. Um capítulo de abertura escrito antes teria feito a promessa
+sem ter como cumpri-la.
+
+**Entrou:**
+
+- **[Capítulo 01 — O que é Pesquisa Operacional](capitulos/01-o-que-e-po.md)**, 🟡 v0. As quatro
+  perguntas que decidem se um problema é de PO — há alavanca? há medida única? há restrição? dá
+  para dizer o que a resposta **não** autoriza? — e o exercício de julgar um caso publicado por
+  elas.
+- **[Capítulo 02 — O ciclo de modelagem](capitulos/02-ciclo-de-modelagem.md)**, 🟡 v0. As cinco
+  etapas e o entregável de cada uma, com a etapa 4 — validação — tratada como a mais pulada. O
+  sintoma que o capítulo ensina a reconhecer é sempre o mesmo: **o modelo nunca errou**, não por
+  ser bom, mas porque ninguém deu a ele a chance de errar.
+- **Seis exercícios** e **dois vídeos**, um por capítulo. O do capítulo 01 estreia — enfim — o
+  canal de **João Sarubbi** (CEFET-MG), que é a fonte curada primária desta Videoteca desde a
+  rodada de fundação e que nunca tinha sido usada.
+- **Duas capacidades no tutor**, `o_que_e_po` (libera 1) e `ciclo_modelagem` (libera 2). A
+  segunda cobra sempre a mesma pergunta antes de ajudar a formular qualquer coisa: **quem vai
+  decidir diferente por causa disto?**
+
+**O que o portão pegou, e vale registrar.** O capítulo 02 nasceu com a seção intitulada *"Quando
+não modelar"*. Está substantivamente certa — cinco casos em que modelar é a resposta errada —, e
+mesmo assim **o build falhou**: o Princípio II é não-negociável e o portão procura a seção pelo
+nome. Renomear para *"Quando não serve — quando não modelar"* não é burocracia satisfeita: é o
+capítulo assumindo que **o ciclo também é um método**, e que a régua que ele aplica ao Simplex se
+aplica a ele mesmo.
+
+**A dívida que os dois capítulos declaram, e não disfarçam:** a origem do ciclo em cinco etapas,
+`❌` procurada e não localizada em fonte primária; e a afirmação corrente de que projetos de PO
+fracassam mais por definição e adoção do que por método — `⏳`, **não medida aqui e não citada de
+memória**. Os dois capítulos nascem 🟡 porque nenhum dos dois produz número próprio: os que
+aparecem são citação dos capítulos que os mediram, com teste que compara o texto publicado à
+medição.
+
+### Edição 0.30 — 2026-08-13 · Capítulo 03: três das quatro peças erram em silêncio
+
+**Entrou:** o [capítulo 03 — Anatomia de um modelo de otimização](capitulos/03-anatomia-do-modelo.md),
+🟡 v0, com três exercícios, vídeo curado e a capacidade `anatomia_modelo` (libera 3) no tutor.
+
+**O recorte, que não é o usual.** Um capítulo de anatomia costuma ser vocabulário: aqui está a
+variável, aqui está o objetivo, aqui está a restrição. Este organiza as quatro peças **pelo erro
+que cada uma produz**, porque a assimetria entre elas é o que vale ensinar:
+
+> Três das quatro peças, quando erradas, produzem um modelo que roda e devolve `Optimal`. Só a
+> restrição tem chance de gritar — e mesmo ela grita em apenas metade dos casos.
+
+**O instrumento do capítulo é o teste da unidade**, que custa um minuto e pega o que o solver não
+pega: unidade incoerente, coeficiente na escala errada, e a variável que virou parâmetro sem
+ninguém notar.
+
+**O exercício C ensina o limite do próprio instrumento.** Ele traz um modelo de transportadora que
+**passa** no teste da unidade — todos os termos fecham em reais, todas as restrições fecham em
+quilômetros — e ainda assim está errado: o quilometrado entrou como variável de decisão, e
+quilometrado não é algo que alguém decide. Quem procurar o defeito na unidade não vai achar, e é
+esse o ponto.
+
+**E a rubrica desse exercício não ficou solta.** Ela afirma que o Simplex cola o quilometrado no
+piso da malha, e o portão de ótimo não alcança a afirmação — ele só resolve modelos de duas
+variáveis, e esse tem três. Em vez de isentar e seguir, a conferência foi para
+`po-zero/etapa-01-formulacao/test_anatomia.py`, em aritmética exata, pelo mesmo Simplex da etapa 03
+que sustenta os selos 🔵 da Parte II. **Um número novo não entra no handbook por um caminho novo.**
+
+A medição trouxe um achado que a rubrica não tinha: com a variável errada, o modelo recomenda
+**zero caminhões próprios** e 200 terceirizações. O dano do defeito, visível.
+
+**O que o portão pegou desta vez:** o capítulo 01 apontava *"capítulo 03"* para o mapa do handbook,
+e o capítulo 03 passou a existir. O portão de costura barrou o link obsoleto no mesmo build em que
+a página nasceu — que é exatamente quando um link desses costuma passar despercebido.
+
+**A dívida declarada:** o aperto histórico que produziu a forma comum de escrever modelos entra
+`⏳`. A narrativa é estrutural e verificável no que existe hoje; **o que falta é a citação primária
+que a date e a atribua**, e enquanto ela faltar a linha não muda de estado.
+
+### Edição 0.31 — 2026-08-13 · Capítulo 04: a classe decide o que você pode prometer
+
+**Entrou:** o [capítulo 04 — Classificação de problemas e escolha de método](capitulos/04-classificacao-e-escolha.md),
+🟡 v0, com três exercícios, vídeo curado e a capacidade `classificacao` (libera 4) no tutor.
+
+**O recorte.** Uma tabela de classes é a parte do assunto que se decora e não se usa. Este
+capítulo troca o eixo da tabela: cada travessia é apresentada pela **garantia que ela destrói**, e
+não pela técnica que ela exige.
+
+> Sair do linear elimina a certeza de que o ótimo está numa quina. Exigir integralidade invalida o
+> teorema do vértice. Admitir incerteza faz desaparecer *"a"* solução ótima. E sair da convexidade
+> reduz `Optimal` a *"não achei nada melhor por aqui"* — a distância entre **22 e 30** que o
+> capítulo 38 mediu.
+
+**O capítulo fecha numa decisão de três, e não numa taxonomia:** o ótimo provado, o ótimo com
+*gap* declarado, e "a melhor que encontrei". A do meio é a mais subestimada, e o exercício C
+insiste nela: um *gap* de 1,8% é **teto**, não estimativa — o ganho real de continuar pode ser
+zero, porque a solução em mãos pode já ser a ótima e faltar apenas a prova.
+
+**Duas fontes novas, e as duas entram `✓ᵐ`.** Gomory (1958) e Land & Doig (1960) tiveram autor,
+veículo, ano e página conferidos no Crossref; **o conteúdo não foi lido**. A atribuição do
+*branch-and-bound* e a do método dos cortes ficam declaradas como **correntes** — na bibliografia
+e no corpo do capítulo. O que é `✓` **lido** é o outro fio: o sentido militar de *programming*, a
+expressão original de Dantzig e o batismo por Koopmans em 1948, todos do MacTutor.
+
+> **O parser da bibliografia tinha um defeito, e foi o sobrenome Doig que o revelou.** A entrada de
+> **LAND, A. H.; DOIG, A. G.** falhava com *"ano não extraível"* — com o ano no lugar de sempre. O
+> extrator procurava o ano antes do link de DOI cortando o texto na primeira ocorrência das três
+> letras `DOI`, e elas aparecem **dentro do sobrenome DOIG**. A correção não foi reescrever a
+> entrada para agradar o portão: foi o portão parar de confundir nome próprio com marcador de
+> campo. Um parser que falha por causa de um sobrenome falharia de novo, em silêncio, na próxima
+> bibliografia.
+
+### Edição 0.32 — 2026-08-13 · Capítulo 05: o pior caso existe, e não é frágil como se diz
+
+**Entrou:** o [capítulo 05 — Complexidade computacional para quem modela](capitulos/05-complexidade.md),
+🔵 **medido** — o primeiro capítulo da Parte I a nascer com experimento próprio —, com três
+exercícios, vídeo curado e a capacidade `complexidade` (libera 5) no tutor. E, com ele, a etapa
+`po-zero/parte-I-fundamentos`, a primeira criada já sob a regra de **uma etapa por Parte**
+(ADR 0013, D3).
+
+**A frase que o capítulo existe para desmontar** é dita por gente competente todo dia: *"esse
+problema é NP-difícil, então vamos direto para uma heurística."* Ela parece rigor e é o contrário
+— uma decisão de projeto tomada sem medir nada, com autoridade emprestada de um teorema que fala
+de outra coisa. E o prejuízo é invisível: quem descarta o método exato descarta junto o
+**limitante**, que era a única coisa capaz de dizer depois se a heurística ficou boa.
+
+**Três medições, em aritmética exata.**
+
+1. **O pior caso existe e é construído.** O cubo de Klee–Minty custa exatamente $2^n-1$ pivôs, de
+   $n=2$ a $n=7$. Não é tendência: é o valor exato em todos os tamanhos medidos.
+2. **A instância aleatória fica longe dele.** Mesmo tamanho, sem malícia: mediana de **2 a 7
+   pivôs**, contra pior caso teórico de 31 a mais de um milhão.
+3. **E o pior caso não é frágil** — que é o resultado desta edição.
+
+**Sobre o terceiro, com todas as letras.** Circula junto com Klee–Minty a frase *"tudo bem, o pior
+caso é frágil; qualquer perturbaçãozinha desmancha"*. Testar custa minutos, e a medição **não
+sustenta a frase**: com $n=6$, perturbar a matriz de restrições em **0,1%, 1% ou 10% deixa os 63
+pivôs absolutamente intactos**. Só em 25% (57 pivôs) e 50% (22) o caminho encurta — e aí a
+instância já é honestamente outra instância.
+
+> **O que a medição não autoriza concluir, e o capítulo diz isso em prosa:** ela **não** refuta a
+> análise suavizada de Spielman & Teng (2004). Aquele teorema é assintótico, vale **em esperança**,
+> supõe perturbação **gaussiana** e uma regra de pivoteamento específica — nenhuma das três
+> condições vale na tabela. O que a medição refuta é a **leitura popular** do teorema. Há teste que
+> falha se essa ressalva desaparecer numa revisão de estilo, porque sem ela o capítulo passaria a
+> afirmar algo que a medição não sustenta, e nenhum outro portão pegaria.
+
+**Três fontes novas, todas `✓ᵐ`:** Edmonds (1965), Cook (1971) e Karp (1972), com metadados
+conferidos no Crossref e **conteúdo não lido**. As atribuições — critério polinomial, NP-completude,
+lista de reduções — entram declaradas como **correntes**. O artigo original de Klee e Minty (1972)
+**não tem DOI localizado** e fica como ponteiro: o handbook não depende dele, porque constrói e
+mede o cubo.
+
+**O que a nova etapa não reimplementa:** nem o Simplex nem o cubo. Os dois vêm da `etapa-03`, por
+`sys.path`. Reimplementar criaria uma segunda fonte da verdade para números que o livro já
+publicou no capítulo 09 — a classe de defeito que a ADR 0016 proíbe nos cadernos, e que não tem por
+que ser tolerada entre etapas.
+
+### Edição 0.33 — 2026-08-13 · Capítulo 06, e a Parte I fecha
+
+**Entrou:** o [capítulo 06 — Ferramentas de trabalho](capitulos/06-ferramentas.md), 🔵 **medido**,
+com três exercícios, vídeo curado e a capacidade `ferramentas` (libera 6). **Com ele a Parte I
+fecha**: seis vagas declaradas na rodada de fundação, seis publicadas.
+
+**Um capítulo de ferramenta é o mais fácil de escrever mal**, porque a tentação é entregar um
+folheto — *instale isto, escreva assim*. O que impede aqui são três medições, e as três mudam o
+modo de ler uma saída de solver.
+
+1. **Com múltiplos ótimos, a ferramenta escolhe o seu plano.** Mesmo modelo, valor **10** nos
+   três; o Simplex exato devolve **(6, 4)** e os dois solvers devolvem **(2, 8)**. Nenhum está
+   errado — e é o **plano**, não o valor, que a fábrica executa na segunda-feira.
+2. **Nenhum solver devolve a fração.** O ótimo da ração é **780/17**. O HiGHS reporta
+   `45.88235294117647` (erro de 4,18 × 10⁻¹⁶) e o CBC reporta `45.882352` (erro de 9,41 × 10⁻⁷).
+   Os dois estão certos e **discordam entre si** — o que não muda decisão nenhuma até alguém
+   comparar duas saídas com `==`.
+3. **Os vereditos concordam**, e isso também é resultado: `Unbounded` e `Infeasible` saem iguais
+   nas três implementações. **`Infeasible` não se conserta trocando de solver.**
+
+**E o capítulo encontrou um defeito ao ser escrito — o segundo do mesmo passo de CI.** A edição
+0.28 registrou que os testes do `po-zero` nunca haviam rodado na integração contínua. O passo foi
+criado, e **instalava `pytest` e `numpy` e mais nada** — enquanto `etapa-08-modelagem` importa
+`pulp` direto e vários módulos de etapa o importam no topo. Ou seja: o passo criado para proteger
+os selos 🔵 **também não podia passar**. A correção não foi remover a dependência, e sim declará-la
+em `po-zero/requirements.txt` — **o mesmo arquivo que o capítulo 06 manda o leitor instalar**.
+
+> **A regra que sai daí, e ela vale além deste repositório:** instrução de instalação que ninguém
+> executa envelhece em silêncio. A do capítulo 06 é executada a cada envio, e quando quebrar o
+> build fica vermelho. Há teste que falha se a CI deixar de instalar o arquivo que o capítulo cita.
+
+**Duas fontes novas, ambas `✓ᵐ`:** Fourer, Gay & Kernighan (1990), a que se atribui a separação
+entre modelo algébrico e dados; e Huangfu & Hall (2017), na origem do HiGHS. Metadados conferidos,
+**conteúdo não lido**, atribuições declaradas correntes. A data do segundo é a da publicação
+eletrônica — o fascículo impresso é de 2018, e a divergência é do registro: o portão de fontes
+compara com o Crossref e barraria a outra escolha.
+
+**Uma dependência de versão, assumida de propósito.** Os dígitos da tabela de ponto flutuante
+mudam se o solver mudar, e o teste fica vermelho quando isso acontecer. É o comportamento certo —
+o capítulo publica dígitos e diz a versão ao lado. O PuLP 3.3 já marca `PULP_CBC_CMD` como
+descontinuado, com remoção anunciada para a 4.0: quando chegar, o teste avisa antes do leitor.
+
+### Edição 0.34 — 2026-08-13 · O caderno da Parte I
+
+**Entrou:** [`po-zero/cadernos/parte-I.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-I.ipynb),
+o segundo caderno do handbook, sob as mesmas sete regras da ADR 0016 — invólucro que importa o
+código publicado, sem `def`, sem saída gravada, sem magia do IPython, com célula "mexa aqui", com
+erro rodado antes da correção, exibindo a fonte de uma função, e **executado de verdade** pelo
+`pytest` contra o código de hoje.
+
+**O erro que o leitor roda antes de ver o certo** é o melhor desta Parte. O caderno pergunta:
+*"o cubo com $n=6$ custa 63 pivôs; perturbando a matriz em 1%, quantos sobram?"* O palpite quase
+universal é "bem menos" — e a célula seguinte mostra **63**. No livro, o resultado aparece pronto
+numa tabela e o leitor nunca chega a errar; no caderno ele se compromete com uma resposta e vê o
+próprio palpite não acontecer.
+
+**O caderno declara o que não tem.** Os capítulos 01 a 04 não aparecem, porque não produzem número
+próprio — e dizer isso na primeira célula é mais honesto do que inventar código para eles.
+
+Com isto, **a Parte I fecha inteira**: seis capítulos, dezoito exercícios, seis vídeos, duas
+etapas de medição e um caderno.
+
+### Edição 0.35 — 2026-08-13 · A revisão da Parte I reprovou, e o que ela pegou
+
+A revisão em contexto fresco — três lentes independentes, nenhuma delas de quem escreveu — devolveu
+a rodada. **Isto é o processo funcionando**, e o registro existe para que fique claro o que passou
+despercebido a quem escreveu.
+
+**O achado mais grave é meu, e saiu da reconferência por medição própria** que a skill `longrun`
+exige antes de aceitar qualquer parecer. A revisão apontou que a tabela de perturbação do capítulo
+05 não declarava quantas amostras usava, enquanto a tabela vizinha declarava "20 amostras por
+tamanho". Ao medir, a assimetria virou defeito:
+
+> A tabela era **um sorteio por magnitude**. Medida sobre 20 sementes, a linha de 10% deixou de ser
+> **63 pivôs** e virou **14 de 20** — o caminho às vezes encurta. O resultado central sobreviveu
+> intacto (0,1% e 1% não mexem em nada, em **20 de 20**), mas a linha que o exagerava, não.
+
+A correção troca o sorteio pela distribuição: a tabela publica mínimo, mediana, máximo e **em
+quantas amostras o caminho ficou intacto**, e o teste passou a asserir a distribuição, não o
+sorteio. **Um teste que confere um sorteio herda a fragilidade do sorteio.**
+
+**O segundo achado é de firmeza, e é o defeito reincidente deste repositório.** Em três lugares o
+corpo do texto afirmava com mais convicção do que a tabela de procedência autoriza: Gomory e Land &
+Doig no capítulo 04, Cook e Karp no capítulo 05, a AMPL no capítulo 06 — todos `✓ᵐ`, com **conteúdo
+não lido**. A tabela dizia certo; o corpo, não. E a prova de que era lapso e não convenção estava
+no mesmo capítulo 05, que hedgeia Edmonds corretamente três parágrafos antes. **O hedge tem de
+estar na frase, e não vinte linhas adiante**, porque é na frase que o leitor forma a crença.
+
+**O terceiro é um erro conceitual que eu repeti em quatro superfícies.** O capítulo 04 dizia que
+`Optimal` num modelo não convexo significa *"não achei nada melhor por aqui"*. **Está errado**, e o
+próprio capítulo o desmente no corpo: um modelo inteiro é não convexo e o `Optimal` de um
+*branch-and-bound* é **prova**, porque o método fecha a distância por limitante. A regra correta é
+mais curta e não tem exceção:
+
+> **`Optimal` só é prova quando vem com limitante.**
+
+**O quarto: um `Optimal` que a medição nunca produziu.** Os capítulos 01, 02 e 04 contavam o 22
+contra 30 do capítulo 38 como um solver que escreveu `Optimal`. O experimento é uma **busca local
+em aritmética exata** — não há status, não há solver, e o próprio capítulo 38 diz que *"nenhum
+erro, nenhum aviso, nenhuma bandeira"* aconteceu. Era moldura acrescentada a um número verdadeiro,
+que é a deriva mais convincente e por isso a pior.
+
+**Também entraram:** o capítulo 06 descrevia como erro caro uma divergência **entre solvers** que a
+medição não produz (os dois concordaram; quem divergiu foi o Simplex exato); a diferença de casas
+decimais era de **oito**, não nove; a citação de Huangfu & Hall trazia 2018 contra os 2017 do
+registro; o capítulo 01 dizia "quatro formas" para uma tabela de cinco linhas; o capítulo 02
+afirmava que os nove capítulos da Parte II estão "todos na etapa 3" enquanto a sua própria tabela
+classificava um deles como etapa 1 e 2; e o objetivo O3 do capítulo 01 tinha exercício e não tinha
+conteúdo que o sustentasse — ganhou a seção *"Três perguntas antes de citar um caso"*.
+
+**Seis termos deixaram de ser órfãos:** `NP`, `AMPL`, `CBC` e `HiGHS` entraram no glossário e no
+mapa de siglas do motor; **limitante**, ***gap***, **face ótima** e **análise suavizada** ganharam
+verbete. E o capítulo 04 deixou de cunhar `PIM`, que concorria com `PI` e `MILP` já registradas.
+
+**Uma duplicação de exercício foi desfeita:** o `cap03.exA` era a mesma padaria, com a mesma tarefa,
+do `cap07.exA`. Ganhou cenário próprio — uma gráfica com duas máquinas, em que a variável é **hora
+de máquina** e não unidade produzida, o que faz o teste da unidade trabalhar de verdade.
+
+> **O que continua em dívida, declarado:** o campo de **âncora** que o Guia Editorial promete em
+> cada exercício ("aponte a seção que resolve a dúvida") não existe em nenhum dos 68. Não é
+> regressão desta rodada — é promessa editorial sem implementação, e fica registrada como tal.
+
+### Edição 0.36 — 2026-08-13 · A terceira lente atacou a medição, e ganhou
+
+A revisão da medição fez o que nenhuma leitura de texto faria: **rodou 46 mutações de um dígito**
+nos capítulos 05 e 06 e contou quantas a suíte deixava passar. Dezenove passavam. O relatório é o
+mais útil que este handbook já recebeu, e o que ele achou muda o desenho, não só os números.
+
+**Primeiro, a boa notícia, e ela é grande.** A afirmação central do capítulo 05 foi atacada por
+três ângulos independentes — 200 sementes, sete tamanhos de cubo, e três modelos diferentes de
+perturbação — e **sobreviveu aos três**. Ela é mais forte do que o capítulo dizia.
+
+**A tabela de perturbação estava publicando ruído.** Vinte sementes bastavam para a mediana e para
+a fração de caminhos intactos, e **não** para mínimo e máximo: o máximo da linha de 50% vai de 47
+para 63 só por passar de 20 para 200 sementes. Extremo de amostra pequena é estatística de ordem,
+não medição. A tabela agora roda **200 sementes** e publica **só o que estabiliza** — mediana e
+caminhos intactos.
+
+**E o teste que corrigi na edição anterior repetia o defeito que ele existia para pegar.** Ele
+assertava `intactas == 0` para a perturbação de 50%: verdade nas 20 sementes escolhidas, **falso na
+família** — com 200, dois caminhos sobrevivem. Assertar o extremo de uma amostra, dentro do teste
+criado para impedir que se publique um sorteio.
+
+**Entrou o eixo que faltava.** A tabela olhava um tamanho só, e o teorema de Spielman & Teng vive
+no crescimento em $n$. Medido: a **1%**, o caminho fica intacto em **25/25 de $n=4$ a $n=8$** — o
+que sustenta o capítulo; a **10%**, a fração cai de 25/25 para 7/25 conforme o cubo cresce, que é
+**a direção que o teorema prevê**. A medição passou a honrar o resultado que ela ressalva.
+
+**O modelo de perturbação era indeclarado e é load-bearing.** Ele é multiplicativo, relativo,
+entrada a entrada, e **preserva o padrão de zeros** do cubo. Quem reproduzir com ruído aditivo
+denso obtém mediana 9 em vez de 63 e concluirá que o livro errou — e não terá errado: preencher os
+zeros não é perturbação pequena, porque as variáveis do cubo chegam a $10^n$. Calibrado para 1% no
+vértice ótimo, o resultado volta. A declaração está no capítulo e há teste que exige que ela fique.
+
+**Um rótulo escorregava, e justamente neste capítulo.** A coluna dizia *"pior caso teórico"* para
+$2^n-1$, que é o custo do cubo — um pior caso **construído** para uma regra de pivoteamento. Um
+poliedro de dimensão 20 com 40 facetas admite mais de **40 milhões** de vértices. Num capítulo cujo
+primeiro objetivo é dizer sobre o que exatamente uma afirmação fala, o rótulo virou *"o cubo do
+mesmo tamanho"*.
+
+**Três bloqueios no capítulo 06, todos reais:**
+
+1. **A linha do CBC não tinha dono.** O teste procurava `45.882352` no documento inteiro, e o
+   número também aparece na Síntese — então **apagar a linha da tabela deixava a suíte verde**. Era
+   o único número que o próprio teste chamava de "dependente de versão".
+2. **A Síntese e a Leitura executiva de ambos os capítulos não tinham teste nenhum.** Treze das
+   dezenove mutações que passaram estavam ali. E o risco não era teórico: cada correção desta
+   rodada teve de atualizar a mesma medição **em três lugares à mão**.
+3. **O capítulo enunciava a regra da versão e a violava.** Ele manda *"diga a ferramenta e a versão
+   que produziu o número"*, e `resultados-ferramentas.json` gravava os **nomes** dos solvers no
+   campo `versoes`. As versões que produzem `45.88235294117647` e `45.882352` não estavam em lugar
+   nenhum. Agora estão — HiGHS 1.15.1, e o CBC declarado como *embutido no PuLP 3.3.2*, que é mais
+   honesto do que inventar um número de versão para o binário.
+
+**E o `test_anatomia.py` criou a segunda fonte da verdade que o seu próprio cabeçalho dizia estar
+evitando:** ele transcrevia os sete coeficientes do enunciado do `cap03.exC` e nenhum teste lia o
+enunciado. Agora lê.
+
+> **A lição que fica, e é sobre testes, não sobre números.** Um teste pode herdar exatamente o
+> defeito que ele existe para impedir. O que separou os dois casos aqui foi **variar o que o teste
+> supõe fixo** — a semente, o tamanho, o modelo de ruído. Foi assim que a afirmação central
+> sobreviveu com mais força, e foi assim que as duas asserções frágeis caíram.

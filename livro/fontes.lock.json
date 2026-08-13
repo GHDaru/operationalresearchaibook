@@ -26,6 +26,18 @@
       "verificado_em": "2026-08-13"
     },
     {
+      "doi": "10.1007/978-1-4684-2001-2_9",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "Reducibility among Combinatorial Problems",
+      "primeiro_autor": "Karp",
+      "ano": 1972,
+      "container": "Complexity of Computer Computations",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
       "doi": "10.1007/BF01589114",
       "estado": "resolvido",
       "prefixo": "10.1007",
@@ -57,8 +69,8 @@
       "titulo": "A new polynomial-time algorithm for linear programming",
       "primeiro_autor": "Karmarkar",
       "ano": 1984,
-      "container": "Combinatorica",
-      "fonte": "crossref",
+      "container": "COMBINATORICA",
+      "fonte": "openalex",
       "verificado_em": "2026-08-13"
     },
     {
@@ -70,6 +82,18 @@
       "primeiro_autor": "Hall",
       "ano": 2004,
       "container": "Mathematical Programming",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1007/s12532-017-0130-5",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "Parallelizing the dual revised simplex method",
+      "primeiro_autor": "Huangfu",
+      "ano": 2017,
+      "container": "Mathematical Programming Computation",
       "fonte": "crossref",
       "verificado_em": "2026-08-13"
     },
@@ -86,6 +110,18 @@
       "verificado_em": "2026-08-13"
     },
     {
+      "doi": "10.1090/s0002-9904-1958-10224-4",
+      "estado": "resolvido",
+      "prefixo": "10.1090",
+      "registrante": null,
+      "titulo": "Outline of an algorithm for integer solutions to linear programs",
+      "primeiro_autor": "Gomory",
+      "ano": 1958,
+      "container": "Bulletin of the American Mathematical Society",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
       "doi": "10.1145/1273445.1273458",
       "estado": "resolvido",
       "prefixo": "10.1145",
@@ -94,6 +130,18 @@
       "primeiro_autor": "Keshav",
       "ano": 2007,
       "container": "ACM SIGCOMM Computer Communication Review",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1145/800157.805047",
+      "estado": "resolvido",
+      "prefixo": "10.1145",
+      "registrante": "Association for Computing Machinery (ACM)",
+      "titulo": "The complexity of theorem-proving procedures",
+      "primeiro_autor": "Cook",
+      "ano": 1971,
+      "container": "Proceedings of the third annual ACM symposium on Theory of computing  - STOC '71",
       "fonte": "crossref",
       "verificado_em": "2026-08-13"
     },
@@ -134,10 +182,22 @@
       "verificado_em": "2026-08-13"
     },
     {
-      "doi": "10.1287/moor.2.2.103",
+      "doi": "10.1287/mnsc.36.5.519",
       "estado": "resolvido",
       "prefixo": "10.1287",
       "registrante": "Institute for Operations Research and the Management Sciences (INFORMS)",
+      "titulo": "A Modeling Language for Mathematical Programming",
+      "primeiro_autor": "Fourer",
+      "ano": 1990,
+      "container": "Management Science",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1287/moor.2.2.103",
+      "estado": "resolvido",
+      "prefixo": "10.1287",
+      "registrante": null,
       "titulo": "New Finite Pivoting Rules for the Simplex Method",
       "primeiro_autor": "Bland",
       "ano": 1977,
@@ -230,6 +290,18 @@
       "verificado_em": "2026-08-13"
     },
     {
+      "doi": "10.2307/1910129",
+      "estado": "resolvido",
+      "prefixo": "10.2307",
+      "registrante": null,
+      "titulo": "An Automatic Method of Solving Discrete Programming Problems",
+      "primeiro_autor": "Land",
+      "ano": 1960,
+      "container": "Econometrica",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
       "doi": "10.2307/2001993",
       "estado": "resolvido",
       "prefixo": "10.2307",
@@ -238,6 +310,18 @@
       "primeiro_autor": "Dantzig",
       "ano": 1954,
       "container": "Mathematical Tables and Other Aids to Computation",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.4153/cjm-1965-045-4",
+      "estado": "resolvido",
+      "prefixo": "10.4153",
+      "registrante": "Canadian Mathematical Society",
+      "titulo": "Paths, Trees, and Flowers",
+      "primeiro_autor": "Edmonds",
+      "ano": 1965,
+      "container": "Canadian Journal of Mathematics",
       "fonte": "crossref",
       "verificado_em": "2026-08-13"
     }

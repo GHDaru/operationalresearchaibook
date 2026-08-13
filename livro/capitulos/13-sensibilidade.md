@@ -305,6 +305,20 @@ de engenharia que o capítulo herda:
    "olha só": são **verificados** como soluções duais viáveis de mesmo custo, e a etapa encerra com
    erro se não forem.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte II no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-II.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-II.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-II.ipynb)
+>
+> O caderno **não contém o algoritmo**: ele busca o código publicado e chama as mesmas funções que
+> o `pytest` do repositório verifica — não há segunda cópia para envelhecer
+> ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+> Lá dentro você **roda o telefonema antes de ver a resposta**, mexe no lote de compra e vê a
+> fronteira aparecer sozinha.
+>
+> **O Colab é conveniência, não dependência.** O mesmo caderno roda no seu terminal, e o
+> experimento de verdade é o script em `po-zero/`, que roda em qualquer CPU sem licença paga.
+
 ## Quando não serve
 
 **1. A faixa vale para uma mudança de cada vez.** Mexer em dois dados ao mesmo tempo pode sair da

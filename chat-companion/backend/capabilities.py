@@ -36,6 +36,34 @@ REGISTRO = [
     {"chave": "exercicios", "rotulo": "Exercícios", "libera": 1,
      "tools": ("exercicio_registrar_tentativa",),
      "descricao": "Conduzo o exercício da página, avalio sua resposta pelos critérios e registro a tentativa."},
+    {"chave": "o_que_e_po", "rotulo": "O que é (e o que não é) PO", "libera": 1, "tools": (),
+     "descricao": "Aplico com você as quatro perguntas que decidem se um problema é de Pesquisa "
+                  "Operacional — há alavanca? há medida única? há restrição? dá para dizer o que a "
+                  "resposta NÃO autoriza? — e ajudo a julgar um caso publicado."},
+    {"chave": "ciclo_modelagem", "rotulo": "O ciclo de modelagem", "libera": 2, "tools": (),
+     "descricao": "Situo com você a tarefa nas cinco etapas — definir, formular, resolver, validar, "
+                  "implantar — e cobro o entregável que falta. Pergunto sempre a mesma coisa antes "
+                  "de ajudar a formular: quem vai decidir diferente por causa disto?"},
+    {"chave": "anatomia_modelo", "rotulo": "Anatomia de um modelo", "libera": 3, "tools": (),
+     "descricao": "Separo com você as quatro peças de um modelo — variáveis, objetivo, restrições, "
+                  "parâmetros — pela pergunta que resolve a maioria dos erros: isto é algo que "
+                  "alguém decide, ou algo que alguém mede? E aplico o teste da unidade, que pega "
+                  "o erro que o solver não pega."},
+    {"chave": "classificacao", "rotulo": "Classificação e escolha de método", "libera": 4, "tools": (),
+     "descricao": "Classifico com você um problema nos quatro eixos — linear, inteiro, incerto, "
+                  "convexo — e digo qual garantia cada travessia destrói. Antes de discutir "
+                  "método, cobro a pergunta que decide tudo: o que você vai poder prometer sobre "
+                  "esta resposta?"},
+    {"chave": "complexidade", "rotulo": "Complexidade para quem modela", "libera": 5, "tools": (),
+     "descricao": "Traduzo com você uma afirmação de complexidade — 'é NP-difícil', 'o pior caso é "
+                  "exponencial' — no que ela de fato autoriza concluir sobre a SUA instância, que "
+                  "quase sempre é nada. E defendo a ordem: rode o exato com limite de tempo e leia "
+                  "o gap antes de decidir qualquer coisa."},
+    {"chave": "ferramentas", "rotulo": "Ferramentas de trabalho", "libera": 6, "tools": (),
+     "descricao": "Ajudo a montar o ambiente e a ler uma saída de solver separando três coisas que "
+                  "costumam se confundir: o que é decisão do modelo, o que é escolha da ferramenta "
+                  "e o que é ponto flutuante. E cobro a separação entre modelo e dados antes de "
+                  "qualquer conversa sobre desempenho."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

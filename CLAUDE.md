@@ -19,7 +19,20 @@ As skills do Maestro estão em `.claude/skills/` e **comandam, não sugerem** �
 Lei de Ferro. Antes de agir, verifique se alguma se aplica: `constitution-check` (ao escrever
 um plano), `dod-verificavel` (ao escrever critérios de aceite), `combater-amontoado` (ao
 revisar texto denso), `anti-padroes` (ao desenhar fluxo ou revisar agente),
-`diagnostico-antes-do-fix` (**SEMPRE** antes de corrigir um bug).
+`diagnostico-antes-do-fix` (**SEMPRE** antes de corrigir um bug), e
+[`longrun`](.claude/skills/longrun/SKILL.md) (**SEMPRE** que o autor disser "longrun",
+"prossiga" ou "não pare", e **sempre** que uma decisão de médio ou alto impacto aparecer numa
+rodada autônoma).
+
+**O que "longrun" autoriza, em uma frase.** O autor declarou que toda decisão deste repositório
+é reversível e de baixo impacto, porque o trabalho vive em *branch*. Em longrun o agente **não
+para para pedir permissão**: decisão de médio ou alto impacto passa por um comitê de **no mínimo
+três especialistas com lentes diferentes**, cujas recomendações são **reconferidas por medição
+própria**, consolidadas numa recomendação única — **que já nasce aprovada** —, registradas em
+ADR, e o desenvolvimento segue. O que **não** entra na delegação: build vermelho não vira verde
+por ajuste, quem executa não verifica, direito autoral e dado pessoal, fonte não confirmada não
+sustenta afirmação, e o **merge na `main`**, que é o único ato não reversível por *branch*.
+Detalhe e rito na skill.
 
 Os princípios específicos deste handbook, resumidos:
 

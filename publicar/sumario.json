@@ -17,9 +17,40 @@
       "nome": "Parte I — Fundamentos",
       "itens": [
         {
-          "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Seis vagas declaradas",
-          "teaser": "O que é PO, o ciclo de modelagem, anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
+          "arquivo": "livro/capitulos/01-o-que-e-po.md",
+          "titulo": "01 — O que é Pesquisa Operacional",
+          "maturidade": "v0",
+          "teaser": "Escrito depois da Parte II de propósito: não promete o que o campo entrega — presta contas do que já foi medido."
+        },
+        {
+          "arquivo": "livro/capitulos/02-ciclo-de-modelagem.md",
+          "titulo": "02 — O ciclo de modelagem",
+          "maturidade": "v0",
+          "teaser": "O projeto raramente morre no algoritmo — e as duas pontas do ciclo são onde o dinheiro se perde."
+        },
+        {
+          "arquivo": "livro/capitulos/03-anatomia-do-modelo.md",
+          "titulo": "03 — Anatomia de um modelo de otimização",
+          "maturidade": "v0",
+          "teaser": "Quatro peças, e a assimetria que organiza tudo: três delas, quando erradas, devolvem `Optimal`."
+        },
+        {
+          "arquivo": "livro/capitulos/04-classificacao-e-escolha.md",
+          "titulo": "04 — Classificação de problemas e escolha de método",
+          "maturidade": "v0",
+          "teaser": "A classe decide o que você pode prometer — e cada travessia de eixo destrói uma garantia específica."
+        },
+        {
+          "arquivo": "livro/capitulos/05-complexidade.md",
+          "titulo": "05 — Complexidade computacional para quem modela",
+          "maturidade": "medido",
+          "teaser": "O pior caso existe e é construído — e a sua instância provavelmente está a ordens de grandeza dele."
+        },
+        {
+          "arquivo": "livro/capitulos/06-ferramentas.md",
+          "titulo": "06 — Ferramentas de trabalho",
+          "maturidade": "medido",
+          "teaser": "Mesmo modelo, mesmo valor, planos diferentes — e o que numa saída de solver é escolha da ferramenta."
         }
       ]
     },
@@ -41,7 +72,7 @@
         {
           "arquivo": "livro/capitulos/09-simplex.md",
           "titulo": "09 — O método Simplex",
-          "maturidade": "verificado",
+          "maturidade": "medido",
           "teaser": "Como percorrer vértices sem enxergá-los — e por que parar no primeiro topo é seguro."
         },
         {
@@ -59,25 +90,25 @@
         {
           "arquivo": "livro/capitulos/12-dualidade.md",
           "titulo": "12 — Dualidade",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Quanto vale uma unidade a mais do recurso que acabou — e por que o número tem prazo de validade."
         },
         {
           "arquivo": "livro/capitulos/13-sensibilidade.md",
           "titulo": "13 — Análise de sensibilidade e pós-otimização",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "O que a resposta suporta antes de mudar — e quando você não precisa resolver de novo."
         },
         {
           "arquivo": "livro/capitulos/14-pontos-interiores.md",
           "titulo": "14 — Métodos de pontos interiores",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Atravessar em vez de contornar — e por que a resposta que chega não é um vértice."
         },
         {
           "arquivo": "livro/capitulos/15-modelagem-aplicada.md",
           "titulo": "15 — Modelagem aplicada em Programação Linear",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Os quatro padrões que cobrem a maior parte do campo — e o que acontece quando se escolhe o errado."
         }
       ]
@@ -88,7 +119,7 @@
         {
           "arquivo": "livro/capitulos/38-convexidade.md",
           "titulo": "38 — Convexidade",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Antecipado para pagar a dívida do capítulo 09: a propriedade que autoriza parar no primeiro topo."
         }
       ]

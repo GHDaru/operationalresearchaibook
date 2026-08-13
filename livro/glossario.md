@@ -20,6 +20,10 @@ Ao introduzir uma sigla nova, adicione-a **nos dois lugares**.
 | **MILP** | *Mixed Integer Linear Programming* | Programação linear inteira mista: variáveis contínuas e inteiras no mesmo modelo |
 | **MINLP** | *Mixed Integer Nonlinear Programming* | O caso não linear da anterior; sem garantia geral de ótimo global |
 | **B&B** | *Branch and Bound* | Enumeração com poda por limitantes: o algoritmo exato padrão da PI |
+| **NP** | *Nondeterministic Polynomial* — não determinístico polinomial | A classe dos problemas cuja **resposta**, se alguém entregar uma, pode ser **conferida** em tempo polinomial. **Não** quer dizer "não polinomial" |
+| **AMPL** | *A Mathematical Programming Language* | Linguagem de modelagem algébrica (1990), a que se credita a separação explícita entre modelo e dados |
+| **CBC** | *Coin-or Branch and Cut* | Solver aberto do projeto COIN-OR; a alternativa ao HiGHS na trilha padrão |
+| **HiGHS** | *High performance software for linear optimization* | O solver aberto padrão deste handbook |
 | **B&C** | *Branch and Cut* | *Branch and bound* com planos de corte gerados durante a busca |
 | **KKT** | Karush-Kuhn-Tucker | As condições necessárias de otimalidade em problemas com restrições |
 | **VRP** | *Vehicle Routing Problem* | Problema de roteamento de veículos, e sua família de variantes |
@@ -78,6 +82,24 @@ zero significa restrição **ativa** — é ela que está segurando o resultado.
 **Preço-sombra.** Quanto o valor ótimo melhora por unidade adicional do recurso de uma
 restrição ativa. Vale **apenas dentro de uma faixa**, e ler fora dela é o erro clássico de
 interpretação.
+
+**Limitante.** Um valor que o método **prova** que o ótimo não pode ultrapassar. É ele, e não a
+convexidade, que decide se `Optimal` é prova: um *branch-and-bound* fecha a distância entre a
+melhor solução encontrada e o melhor possível, e por isso o seu `Optimal` vale como demonstração
+mesmo num modelo não convexo. Método sem limitante devolve *"não achei nada melhor por aqui"*.
+
+***Gap*.** A distância declarada entre a melhor solução encontrada e o limitante, em porcentagem.
+É **teto**, não estimativa: um *gap* de 1,8% diz que continuar buscando rende **no máximo** 1,8%
+— e pode render zero, porque a solução em mãos talvez já seja a ótima e falte apenas a prova.
+
+**Face ótima.** O conjunto de todas as soluções que atingem o valor ótimo. Quando ela é maior que
+um ponto, existem vários planos igualmente ótimos — e a ferramenta escolhe um deles sem avisar
+(medido no [capítulo 06](capitulos/06-ferramentas.md)).
+
+**Análise suavizada.** Resultado que explica por que o Simplex é rápido na prática apesar do pior
+caso exponencial: sob pequenas perturbações **aleatórias** da entrada, o número esperado de passos
+é polinomial. É assintótico e vale **em esperança** — não diz que perturbar uma instância ruim
+específica a melhore.
 
 **Forma padrão.** O modelo reescrito só com igualdades e com todas as variáveis não-negativas.
 Não muda o problema — é a mesma coisa dita numa língua que a álgebra linear sabe processar.

@@ -183,7 +183,19 @@ export function leBibliografia(caminho) {
       if (t) { titulo = t[1].replace(/\s+/g, " ").trim(); break; }
     }
 
-    const antesDoDoi = corpo.slice(0, corpo.indexOf("DOI"));
+    // O ano é procurado ANTES do link de DOI — mas o corte tem de ser feito na
+    // posição do LINK, e não na primeira ocorrência das três letras "DOI".
+    //
+    // Diagnóstico, porque o caso é bonito demais para não ficar registrado: a
+    // entrada de **LAND, A. H.; DOIG, A. G.** (1960) falhava com "ano não
+    // extraível". O ano estava lá, no lugar de sempre. O que acontecia é que
+    // `indexOf("DOI")` casava dentro do **sobrenome DOIG**, cortando o corpo
+    // antes de qualquer ano existir. Um autor com esse sobrenome era suficiente
+    // para o portão declarar defeito onde não havia — e a correção certa não é
+    // reescrever a entrada para agradar o parser, é o parser parar de confundir
+    // um nome próprio com um marcador de campo.
+    const marcador = casa.index ?? corpo.search(/DOI\s*\[/);
+    const antesDoDoi = corpo.slice(0, marcador < 0 ? corpo.length : marcador);
     const anos = [...antesDoDoi.matchAll(RE_ANO)].map((a) => Number(a[1]));
     const ano = anos.length ? anos[anos.length - 1] : null;
 

@@ -294,6 +294,20 @@ Três coisas que o script faz de propósito:
 3. **Encerra com erro se a dualidade forte não conferir.** O capítulo não pode ser publicado com o
    experimento vermelho.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte II no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-II.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-II.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-II.ipynb)
+>
+> O caderno **não contém o algoritmo**: ele busca o código publicado e chama as mesmas funções que
+> o `pytest` do repositório verifica — não há segunda cópia para envelhecer
+> ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+> Lá dentro você **roda o telefonema antes de ver a resposta**, mexe no lote de compra e vê a
+> fronteira aparecer sozinha.
+>
+> **O Colab é conveniência, não dependência.** O mesmo caderno roda no seu terminal, e o
+> experimento de verdade é o script em `po-zero/`, que roda em qualquer CPU sem licença paga.
+
 ## Quando não serve
 
 **1. O preço-sombra é marginal, e "marginal" quer dizer *a próxima unidade*.** Ele não é o preço

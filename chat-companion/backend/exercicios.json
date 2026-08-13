@@ -2548,5 +2548,464 @@
     ],
     "erro_provavel": "Aceitar \"a diferença é desprezível, logo é a mesma solução\". A inferência troca uma afirmação sobre o **valor** por uma afirmação sobre a **solução**, e elas não são equivalentes: o capítulo 10 já tinha mostrado que um mesmo lucro pode ser produzido por planos diferentes — é o caso de múltiplos ótimos. Quando isso acontece, a escolha entre eles é feita pelo que o modelo não captura, e um relatório que só compara valores esconde exatamente a decisão que interessa. É também por isso que a medição do handbook compara a base: um erro na décima terceira casa que **não** muda a base é uma notícia muito melhor do que um erro pequeno que muda.",
     "resposta_guia": "A conclusão não está justificada: o relatório mediu **valores** e concluiu sobre **soluções**. Falta comparar as bases — ou, em linguagem de negócio, os planos. É por isso que a medição do handbook reporta a base separada: o valor diz quanto se ganha, a base diz **qual plano** produz esse ganho, e dois planos diferentes podem render o mesmo lucro até a última casa que se olhou. Um cenário concreto: dois planos de mesma margem em que um concentra a compra num único fornecedor e o outro a divide entre dois — mesmo lucro, riscos de contrato completamente diferentes; ou dois planos que usam turnos diferentes, com implicações de escala de pessoal. Para escolher a tolerância é preciso saber a **escala dos dados do modelo**: se os custos estão na casa dos milhões, $10^{-9}$ é ruído; se estão na casa dos centavos, é diferença real — \"perto de zero\" só significa algo em relação à ordem de grandeza do problema. Apertada demais, a tolerância faz o solver continuar pivoteando por ruído numérico e possivelmente não parar; frouxa demais, ele para antes do ótimo e **ninguém percebe**, porque o status continua sendo `Optimal`."
+  },
+  {
+    "capitulo": 1,
+    "serie": "cap01",
+    "capacidade": "o_que_e_po",
+    "contexto": "livro",
+    "id": "cap01.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "As quatro perguntas, em quatro pedidos",
+    "enunciado": "Quatro pedidos chegam à sua mesa na mesma semana. Para **cada um**, aplique as quatro perguntas do capítulo — há alavanca? há medida única? há restrição? dá para dizer o que a resposta **não** autoriza? — e diga se é problema de Pesquisa Operacional (PO), e por quê.\n\n| | O pedido |\n|---|---|\n| **a** | *\"Quero saber quantos clientes vão cancelar o plano no próximo trimestre.\"* |\n| **b** | *\"Tenho 12 técnicos e 40 chamados por dia em 6 regiões. Quero a escala que atenda mais chamados dentro da jornada.\"* |\n| **c** | *\"Quero escolher o fornecedor que combine melhor preço, prazo, risco e relação de longo prazo.\"* |\n| **d** | *\"Quero saber qual foi o produto mais rentável do ano passado.\"* |\n\n5. Um dos quatro **vira** problema de PO com uma frase a mais. Qual, e qual frase?\n6. Um deles é PO e, mesmo assim, o modelo pode fracassar por causa da **quarta** pergunta. Qual, e como o fracasso apareceria?",
+    "criterios": [
+      "**(a)** não é PO — é previsão: não há alavanca, ninguém escolhe o cancelamento; vira insumo de uma decisão, não a decisão",
+      "**(b)** é PO — há alavanca (a escala), medida única (chamados atendidos), restrição (12 técnicos, jornada, 6 regiões)",
+      "**(c)** **ainda não** é PO — há alavanca e restrição, mas **não há medida única**: quatro critérios genuinamente conflitantes pedem decisão multicritério, e forçá-los numa função objetivo esconde a escolha",
+      "**(d)** não é PO — é medição do passado, sem alavanca e sem escolha",
+      "Identifica que **(a)** vira PO ao ganhar uma decisão em cima da previsão (*\"...para eu dimensionar a equipe de retenção\"*), e que **(b)** é o que pode fracassar pela quarta pergunta — entregando uma escala ótima sem dizer sob que variação de demanda ela deixa de valer"
+    ],
+    "erro_provavel": "Classificar (c) como PO porque \"dá para pôr peso em cada critério e somar\". Dá, e é exatamente aí que a escolha se esconde: os pesos **são** a decisão, e escolhê-los sem método é decidir sem admitir que se decidiu. O modelo então devolve um número que parece objetivo e que carrega, embutida, a preferência de quem arbitrou os pesos. Não é que ponderar seja proibido — é que ponderar é uma decisão multicritério disfarçada de otimização, e o capítulo 03 e a Parte IX tratam disso com o aparato certo.",
+    "resposta_guia": "**(a)** Não é PO: é previsão. Não há alavanca — ninguém escolhe quem cancela —, e sem escolha não há problema de decisão. **(b)** É PO, e limpo: a alavanca é a escala, a medida única é chamados atendidos, e as restrições são 12 técnicos, a jornada e as 6 regiões. **(c)** Ainda não é PO. Há alavanca e restrição, mas não há **medida única**: preço, prazo, risco e relação de longo prazo são objetivos genuinamente conflitantes, e forçá-los numa função objetivo por pesos arbitrados esconde a decisão em vez de revelá-la — é caso de decisão multicritério. **(d)** Não é PO: é medição do passado, sem alavanca. O item **(a)** vira PO com uma frase a mais — *\"…para eu dimensionar a equipe de retenção\"* —, porque aí aparece a alavanca e a previsão passa a ser parâmetro. E o item **(b)**, que é PO, pode fracassar pela quarta pergunta: entregar a escala ótima sem dizer a partir de que variação de demanda ela deixa de valer produz um plano que ninguém sabe quando revisar — o mesmo defeito que o capítulo 12 mediu em reais."
+  },
+  {
+    "capitulo": 1,
+    "serie": "cap01",
+    "capacidade": "o_que_e_po",
+    "contexto": "livro",
+    "id": "cap01.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "O projeto que rodava e não decidia",
+    "enunciado": "Uma empresa contratou um projeto de \"otimização da malha logística\". Ao fim de seis meses, a entrega foi:\n\n> *Um modelo que roda em 4 minutos, com status `Optimal`, e recomenda fechar 3 dos 11 centros de distribuição, com economia projetada de R$ 8,4 milhões/ano.*\n\nA diretoria não executou. Ao perguntar por quê, você ouve três coisas:\n\n1. ninguém consegue dizer **o que aconteceria** se a demanda de uma região subisse 15%;\n2. os custos de frete usados são de uma **tabela de dois anos atrás**;\n3. o modelo trata todos os centros como iguais, e **dois deles têm contrato de aluguel com multa** que não está no modelo.\n\nPara **cada uma** das três: classifique como (i) falha da quarta pergunta, (ii) falha de dado, ou (iii) falha de formulação. Diga o que cada uma custa e o que resolve.\n\n4. Qual das três é a **mais barata** de resolver? E a mais cara?\n5. O modelo está \"errado\"? Justifique com cuidado — a palavra importa aqui.\n6. Que uma frase você teria exigido no início do projeto para que nenhuma das três acontecesse?",
+    "criterios": [
+      "**(1)** é falha da **quarta pergunta** — o modelo não diz o que a resposta autoriza; resolve-se com análise de sensibilidade, que já existe e é barata (capítulo 13)",
+      "**(2)** é falha de **dado**; custa credibilidade e a correção é operacional — atualizar a tabela e declarar a data da captura",
+      "**(3)** é falha de **formulação**: a multa é uma restrição (ou um custo) que existe no mundo e não no modelo, e por isso a recomendação de fechar pode estar economicamente errada",
+      "Reconhece que (1) é a mais barata — os dados da sensibilidade saem do mesmo quadro já resolvido — e (3) a mais cara, porque muda o modelo e obriga a resolver de novo",
+      "Responde com cuidado que o modelo não está \"errado\": ele responde **corretamente** a um problema que não é o da empresa — e a frase que teria evitado tudo é a que declara, antes de modelar, **o que a resposta precisará autorizar** para ser executada"
+    ],
+    "erro_provavel": "Concluir que \"o modelo está errado\" e recomeçar do zero. As três falhas são de naturezas diferentes e só uma delas toca o modelo: a multa de aluguel. Recomeçar joga fora seis meses de formulação correta para resolver um problema que era de dado e um que era de leitura. O erro simétrico, mais comum em quem já leu este livro, é tratar tudo como falha da quarta pergunta: a tabela de frete desatualizada **não** se conserta com análise de sensibilidade, e nenhuma faixa de validade compensa um custo que está errado na origem.",
+    "resposta_guia": "A primeira é falha da **quarta pergunta**: o modelo entregou um número sem dizer o que ele autoriza, e a correção é análise de sensibilidade — barata, porque as faixas saem do mesmo quadro já resolvido, como o capítulo 13 mostrou. A segunda é falha de **dado**: custa credibilidade e se corrige atualizando a tabela e declarando a data de captura; nenhuma técnica de modelagem compensa custo errado na origem. A terceira é falha de **formulação**: a multa de aluguel existe no mundo e não no modelo, então a recomendação de fechar dois centros pode estar economicamente invertida — e é a mais cara das três, porque muda o modelo e obriga a resolver tudo de novo. A mais barata é a primeira. Sobre a palavra: o modelo **não está errado**. Ele responde corretamente a um problema que não é o da empresa, que é coisa diferente e mais difícil de detectar, porque não há sintoma. A frase que teria evitado as três é a que se exige antes de modelar: *\"o que esta resposta vai precisar autorizar para que alguém a execute?\"* — ela obriga a listar sensibilidade, procedência do dado e restrições contratuais no primeiro dia."
+  },
+  {
+    "capitulo": 1,
+    "serie": "cap01",
+    "capacidade": "o_que_e_po",
+    "contexto": "livro",
+    "id": "cap01.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Os 30% do caso publicado",
+    "enunciado": "Você encontra um caso publicado por uma consultoria:\n\n> *\"Aplicando Pesquisa Operacional à malha de distribuição do cliente, obtivemos **redução de 30% nos custos logísticos** já no primeiro ano.\"*\n\nSeu diretor quer citar o caso na apresentação de terça.\n\n1. Que **três** perguntas você faz antes de citar? Para cada uma, diga o que muda na conclusão conforme a resposta.\n2. \"Redução de 30% nos custos logísticos\" — 30% **em relação a quê**? Liste ao menos três linhas de base possíveis que dariam números muito diferentes.\n3. O caso não diz se a comparação é contra a operação anterior ou contra um cenário simulado. Por que essa distinção decide quase tudo?\n4. Suponha que tudo esteja correto e bem medido. O caso **ainda assim** pode não se aplicar à sua empresa. Diga duas razões concretas.\n5. Reescreva a frase do caso de modo que ela seja **verdadeira e útil** — isto é, de modo que um leitor consiga julgar se serve para ele.",
+    "criterios": [
+      "As três perguntas atacam o que muda a conclusão: qual a **linha de base**, o que **mais** mudou no período além do modelo, e qual o **escopo** de \"custos logísticos\"",
+      "Lista linhas de base que dão números diferentes — o ano anterior, o orçado, o cenário sem projeto, a média do setor — e reconhece que a escolha entre elas pode dobrar ou zerar o resultado",
+      "Explica que comparar com a operação anterior mistura o efeito do modelo com tudo o mais que mudou no ano (volume, preço de combustível, renegociação de contratos), enquanto comparar com cenário simulado depende inteiramente de o cenário ser honesto",
+      "Dá duas razões concretas de não aplicabilidade — escala diferente, estrutura de malha diferente, contratos diferentes, ponto de partida pior — em vez de \"cada empresa é diferente\"",
+      "Reescreve a frase declarando linha de base, escopo, período e o que mais mudou — no espírito do capítulo 77"
+    ],
+    "erro_provavel": "Citar o caso porque \"é de uma consultoria séria\". A seriedade de quem publica não substitui a informação que falta: sem linha de base, escopo e período, \"30%\" não é um resultado, é um número. E o erro simétrico é descartar o caso por ser propaganda — ele pode ser inteiramente verdadeiro. A postura útil não é acreditar nem descartar: é **pedir o que falta**, e notar que a ausência dessas informações é, ela própria, uma informação sobre o que o caso pode sustentar.",
+    "resposta_guia": "As três perguntas: **qual é a linha de base** dos 30%; **o que mais mudou** no período além do projeto; e **o que está dentro** de \"custos logísticos\". Cada uma pode inverter a leitura — comparar com o orçado em vez do realizado, por exemplo, transforma economia em variação de planejamento. Linhas de base possíveis: o custo do ano anterior, o custo orçado, um cenário simulado sem o projeto, ou a média do setor — e as quatro dão números muito diferentes. A distinção entre operação anterior e cenário simulado decide quase tudo porque a primeira mistura o efeito do modelo com volume, preço de combustível e renegociações que aconteceram no mesmo ano, enquanto a segunda depende inteiramente de o cenário contrafactual ter sido construído com honestidade — e ele não é observável. Mesmo tudo correto, o caso pode não se aplicar a você por escala (uma malha de 11 centros não se comporta como uma de 200) ou por ponto de partida (quem estava muito mal melhora muito com pouco). Reescrita útil: *\"Comparado ao custo logístico realizado no ano anterior, com volume ajustado e escopo limitado a frete e armazenagem, a malha redesenhada operou 30% mais barata no primeiro ano; no mesmo período o preço médio do diesel caiu 6%.\"*"
+  },
+  {
+    "capitulo": 2,
+    "serie": "cap02",
+    "capacidade": "ciclo_modelagem",
+    "contexto": "livro",
+    "id": "cap02.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Em que etapa está cada um",
+    "enunciado": "Cinco frases ouvidas em corredores de empresa. Para **cada uma**: diga em que etapa do ciclo aquele projeto está, **qual entregável está faltando**, e qual é a próxima coisa a fazer.\n\n| | A frase |\n|---|---|\n| **a** | *\"O modelo roda em 4 minutos. Estamos vendo se dá para chegar a 2.\"* |\n| **b** | *\"Rodamos e deu 18% de economia. Vamos preparar a apresentação.\"* |\n| **c** | *\"A diretoria quer um estudo de otimização da malha. Começamos semana que vem.\"* |\n| **d** | *\"O time de operações disse que o plano não dá para executar por causa dos turnos.\"* |\n| **e** | *\"Entregamos o relatório em março. Não sei se usaram.\"* |\n\n6. Uma dessas cinco frases descreve um projeto que **está bem**, ainda que pareça problema. Qual, e por quê?\n7. Duas delas descrevem o **mesmo** defeito, em momentos diferentes. Quais, e qual é o defeito?",
+    "criterios": [
+      "**(a)** etapa 3 avançada — falta dizer **o que a resposta autoriza**; a próxima coisa não é acelerar o solver, é perguntar se 4 minutos já resolve o problema de quem decide",
+      "**(b)** etapa 3 terminando e pulando a 4 — falta **validação**: rodar contra o histórico e ouvir quem opera, antes da apresentação",
+      "**(c)** etapa 1 não iniciada — falta a frase com a alavanca, a medida e quem executa; a próxima coisa é essa conversa, não o cronograma",
+      "**(d)** etapa 4 **funcionando** — a objeção da operação é uma restrição faltando, dita em português, e o projeto volta à etapa 2 com informação nova",
+      "Identifica **(d)** como o projeto que está bem, e **(b)** e **(e)** como o mesmo defeito em momentos diferentes: ninguém garantiu que alguém decidiria diferente por causa do modelo"
+    ],
+    "erro_provavel": "Ler **(d)** como fracasso. É o item que separa quem entendeu o ciclo de quem decorou as etapas: a operação dizendo *\"não dá para executar\"* é a **etapa 4 fazendo exatamente o que ela existe para fazer** — trazendo à tona uma restrição que o modelo não tinha. O projeto volta à formulação com informação que não existia antes, e isso é progresso, não retrabalho. O erro simétrico é ler **(a)** como projeto adiantado: acelerar de 4 para 2 minutos é trabalho de engenharia que ninguém pediu, enquanto a pergunta \"o que este número autoriza decidir?\" segue sem resposta.",
+    "resposta_guia": "**(a)** Etapa 3, e adiantada — mas o entregável dela não é só a solução, é a solução **mais o que ela autoriza**. A próxima coisa não é acelerar o solver: é perguntar se 4 minutos atrapalham alguém, e se a resposta vem com faixa de validade. **(b)** Etapa 3 terminando e a 4 sendo pulada: falta validar contra o histórico e contra quem opera antes de qualquer apresentação — 18% de economia sem confronto com a realidade costuma esconder uma restrição que ninguém escreveu. **(c)** Etapa 1 sequer começou: não há alavanca, medida nem responsável, e o cronograma está sendo feito antes da pergunta. **(d)** Etapa 4 funcionando: a objeção *\"não dá por causa dos turnos\"* é uma restrição faltando, dita em português, e o projeto volta à etapa 2 com informação nova. **(e)** Etapa 5 falhando, ou nunca planejada. O projeto que está **bem** é o (d). E (b) e (e) são o mesmo defeito em momentos diferentes: em nenhum dos dois alguém garantiu, na etapa 1, que existiria quem decidisse diferente por causa do modelo — em (b) isso ainda dá para consertar; em (e), não."
+  },
+  {
+    "capitulo": 2,
+    "serie": "cap02",
+    "capacidade": "ciclo_modelagem",
+    "contexto": "livro",
+    "id": "cap02.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "O modelo que nunca errou",
+    "enunciado": "Uma consultoria entrega o relatório final de um projeto de dimensionamento de frota. Entre as conclusões:\n\n> *\"O modelo foi executado 47 vezes ao longo do projeto e **não apresentou nenhuma inconsistência**. Recomendamos a redução de 12 para 9 veículos, com economia anual de R$ 2,1 milhões.\"*\n\n1. A frase em negrito é apresentada como qualidade. Por que ela é, na verdade, **motivo de preocupação**?\n2. Que **três** confrontos você pediria antes de aceitar a recomendação? Diga o que cada um pode revelar.\n3. Suponha que, ao rodar com os dados do ano passado, o modelo recomende 8 veículos — enquanto a operação real usou 12 e deu conta. O que isso indica, e o que **não** indica?\n4. A operação diz: *\"não dá para reduzir para 9 porque em dia de pico a gente usa todos os 12\"*. Isso é objeção, ou é dado? O que você faz com ela?\n5. Reescreva a frase do relatório de modo que ela seja **informativa** — isto é, que diga o que o modelo foi testado a fazer e o que ele não foi.",
+    "criterios": [
+      "Explica que \"nunca apresentou inconsistência\" descreve **ausência de teste**, não qualidade: um modelo só erra quando alguém o confronta, e 47 execuções sem confronto são 47 repetições da mesma suposição",
+      "Propõe três confrontos concretos — contra o **histórico**, contra **quem opera**, e contra o **próprio modelo** por sensibilidade —, dizendo o que cada um pode revelar",
+      "Lê a divergência do item 3 como **restrição faltando**, não como prova de que a operação é ineficiente; e reconhece que ela **não** indica que o modelo esteja errado — indica que há informação fora dele",
+      "Trata a fala da operação como **dado**, não como resistência: \"em dia de pico usamos todos\" é uma restrição de pico que o modelo não tem, e ela volta para a etapa 2",
+      "Reescreve a frase declarando o que foi testado e o que não foi — no espírito de \"o modelo foi confrontado com X e Y; não foi confrontado com Z\""
+    ],
+    "erro_provavel": "Aceitar \"nunca apresentou inconsistência\" como sinal de robustez. É a inversão exata: um modelo que nunca errou em 47 execuções ou foi muito bem validado — e aí o relatório diria **contra o quê** — ou nunca foi confrontado com nada capaz de contrariá-lo. A segunda hipótese é de longe a mais comum, e a frase, como está escrita, não distingue as duas. O segundo erro é tratar a objeção da operação como resistência à mudança: \"em dia de pico usamos todos os 12\" não é opinião, é **uma restrição de pico dita em português**, e descartá-la é jogar fora a informação mais barata que o projeto vai receber.",
+    "resposta_guia": "A frase preocupa porque descreve **ausência de teste**, não qualidade: um modelo só erra quando alguém o confronta com algo capaz de contrariá-lo, e 47 execuções sem confronto são 47 repetições da mesma suposição. Os três confrontos: contra o **histórico** — rodar com os dados do ano passado e comparar com o que de fato foi feito —, contra **quem opera** — mostrar a recomendação e ouvir a objeção —, e contra o **próprio modelo** — mexer nos dados e ver se a resposta muda de forma que faça sentido. Se, com os dados do ano passado, o modelo recomenda 8 e a operação usou 12 dando conta, isso indica que **há restrição fora do modelo**: quase nunca significa que a operação foi ineficiente por quatro veículos inteiros. E não indica que o modelo esteja errado — indica que ele está incompleto. A fala sobre o dia de pico é **dado**, não objeção: é uma restrição de pico, e ela volta para a etapa 2 como restrição nova, provavelmente mudando a recomendação. Reescrita informativa: *\"O modelo foi confrontado com o histórico de 12 meses e com a equipe de operação; não foi confrontado com cenários de pico sazonal nem com indisponibilidade de veículo por manutenção. Nas condições testadas, recomenda 9 veículos.\"*"
+  },
+  {
+    "capitulo": 2,
+    "serie": "cap02",
+    "capacidade": "ciclo_modelagem",
+    "contexto": "livro",
+    "id": "cap02.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "dificil",
+    "titulo": "Quando a resposta é não modelar",
+    "enunciado": "Quatro pedidos chegam na mesma semana. Para **cada um**, decida: **modelar** ou **não modelar**? Justifique pelo critério do capítulo, e diga o que você entrega no lugar quando a resposta for não.\n\n| | O pedido |\n|---|---|\n| **a** | *\"Preciso decidir o layout da loja nova que abre em três meses. É a primeira loja nesse formato.\"* |\n| **b** | *\"Todo dia às 6h alguém decide como distribuir 400 entregas entre 18 motoristas. Hoje é no olho.\"* |\n| **c** | *\"Quero um modelo que prove que a fusão das duas plantas compensa. A diretoria já decidiu fazer.\"* |\n| **d** | *\"Precisamos otimizar o estoque, mas o sistema não registra a data de validade dos lotes.\"* |\n\n5. Em dois casos a resposta \"não modelar\" **não** significa \"não faça nada\". Quais, e o que você entrega?\n6. Um dos quatro é o caso em que modelar tem o **maior retorno possível**. Qual, e o que o torna tão favorável?",
+    "criterios": [
+      "**(a)** não modelar — decisão **única**, sem repetição que pague o ciclo, e sem dado histórico do formato; entrega-se um roteiro de critérios e uma comparação de alternativas",
+      "**(b)** **modelar**, e é o caso de maior retorno: decisão **diária**, com alavanca clara, medida única e restrições reais — o ciclo se paga em dias",
+      "**(c)** não modelar — a decisão já está tomada e o modelo serviria de cobertura técnica; reconhecer isso é competência profissional, e o que se pode entregar é uma análise honesta dos riscos, dita como tal",
+      "**(d)** não modelar **ainda**: o projeto é de **dado**, não de otimização, e entregar isso cedo é o serviço mais valioso — sem validade de lote não há modelo de estoque perecível que se sustente",
+      "Identifica que **(a)** e **(d)** são os casos em que não modelar vem acompanhado de entrega, e **(b)** como o de maior retorno, pela repetição diária"
+    ],
+    "erro_provavel": "Aceitar **(c)**. É o pedido mais confortável dos quatro — vem com escopo claro, patrocínio da diretoria e resultado esperado conhecido — e é o único em que o trabalho técnico serve para **encerrar** uma discussão em vez de informá-la. Um modelo encomendado para provar uma conclusão já tomada não é modelo, é apresentação com equações; e quem o constrói empresta credibilidade a uma decisão que não examinou. O segundo erro é tratar **(d)** como \"modele com o que tem\": sem data de validade não existe modelo de estoque perecível que se sustente, e produzir um seria o caso do capítulo — modelo bom com dado inventado, pior do que nenhum porque tem aparência de rigor.",
+    "resposta_guia": "**(a)** Não modelar: a decisão é única, não há repetição que pague o ciclo, e é a primeira loja do formato — não há histórico para validar. Entregue um roteiro de critérios e uma comparação estruturada de alternativas, que é útil e honesto. **(b)** Modelar, e é o caso de maior retorno dos quatro: a decisão acontece **todo dia**, a alavanca é clara (a distribuição), a medida é única e as restrições são reais. Um ciclo completo se paga em dias, e o modelo passa a rodar sozinho. **(c)** Não modelar: a decisão já foi tomada e o modelo serviria de cobertura técnica. Isso não é cinismo, é reconhecer a natureza do pedido — e o que se pode entregar, se houver espaço, é uma análise dos riscos da fusão dita como análise de riscos, não como prova de que compensa. **(d)** Não modelar ainda: sem data de validade dos lotes não há modelo de estoque perecível que se sustente. O projeto é **de dado**, e dizer isso na primeira semana é o serviço mais valioso possível — o contrário é entregar um modelo com aparência de rigor sobre informação que não existe. Os casos em que \"não modelar\" vem com entrega são o (a) e o (d)."
+  },
+  {
+    "capitulo": 3,
+    "serie": "cap03",
+    "capacidade": "anatomia_modelo",
+    "contexto": "livro",
+    "id": "cap03.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Peça ou enfeite — e a unidade que denuncia",
+    "enunciado": "Uma gráfica descreve a semana assim, do jeito que as pessoas descrevem:\n\n> *\"A gente roda em duas máquinas, a velha e a nova. A nova imprime 1.200 folhas por hora e a velha, 700. Tenho 40 horas de operador na semana, e as duas máquinas não rodam ao mesmo tempo porque é o mesmo operador. A tinta que tenho em estoque dá para 30 mil folhas. A nova gasta R$ 22 de energia por hora e a velha, R$ 9. Preciso entregar pelo menos 25 mil folhas. A gráfica abre às 7h. Ah, e a máquina velha faz um barulho horrível.\"*\n\n1. Liste as **variáveis de decisão**, com unidade explícita. **Cuidado:** há duas escolhas possíveis de variável aqui, e uma delas complica o modelo sem necessidade — diga qual você escolheu e por quê.\n2. Escreva a **função objetivo**. O enunciado não diz o que minimizar; escolha, e **justifique** a escolha em uma frase.\n3. Liste as **restrições**, e diga qual frase do enunciado gerou cada uma.\n4. Liste os **parâmetros**.\n5. Aponte o que no enunciado **não é peça nenhuma**, e explique por que não é.\n6. Aplique o **teste da unidade** ao seu objetivo e à restrição de tinta.",
+    "criterios": [
+      "Variáveis em **horas de máquina** — `n` = horas na máquina nova, `v` = horas na velha —, e justifica: escolher \"folhas impressas em cada máquina\" também funciona, mas obriga a converter de volta para horas na restrição de operador",
+      "Objetivo declarado e justificado: **minimizar energia**, `22n + 9v`, é a leitura natural; maximizar folhas também é defensável desde que o aluno diga por quê",
+      "Restrições completas e casadas com a frase que gerou cada uma: operador `n + v ≤ 40` (h) — e **uma só**, porque *\"40 horas\"* e *\"não rodam ao mesmo tempo\"* geram a mesma restrição; tinta `1200n + 700v ≤ 30000` (folhas); entrega `1200n + 700v ≥ 25000`; e `n, v ≥ 0`. Parâmetros: 1.200 e 700 folhas/h, 40 h, 30.000 folhas, R$ 22/h e R$ 9/h, 25.000 folhas",
+      "Identifica **o horário de abertura** e **o barulho** como não-peças, e explica: nenhum dos dois limita nem mede nada no modelo como está escrito — o barulho só entraria se virasse número (um limite de horas da velha, por exemplo)",
+      "No teste da unidade: `R$/h × h = R$` nos dois termos do objetivo, e `folhas/h × h = folhas` dos dois lados da restrição de tinta"
+    ],
+    "erro_provavel": "Escrever as variáveis como **folhas impressas em cada máquina** e depois esquecer de converter na restrição do operador — que é em **horas**. O modelo fica dimensionalmente incoerente exatamente onde o teste da unidade olha, e é o erro mais comum quando o enunciado mistura duas unidades. O segundo erro provável é tratar *\"as duas não rodam ao mesmo tempo\"* como se exigisse variável binária: não exige — o que essa frase produz é o **compartilhamento das 40 horas** numa única restrição de soma, e é por isso que escolher horas como variável simplifica o modelo.",
+    "resposta_guia": "**(1)** `n` = horas rodadas na máquina nova por semana, `v` = horas na velha. A alternativa — folhas impressas em cada uma — também descreve a decisão, mas obriga a dividir pelo rendimento toda vez que o operador aparecer; escolher horas põe a restrição mais dura (o operador) na forma mais simples. **(2)** O enunciado não diz o que otimizar, e isso é de propósito: a escolha da medida é do capítulo 03, não do enunciado. **Minimizar energia**, `22n + 9v`, é a leitura natural dado que a entrega é um piso. **(3)** Operador: `n + v ≤ 40`, da frase *\"40 horas de operador\"* combinada com *\"as duas não rodam ao mesmo tempo\"* — as duas frases geram **uma** restrição, e perceber isso é metade do exercício. Tinta: `1200n + 700v ≤ 30000`. Entrega: `1200n + 700v ≥ 25000`. E as não-negatividades. **(4)** Parâmetros: os rendimentos 1.200 e 700 folhas/h, as 40 h, as 30 mil folhas de tinta, os custos de R$ 22/h e R$ 9/h, e as 25 mil folhas de pedido — todos medidos, nenhum decidido. **(5)** Não são peças: **o horário de abertura**, que não aparece em restrição nenhuma do jeito que o modelo está escrito, e **o barulho da máquina velha**, que é informação real e **não quantificada**. Nomear isso é parte do trabalho: enunciado real vem com contexto, e o modelo é o recorte. Se o barulho virar número — *\"a velha não pode passar de 10 horas\"* —, aí sim vira restrição. **(6)** No objetivo, `R$/h × h = R$` nos dois termos: passa. Na tinta, `folhas/h × h = folhas` à esquerda e folhas à direita: passa. Repare que o teste só passa **porque** as variáveis são horas; com folhas como variável e sem conversão, a restrição do operador somaria folhas com horas e o teste pegaria."
+  },
+  {
+    "capitulo": 3,
+    "serie": "cap03",
+    "capacidade": "anatomia_modelo",
+    "contexto": "livro",
+    "id": "cap03.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Do defeito ao sintoma",
+    "enunciado": "Para **cada** defeito abaixo, diga (i) em qual das quatro peças ele está, (ii) o que o solver vai devolver, e (iii) como alguém descobriria o defeito, já que em vários casos o solver não ajuda.\n\n| | O defeito |\n|---|---|\n| **a** | A demanda do mês que vem entrou no modelo como variável, e não como dado |\n| **b** | Esqueceram a restrição de capacidade do caminhão, num modelo em que o custo cresce com a carga |\n| **c** | O objetivo minimiza `custo em reais + tempo em horas` |\n| **d** | O custo unitário foi digitado como custo do lote de mil |\n| **e** | Escreveram `produção ≥ demanda` e, mais abaixo, `produção ≤ demanda − 10` |\n\n6. Ordene os cinco do **mais fácil** ao **mais difícil de descobrir**, e defenda a ordem.",
+    "criterios": [
+      "**(a)** variável/parâmetro trocados — devolve `Optimal`, com a demanda no valor mais conveniente; descobre-se perguntando *quem decide este número?*",
+      "**(b)** restrição faltando — pode devolver `Unbounded` **ou** `Optimal` com carga impossível, conforme o resto do modelo limitar ou não; descobre-se validando contra a operação",
+      "**(c)** função objetivo com unidades somadas — devolve `Optimal` e o número **não significa nada**; descobre-se pelo teste da unidade, nunca pelo solver",
+      "**(d)** parâmetro na escala errada — `Optimal`, plano coerente e mil vezes fora; descobre-se por ordem de grandeza ou por sensibilidade",
+      "**(e)** restrições contraditórias — `Infeasible`, e é o **único** dos cinco em que o solver aponta o problema"
+    ],
+    "erro_provavel": "Supor que restrição faltando sempre produz `Unbounded`. Ela só produz quando **nada mais** limita a variável naquela direção; se houver outra restrição segurando, o solver devolve `Optimal` com uma resposta que a operação simplesmente não executa — e este é o caso comum, não a exceção. O erro simétrico é achar que `Infeasible` é o pior veredito. É o melhor: é o único em que o modelo se recusa a produzir um número plausível e errado.",
+    "resposta_guia": "**(a)** Peça: variável de decisão (a demanda não é decidível — é parâmetro). Solver: `Optimal`, e a demanda sai no valor que mais convém ao objetivo. Descoberta: pela pergunta de triagem, *isto é algo que alguém decide?* **(b)** Peça: restrição. Solver: `Unbounded` se nada mais limitar a carga naquela direção, e `Optimal` com um plano inexecutável se algo limitar — o caso comum. Descoberta: validação contra quem opera (capítulo 02), que devolve a restrição faltando dita em português. **(c)** Peça: função objetivo. Solver: `Optimal`, com um número sem significado, porque reais e horas não somam. Descoberta: teste da unidade, e só ele. **(d)** Peça: parâmetro. Solver: `Optimal`, plano internamente coerente e errado por três ordens de grandeza. Descoberta: conferência de ordem de grandeza, ou análise de sensibilidade mostrando uma faixa absurda. **(e)** Peça: restrições. Solver: `Infeasible`. Descoberta: o solver, imediatamente. **A ordem**, do mais fácil ao mais difícil: **(e)**, que o solver aponta; **(b)**, quando dá `Unbounded`, porque também é um grito; **(d)**, que uma conferência de ordem de grandeza pega; **(a)**, que exige olhar o modelo com a pergunta certa; e **(c)**, o mais difícil, porque tudo parece funcionar — o modelo roda, o número aparece, e ninguém tem motivo para desconfiar de um `Optimal`."
+  },
+  {
+    "capitulo": 3,
+    "serie": "cap03",
+    "capacidade": "anatomia_modelo",
+    "contexto": "livro",
+    "id": "cap03.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "O teste da unidade num modelo que roda",
+    "enunciado": "Uma transportadora escreveu o modelo abaixo. Ele roda, devolve `Optimal` e a diretoria já aprovou o plano.\n\n```\nvariáveis:\n  c = caminhões próprios contratados no mês\n  k = quilômetros rodados no mês\n  t = terceirizações contratadas no mês\n\nminimizar   8500·c  +  2,30·k  +  190·t\n\nsujeito a:  k  ≥  120000            (a malha exige)\n            c  ≤  14                (garagem)\n            k  ≤  9000·c  +  600·t  (autonomia da frota)\n            c, k, t ≥ 0\n```\n\nOs números são reais: caminhão próprio custa R$ 8.500 por mês, o combustível dá R$ 2,30 por quilômetro, e cada terceirização custa R$ 190.\n\n1. Aplique o **teste da unidade** aos três termos do objetivo e às três restrições.\n2. Uma das variáveis está errada, e não é por causa da unidade. Qual, e por quê?\n3. O modelo devolveu `Optimal`. Isso é evidência de quê?\n4. Agora reescreva o modelo trocando `k` por **folhas de rota rodadas** — a mesma grandeza medida em outra unidade, sem corrigir os coeficientes. Aplique o teste da unidade de novo e diga **o que ele pega agora que não pegava antes**.",
+    "criterios": [
+      "Objetivo: os três termos fecham em **R$/mês** — `8500 R$/caminhão·mês × c`, `2,30 R$/km × k`, `190 R$/terceirização × t`. **O objetivo passa no teste da unidade**",
+      "Restrições: `k ≥ 120000` em km; `c ≤ 14` em caminhões; a terceira tem `9000 km/caminhão × c` e `600 km/terceirização × t`, e fecha em **km** dos dois lados. **Todas passam**",
+      "Identifica que `k` **não é variável de decisão**: ninguém decide o quilometrado — ele é consequência da malha e das entregas, e o modelo o trata como escolha",
+      "Percebe a consequência: com `k` decidível e custo positivo, o modelo empurra `k` para o mínimo (120.000) e otimiza o número errado — a pergunta real é **quantos caminhões e quantas terceirizações**, com o quilometrado como **parâmetro**",
+      "No item 4, mostra o teste da unidade **funcionando**: trocar a unidade de `k` sem trocar o coeficiente de R$ 2,30/km quebra a homogeneidade do objetivo, e o teste acusa — que é a prova de que o instrumento serve, e o item 1 é a prova de que ele não serve para tudo"
+    ],
+    "erro_provavel": "Procurar o defeito **na unidade**, porque o exercício vem logo depois da seção do teste da unidade. O modelo passa no teste da unidade — e é justamente isso que o exercício ensina: o teste é barato e vale sempre, mas ele pega **uma** classe de erro. Um modelo dimensionalmente perfeito pode ter a variável de decisão errada, e nenhuma conferência de unidade vai encostar nesse defeito. O segundo erro provável é aceitar `k` como variável porque ela aparece numa restrição de `≥`: restrição sobre uma grandeza não faz dela uma decisão.",
+    "resposta_guia": "**(1) O teste da unidade passa, e passa inteiro.** No objetivo, `8500 R$/(caminhão·mês)` vezes caminhões dá R$/mês; `2,30 R$/km` vezes km dá R$; `190 R$/terceirização` vezes terceirizações dá R$ — os três termos somam em reais, que é o que o teste exige. Nas restrições, a primeira e a segunda são triviais, e a terceira fecha em quilômetros dos dois lados, com `9000 km/caminhão` e `600 km/terceirização` como rendimentos. Nada a apontar. **(2) A variável errada é `k`.** Quilômetro rodado não é algo que alguém **decide**: é consequência da malha que a empresa atende e das entregas que ela aceitou. Pela pergunta de triagem, é algo que se **mede**, portanto **parâmetro**. E a consequência é concreta: como `k` aparece no objetivo com custo positivo e é livre para baixo até 120.000, o modelo vai colar em 120.000 e reportar uma economia que ninguém pode realizar, porque ninguém pode escolher rodar menos sem deixar de entregar. O modelo certo fixa `k = 120000` como dado e decide **`c` e `t`** — que são as duas coisas que a empresa de fato contrata. **(3) `Optimal` é evidência de que o problema formulado tem solução ótima, e de nada mais.** Não é evidência de que o problema formulado é o problema da empresa. É por isso que este capítulo organiza as quatro peças pelo sintoma: três delas erram em silêncio, e o silêncio soa igual a acerto. **(4)** Trocando `k` para folhas de rota sem mexer no `2,30`, o termo do objetivo passa a ser `R$/km × folhas`, que não é reais — e o teste da unidade **acusa na hora**. É o contraponto necessário do item 1: o instrumento é barato e funciona, e o que o exercício ensina não é desconfiar dele, é conhecer o seu alcance. Ele pega incoerência dimensional; não pega variável de decisão errada."
+  },
+  {
+    "capitulo": 4,
+    "serie": "cap04",
+    "capacidade": "classificacao",
+    "contexto": "livro",
+    "id": "cap04.exA",
+    "variante": "A",
+    "tipo": "escolher",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Quatro situações, quatro eixos",
+    "enunciado": "Classifique cada situação nos quatro eixos — **linearidade, integralidade, incerteza, convexidade** — e, para **cada uma**, aponte pelo menos um eixo que o enunciado **não permite responder**, dizendo o que faltou perguntar.\n\n| | A situação |\n|---|---|\n| **a** | Uma refinaria decide quantos litros de cada mistura produzir por dia. Rendimentos e preços são de tabela, e o lucro por litro é constante |\n| **b** | Uma rede escolhe **quais** de 40 centros de distribuição abrir no ano que vem, e quanto despachar de cada um aberto |\n| **c** | Uma companhia aérea decide quantos assentos vender a cada tarifa, sabendo que a demanda por tarifa é uma previsão com erro conhecido |\n| **d** | Uma indústria decide o mix de produção, sabendo que o preço unitário **cai** conforme o volume vendido cresce |\n\n5. Duas das quatro situações mudam de classe conforme uma decisão de **modelagem** que ainda não foi tomada. Quais, e qual decisão?",
+    "criterios": [
+      "**(a)** linear, contínuo, determinístico, convexo — e a incerteza é o eixo em aberto: o enunciado diz \"de tabela\", que não é o mesmo que \"conhecido no momento de decidir\"",
+      "**(b)** linear no despacho, **inteiro** (binário) na abertura, portanto **não convexo**; o eixo da incerteza fica em aberto (não se diz se a demanda do ano que vem é previsão)",
+      "**(c)** **estocástico** por construção; os demais eixos dependem de como o risco entrar no modelo, e o enunciado não diz",
+      "**(d)** **não linear** (receita como produto de preço por volume, com preço decrescente), e a **convexidade fica em aberto** — depende da forma da curva; maximizar receita côncava é convexo, e o enunciado não a especifica",
+      "Identifica em (5) que **(c)** e **(d)** são as que mudam de classe por decisão de modelagem: (c) conforme o critério de risco escolhido, e (d) conforme a aproximação — linear por partes devolve o problema ao mundo linear, ao custo de variáveis binárias"
+    ],
+    "erro_provavel": "Classificar **(b)** como convexo porque a parte de despacho é linear. A presença de **uma** variável binária basta para que a região viável deixe de ser convexa — ela vira uma união de pedaços. Isso não é mau presságio: problemas inteiros têm estrutura que permite **provar** otimalidade por limitante, ao contrário de um não linear qualquer. Mas dizer que são convexos é errado, e é o erro que faz alguém confiar num `Optimal` pelo motivo errado.",
+    "resposta_guia": "**(a)** Linear (lucro por litro constante), contínuo (litros), determinístico **pelo que o enunciado sugere**, convexo. O eixo em aberto é a **incerteza**: \"preços de tabela\" descreve a origem do dado, não o momento em que ele é conhecido — faltou perguntar se os preços podem mudar dentro do horizonte da decisão. **(b)** Linear nas quantidades, **inteiro** na abertura (variável binária por centro), e portanto **não convexo**; a incerteza fica em aberto, porque não se diz se a demanda é previsão. **(c)** **Estocástico**, e esse é o eixo que o enunciado fixa. Os outros três ficam todos em aberto, porque dependem de como a incerteza entra: valor esperado devolve um modelo linear; restrição probabilística ou aversão a risco pode não devolver. Faltou perguntar **qual critério de risco**. **(d)** **Não linear**: receita é preço vezes volume, e o preço depende do volume. A **convexidade fica em aberto** — depende da forma da curva de preço, que o enunciado não dá. **(5)** As que mudam por decisão de modelagem são **(c)** e **(d)**. Em (c), a classe depende do critério de risco, que é decisão de quem decide, não de quem modela. Em (d), aproximar a curva por segmentos lineares devolve o problema ao mundo linear — ao preço de variáveis binárias, isto é, trocando um eixo por outro. É o exemplo mais limpo de que a classe é do **modelo**, e não do problema de negócio."
+  },
+  {
+    "capitulo": 4,
+    "serie": "cap04",
+    "capacidade": "classificacao",
+    "contexto": "livro",
+    "id": "cap04.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Qual garantia acabou de morrer",
+    "enunciado": "Em cada caso alguém atravessou um eixo. Diga **qual eixo**, **qual garantia deixou de valer**, e **como a perda se manifesta** para quem lê o relatório.\n\n| | O que aconteceu |\n|---|---|\n| **a** | O modelo ganhou a restrição *\"o número de caminhões contratados tem que ser inteiro\"* |\n| **b** | O objetivo passou de *\"maximizar receita\"* para *\"maximizar receita menos um termo de penalidade quadrática\"* |\n| **c** | A demanda deixou de ser um número e virou três cenários com probabilidade |\n| **d** | Um analista resolveu o modelo contínuo, arredondou as 40 aberturas para o inteiro mais próximo e escreveu *\"solução ótima\"* no relatório |\n\n5. Um dos quatro casos **não** é uma travessia de eixo. Qual, e o que ele é?",
+    "criterios": [
+      "**(a)** eixo da integralidade — cai o teorema do vértice; a manifestação é o custo de resolução mudando de patamar e a prova de otimalidade passando a vir de limitante",
+      "**(b)** eixo da linearidade — e a resposta correta é **depende**: um termo quadrático de penalidade num problema de maximização pode preservar a concavidade e portanto a convexidade do problema. A manifestação é que a pergunta \"é convexo?\" passa a ser obrigatória",
+      "**(c)** eixo da incerteza — deixa de existir \"a\" solução ótima; a manifestação é que o relatório precisa declarar **sob qual critério** aquela solução é ótima",
+      "**(d)** identifica que NÃO é travessia: é abandonar a garantia sem trocá-la por outra — o arredondado pode ser inviável, e mesmo viável não vem com limitante nenhum",
+      "Ao menos um dos itens é respondido com a manifestação **para quem lê o relatório**, e não só com o nome da técnica"
+    ],
+    "erro_provavel": "Responder **(b)** com \"virou não linear, logo perdeu a garantia de global\". A primeira metade está certa e a segunda não: sair da linearidade **não** implica sair da convexidade. Maximizar uma função côncava sobre região convexa mantém a garantia de que todo ótimo local é global — o que muda é que ela deixa de ser automática e passa a exigir verificação. Este é o ponto do capítulo 38, e é o item que separa quem entendeu os eixos como independentes de quem os leu como uma escada.",
+    "resposta_guia": "**(a)** Eixo da **integralidade**. Cai o teorema do vértice do capítulo 08: o ótimo do modelo inteiro pode não estar em quina nenhuma da região contínua. Para quem lê o relatório, a manifestação é dupla — o tempo de resolução muda de patamar, e a frase que sustenta o resultado deixa de ser \"percorri as quinas\" e passa a ser \"provei por limitante que nada melhor existe\". **(b)** Eixo da **linearidade** — e a resposta é *depende*. Uma penalidade quadrática num problema de maximização pode manter o objetivo côncavo, e nesse caso a convexidade sobrevive inteira. O que muda para o leitor do relatório é que a pergunta **\"o modelo é convexo?\"** deixa de ter resposta automática e passa a precisar ser feita. **(c)** Eixo da **incerteza**. Deixa de existir \"a\" solução ótima: passa a existir a ótima **em valor esperado**, ou a que protege o pior cenário, ou a que respeita uma probabilidade de falha — e são soluções diferentes. A manifestação é que um relatório que diga apenas \"solução ótima\" ficou incompleto: falta o critério. **(d)** **Não é travessia de eixo.** É abandonar a garantia sem colocar nada no lugar: o arredondado pode ser inviável (violar capacidade), e mesmo quando é viável não vem com limitante nenhum, então não há como dizer quão longe do ótimo ele está. É a diferença entre trocar de classe, que custa e entrega outra garantia, e simplesmente **desistir da garantia**, que é de graça e não entrega nada."
+  },
+  {
+    "capitulo": 4,
+    "serie": "cap04",
+    "capacidade": "classificacao",
+    "contexto": "livro",
+    "id": "cap04.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "A frase que você pode dizer",
+    "enunciado": "Três resultados chegam na mesma semana. Para **cada um**, escreva **duas frases**: a que você diz a quem decide, e a que você **não pode** dizer — e explique o que separa as duas.\n\n| | O resultado |\n|---|---|\n| **a** | Modelo de PL com 900 variáveis. O solver rodou em 3 segundos e reportou `Optimal` |\n| **b** | Modelo inteiro misto. O solver parou no limite de 30 minutos, com a melhor solução encontrada e um *gap* de **1,8%** |\n| **c** | Modelo de roteirização com 3.000 pontos, resolvido por uma heurística construtiva seguida de busca local. Rodou 8 minutos |\n\n4. Ordene os três pelo **valor da promessa** que cada um autoriza, e diga por que a ordem não é a mesma do tempo de execução.\n5. Em (b), o cliente pergunta: *\"vale a pena rodar mais 30 minutos?\"* O que você responde, e o que o número 1,8% tem a ver com a resposta?",
+    "criterios": [
+      "**(a)** pode dizer *\"esta é a melhor solução possível; nenhuma outra é melhor\"* — PL é convexa e o `Optimal` é prova. Não pode dizer que é a melhor decisão **de negócio**, que depende do modelo estar certo",
+      "**(b)** pode dizer *\"esta solução está a no máximo 1,8% do melhor possível\"*. Não pode dizer que é ótima, nem que o ganho de continuar seja de 1,8% — 1,8% é **teto**, não estimativa",
+      "**(c)** pode dizer *\"é a melhor que encontrei com este procedimento\"*. Não pode dizer nada sobre distância ao ótimo, porque não há limitante",
+      "Ordena por valor de promessa **(a) > (b) > (c)** e explica que o tempo não ordena nada: (c) é o mais rápido dos dois grandes e é o que promete menos",
+      "Responde a (5) que 1,8% é o **teto** do ganho possível, e que a decisão de continuar compara esse teto com o valor em dinheiro que ele representa — e não com o percentual isolado"
+    ],
+    "erro_provavel": "Tratar o *gap* de 1,8% como uma estimativa do que ainda dá para ganhar. Ele é um **limitante superior**: o ganho real de continuar pode ser 1,8%, pode ser 0,3%, e pode ser exatamente zero — porque é perfeitamente possível que a solução em mãos **já seja** a ótima e o solver ainda não tenha provado. O segundo erro provável é achar que a heurística de (c) é pior por ser heurística. Ela pode até devolver a solução ótima; o que ela não devolve é **como saber disso**, e a promessa acompanha o que se sabe, não o que se espera.",
+    "resposta_guia": "**(a)** Digo: *\"esta é a melhor solução possível para o modelo; nenhuma outra alocação é melhor\"* — em Programação Linear o problema é convexo e o `Optimal` é prova, não impressão. **Não** digo: *\"esta é a melhor decisão para a empresa\"*, porque isso depende de o modelo representar a empresa, que é a etapa 4 do capítulo 02 e não foi feita aqui. **(b)** Digo: *\"esta solução está a **no máximo** 1,8% do melhor que existe\"*. **Não** digo: *\"esta é a solução ótima\"*, nem *\"dá para ganhar mais 1,8%\"* — o gap é teto, e o ganho real pode ser zero. **(c)** Digo: *\"é a melhor solução que encontrei com este procedimento, em 8 minutos\"*. **Não** digo nada sobre distância ao ótimo, porque a heurística não produz limitante e portanto não há com o que comparar. **(4)** Por valor de promessa: **(a) > (b) > (c)**. E a ordem do tempo não tem relação nenhuma — (a) levou 3 segundos e promete o máximo; (c) levou 8 minutos e promete o mínimo. O que ordena não é o esforço, é a **estrutura do problema e o que o método consegue provar sobre ela**. **(5)** Respondo que 1,8% é o **teto** do que ainda existe para ganhar, e que a conta a fazer não é sobre o percentual: é traduzi-lo em dinheiro. Se 1,8% da função objetivo forem R$ 400, não vale mais meia hora de ninguém; se forem R$ 400 mil, vale rodar a noite inteira. E vale dizer a frase inteira: pode ser que a solução em mãos **já seja** a ótima e falte apenas a prova."
+  },
+  {
+    "capitulo": 5,
+    "serie": "cap05",
+    "capacidade": "complexidade",
+    "contexto": "livro",
+    "id": "cap05.exA",
+    "variante": "A",
+    "tipo": "julgar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "O que a frase diz, e o que ela não diz",
+    "enunciado": "Cinco frases, todas ditas por gente competente. Para **cada uma**: diga se é **verdadeira**, e depois diga **qual conclusão prática ela NÃO autoriza** — que é onde o erro costuma morar.\n\n| | A frase |\n|---|---|\n| **a** | *\"NP quer dizer não polinomial.\"* |\n| **b** | *\"O Simplex tem pior caso exponencial.\"* |\n| **c** | *\"Não existe algoritmo polinomial conhecido para o caixeiro-viajante.\"* |\n| **d** | *\"Esse algoritmo é polinomial, então cabe no nosso prazo.\"* |\n| **e** | *\"O pior caso do Simplex é frágil: qualquer perturbação pequena desmancha.\"* |\n\n6. Duas das cinco são **falsas**. Quais, e o que a versão correta de cada uma diz?",
+    "criterios": [
+      "**(a)** é **falsa**: NP é *não determinístico polinomial* — a classe do que se **confere** em tempo polinomial. Nada na sigla afirma que a busca não seja polinomial",
+      "**(b)** é **verdadeira** e está medida (o cubo de Klee–Minty custa 2ⁿ−1 pivôs). Não autoriza concluir nada sobre o desempenho na instância de quem pergunta",
+      "**(c)** é **verdadeira**, e é uma afirmação sobre o **estado do conhecimento**. Não autoriza dizer que não existe — ninguém provou que não há",
+      "**(d)** é um **salto**: polinomial não é sinônimo de rápido, e a constante não aparece na notação. O que autoriza a conclusão é medir o tempo real no tamanho que se tem, e no dobro dele",
+      "**(e)** é **falsa** na forma em que está dita, e o capítulo mede: perturbar o cubo em 0,1%, 1% ou 10% deixa os 63 pivôs intactos. Identifica **(a)** e **(e)** como as duas falsas"
+    ],
+    "erro_provavel": "Classificar **(c)** como falsa por confundir \"não se conhece\" com \"não existe\". A frase, como está escrita, é rigorosamente verdadeira e é justamente o tipo de frase que a área escreve com cuidado — a questão P versus NP continua aberta. O erro simétrico é aceitar **(e)** por soar sofisticada: ela invoca um resultado real (a análise suavizada de 2004) e o deforma até virar outra coisa. Uma frase pode citar um teorema verdadeiro e ainda assim ser falsa.",
+    "resposta_guia": "**(a) Falsa.** NP é *não determinístico polinomial*, e descreve a classe dos problemas cuja **resposta** pode ser conferida em tempo polinomial. Conferir é fácil; achar é que não se sabe. A versão correta: *\"NP é a classe do que se confere rápido.\"* **(b) Verdadeira**, e medida neste capítulo: o cubo de Klee–Minty custa exatamente 2ⁿ−1 pivôs, de n=2 a n=7. O que ela **não** autoriza é qualquer previsão sobre a instância de quem está perguntando — a mediana medida em instâncias aleatórias de mesmo tamanho fica entre 2 e 7 pivôs. **(c) Verdadeira**, e é uma afirmação sobre o **estado do conhecimento**, não sobre o mundo. Não autoriza dizer que não existe algoritmo polinomial: ninguém provou isso, e a questão continua aberta. **(d) Salto.** Polinomial é um critério grosseiro de propósito — n¹⁰⁰ é polinomial e é inútil. O que autoriza a conclusão sobre o prazo é medir o tempo real no tamanho que se tem, e depois no dobro. **(e) Falsa** na forma dita, e o capítulo mede: com n=6, perturbar a matriz em 0,1%, 1% ou 10% deixa os 63 pivôs **absolutamente intactos**; só em 25% e 50% o caminho encurta. A versão correta é bem mais estreita: existe um resultado assintótico, em esperança, sob perturbação gaussiana e com outra regra de pivoteamento, que explica por que o Simplex é rápido na prática — e ele **não** diz que mexer 1% numa instância ruim a melhora. **(6)** As falsas são **(a)** e **(e)**."
+  },
+  {
+    "capitulo": 5,
+    "serie": "cap05",
+    "capacidade": "complexidade",
+    "contexto": "livro",
+    "id": "cap05.exB",
+    "variante": "B",
+    "tipo": "escolher",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Exato ou heurístico, com números na mesa",
+    "enunciado": "Uma distribuidora precisa escolher quais de 400 rotas ativar no trimestre. O modelo tem **400 variáveis binárias** e cerca de 900 restrições. O prazo é de três dias. A equipe está dividida: metade quer partir direto para uma heurística gulosa, \"porque é NP-difícil\".\n\n1. Escreva os **quatro passos** que você faz **antes** de decidir, na ordem, e diga quanto tempo você reserva para cada um.\n2. Diga **qual número** decide a questão, e por quê é ele e não outro.\n3. Suponha que, no passo em que se roda o solver exato com limite de 20 minutos, ele volte com *gap* de **0,4%**. O que você faz, e o que escreve no relatório?\n4. Suponha, em vez disso, *gap* de **34%** depois de duas horas. O que muda, e o que **continua valendo** desse esforço?\n5. A equipe diz que rodar o exato \"é perder tempo, já que é NP-difícil\". Responda em duas frases.",
+    "criterios": [
+      "Os quatro passos começam por **formular e conferir o modelo**, e só depois rodam solver — a ordem importa e o exercício cobra a ordem",
+      "Identifica que o número que decide é o ***gap*** reportado pelo solver, e não o tempo de execução nem o tamanho da instância",
+      "Com *gap* de 0,4%: **encerra** — a decisão está tomada, e o relatório diz \"a no máximo 0,4% do melhor possível\", nunca \"solução ótima\"",
+      "Com *gap* de 34%: reconhece que o esforço **não foi perdido** — sobraram uma solução viável e um **limitante**, e é o limitante que permitirá julgar a heurística depois",
+      "A resposta ao (5) contém a ideia de que NP-difícil é afirmação sobre o pior caso da classe, e que 20 minutos de solver é um preço baixo para descobrir de qual lado da distância a instância caiu"
+    ],
+    "erro_provavel": "Tratar o item (4) como fracasso e jogar o resultado fora. É o oposto: um *gap* de 34% entrega **duas** coisas que a heurística não entrega sozinha — uma solução viável de referência e, sobretudo, um **limitante** sobre o melhor possível. Sem esse limitante, quando a heurística devolver uma resposta, ninguém terá com o que compará-la, e a equipe vai discutir qualidade por impressão. O segundo erro provável é reservar dias para o passo do solver: o passo é barato de propósito — 20 minutos é o suficiente para descobrir de que lado da distância a instância caiu.",
+    "resposta_guia": "**(1) Os quatro passos.** Primeiro, **formular e conferir o modelo** — inclusive o teste da unidade do capítulo 03 — porque rodar solver sobre modelo errado é medir a coisa errada rápido; reserve o grosso do primeiro dia. Segundo, **rodar o solver exato com limite de 20 minutos**, sem nenhuma expectativa. Terceiro, **ler o *gap***. Quarto, decidir — e só aqui a palavra \"heurística\" pode aparecer. **(2) O número que decide é o *gap***, porque ele é a única grandeza que diz **quanto ainda existe para ganhar**. Nem o tamanho da instância nem o tempo de execução dizem isso: 400 binárias podem ser fáceis ou impossíveis conforme a estrutura, e essa é exatamente a informação que a classificação teórica não carrega. **(3) Com 0,4%, acabou.** A decisão está tomada, e o relatório diz: *\"esta solução está a no máximo 0,4% do melhor possível\"* — nunca *\"solução ótima\"*, que é outra coisa. Discutir heurística depois disso seria gastar dias para disputar quatro décimos de por cento. **(4) Com 34% depois de duas horas**, a heurística volta à mesa — e o esforço **não foi perdido**: ficaram uma solução viável de referência e um **limitante** sobre o melhor possível. É esse limitante que vai permitir dizer, quando a heurística responder, se ela chegou perto ou não. Sem ele, a comparação seria entre uma resposta e nada. **(5)** *\"NP-difícil descreve o pior caso da classe inteira, e a nossa instância é um objeto específico — a medição do capítulo mostra que instâncias comuns ficam ordens de grandeza abaixo do pior caso. Vinte minutos de solver é um preço baixo para descobrir de que lado nós caímos, e se caímos do lado ruim eu ainda saio com um limitante que a heurística não me daria.\"*"
+  },
+  {
+    "capitulo": 5,
+    "serie": "cap05",
+    "capacidade": "complexidade",
+    "contexto": "livro",
+    "id": "cap05.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Três frases de reunião",
+    "enunciado": "Trechos de uma mesma reunião. Para cada um: nomeie o **uso errado** da teoria, explique em uma frase por que é errado, e diga **o que colocar no lugar** — em forma de ação, não de opinião.\n\n> **Ana:** *\"Escalonamento de tripulação é NP-difícil. Vamos direto para a heurística e economizamos duas semanas.\"*\n>\n> **Bruno:** *\"E olha que o Simplex é exponencial no pior caso. Melhor usar pontos interiores para tudo.\"*\n>\n> **Célia:** *\"O nosso algoritmo de pré-processamento é polinomial, então ele cabe tranquilo no batch da madrugada.\"*\n\n4. Uma das três falas erra **duas vezes** — comete o uso errado que você nomeou **e** contradiz um resultado que este handbook mediu em outro capítulo. Qual, e qual resultado?\n5. Escreva a frase que você diria na reunião para reabrir a decisão da Ana, em no máximo duas linhas.",
+    "criterios": [
+      "**Ana** — decidir sem medir; joga fora o limitante que só o exato dá. No lugar: rodar o exato com limite de tempo e ler o *gap*",
+      "**Bruno** — confunde pior caso com desempenho típico, e ainda generaliza para \"tudo\". No lugar: medir os dois na instância real",
+      "**Célia** — polinomial não é rápido; a constante e o grau não aparecem na palavra. No lugar: medir o tempo no tamanho atual e no dobro",
+      "Identifica que **Bruno** erra duas vezes: além de confundir pior caso com típico, contradiz o capítulo 14, que mediu que a saída do método interior **não é vértice** e portanto não vem com base nem preço-sombra — trocar tudo por pontos interiores custaria a análise de sensibilidade",
+      "A frase para a Ana é **acionável** e barata: propõe uma medição curta com critério de parada declarado, e não uma discussão de princípio"
+    ],
+    "erro_provavel": "Concordar com o Bruno por metade — \"ele exagerou, mas pontos interiores é melhor mesmo em problema grande\". O ponto do erro dele não é a preferência: é **generalizar para \"tudo\"** a partir de uma afirmação de pior caso, ignorando que a escolha entre os dois métodos se faz pela instância **e pelo que o projeto precisa da resposta**. Quem troca Simplex por interior sem *crossover* perde a base, o preço-sombra e a faixa de validade — que são, muitas vezes, a parte do resultado que o cliente de fato usa.",
+    "resposta_guia": "**Ana — decidir sem medir.** Ela usa uma afirmação sobre o pior caso da classe para descartar um método sem gastar vinte minutos testando a instância; e ao descartar o exato, descarta junto o **limitante**, que é a única coisa capaz de dizer depois se a heurística ficou boa. No lugar: rodar o exato com limite de tempo e ler o *gap*. **Bruno — pior caso confundido com desempenho típico**, e ainda estendido a \"tudo\". No lugar: medir os dois métodos na instância real. **Célia — polinomial lido como rápido.** O grau e a constante não aparecem na palavra, e um n³ com constante grande pode estourar a madrugada. No lugar: medir o tempo no tamanho de hoje e no dobro dele, que é o teste que revela o grau na prática. **(4) Bruno erra duas vezes.** Além do erro de pior caso, ele contradiz o que o capítulo 14 mediu: a saída do método de pontos interiores **não é vértice** — chega a 4,5 × 10⁻⁶ do vértice, com erro de 1,8 × 10⁻⁴ no valor — e por isso não vem com base, preço-sombra nem faixa de validade. Trocar tudo por pontos interiores custaria a análise de sensibilidade inteira, que costuma ser a parte do resultado que o cliente usa. **(5)** *\"Antes de fechar isso, me dá vinte minutos de solver: se o gap vier baixo, a decisão está tomada e economizamos as duas semanas de verdade; se vier alto, eu saio com um limitante que vai nos dizer se a heurística ficou boa.\"*"
+  },
+  {
+    "capitulo": 6,
+    "serie": "cap06",
+    "capacidade": "ferramentas",
+    "contexto": "livro",
+    "id": "cap06.exA",
+    "variante": "A",
+    "tipo": "aplicar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Do zero ao primeiro modelo que roda",
+    "enunciado": "Monte o ambiente do `po-zero` e resolva o seu primeiro modelo.\n\n1. Clone o repositório, crie um ambiente virtual e instale as dependências pelo arquivo que o capítulo indica. Rode `python3 -m pytest po-zero -q` e **cole a última linha da saída**.\n2. Escreva, num arquivo novo, o modelo da montadora dos capítulos 07 e 08 usando PuLP, e resolva com o HiGHS. Reporte o ponto e o valor.\n3. Resolva **o mesmo modelo** trocando o solver para o CBC. Os dois concordam? Em quê exatamente?\n4. Agora estrague de propósito: acrescente a restrição `x1 >= 100`. O que cada solver devolve, e o que esse veredito diz — sobre a ferramenta ou sobre o modelo?\n5. Uma pessoa relata que o passo 1 falhou com `ModuleNotFoundError: No module named 'pulp'`. Diga o que ela pulou e por que o código não podia adivinhar isso sozinho.",
+    "criterios": [
+      "Cola a saída real do pytest, e não uma descrição dela — o capítulo inteiro é sobre não confiar em afirmação sem evidência",
+      "O modelo em PuLP declara variáveis com `lowBound=0`, objetivo de **maximização** e uma restrição por componente",
+      "Reconhece que HiGHS e CBC concordam no **valor** e no **veredito**, e que concordar no ponto é uma coisa a mais — que só é garantida quando o ótimo é único",
+      "Com a restrição estragada, os dois devolvem `Infeasible`, e a leitura correta é que **o problema é o modelo**: trocar de solver não muda veredito",
+      "Identifica que o passo pulado foi a instalação das dependências, e que o arquivo de dependências é declaração externa ao código — o `import pulp` diz que precisa, não diz de onde vem nem em que versão"
+    ],
+    "erro_provavel": "Concluir do item 3 que \"os solvers dão a mesma resposta\" e generalizar. Neste modelo o ótimo é único, então concordar no ponto é consequência da instância, não uma propriedade das ferramentas — e o próprio capítulo mede um caso em que os pontos divergem com o mesmo valor. O segundo erro provável é, no item 4, procurar defeito na instalação: `Infeasible` é um veredito bem-sucedido do solver, e não uma falha dele.",
+    "resposta_guia": "**(1)** A instalação é `pip install -r po-zero/requirements.txt` dentro do ambiente virtual, e a última linha do pytest deve indicar todos os testes passando. **(2)** O modelo em PuLP declara duas variáveis com `lowBound=0`, maximiza a soma dos lucros e acrescenta uma restrição `<=` por componente, com o estoque do lado direito. **(3)** Os dois concordam no **valor** e no **veredito** (`Optimal`), e neste caso também no ponto — mas isso é porque o ótimo desta instância é único. Concordar no ponto **não** é propriedade das ferramentas: o capítulo mede um modelo com face ótima em que o valor é 10 nos três e os planos são (6,4) e (2,8). **(4)** Ambos devolvem `Infeasible`, e o veredito é sobre o **modelo**: a nova restrição contradiz o estoque disponível. Trocar de solver não muda nada, e é exatamente a armadilha que o capítulo chama de \"parece progresso e não é\". **(5)** Ela pulou a instalação das dependências. O código não podia adivinhar: `import pulp` declara que o módulo é necessário, mas **não** diz de onde ele vem nem em que versão — essa informação é externa ao código de propósito, e mora no arquivo de dependências, que é o mesmo que a integração contínua instala a cada envio.",
+    "modelo": [
+      {
+        "rotulo": "montadora, como o item 2 pede",
+        "sentido": "max",
+        "objetivo": [
+          "100",
+          "150"
+        ],
+        "restricoes": [
+          [
+            "1",
+            "1",
+            "<=",
+            "10"
+          ],
+          [
+            "1",
+            "2",
+            "<=",
+            "12"
+          ]
+        ],
+        "otimo": {
+          "status": "otimo",
+          "valor": "1100",
+          "ponto": [
+            "8",
+            "2"
+          ]
+        }
+      },
+      {
+        "rotulo": "montadora estragada de propósito no item 4",
+        "sentido": "max",
+        "objetivo": [
+          "100",
+          "150"
+        ],
+        "restricoes": [
+          [
+            "1",
+            "1",
+            "<=",
+            "10"
+          ],
+          [
+            "1",
+            "2",
+            "<=",
+            "12"
+          ],
+          [
+            "1",
+            "0",
+            ">=",
+            "100"
+          ]
+        ],
+        "otimo": {
+          "status": "inviavel"
+        }
+      }
+    ]
+  },
+  {
+    "capitulo": 6,
+    "serie": "cap06",
+    "capacidade": "ferramentas",
+    "contexto": "livro",
+    "id": "cap06.exB",
+    "variante": "B",
+    "tipo": "interpretar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Três saídas, e o que em cada uma é decisão da ferramenta",
+    "enunciado": "Três saídas do **mesmo** modelo de mistura, produzidas por caminhos diferentes. Para cada uma, separe o que é **decisão do modelo**, o que é **decisão da ferramenta** e o que é **ponto flutuante**.\n\n| | A saída |\n|---|---|\n| **a** | `Optimal` · milho = 180/17, farelo = 48/17 · custo = 780/17 |\n| **b** | `Optimal` · milho = 10.588235294117647, farelo = 2.823529411764706 · custo = 45.88235294117647 |\n| **c** | `Optimal` · milho = 10.588235, farelo = 2.8235294 · custo = 45.882352 |\n\n4. Um analista compara (b) e (c) com `==` para conferir se \"deu a mesma coisa\", e o teste falha. Ele conclui que um dos dois solvers tem um bug. O que você responde?\n5. Escreva a regra de comparação que você usaria no lugar, com a tolerância declarada — e diga como se escolhe o número da tolerância.\n6. Em qual das três saídas você confiaria para **auditar** um resultado publicado, e por quê?",
+    "criterios": [
+      "Reconhece que o **veredito** `Optimal` e a **estrutura da resposta** (quais insumos entram) são decisão do modelo, iguais nas três",
+      "Identifica que o número de casas decimais é decisão da **ferramenta**, e não do modelo nem do algoritmo",
+      "Identifica (a) como aritmética exata e as outras duas como ponto flutuante, com (c) reportando menos casas",
+      "Responde ao (4) que não há bug: os dois estão corretos dentro da sua precisão, e o defeito está no `==` — comparar float por igualdade é o erro",
+      "A regra do (5) usa erro **relativo** ou absoluto com tolerância declarada, e a escolha da tolerância é justificada pela decisão que o número sustenta, não por um valor de costume"
+    ],
+    "erro_provavel": "Achar que (a) é \"mais precisa\" e portanto melhor em toda situação. Ela é **exata**, o que é diferente de melhor: aritmética racional custa caro e não escala para os modelos que os solvers reais resolvem. O valor de (a) neste handbook é ser **referência** — é ela que permite dizer quanto (b) e (c) arredondaram. Um solver de produção que trabalhasse em frações seria inutilizável, e isso não é defeito dele.",
+    "resposta_guia": "**Decisão do modelo, e igual nas três:** o veredito `Optimal`, e a estrutura da resposta — os dois insumos entram, nenhum fica em zero. Se um dos três dissesse `Infeasible`, aí sim haveria algo grave. **Decisão da ferramenta:** o número de casas reportadas. (c) escreve seis casas decimais; (b) escreve quatorze; a diferença não vem do algoritmo, vem de quantos dígitos cada ferramenta grava na saída. **Ponto flutuante:** (b) e (c) são aproximações de 780/17, que não tem representação decimal finita; (a) é a fração, produzida por aritmética exata. **(4)** Não há bug: os dois estão certos dentro da sua precisão, e o erro está no `==`. Comparar resultado de ponto flutuante por igualdade exata é o defeito clássico, e ele aparece justamente quando alguém tenta ser cuidadoso. **(5)** A regra é comparar por diferença **relativa** com tolerância declarada — por exemplo, `abs(a-b) <= 1e-6 * max(1, abs(b))`. E a tolerância não se escolhe por costume: escolhe-se pela **decisão que o número sustenta**. Se o valor vai virar uma compra em reais e centavos, uma tolerância de 1e-6 é folgada demais para ser interessante e apertada demais para causar problema; se vai entrar numa conta que multiplica o erro, ela precisa ser justificada. **(6)** Para **auditar**, (a) — porque é a única sem arredondamento, e auditoria é justamente o caso em que se quer distinguir erro de modelo de erro de representação. Isso não faz de (a) a melhor para produzir: aritmética exata não escala, e essa é a razão de os solvers reais não a usarem."
+  },
+  {
+    "capitulo": 6,
+    "serie": "cap06",
+    "capacidade": "ferramentas",
+    "contexto": "livro",
+    "id": "cap06.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Modelo e dados grudados",
+    "enunciado": "Um script real, que roda e devolve a resposta certa:\n\n```python\ndef resolver_producao():\n    p = LpProblem(\"prod\", LpMaximize)\n    cpu = LpVariable(\"cpu\", lowBound=0)\n    ram = LpVariable(\"ram\", lowBound=0)\n    p += 250 * cpu + 180 * ram          # margem por unidade\n    p += 1 * cpu + 1 * ram <= 10        # placas\n    p += 1 * cpu + 2 * ram <= 12        # pentes de memória\n    p.solve()\n    return cpu.value(), ram.value()\n```\n\n1. Aponte **cada** número que é dado de instância, e não estrutura de modelo.\n2. Reescreva a assinatura da função — só a assinatura e o formato do que ela recebe — de modo que modelo e dados fiquem separados.\n3. Descreva o **teste** que comprova que a separação aconteceu. Ele não pode ser \"olhar o código\".\n4. A empresa passa a ter **cinco** produtos e **quatro** componentes. O que quebra no script original, e o que **não** quebra na sua versão?\n5. O capítulo exige que a instância tenha **ficha**. Escreva a ficha desta instância com os três campos exigidos, inventando o que for razoável — e diga qual dos três é o mais fácil de esquecer e o mais caro de faltar.",
+    "criterios": [
+      "Identifica como dado de instância: as margens 250 e 180, as capacidades 10 e 12, e os coeficientes de consumo (1, 1, 1, 2) — **todos** eles",
+      "Percebe que os nomes `cpu` e `ram` também são instância: a estrutura é \"um produto por variável\", e não \"estes dois produtos\"",
+      "A nova assinatura recebe a instância como argumento (dicionário ou caminho de arquivo) e constrói variáveis e restrições por iteração, sem nome literal no corpo",
+      "O teste é **executável**: resolver uma segunda instância, de tamanho diferente, sem editar uma linha do código do modelo",
+      "A ficha traz origem, licença e limitações, e identifica **limitações** como o campo mais fácil de esquecer e mais caro de faltar — é ele que impede o dado de ser usado para responder à pergunta que ele não sustenta"
+    ],
+    "erro_provavel": "Parar nos números e deixar os **nomes** das variáveis dentro do modelo. Trocar `250` e `180` por parâmetros e manter `cpu = LpVariable(\"cpu\")` resolve metade do problema: o script continua sabendo que existem exatamente dois produtos, e chamados assim. A separação de verdade é entre a **estrutura** (\"uma variável por produto, uma restrição por componente\") e a instância (\"quais produtos, quais componentes, com que números\") — e o teste do item 3 é o que revela se ela aconteceu, porque só passa quando a contagem também vem de fora.",
+    "resposta_guia": "**(1)** São dados de instância: as margens **250** e **180**; as capacidades **10** e **12**; e os coeficientes de consumo **1, 1, 1 e 2**. Nada disso é estrutura. **(2)** Algo como `def resolver_producao(instancia: dict) -> dict:`, com a instância no formato `{\"produtos\": {nome: {\"margem\": …, \"consumo\": {componente: …}}}, \"componentes\": {nome: {\"estoque\": …}}}` — que é, não por acaso, o formato de `po-zero/etapa-01-formulacao/instancias/montadora.json`. O corpo cria **uma variável por produto** e **uma restrição por componente**, por iteração, sem nenhum nome literal. **(3)** O teste é executável e é este: **resolver uma segunda instância, de tamanho diferente, sem editar uma linha do modelo**. Se for preciso tocar no código, a separação não aconteceu — e \"olhar e achar limpo\" não é teste. **(4)** No script original quebra tudo: são cinco variáveis e quatro restrições que não existem, e cada uma teria de ser escrita à mão, com o risco de esquecer um termo em alguma. Na versão separada **não quebra nada** — troca-se o arquivo de instância, e é esse o ganho inteiro. **(5)** Ficha: **origem** (\"planejamento da linha de montagem, fechamento de julho de 2026\"), **licença** (\"dado interno, uso restrito ao exemplo didático, números alterados\") e **limitações** (\"último dia do mês, com estoque já comprometido; não representa capacidade média, e não inclui setup entre produtos\"). O campo mais fácil de esquecer e mais caro de faltar é **limitações** — porque origem e licença fazem falta na hora de publicar, enquanto limitações faz falta na hora de **decidir**: é ele que impede alguém de usar um recorte de fim de mês para responder a uma pergunta sobre o ano."
   }
 ]

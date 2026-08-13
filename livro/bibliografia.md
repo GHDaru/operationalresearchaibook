@@ -244,7 +244,7 @@ matemático-chefe.
 ✓ **MacTutor History of Mathematics — George Dantzig.** University of St Andrews. — Sustenta o
 sentido militar de *programming* ("planos ou cronogramas para treinamento, suprimento logístico ou
 deslocamento de pessoal"), a expressão original de Dantzig (*programming in a linear structure*) e
-o batismo do termo "linear programming" por **T. J. Koopmans**, na RAND, em 1948. Cita
+o batismo do termo "linear programming" por **T. C. Koopmans**, na RAND, em 1948. Cita
 diretamente *Linear Programming and Extensions* (Dantzig, 1963).
 [Página](https://mathshistory.st-andrews.ac.uk/Biographies/Dantzig_George/)
 
@@ -336,6 +336,74 @@ reais.
 ⏳ **HOFFMAN, A. J.** "Cycling in the simplex algorithm". *National Bureau of Standards Report*
 2974, 1953. — Referência **anterior** a Beale, creditada na fonte de 1955 acima. A data do
 exemplo (1951 ou 1953) diverge entre levantamentos e **não foi resolvida**.
+
+### Ferramentas de trabalho (capítulo 06)
+
+✓ᵐ **FOURER, R.; GAY, D. M.; KERNIGHAN, B. W.** "A Modeling Language for Mathematical
+Programming". *Management Science*, v. 36, n. 5, p. 519–554, 1990.
+DOI [10.1287/mnsc.36.5.519](https://doi.org/10.1287/mnsc.36.5.519). — Metadados conferidos no
+Crossref; **o texto não foi lido**. É o artigo a que se atribui a linguagem AMPL e, com ela, a
+separação explícita entre **modelo algébrico** e **dados**.
+
+✓ᵐ **HUANGFU, Q.; HALL, J. A. J.** "Parallelizing the dual revised simplex method". *Mathematical
+Programming Computation*, v. 10, n. 1, p. 119–142, 2017.
+DOI [10.1007/s12532-017-0130-5](https://doi.org/10.1007/s12532-017-0130-5). — Metadados
+conferidos; **o texto não foi lido**. É o trabalho na origem do HiGHS, o solver padrão deste
+handbook. **A data registrada é a da publicação eletrônica (dezembro de 2017)**; o fascículo
+impresso é de 2018, e a divergência é do registro, não do handbook — o portão de fontes compara
+com o Crossref e barraria a outra escolha.
+
+⏳ **A atribuição da separação modelo/dados à AMPL, e a de que o HiGHS descende deste trabalho.** —
+**Atribuições correntes**, apresentadas como tais no capítulo 06. Os artigos existem e foram
+conferidos por metadados; o conteúdo não.
+
+### Complexidade para quem modela (capítulo 05)
+
+✓ᵐ **EDMONDS, Jack.** "Paths, Trees, and Flowers". *Canadian Journal of Mathematics*, v. 17,
+p. 449–467, 1965. DOI [10.4153/cjm-1965-045-4](https://doi.org/10.4153/cjm-1965-045-4). —
+Metadados conferidos no Crossref; **o texto não foi lido**. É o artigo a que a literatura credita
+a proposta de tomar *tempo polinomial* como critério de "algoritmo bom".
+
+✓ᵐ **COOK, Stephen A.** "The complexity of theorem-proving procedures". *Proceedings of the third
+annual ACM symposium on Theory of computing (STOC '71)*, 1971.
+DOI [10.1145/800157.805047](https://doi.org/10.1145/800157.805047). — Metadados conferidos; **o
+texto não foi lido**. É o artigo a que se atribui a NP-completude.
+
+✓ᵐ **KARP, Richard M.** "Reducibility among Combinatorial Problems". In: *Complexity of Computer
+Computations*, 1972. DOI [10.1007/978-1-4684-2001-2_9](https://doi.org/10.1007/978-1-4684-2001-2_9).
+— Metadados conferidos; **o texto não foi lido**. É o trabalho a que se atribui a lista de
+problemas combinatórios reduzidos entre si, que popularizou a NP-completude fora da lógica.
+
+⏳ **KLEE, V.; MINTY, G. J.** "How good is the simplex algorithm?". In: *Inequalities III*,
+Academic Press, 1972. — **Sem DOI localizado** (capítulo de livro de 1972). O handbook **não
+depende** dele: o cubo é **construído e medido** em `po-zero`, nos capítulos 05 e 09. A referência
+fica como ponteiro para quem quiser a fonte original.
+
+⏳ **A atribuição do critério polinomial a Edmonds, da NP-completude a Cook e da lista de reduções
+a Karp.** — São **atribuições correntes**. Este handbook confirmou que os três trabalhos existem,
+com autor, veículo e ano; **não** confirmou o conteúdo de nenhum, e o capítulo 05 declara isso.
+
+### As travessias de classe (capítulo 04)
+
+O capítulo 04 conta que a classificação nasceu **para trás**, a partir dos métodos: acrescentar
+integralidade a um modelo linear exigiu maquinaria nova. Estas são as duas entradas que a
+literatura didática cita como marco dessa travessia — e as duas entram `✓ᵐ`.
+
+✓ᵐ **GOMORY, Ralph E.** "Outline of an algorithm for integer solutions to linear programs".
+*Bulletin of the American Mathematical Society*, v. 64, n. 5, p. 275–278, 1958.
+DOI [10.1090/s0002-9904-1958-10224-4](https://doi.org/10.1090/s0002-9904-1958-10224-4). —
+Metadados conferidos no Crossref; **o texto não foi lido**. É a referência a que se atribui o
+método dos cortes.
+
+✓ᵐ **LAND, A. H.; DOIG, A. G.** "An Automatic Method of Solving Discrete Programming Problems".
+*Econometrica*, v. 28, n. 3, p. 497, 1960.
+DOI [10.2307/1910129](https://doi.org/10.2307/1910129). — Metadados conferidos no Crossref; **o
+texto não foi lido**. É a referência a que se atribui o *branch-and-bound*.
+
+⏳ **A atribuição do *branch-and-bound* a Land & Doig e a do método dos cortes a Gomory.** — São
+**atribuições correntes**, repetidas em livro-texto e em levantamento histórico. Este handbook
+confirmou que os artigos existem, com autor, veículo, ano e página; **não** confirmou o conteúdo,
+e o capítulo 04 declara isso ao leitor.
 
 ### Formulação (fundamentos científicos do capítulo 07)
 

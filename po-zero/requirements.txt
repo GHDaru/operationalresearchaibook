@@ -1,0 +1,22 @@
+# Dependências do `po-zero` — a construção prática do handbook.
+#
+# ESTE ARQUIVO EXISTE POR UM DEFEITO REAL, e vale dizer qual.
+#
+# O passo de CI que roda os testes de medição instalava `pytest` e `numpy`, e
+# mais nada. Mas `etapa-08-modelagem/test_padroes.py` importa `pulp` direto, e
+# vários módulos de etapa o importam no topo — então o passo que existe para
+# proteger os selos 🔵 do handbook nunca poderia ter passado. Foi encontrado ao
+# criar a `parte-I-fundamentos`, cujo módulo puxa `pulp` transitivamente.
+#
+# A correção não é remover a dependência: é declará-la em um lugar só, que a CI
+# e o leitor do capítulo 06 usem igual. Instruções de instalação que ninguém
+# executa envelhecem em silêncio — esta é executada a cada push.
+#
+# Versões travadas por piso, não por igualdade: o handbook declara em que
+# versões mediu (ver `resultados.json` de cada etapa), e não exige que o leitor
+# reproduza a versão exata para rodar. O que exige versão exata é a comparação
+# de dígitos do capítulo 06, e lá o número da versão está escrito ao lado.
+pulp>=3.0
+highspy>=1.11
+numpy>=1.26
+pytest>=8.0
