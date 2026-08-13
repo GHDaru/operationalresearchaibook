@@ -24,7 +24,8 @@ from pathlib import Path
 
 import pytest
 
-from complexidade import MAGNITUDES, TAMANHOS_ALEATORIOS, perfil_aleatorio, perturba, pior_caso
+from complexidade import (AMOSTRAS_PERTURBACAO, MAGNITUDES, TAMANHOS_ALEATORIOS,
+                          perfil_aleatorio, perfil_de_perturbacao, pior_caso)
 
 RAIZ = Path(__file__).resolve().parents[2]
 CAPITULO = RAIZ / "livro/capitulos/05-complexidade.md"
@@ -58,29 +59,43 @@ def test_a_tabela_do_pior_caso_esta_no_capitulo(texto, n):
 def test_perturbacao_pequena_nao_muda_nada():
     """O resultado negativo, que é o que este capítulo tem de mais próprio.
 
-    0,1%, 1% e 10% deixam o caminho intacto. Se um dia isso mudar — outra regra
-    de pivoteamento, outra construção do cubo —, este teste é o que avisa.
+    A asserção é sobre a DISTRIBUIÇÃO, e não sobre um sorteio: em 0,1% e em 1%,
+    **todas** as sementes devolvem o caminho puro. Se um dia isso mudar — outra
+    regra de pivoteamento, outra construção do cubo —, este teste é o que avisa.
+
+    A versão anterior deste teste checava uma semente por magnitude, e foi por
+    isso que a linha de 10% chegou a ser publicada como "63" quando o correto
+    era "63 na maioria das vezes". Um teste que confere um sorteio herda a
+    fragilidade do sorteio.
     """
     puro = 2 ** N_PERT - 1
-    for i, mag in enumerate(MAGNITUDES):
-        r = perturba(N_PERT, mag, 1000 + i)
-        assert r["status"] == "otimo"
-        if mag <= F(1, 10):
-            assert r["pivos"] == puro, f"perturbação de {mag} mudou o caminho — o capítulo diz que não muda"
-        else:
-            assert r["pivos"] < puro, f"perturbação de {mag} deveria encurtar o caminho"
+    for mag in MAGNITUDES:
+        p = perfil_de_perturbacao(N_PERT, mag)
+        assert p["maximo"] <= puro, f"perturbação de {mag} não pode ALONGAR o caminho"
+        if mag <= F(1, 100):
+            assert p["intactas"] == p["amostras"], \
+                f"perturbação de {mag} mexeu no caminho — o capítulo diz que não mexe em nenhuma semente"
+        elif mag >= F(1, 2):
+            assert p["intactas"] == 0, f"perturbação de {mag} deveria encurtar em todas as sementes"
 
 
 def test_a_tabela_de_perturbacao_esta_no_capitulo(texto):
-    esperado = {str(mag): perturba(N_PERT, mag, 1000 + i)["pivos"] for i, mag in enumerate(MAGNITUDES)}
+    """Cada linha da tabela, inteira — mínimo, mediana, máximo e intactas."""
     rotulos = {"1/1000": "0,1%", "1/100": "1%", "1/10": "10%", "1/4": "25%", "1/2": "50%"}
-    for chave, pivos in esperado.items():
-        alvo = rotulos[chave]
-        # As três primeiras estão em negrito no capítulo (são o resultado que
-        # surpreende); as duas últimas, não. O teste aceita as duas formas e
-        # exige a linha inteira, não o número solto.
-        assert (f"| {alvo} | **{pivos}** |" in texto) or (f"| {alvo} | {pivos} |" in texto), \
-            f"linha de perturbação {alvo} não confere com a medição ({pivos} pivôs)"
+    for mag in MAGNITUDES:
+        p = perfil_de_perturbacao(N_PERT, mag)
+        alvo = rotulos[str(mag)]
+        intactas = f"{p['intactas']}/{p['amostras']}"
+        linha_a = f"| {alvo} | {p['minimo']} · **{p['mediana']}** · {p['maximo']} | **{intactas}** |"
+        linha_b = f"| {alvo} | {p['minimo']} · **{p['mediana']}** · {p['maximo']} | {intactas} |"
+        assert linha_a in texto or linha_b in texto, \
+            f"linha de perturbação {alvo} não confere com a medição: {p}"
+
+
+def test_o_capitulo_declara_quantas_sementes(texto):
+    """A assimetria que a revisão pegou: uma tabela declarava amostras, a outra não."""
+    assert f"{AMOSTRAS_PERTURBACAO} sementes por magnitude" in texto, \
+        "o capítulo publica a distribuição sem dizer sobre quantas sementes"
 
 
 def test_a_ressalva_sobre_a_analise_suavizada_continua_no_capitulo(texto):

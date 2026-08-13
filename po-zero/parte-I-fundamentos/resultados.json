@@ -45,41 +45,57 @@
   ],
   "pior_caso_perturbado": {
     "n": 6,
+    "amostras": 20,
     "medicoes": [
       {
         "n": 6,
         "magnitude": "1/1000",
-        "semente": 1000,
-        "status": "otimo",
-        "pivos": 63
+        "amostras": 20,
+        "minimo": 63,
+        "mediana": "63",
+        "maximo": 63,
+        "intactas": 20,
+        "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/100",
-        "semente": 1001,
-        "status": "otimo",
-        "pivos": 63
+        "amostras": 20,
+        "minimo": 63,
+        "mediana": "63",
+        "maximo": 63,
+        "intactas": 20,
+        "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/10",
-        "semente": 1002,
-        "status": "otimo",
-        "pivos": 63
+        "amostras": 20,
+        "minimo": 57,
+        "mediana": "63",
+        "maximo": 63,
+        "intactas": 14,
+        "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/4",
-        "semente": 1003,
-        "status": "otimo",
-        "pivos": 57
+        "amostras": 20,
+        "minimo": 35,
+        "mediana": "51",
+        "maximo": 63,
+        "intactas": 3,
+        "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/2",
-        "semente": 1004,
-        "status": "otimo",
-        "pivos": 22
+        "amostras": 20,
+        "minimo": 19,
+        "mediana": "33",
+        "maximo": 47,
+        "intactas": 0,
+        "puro": 63
       }
     ]
   },

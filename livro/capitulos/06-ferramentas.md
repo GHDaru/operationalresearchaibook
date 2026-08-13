@@ -14,16 +14,30 @@ modelo, o que é decisão da ferramenta e o que é ponto flutuante.
 
 ## O problema
 
-Este é o capítulo mais fácil de escrever mal, porque a tentação é entregar um folheto: *instale
+O [capítulo 05](05-complexidade.md) termina com uma instrução: *rode o método exato com limite de
+tempo e leia o `gap` antes de decidir qualquer coisa*. Esta página é onde se monta o que roda — e
+onde se aprende a **ler** o que ele devolve.
+
+É o capítulo mais fácil de escrever mal, porque a tentação é entregar um folheto: *instale
 isto, escreva assim*. Folheto envelhece e não ensina nada. O que este capítulo faz, em vez disso,
 é medir **três coisas que separam quem lê uma saída de solver de quem confia nela**.
 
 O erro caro deste capítulo:
 
-> Duas pessoas resolvem o **mesmo modelo**, com solvers diferentes, e conferem: o valor bate. Elas
+> Duas pessoas resolvem o **mesmo modelo** por caminhos diferentes e conferem: o valor bate. Elas
 > concluem que a resposta é a mesma. **Não é.** Este capítulo mede um caso em que o valor é 10 nos
 > dois e os planos são **(6, 4)** e **(2, 8)** — e é o plano que alguém vai executar na
 > segunda-feira.
+>
+> Repare no que a medição diz e no que ela não diz: os dois solvers testados aqui **concordaram**
+> entre si. A divergência apareceu entre o Simplex didático e eles. A desconfiança certa não é
+> *"cuidado ao trocar de solver"* — é *"cuidado quando a face ótima é um segmento"*, seja qual for
+> o caminho.
+
+> **Mesmo aviso de pré-requisito do [capítulo 05](05-complexidade.md).** *Face ótima*, *base* e
+> *custo reduzido* aparecem aqui como ferramentas de leitura e são apresentados nos
+> [capítulos 08](08-geometria.md) a [10](10-casos-especiais.md). O que esta página exige de fato é
+> saber rodar um modelo e olhar a saída — o resto ganha textura depois.
 
 ## De onde isto veio
 
@@ -56,6 +70,22 @@ otimização.
 É a mesma ideia do [capítulo 03](03-anatomia-do-modelo.md), agora do lado da ferramenta: lá,
 separar variável de parâmetro; aqui, separar modelo de instância. E vale muito além: é por isso
 que consulta parametrizada, template e configuração existem.
+
+### A origem dos nomes
+
+Quatro nomes atravessam este capítulo, e nenhum deles é arbitrário:
+
+- **AMPL** — *A Mathematical Programming Language*. O nome declara a ambição: não uma biblioteca,
+  uma **língua** em que o modelo é escrito.
+- **PuLP** — *Python Linear Programming*. A biblioteca faz o que o nome diz, e nada além.
+- **CBC** — *Coin-or Branch and Cut*, do projeto **COIN-OR** (*Computational Infrastructure for
+  Operations Research*), a iniciativa que reuniu solvers abertos de Pesquisa Operacional sob um
+  teto comum.
+- **HiGHS** — de *High performance software for linear optimization*. É o mais recente dos quatro,
+  e o solver padrão deste handbook.
+
+> **Nome inexplicado é ruído que o leitor memoriza sem ganhar nada.** As quatro expansões vêm da
+> documentação dos próprios projetos, e são a única coisa deste capítulo que não é medição.
 
 ### Procedência
 
@@ -116,7 +146,7 @@ face ótima existe está apresentando uma escolha do solver como se fosse uma co
 > custo reduzido zero numa variável fora da base. Se houver, a escolha entre os planos empatados
 > volta para quem decide, com um segundo critério declarado.
 
-### 2. Nenhum solver devolve a fração
+### 2. Nenhum solver de produção devolve a fração
 
 O modelo da ração do [capítulo 15](15-modelagem-aplicada.md) tem ótimo exato em **780/17**, que
 não tem representação decimal finita.
@@ -128,9 +158,10 @@ não tem representação decimal finita.
 | PuLP + CBC | 45.882352 | 9,41 × 10⁻⁷ |
 
 Os dois solvers estão certos e **discordam entre si**. A diferença não é de qualidade do
-algoritmo: é de quantas casas cada ferramenta escreve na sua saída. Nove casas decimais de
-diferença não mudam decisão nenhuma numa ração — **mudam quando alguém compara duas saídas com
-`==`**, ou quando o número entra numa conta que o amplifica.
+algoritmo: é de quantas casas cada ferramenta escreve na sua saída — **14 contra 6**, e portanto
+oito dígitos em que as duas saídas divergem. Oito casas decimais não mudam decisão nenhuma numa
+ração — **mudam quando alguém compara duas saídas com `==`**, ou quando o número entra numa conta
+que o amplifica.
 
 > **A regra prática:** nunca compare saídas de solver por igualdade exata; compare com tolerância,
 > e declare a tolerância. E ao publicar um número, diga a ferramenta e a versão que o produziu.
@@ -199,7 +230,7 @@ para a ração com o erro de cada um, e a concordância dos vereditos. O código
 `po-zero/parte-I-fundamentos/ferramentas.py`, e há teste que compara **este texto** à medição. As
 versões estão em `resultados-ferramentas.json`.
 
-**O que entra por fonte:** Fourer, Gay & Kernighan (1990) e Huangfu & Hall (2018) entram `✓ᵐ` —
+**O que entra por fonte:** Fourer, Gay & Kernighan (1990) e Huangfu & Hall (2017) entram `✓ᵐ` —
 **metadados conferidos no Crossref, conteúdo não lido** —, e as atribuições que o capítulo faz a
 eles aparecem como **correntes**.
 
@@ -230,8 +261,9 @@ formalidade.
 - **A pilha é aberta e de custo zero:** Python, PuLP (ou Pyomo), HiGHS (ou CBC), NumPy.
 - **Com múltiplos ótimos, a ferramenta escolhe o seu plano.** Medido: valor 10 nos três, planos
   (6, 4) e (2, 8).
-- **Nenhum solver devolve a fração.** Medido: 780/17 vira 45.88235294117647 no HiGHS e 45.882352
-  no CBC — os dois certos, e discordantes.
+- **Nenhum solver de produção devolve a fração.** Medido: 780/17 vira 45.88235294117647 no HiGHS
+  e 45.882352 no CBC — os dois certos, e discordantes. Quem devolve a fração é o Simplex didático,
+  em aritmética exata, e é por isso que ele serve de referência e não de ferramenta.
 - **Nunca compare saídas de solver com `==`.** Compare com tolerância, e declare a tolerância.
 - **Os vereditos concordam.** `Infeasible` não se resolve trocando de solver — é o modelo.
 - **Modelo não contém número de instância**, e instância tem ficha. O teste: trocar a instância
@@ -261,9 +293,10 @@ resultados medidos, e todos os três mudam o modo como se lê uma saída de solv
 múltiplos ótimos, a ferramenta escolhe o seu plano.** Num modelo cuja face ótima é um segmento
 inteiro, o Simplex didático devolve o plano (6, 4) e os dois solvers devolvem (2, 8) — todos
 ótimos, todos com valor 10, e é o **plano**, não o valor, que alguém vai executar. O segundo:
-**nenhum solver devolve a fração.** O ótimo exato da ração é 780/17, e o HiGHS reporta
-45.88235294117647 enquanto o CBC reporta 45.882352; os dois estão certos e discordam em nove casas
-decimais, o que não muda decisão nenhuma — até alguém comparar duas saídas com igualdade exata. A
+**nenhum solver de produção devolve a fração.** O ótimo exato da ração é 780/17, e o HiGHS reporta
+45.88235294117647 enquanto o CBC reporta 45.882352 — 14 casas contra 6, e portanto oito dígitos de
+divergência. Os dois estão certos, e a diferença não muda decisão nenhuma — até alguém comparar
+duas saídas com igualdade exata. A
 regra que fica é comparar com tolerância declarada, e publicar sempre a ferramenta e a versão. O
 terceiro é boa notícia e também é resultado: **os vereditos concordam.** `Unbounded` e `Infeasible`
 saem iguais nas três implementações, o que significa que um diagnóstico não se conserta trocando de

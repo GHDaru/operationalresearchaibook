@@ -30,7 +30,7 @@ O erro caro deste capítulo é o mais difundido do livro, porque não é de cont
 > pergunta que foi respondida não era a pergunta que foi feita. **Não há erro em lugar nenhum**, e
 > o projeto fracassa mesmo assim.
 
-Os capítulos anteriores mediram esse erro em quatro formas diferentes. Este capítulo o nomeia.
+Os capítulos anteriores mediram esse erro em cinco formas diferentes. Este capítulo o nomeia.
 
 ## O que a PO é, em uma frase — e o que a frase exige
 
@@ -117,12 +117,29 @@ Todos os números saem de scripts que rodam neste repositório.
 | *"o modelo acha a melhor decisão"* | Acha — **e só dentro de uma faixa**. Um preço-sombra citado fora dela custou **R$ 350** numa compra sem nenhuma conta errada | [cap. 12](12-dualidade.md) |
 | *"o modelo dá **o** número"* | Nem sempre existe **um**. Em vértice degenerado, a mesma CPU vale **50 pela esquerda e 0 pela direita** | [cap. 13](13-sensibilidade.md) |
 | *"escolher o método certo é detalhe técnico"* | O padrão errado custou **R$ 403,33 contra R$ 365** — com `Optimal` nos dois e **sem dizer** quanto vai para cada destino | [cap. 15](15-modelagem-aplicada.md) |
-| *"o solver achou o ótimo"* | Só se o modelo for convexo. Sem isso, mesma região e mesmo objetivo devolveram **22 e 30**, conforme onde a busca começou | [cap. 38](38-convexidade.md) |
+| *"o solver achou o ótimo"* | Só se o método vier com **limitante**. Sem isso, mesma região e mesmo objetivo devolveram **22 e 30**, conforme onde a busca começou | [cap. 38](38-convexidade.md) |
 | *"método mais novo é melhor"* | Medido: a forma revisada do Simplex **perde** em duas das três instâncias esparsas testadas | [cap. 11](11-simplex-revisado.md) |
 
 **Leia a coluna do meio inteira antes de seguir.** Ela não é uma lista de defeitos da Pesquisa
 Operacional — é a lista do que a disciplina **entrega de verdade** quando alguém sabe ler o que
 ela devolve. Cada linha é uma decisão que teria sido tomada errado por quem só olhasse o número.
+
+### Três perguntas antes de citar um caso
+
+O critério acima decide se **um problema** é de PO. Falta o gesto simétrico, que é o objetivo O3:
+decidir se **um caso publicado** sustenta o que promete. Três perguntas bastam para a maioria:
+
+1. **Comparado com o quê?** Um ganho de 18% é 18% acima de qual linha de base — do que se fazia
+   antes, de outro método, ou de uma versão do próprio modelo? Caso sem linha de base declarada
+   não afirma nada mensurável.
+2. **Sobre que escopo, e por quanto tempo?** Um piloto de seis semanas numa filial e um ano em
+   toda a rede não sustentam a mesma frase.
+3. **O que aconteceria sem o modelo?** É a pergunta do contrafactual, e a mais evitada: parte do
+   ganho de qualquer projeto vem de alguém finalmente ter olhado para o problema.
+
+Estas três abrem o assunto; a leitura crítica **completa**, com as três passadas e a checklist de
+comparação computacional, é o [capítulo 77](77-ler-artigo.md) — antecipado de propósito, e é para
+onde o exercício C desta página aponta.
 
 ## Quando não serve
 
@@ -213,8 +230,8 @@ ter vindo antes desta página. O que sustenta tudo isso não é promessa: um pre
 da faixa custou **R$ 350** numa compra em que nenhuma conta estava errada; em vértice degenerado a
 mesma CPU vale **50 pela esquerda e 0 pela direita**, de modo que "o número" às vezes não existe; o
 padrão de modelagem escolhido errado custou **R$ 403,33 contra R$ 365** e, pior, deixou de
-responder à pergunta feita; um modelo não convexo devolveu **22 ou 30** conforme onde a busca
-começou, com `Optimal` nos dois casos; e a forma mais moderna do Simplex **perdeu** em duas das
+responder à pergunta feita; uma busca local honesta num modelo não convexo parou em **22 ou em 30**
+conforme onde começou, sem emitir erro, aviso ou bandeira em nenhum dos dois casos; e a forma mais moderna do Simplex **perdeu** em duas das
 três instâncias esparsas medidas. A disciplina serve quando há alavanca, medida única, restrição e
 dado real — e não serve quando a decisão é política, quando os objetivos são genuinamente
 conflitantes, ou quando o custo de modelar excede o valor da melhoria.

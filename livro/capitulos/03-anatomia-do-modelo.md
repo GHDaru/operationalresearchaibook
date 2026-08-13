@@ -150,7 +150,10 @@ sortudos: o modelo grita. O caso comum é o modelo sussurrar.
 
 Parâmetro errado **nunca** dá erro. Ele produz a resposta certa para o mundo errado, e é por isso
 que a [análise de sensibilidade](13-sensibilidade.md) existe: ela é o instrumento que diz **quanto
-o parâmetro pode estar errado** antes de a resposta mudar.
+o parâmetro pode estar errado** antes de a resposta mudar — com uma ressalva que o capítulo 13
+declara e que vale trazer junto: **a faixa vale para uma mudança de cada vez**. Dois parâmetros
+errados ao mesmo tempo podem sair da região de validade mesmo estando cada um dentro da sua faixa,
+e um erro de ordem de grandeza costuma estourar a faixa em vez de aparecer dentro dela.
 
 Duas armadilhas específicas, ambas medidas em outros capítulos deste livro:
 
@@ -159,6 +162,13 @@ Duas armadilhas específicas, ambas medidas em outros capítulos deste livro:
 - **Parâmetro tratado como certo quando tem faixa.** É o erro de R$ 350 do
   [capítulo 12](12-dualidade.md): um preço-sombra é um parâmetro **com prazo de validade**, e
   citá-lo fora da faixa custou dinheiro sem nenhuma conta errada.
+
+> **Um mesmo defeito, duas etapas — e isso não é contradição.** O [capítulo 02](02-ciclo-de-modelagem.md)
+> classifica esse mesmo R$ 350 como falha da **etapa 3**, resolver sem dizer o que a resposta
+> autoriza. Aqui ele aparece como defeito de **parâmetro**, que é etapa 2. As duas leituras estão
+> certas e apontam para consertos diferentes: quem trata na etapa 2 escreve a faixa junto do
+> número; quem trata na etapa 3 não deixa o relatório sair sem ela. **O defeito é o mesmo; o lugar
+> onde você o barra é uma escolha de processo.**
 
 ## O teste da unidade, em 60 segundos
 

@@ -80,6 +80,17 @@ def perturba(n: int, magnitude: F, semente: int) -> dict:
     A degradação é **gradual e cara**: só em perturbações grandes o caminho
     encurta, e "grande" aqui significa mudar a instância a ponto de ela ser
     outra instância.
+
+    UMA SEMENTE NÃO É UMA MEDIÇÃO — e a primeira versão desta etapa errou nisso.
+
+    A tabela publicada no capítulo 05 nasceu de **um sorteio por magnitude**, e a
+    revisão em contexto fresco apontou a assimetria: a tabela vizinha, das
+    instâncias aleatórias, declarava "20 amostras por tamanho", e esta declarava
+    nada. Ao medir 20 sementes por magnitude, o quadro mudou onde mais importava:
+    a linha de 10% deixou de ser "63 pivôs" e virou "63 na maioria das vezes,
+    mas não sempre". O resultado central sobreviveu — 0,1% e 1% não mexem em
+    nada, em nenhuma semente —, e é por isso que `perfil_de_perturbacao` existe:
+    quem publica distribuição não publica sorteio.
     """
     rnd = random.Random(semente)
     lucros, rs = klee_minty(n)
@@ -91,6 +102,35 @@ def perturba(n: int, magnitude: F, semente: int) -> dict:
         ]
         pert.append(Restricao(coefs, r.sinal, r.b, r.rotulo))
     return {"n": n, "magnitude": str(magnitude), "semente": semente, **pivos(lucros, pert)}
+
+
+AMOSTRAS_PERTURBACAO = 20
+
+
+def perfil_de_perturbacao(n: int, magnitude: F, amostras: int = AMOSTRAS_PERTURBACAO) -> dict:
+    """A distribuição de pivôs sob perturbação, e não um sorteio dela.
+
+    Devolve mínimo, mediana, máximo e — o número que o capítulo publica — **em
+    quantas das amostras o caminho ficou exatamente igual ao do cubo puro**. É
+    essa contagem que separa "não muda nada" de "quase nunca muda".
+    """
+    puro = 2 ** n - 1
+    contagens = sorted(
+        perturba(n, magnitude, SEMENTE_BASE + 7000 + s)["pivos"] for s in range(amostras)
+    )
+    meio = len(contagens) // 2
+    mediana = (contagens[meio] if len(contagens) % 2
+               else F(contagens[meio - 1] + contagens[meio], 2))
+    return {
+        "n": n,
+        "magnitude": str(magnitude),
+        "amostras": amostras,
+        "minimo": contagens[0],
+        "mediana": str(mediana),
+        "maximo": contagens[-1],
+        "intactas": sum(1 for c in contagens if c == puro),
+        "puro": puro,
+    }
 
 
 def instancia_aleatoria(n: int, m: int, semente: int) -> tuple[list[F], list[Restricao]]:
@@ -152,12 +192,14 @@ if __name__ == "__main__":
     print()
 
     N_PERT = 6
-    perts = [perturba(N_PERT, mag, 1000 + i) for i, mag in enumerate(MAGNITUDES)]
+    perts = [perfil_de_perturbacao(N_PERT, mag) for mag in MAGNITUDES]
     print(f"O MESMO CUBO PERTURBADO (n={N_PERT}) — e o resultado que contraria a leitura fácil")
+    print(f"{AMOSTRAS_PERTURBACAO} sementes por magnitude; o cubo puro custa {2 ** N_PERT - 1} pivôs")
     print("=" * 82)
     for p in perts:
-        print(f"  perturbação relativa de {p['magnitude']:>5} → {p['pivos']:>3} pivôs "
-              f"(puro: {2 ** N_PERT - 1})")
+        print(f"  perturbação de {p['magnitude']:>6}: pivôs mín {p['minimo']:>3} · "
+              f"mediana {p['mediana']:>4} · máx {p['maximo']:>3}   "
+              f"intactas: {p['intactas']}/{p['amostras']}")
     print()
 
     perfis = [perfil_aleatorio(n) for n in TAMANHOS_ALEATORIOS]
@@ -170,7 +212,7 @@ if __name__ == "__main__":
 
     saida = {
         "pior_caso_construido": piores,
-        "pior_caso_perturbado": {"n": N_PERT, "medicoes": perts},
+        "pior_caso_perturbado": {"n": N_PERT, "amostras": AMOSTRAS_PERTURBACAO, "medicoes": perts},
         "instancias_aleatorias": perfis,
         "versoes": {"python": sys.version.split()[0], "aritmetica": "fractions.Fraction (exata)"},
         "semente_base": SEMENTE_BASE,

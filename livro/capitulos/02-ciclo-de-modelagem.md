@@ -22,8 +22,8 @@ imagina. O modelo quase nunca está errado.
 | Na matemática — "a formulação estava furada" | Na **validação** — ninguém confrontou o modelo com a realidade |
 | No solver — "não convergiu" | Na **implantação** — a resposta certa não virou decisão |
 
-Os capítulos 07 a 15 são inteiros sobre a etapa do meio, e essa é a que este handbook consegue
-medir. As duas pontas — o que se decide antes de formular e o que acontece depois de resolver —
+Os capítulos 07 a 15 vivem quase todos na etapa do meio, e essa é a que este handbook consegue
+medir — quase, porque o 07 é de **formulação**, que é a etapa 2, e o 15 também. As duas pontas — o que se decide antes de formular e o que acontece depois de resolver —
 são onde o dinheiro se perde, e são o assunto desta página.
 
 O erro caro deste capítulo:
@@ -94,13 +94,15 @@ tem de bom: descobrir na etapa 4 que a pergunta era outra é caro, e descobrir d
 
 ### Onde a Parte II deste livro se encaixa
 
-Nove capítulos, todos dentro da etapa 3 — e vale ver o que eles mediram sobre as vizinhas:
+São os mesmos três casos que o [capítulo 01](01-o-que-e-po.md) usa para prestar contas — e a
+repetição tem função exatamente uma vez: lá a pergunta era *"o que a PO entrega?"*, e aqui é **de
+que etapa é o defeito**. É a mesma evidência lida por outra lente.
 
 | O que a Parte II mediu | De que etapa é o defeito |
 |---|---|
 | Preço-sombra citado fora da faixa: **R$ 350** de prejuízo, sem conta errada ([cap. 12](12-dualidade.md)) | **3** — resolver sem dizer o que a resposta autoriza |
 | Padrão de modelagem errado: **R$ 403,33 contra R$ 365**, e o modelo não responde à pergunta ([cap. 15](15-modelagem-aplicada.md)) | **1 e 2** — a variável de decisão errada apaga a pergunta |
-| `Optimal` num modelo não convexo: **22 ou 30**, conforme onde a busca começou ([cap. 38](38-convexidade.md)) | **4** — validar é o que pega isto |
+| Busca local num modelo não convexo: **22 ou 30**, conforme onde começou — e sem aviso nenhum ([cap. 38](38-convexidade.md)) | **4** — validar é o que pega isto |
 
 Repare que **o número certo e a decisão errada convivem em todas as três**. É por isso que a
 etapa 4 não é burocracia.

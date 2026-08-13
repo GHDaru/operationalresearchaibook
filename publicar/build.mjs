@@ -415,6 +415,8 @@ const SIGLAS = {
   ML4CO: "Machine Learning for Combinatorial Optimization",
   ML: "Machine Learning", RL: "Reinforcement Learning",
   LLM: "Large Language Model", RAG: "Retrieval-Augmented Generation",
+  AMPL: "A Mathematical Programming Language", CBC: "Coin-or Branch and Cut",
+  HiGHS: "High performance software for linear optimization",
   API: "Application Programming Interface", DOI: "Digital Object Identifier",
   ISBN: "International Standard Book Number", ORCID: "Open Researcher and Contributor ID",
   ADR: "Architecture Decision Record", DoD: "Definition of Done",

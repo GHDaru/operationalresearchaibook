@@ -30,7 +30,8 @@ solução"* ou apenas *"não achei nada melhor por aqui"*.
 O erro caro deste capítulo:
 
 > Alguém apresenta um resultado dizendo "o modelo encontrou a solução ótima" para um problema **não
-> convexo**. O relatório está certo — o solver de fato escreveu `Optimal`. A frase é que está
+> convexo**, resolvido por um método que não produz limitante. O procedimento não errou nada — ele
+> parou onde não havia vizinho melhor, e não emitiu erro, aviso nem bandeira. A **frase** é que está
 > errada, e este handbook mediu a diferença: mesma região, mesmo objetivo, duas partidas,
 > **22 contra 30** ([capítulo 38](38-convexidade.md)).
 
@@ -61,9 +62,13 @@ integralidade.
 *"As variáveis têm que ser inteiras"* soa como um detalhe de arredondamento. Não é. A região
 viável deixa de ser um poliedro contínuo e vira uma nuvem de pontos, e o teorema que garante o
 ótimo numa quina — o do [capítulo 08](08-geometria.md) — deixa de se aplicar. Foi preciso inventar
-maquinaria nova: **Gomory**, em 1958, com os cortes que apertam a região sem descartar ponto
-inteiro nenhum; **Land e Doig**, em 1960, com a busca que divide o problema e poda ramos por
-limitante — o que hoje se chama *branch-and-bound*.
+maquinaria nova, e a literatura credita duas viradas: a **Ralph Gomory**, em 1958, os cortes que
+apertam a região sem descartar ponto inteiro nenhum; e a **Ailsa Land e Alison Doig**, em 1960, a
+busca que divide o problema e poda ramos por limitante — o que hoje se chama *branch-and-bound*.
+
+> **As duas são atribuições correntes, e este handbook as apresenta como tais.** Os dois artigos
+> existem e foram conferidos por metadados — autor, veículo, ano e página. O **conteúdo não foi
+> lido**, então nada aqui afirma o que está escrito dentro deles.
 
 ### A ideia reaproveitável
 
@@ -102,11 +107,18 @@ outro.
 | **Incerteza** | Os parâmetros são conhecidos quando se decide? | **Determinístico** | **Estocástico / robusto** |
 | **Convexidade** | Todo ótimo local é global? | **Convexo** | **Não convexo** |
 
-**O quarto eixo é o que decide o significado da palavra `Optimal`**, e por isso ele tem capítulo
-próprio ([38](38-convexidade.md)) e é o único que atravessa os outros três: Programação Linear é
-convexa sempre; um problema inteiro **não** é convexo, mas tem estrutura que permite provar
-otimalidade por limitante; e um problema não linear qualquer pode ser convexo ou não, e a diferença
-é a de 22 para 30.
+**O quarto eixo é o que decide se a garantia de global é automática**, e por isso ele tem capítulo
+próprio ([38](38-convexidade.md)) e atravessa os outros três: Programação Linear é convexa sempre;
+um problema inteiro **não** é convexo; e um não linear qualquer pode ser convexo ou não.
+
+> **E aqui vale desfazer um atalho que este capítulo quase adotou.** Não é a convexidade que decide
+> o significado de `Optimal` — é o **limitante**. Um modelo inteiro é não convexo e mesmo assim o
+> `Optimal` de um *branch-and-bound* é **prova**, porque o método fecha a distância entre a melhor
+> solução e o melhor possível. O que sobra sem convexidade **e** sem limitante — uma busca local
+> num modelo não linear — é o caso em que `Optimal` quer dizer apenas *"não achei nada melhor por
+> aqui"*, e é a distância de 22 para 30.
+>
+> A regra que vale para tudo, e cabe numa linha: **`Optimal` só é prova quando vem com limitante.**
 
 ### O que muda em cada travessia
 
@@ -117,7 +129,7 @@ Esta é a tabela que vale decorar — não pelas técnicas, pela **coluna da dir
 | Linear → **Não linear** | Representar retorno decrescente, economia de escala, risco | O ótimo pode não estar numa quina; sem convexidade, não há garantia de global |
 | Contínuo → **Inteiro** | Representar decisões indivisíveis: abrir ou não, ir ou não | O teorema do vértice não vale; o custo cresce muito, e a prova de otimalidade vem de limitante, não de percorrer quinas |
 | Determinístico → **Incerto** | Não fingir que se conhece o futuro | Não existe mais "a" solução ótima — existe ótima **sob um critério de risco**, que precisa ser declarado |
-| Convexo → **Não convexo** | Representar o mundo como ele às vezes é | `Optimal` passa a significar *"não achei nada melhor por aqui"* |
+| Convexo → **Não convexo** | Representar o mundo como ele às vezes é | Deixa de haver garantia **automática** de global. Se o método também não produzir limitante, `Optimal` passa a significar *"não achei nada melhor por aqui"* |
 
 **Arredondar não é atravessar de volta.** A tentação diante de um modelo inteiro é resolver o
 contínuo e arredondar o resultado. Às vezes funciona; às vezes o arredondado é **inviável**, e às
@@ -133,12 +145,14 @@ Na ordem, porque a ordem economiza trabalho:
    **tente**, porque muita coisa que parece não linear vira linear com uma mudança de variável ou
    uma aproximação por partes declarada.
 2. **Alguma decisão é indivisível?** Meio caminhão, meia fábrica e meio funcionário não existem.
-   Se existir, você está em Programação Inteira Mista (PIM), e o custo muda de patamar.
+   Se existir, você está em Programação Inteira Mista — **MILP**, na sigla consagrada —, e o custo
+   muda de patamar.
 3. **Algum parâmetro é uma previsão?** Demanda, preço e tempo de viagem quase sempre são. Se forem,
    a pergunta seguinte é **qual critério de risco** — e essa pergunta é de quem decide, não de quem
    modela.
-4. **Se não é linear, é convexo?** É a pergunta que quase ninguém faz diante de um relatório, e a
-   única que separa "esta é a melhor solução" de "não achei nada melhor por aqui".
+4. **Se não é linear, é convexo — e o método dá limitante?** São as duas perguntas que quase
+   ninguém faz diante de um relatório, e juntas elas separam "esta é a melhor solução" de "não
+   achei nada melhor por aqui".
 
 ### Exato ou heurístico — a escolha que a classe força
 
@@ -146,7 +160,7 @@ Classificar serve para chegar nesta decisão, que é a que o cliente sente:
 
 | Escolha | Quando ela é a certa | O que ela autoriza prometer |
 |---|---|---|
-| **Exato ao ótimo** | Instância cabe no tempo disponível, e a decisão é grande | *"Esta é a melhor solução, e nenhuma outra é melhor"* |
+| **Exato ao ótimo** | Instância cabe no tempo disponível, e a decisão é grande | *"Nenhuma outra solução é melhor"* — o que **não** quer dizer que esta seja a única melhor: o [capítulo 06](06-ferramentas.md) mede um empate em que a ferramenta escolhe o plano |
 | **Exato com limite de tempo** | Instância grande, mas o solver reporta o *gap* | *"Esta solução está a no máximo X% do melhor possível"* — a promessa mais útil das três |
 | **Heurístico** | Instância enorme, ou modelo que nenhum solver aceita | *"Esta é a melhor que encontrei com este procedimento"* — e nada além disso |
 
@@ -163,7 +177,8 @@ de negócio pode virar linear ou não linear conforme o que se escolhe como vari
 classe antes de fechar a formulação é declarar sobre um objeto que ainda não existe.
 
 **2. Quando a classificação vira desculpa para não medir.** *"É NP-difícil, então vamos de
-heurística"* é um raciocínio que pula uma etapa: NP-difícil é afirmação sobre o **pior caso da
+heurística"* — onde **NP** é *não determinístico polinomial*, a classe do que se **confere** rápido
+— é um raciocínio que pula uma etapa: NP-difícil é afirmação sobre o **pior caso da
 classe**, não sobre a sua instância de 300 variáveis, que talvez o solver resolva ao ótimo em 4
 segundos. A ordem certa é tentar, medir, e então decidir — e é assunto do
 [capítulo 05](05-complexidade.md).
@@ -221,7 +236,8 @@ exemplos ao lado. Ver a forma antes de discutir a consequência ajuda, e é a or
   às vezes inviável.
 - **Três promessas possíveis:** o ótimo provado, o ótimo com *gap* declarado, e "a melhor que
   encontrei". A do meio é a mais subestimada.
-- **`Optimal` num modelo não convexo significa "não achei nada melhor por aqui"** — medido: 22
+- **`Optimal` só é prova quando vem com limitante.** Num inteiro resolvido ao ótimo, é prova; numa
+  busca local sobre região não convexa, quer dizer "não achei nada melhor por aqui" — medido: 22
   contra 30.
 - **Fora da Pesquisa Operacional:** diante de qualquer resultado computacional, pergunte que
   garantia o procedimento oferece antes de perguntar quanto ele demorou.
@@ -249,7 +265,8 @@ travessia não é a técnica que ela exige, e sim **a garantia que ela destrói*
 elimina a certeza de que o ótimo está numa quina; exigir integralidade invalida o teorema do
 vértice e troca a prova de otimalidade por um argumento de limitante; admitir incerteza faz
 desaparecer "a" solução ótima, que passa a existir apenas sob um critério de risco que **alguém
-precisa declarar**; e sair da convexidade reduz `Optimal` a *"não achei nada melhor por aqui"* — o
+precisa declarar**; e sair da convexidade tira a garantia automática de global, de modo que um
+método **sem limitante** reduz `Optimal` a *"não achei nada melhor por aqui"* — o
 que este handbook mediu como a distância entre **22 e 30**, na mesma região, com o mesmo objetivo e
 duas partidas diferentes. Duas armadilhas fecham o capítulo. A primeira é **arredondar**: resolver
 o contínuo e arredondar não é atravessar o eixo de volta, porque o resultado pode ser inviável e,

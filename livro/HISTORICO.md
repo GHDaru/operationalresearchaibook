@@ -1535,3 +1535,63 @@ próprio — e dizer isso na primeira célula é mais honesto do que inventar c�
 
 Com isto, **a Parte I fecha inteira**: seis capítulos, dezoito exercícios, seis vídeos, duas
 etapas de medição e um caderno.
+
+### Edição 0.35 — 2026-08-13 · A revisão da Parte I reprovou, e o que ela pegou
+
+A revisão em contexto fresco — três lentes independentes, nenhuma delas de quem escreveu — devolveu
+a rodada. **Isto é o processo funcionando**, e o registro existe para que fique claro o que passou
+despercebido a quem escreveu.
+
+**O achado mais grave é meu, e saiu da reconferência por medição própria** que a skill `longrun`
+exige antes de aceitar qualquer parecer. A revisão apontou que a tabela de perturbação do capítulo
+05 não declarava quantas amostras usava, enquanto a tabela vizinha declarava "20 amostras por
+tamanho". Ao medir, a assimetria virou defeito:
+
+> A tabela era **um sorteio por magnitude**. Medida sobre 20 sementes, a linha de 10% deixou de ser
+> **63 pivôs** e virou **14 de 20** — o caminho às vezes encurta. O resultado central sobreviveu
+> intacto (0,1% e 1% não mexem em nada, em **20 de 20**), mas a linha que o exagerava, não.
+
+A correção troca o sorteio pela distribuição: a tabela publica mínimo, mediana, máximo e **em
+quantas amostras o caminho ficou intacto**, e o teste passou a asserir a distribuição, não o
+sorteio. **Um teste que confere um sorteio herda a fragilidade do sorteio.**
+
+**O segundo achado é de firmeza, e é o defeito reincidente deste repositório.** Em três lugares o
+corpo do texto afirmava com mais convicção do que a tabela de procedência autoriza: Gomory e Land &
+Doig no capítulo 04, Cook e Karp no capítulo 05, a AMPL no capítulo 06 — todos `✓ᵐ`, com **conteúdo
+não lido**. A tabela dizia certo; o corpo, não. E a prova de que era lapso e não convenção estava
+no mesmo capítulo 05, que hedgeia Edmonds corretamente três parágrafos antes. **O hedge tem de
+estar na frase, e não vinte linhas adiante**, porque é na frase que o leitor forma a crença.
+
+**O terceiro é um erro conceitual que eu repeti em quatro superfícies.** O capítulo 04 dizia que
+`Optimal` num modelo não convexo significa *"não achei nada melhor por aqui"*. **Está errado**, e o
+próprio capítulo o desmente no corpo: um modelo inteiro é não convexo e o `Optimal` de um
+*branch-and-bound* é **prova**, porque o método fecha a distância por limitante. A regra correta é
+mais curta e não tem exceção:
+
+> **`Optimal` só é prova quando vem com limitante.**
+
+**O quarto: um `Optimal` que a medição nunca produziu.** Os capítulos 01, 02 e 04 contavam o 22
+contra 30 do capítulo 38 como um solver que escreveu `Optimal`. O experimento é uma **busca local
+em aritmética exata** — não há status, não há solver, e o próprio capítulo 38 diz que *"nenhum
+erro, nenhum aviso, nenhuma bandeira"* aconteceu. Era moldura acrescentada a um número verdadeiro,
+que é a deriva mais convincente e por isso a pior.
+
+**Também entraram:** o capítulo 06 descrevia como erro caro uma divergência **entre solvers** que a
+medição não produz (os dois concordaram; quem divergiu foi o Simplex exato); a diferença de casas
+decimais era de **oito**, não nove; a citação de Huangfu & Hall trazia 2018 contra os 2017 do
+registro; o capítulo 01 dizia "quatro formas" para uma tabela de cinco linhas; o capítulo 02
+afirmava que os nove capítulos da Parte II estão "todos na etapa 3" enquanto a sua própria tabela
+classificava um deles como etapa 1 e 2; e o objetivo O3 do capítulo 01 tinha exercício e não tinha
+conteúdo que o sustentasse — ganhou a seção *"Três perguntas antes de citar um caso"*.
+
+**Seis termos deixaram de ser órfãos:** `NP`, `AMPL`, `CBC` e `HiGHS` entraram no glossário e no
+mapa de siglas do motor; **limitante**, ***gap***, **face ótima** e **análise suavizada** ganharam
+verbete. E o capítulo 04 deixou de cunhar `PIM`, que concorria com `PI` e `MILP` já registradas.
+
+**Uma duplicação de exercício foi desfeita:** o `cap03.exA` era a mesma padaria, com a mesma tarefa,
+do `cap07.exA`. Ganhou cenário próprio — uma gráfica com duas máquinas, em que a variável é **hora
+de máquina** e não unidade produzida, o que faz o teste da unidade trabalhar de verdade.
+
+> **O que continua em dívida, declarado:** o campo de **âncora** que o Guia Editorial promete em
+> cada exercício ("aponte a seção que resolve a dúvida") não existe em nenhum dos 68. Não é
+> regressão desta rodada — é promessa editorial sem implementação, e fica registrada como tal.

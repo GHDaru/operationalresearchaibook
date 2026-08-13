@@ -32,6 +32,13 @@ O erro caro deste capítulo:
 O contrário também é caro, e este capítulo mede os dois lados: o pior caso **existe**, é
 construível, e não some porque você o achou improvável.
 
+> **Um aviso de pré-requisito, na mesma linha do que o [capítulo 01](01-o-que-e-po.md) faz.** A
+> evidência desta página é medida **sobre o Simplex** — vértice, pivô, regra de pivoteamento —, e
+> nada disso é apresentado aqui: é dos [capítulos 08](08-geometria.md) e [09](09-simplex.md). Se
+> você está lendo a Parte I na ordem do sumário, o argumento continua de pé (o que importa é a
+> **distância** entre as duas colunas de cada tabela), mas "63 pivôs" só ganha textura depois do
+> capítulo 09. O handbook foi escrito fora de ordem de propósito, e prefere avisar a fingir.
+
 ## De onde isto veio
 
 ### O aperto: "esse algoritmo é bom" não queria dizer nada
@@ -126,18 +133,28 @@ perturbaçãozinha desmancha"*. Ela vem de uma leitura apressada da **análise s
 Spielman e Teng (2004), que este handbook cita no [capítulo 09](09-simplex.md).
 
 Testar essa frase é barato, e o resultado **contraria a leitura fácil**. Perturbando a matriz de
-restrições do cubo com $n = 6$, cujo caminho puro custa 63 pivôs:
+restrições do cubo com $n = 6$, cujo caminho puro custa 63 pivôs — **20 sementes por magnitude**,
+porque uma perturbação é um sorteio e um sorteio não é uma medição:
 
-| Perturbação relativa | Pivôs |
-|---|---|
-| 0,1% | **63** |
-| 1% | **63** |
-| 10% | **63** |
-| 25% | 57 |
-| 50% | 22 |
+| Perturbação relativa | Pivôs (mín · mediana · máx) | Caminhos intactos |
+|---|---|---|
+| 0,1% | 63 · **63** · 63 | **20/20** |
+| 1% | 63 · **63** · 63 | **20/20** |
+| 10% | 57 · **63** · 63 | 14/20 |
+| 25% | 35 · **51** · 63 | 3/20 |
+| 50% | 19 · **33** · 47 | 0/20 |
 
-**Perturbações pequenas não mudam nada.** O caminho só encurta quando a perturbação é grande o
-bastante para a instância ser, honestamente, outra instância.
+**Perturbações pequenas não mudam nada** — e "nada" aqui é literal: em 0,1% e em 1%, as 20
+sementes devolvem os mesmos 63 pivôs. A partir de 10% o caminho **às vezes** encurta, e só em
+25% e 50% ele encurta com regularidade — quando a perturbação já é grande o bastante para a
+instância ser, honestamente, outra instância.
+
+> **A coluna da direita é a que decide**, e ela existe por causa de um defeito desta própria
+> página. A primeira versão desta tabela publicou **um sorteio por magnitude**, sem dizer que era
+> um. A revisão em contexto fresco notou a assimetria — a tabela da seção seguinte declarava "20
+> amostras por tamanho", esta declarava nada — e ao medir a distribuição o quadro mudou onde mais
+> importava: a linha de 10% dizia "63" e virou "63 na maioria das vezes, mas não sempre". O
+> resultado central sobreviveu; a linha que o exagerava, não.
 
 > **O que esta medição não autoriza concluir.** Ela **não** refuta o resultado de 2004. Aquele
 > teorema é assintótico, vale **em esperança**, sob perturbação gaussiana e com uma regra de
@@ -211,7 +228,8 @@ algoritmo polinomial para isto?"*, medir instâncias não responde. Aí a teoria
 ## Fundamentos e fontes
 
 **O que está medido aqui.** Tudo o que é número nesta página: os pivôs do cubo de Klee–Minty para
-$n$ de 2 a 7, a tabela de perturbação com $n = 6$, e o perfil de instâncias aleatórias para
+$n$ de 2 a 7, a distribuição de perturbação com $n = 6$ sobre 20 sementes por magnitude, e o
+perfil de instâncias aleatórias para
 $n = 5, 10, 15, 20$. O código está em `po-zero/parte-I-fundamentos/complexidade.py`, roda em
 aritmética exata (`Fraction`), declara semente, e há teste que compara **este texto** à medição.
 
@@ -249,8 +267,9 @@ que é a peça que dá sentido à frase "é um problema difícil usando muitas r
 - **Afirmação de complexidade é sobre a classe no pior caso**, não sobre a sua instância.
 - **O pior caso existe e é construído.** Medido: o cubo de Klee–Minty custa exatamente $2^n - 1$
   pivôs, de $n = 2$ a $n = 7$.
-- **E não é frágil como se diz.** Medido: com $n = 6$, perturbar a matriz em 0,1%, 1% ou 10%
-  deixa os 63 pivôs intactos. Só em 25% e 50% o caminho encurta.
+- **E não é frágil como se diz.** Medido em 20 sementes por magnitude: com $n = 6$, perturbar a
+  matriz em 0,1% ou 1% deixa os 63 pivôs intactos nas **20 de 20**. Em 10% ainda são 14 de 20; só
+  em 25% e 50% o caminho encurta com regularidade.
 - **A sua instância provavelmente está longe do pior caso.** Medido: mediana de 2 a 7 pivôs, onde
   o pior caso teórico vai de 31 a mais de um milhão.
 - **Da classe não se deduz o custo da sua instância.** Para saber o custo da sua, rode a sua.
@@ -279,10 +298,11 @@ coisa — e o prejuízo é invisível, porque quem desiste do método exato fica
 permitiria saber o que perdeu. Este capítulo mede os dois lados da distância. De um lado, **o pior
 caso é real e construível**: o cubo de Klee–Minty faz o Simplex com a regra clássica visitar todos
 os vértices, e a medição em aritmética exata devolve exatamente $2^n-1$ pivôs para $n$ de 2 a 7.
-Ele também **não é frágil** como a conversa de corredor sugere — perturbar a matriz em 0,1%, 1% ou
-até 10% deixa os 63 pivôs de $n=6$ absolutamente intactos, e só perturbações de 25% e 50% encurtam
-o caminho; isso não refuta a análise suavizada de 2004, que é assintótica, vale em esperança e
-supõe outra regra de pivoteamento, mas refuta a leitura popular dela. Do outro lado, **instâncias
+Ele também **não é frágil** como a conversa de corredor sugere: medido em 20 sementes por
+magnitude, perturbar a matriz em 0,1% ou 1% deixa os 63 pivôs de $n=6$ intactos nas vinte, em 10%
+ainda em quatorze delas, e só em 25% e 50% o caminho encurta com regularidade; isso não refuta a
+análise suavizada de 2004, que é assintótica, vale em esperança e supõe outra regra de
+pivoteamento, mas refuta a leitura popular dela. Do outro lado, **instâncias
 aleatórias do mesmo tamanho ficam muito longe do pior caso**: a mediana medida vai de 2 a 7 pivôs
 enquanto o pior caso teórico vai de 31 a mais de um milhão. A conclusão prática é uma ordem de
 trabalho, não uma teoria: modele, rode o método exato com limite de tempo, olhe o *gap* que ele
