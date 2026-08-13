@@ -57,12 +57,17 @@ A delegação é de **julgamento**, e não dissolve o que não é questão de pe
 | **Quem executa não verifica** (Princípio XI) | Revisão em contexto fresco é o instrumento que pega o que o autor do texto não vê. Delegar a decisão não delega o ponto cego |
 | **Direito autoral e dado pessoal** (D9.8) | Não é reversível por *branch*: a distribuição é que causa o dano. Foi o caso do Sci-Hub, recusado |
 | **Fonte não confirmada não sustenta afirmação** (Princípio III) | Delegação não cria evidência |
-| **O merge na `main`** | É o único ato **não reversível por *branch***: publica. A constituição o declara não delegável, e o agente não emenda a constituição por conta própria |
 
-> **Sobre o merge, e é o único ponto em aberto desta skill.** Se o autor disser uma vez que
-> longrun inclui o merge, esta linha muda e a constituição é emendada por decisão dele — com ADR.
-> Até lá, o agente entrega o lote verde e **para no portão de merge**, sem parar o trabalho: abre
-> a rodada seguinte na mesma *branch*.
+> **O merge saiu desta lista em 2026-08-13, por decisão do autor** — constituição 1.2.0,
+> [ADR 0015](../../../adr/0015-longrun-inclui-o-merge-ate-a-v0.md). **Enquanto a v0 não fechar**,
+> o agente mergeia e publica sem esperar aprovação. A exceção **expira sozinha** ao fim da v0: não
+> é preciso revogá-la, é preciso estendê-la.
+>
+> **O que isso cobra do resto.** Com o gate humano fora do caminho, a **revisão em contexto
+> fresco** deixa de ser boa prática e passa a ser o **último olho independente antes de
+> publicar** — nenhum lote vai à `main` sem ela, e nenhum vai com achado dela em aberto. É a
+> troca que torna a delegação aceitável, e ela já provou que funciona: a revisão do lote 1
+> reprovou, e o lote foi corrigido antes de publicar.
 
 ## O que é "médio ou alto impacto", na prática
 

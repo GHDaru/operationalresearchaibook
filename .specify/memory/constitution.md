@@ -4,7 +4,7 @@
 > prática. **Todo agente e humano DEVE ler este documento antes de qualquer trabalho.**
 > Emendas via Architecture Decision Record (ADR) + bump de versão.
 >
-> **Versão:** 1.1.0 · **Ratificada:** 2026-08-06 · **Emendada:** 2026-08-09
+> **Versão:** 2.0.0 · **Ratificada:** 2026-08-06 · **Emendada:** 2026-08-13
 > ([ADR 0006](../../adr/0006-o-metodo-tem-historia.md) — Princípio XII)
 >
 > Esta constituição **herda** a metodologia [Maestro](https://github.com/GHDaru/maestro)
@@ -188,6 +188,15 @@ MINOR: princípio novo ou expansão; PATCH: esclarecimento) e são registradas e
 
 **Gates humanos inegociáveis:** o autor aprova a especificação, o plano (Constitution Check),
 o merge e qualquer publicação. Nenhum deles é delegável a agente.
+
+> **Exceção com prazo, decidida pelo autor em 2026-08-13 — [ADR 0015](../../adr/0015-longrun-inclui-o-merge-ate-a-v0.md).**
+> **Enquanto a v0 não estiver fechada**, o merge na `main` entra na delegação do modo
+> [`longrun`](../../.claude/skills/longrun/SKILL.md): o agente publica sem esperar aprovação,
+> desde que o lote esteja verde nos portões, tenha passado por **revisão em contexto fresco** e
+> tenha as decisões de médio impacto registradas em ADR. **A exceção expira sozinha** quando a v0
+> for declarada completa — não é preciso revogá-la, é preciso estendê-la. Os demais gates seguem
+> inegociáveis, e a revisão em contexto fresco passa a ser **o último olho independente antes de
+> publicar**.
 
 **Raias de trabalho:**
 

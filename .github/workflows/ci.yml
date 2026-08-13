@@ -11,6 +11,9 @@ on:
       - "livro/**"
       - "publicar/**"
       - "chat-companion/**"
+      - "po-zero/**"
+      - "adr/**"
+      - ".github/workflows/ci.yml"
       - ".github/workflows/publicar.yml"
   workflow_dispatch:
 
@@ -42,6 +45,26 @@ jobs:
       - name: Testes do chat companion
         run: pip install -q -r requirements.txt pytest httpx && python -m pytest -q
         working-directory: chat-companion/backend
+      # O PASSO QUE FALTAVA, e a falta era séria.
+      #
+      # A ADR 0014 (D3) estabeleceu que "número no livro tem dono, e o dono é um
+      # teste": seis suítes do `po-zero` LEEM o texto dos capítulos e exigem que
+      # cada número medido apareça lá na forma exata — e que as versões antigas
+      # não apareçam. É o vínculo que existe porque duas faixas erradas foram
+      # publicadas.
+      #
+      # Esses testes nunca rodaram aqui. O filtro `paths:` acima listava livro/,
+      # publicar/ e chat-companion/, e **não** po-zero/ — então mudar um script
+      # de medição não disparava o CI, e o passo que os executasse não existia.
+      # O selo 🔵 do handbook depende deles, e o portão que confere o selo roda
+      # no build do site, não sobre a medição.
+      #
+      # Encontrado pelo comitê da rodada dos cadernos, e consertado antes de o
+      # primeiro caderno existir — porque acrescentar artefato novo a um
+      # pipeline que não cobre o antigo é multiplicar o buraco.
+      - name: Testes da medição (po-zero)
+        run: pip install -q pytest numpy && python -m pytest po-zero -q
+
       # O corpus do tutor é regerado a cada build: o chat nunca responde por uma
       # versão antiga do livro (dívida herdada do motor original, corrigida aqui).
       - name: Regerar o corpus do tutor
