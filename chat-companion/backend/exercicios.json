@@ -2174,5 +2174,71 @@
         }
       }
     ]
+  },
+  {
+    "id": "cap38.exA",
+    "capitulo": 38,
+    "serie": "cap38",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "convexidade",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "Convexo ou não — e prove",
+    "enunciado": "Para cada conjunto abaixo, decida se é convexo. Quando **não** for, dê um **contraexemplo explícito**: dois pontos do conjunto cujo ponto médio esteja fora. Quando for, justifique **pela estrutura**, não por amostragem.\n\n| | O conjunto |\n|---|---|\n| **a** | $\\{(x_1,x_2) : x_1 + x_2 \\le 10,\\ x_1 \\ge 0,\\ x_2 \\ge 0\\}$ |\n| **b** | $\\{(x_1,x_2) : x_1 \\ge 6 \\ \\textbf{ou} \\ x_2 \\ge 8,\\ x_1 + x_2 \\le 10,\\ x \\ge 0\\}$ |\n| **c** | $\\{x \\in \\mathbb{R} : x \\text{ é inteiro},\\ 0 \\le x \\le 10\\}$ |\n| **d** | A interseção de (a) com $\\{x_1 + 2x_2 \\le 12\\}$ |\n\n5. Um colega diz: *\"testei mil pares no conjunto (b) e o meio sempre caiu dentro, então ele é convexo\"*. O que há de errado com esse raciocínio — e o que há de errado com a conclusão? São coisas diferentes.",
+    "criterios": [
+      "**(a)** convexo, justificado pela estrutura: interseção de semiespaços, e interseção de convexos é convexa — não por amostragem",
+      "**(b)** não convexo, com contraexemplo explícito — por exemplo $(0,8)$ e $(6,0)$, ambos no conjunto, cujo meio $(3,4)$ não satisfaz nem $x_1 \\ge 6$ nem $x_2 \\ge 8$",
+      "**(c)** não convexo, com contraexemplo: 0 e 1 pertencem, e o meio $0{,}5$ não é inteiro — reconhece que **todo conjunto de pontos isolados** falha o teste",
+      "**(d)** convexo: interseção de dois convexos, e é exatamente a região da montadora dos capítulos anteriores",
+      "No item 5, separa os dois defeitos: o **raciocínio** é inválido porque amostragem nunca prova convexidade, e a **conclusão** é falsa porque existe contraexemplo — um teste que não encontra não é a mesma coisa que um teste que refuta"
+    ],
+    "erro_provavel": "Justificar (a) e (d) dizendo \"desenhei e é convexo\" ou \"testei vários pares\". A resposta certa por um caminho errado é o que este exercício quer pegar: a convexidade de um poliedro **não** vem de inspeção nem de amostragem, vem de ser interseção de semiespaços. Quem justifica por inspeção acerta em duas variáveis e perde a garantia exatamente onde ela importa, que é em vinte. E, no item 5, a armadilha é responder só uma das duas metades: dizer \"a conclusão está errada\" sem notar que o **método** estaria errado mesmo que a conclusão fosse verdadeira por acaso.",
+    "resposta_guia": "**(a)** É convexo, e a justificativa é estrutural: cada restrição $\\le$ define um semiespaço, semiespaço é convexo, e interseção de convexos é convexa. **(b)** Não é convexo. Contraexemplo: $(0,8)$ está no conjunto (satisfaz $x_2 \\ge 8$) e $(6,0)$ também (satisfaz $x_1 \\ge 6$), mas o meio $(3,4)$ não satisfaz nenhuma das duas — está fora. O \"ou\" produziu uma união de regiões, e união de convexos quase nunca é convexa. **(c)** Não é convexo: 0 e 1 estão no conjunto e o meio, $0{,}5$, não é inteiro. Qualquer conjunto de pontos isolados falha pelo mesmo motivo, e é por isso que programação inteira perde a garantia de que ótimo local é global. **(d)** É convexo — interseção de dois convexos —, e é a região da montadora dos capítulos 07 a 13. Sobre o item 5: o raciocínio é inválido porque nenhuma amostragem prova convexidade; a assimetria do teste só funciona para **refutar**. E, além de inválido, o raciocínio chegou a uma conclusão **falsa**, já que o contraexemplo existe e foi exibido acima. São duas críticas separadas, e a primeira valeria mesmo que a segunda não valesse."
+  },
+  {
+    "id": "cap38.exB",
+    "capitulo": 38,
+    "serie": "cap38",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "convexidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "A heurística que parou no morro errado",
+    "enunciado": "Uma distribuidora fechou contrato com dois fornecedores. A regra: *para ter o desconto, é preciso comprar **pelo menos 6 unidades de A** **ou** **pelo menos 8 de B**.* O caminhão comporta 10 unidades no total. A margem é R$ 3 por unidade de A e R$ 2 por unidade de B.\n\nA equipe implementou uma busca local honesta: partindo de uma solução viável, ela olha os vizinhos, vai para o melhor **viável** que **melhora** a margem, e para quando ninguém em volta melhora.\n\nRodaram duas vezes, com pontos de partida diferentes, e obtiveram:\n\n| Partida | Parou em | Margem |\n|---|---|---|\n| $(0, 8)$ | $(2, 8)$ | 22 |\n| $(6, 0)$ | $(10, 0)$ | 30 |\n\nA equipe reporta que \"a heurística é instável\" e propõe trocar de algoritmo.\n\n1. Verifique: em $(2,8)$, existe algum vizinho viável melhor? A busca errou?\n2. Se a busca não errou, **o que produziu** os dois resultados diferentes? Nomeie a propriedade e diga qual trecho do enunciado a destruiu.\n3. Escreva o conjunto viável e **prove** que ele não é convexo.\n4. \"A heurística é instável\" é o diagnóstico certo? Se não, qual é — e por que a diferença muda o que se faz a seguir?\n5. Proponha **uma** mudança de formulação que devolva a garantia. O que ela custa?",
+    "criterios": [
+      "Verifica que em $(2,8)$ **nenhum** vizinho viável é melhor — é um ótimo local legítimo, e a busca não errou",
+      "Nomeia a **não convexidade** como causa e aponta o **\"ou\"** da regra do desconto como o que a produziu",
+      "Prova a não convexidade com contraexemplo: $(0,8)$ e $(6,0)$ estão na região e o meio $(3,4)$ não está",
+      "Recusa \"a heurística é instável\": o defeito é do **modelo**, não do algoritmo — e a diferença importa porque trocar de algoritmo não resolveria, já que qualquer busca local teria o mesmo problema",
+      "Propõe reformular com variável **binária** (programação inteira) para representar o \"ou\", e reconhece o custo: o problema deixa de ser resolvível por método de região convexa e passa a exigir enumeração com poda"
+    ],
+    "erro_provavel": "Aceitar o diagnóstico da equipe. \"A heurística é instável\" transfere a culpa para o algoritmo e leva à ação errada — trocar de busca local por outra busca local, que vai ter exatamente o mesmo comportamento, porque o problema não está na busca. O teste do capítulo 10 se aplica aqui e dá o veredito: **o que é do modelo sobrevive à troca do método**. Troque a heurística e as duas paradas continuam existindo; mude a formulação e elas somem. O segundo erro é mais sutil: concluir que o resultado 30 é \"o certo\" e o 22 é \"o errado\". Os dois estão certos como ótimos locais; o que faltava era garantia de que um deles fosse global.",
+    "resposta_guia": "Em $(2,8)$ nenhum vizinho viável melhora: subir em $x_1$ ou $x_2$ estoura o limite de 10, e descer para a região sem o desconto sai da área viável. A busca não errou — $(2,8)$ é um ótimo local legítimo. O que produziu os dois resultados foi a **não convexidade** da região viável, e ela veio do **\"ou\"** na regra do desconto: a região é a união de $\\{x_1 \\ge 6\\}$ com $\\{x_2 \\ge 8\\}$, dentro do triângulo $x_1 + x_2 \\le 10$. A prova é o contraexemplo: $(0,8)$ e $(6,0)$ pertencem, e o meio $(3,4)$ não satisfaz nenhuma das duas condições. Logo, \"a heurística é instável\" é o diagnóstico errado — o defeito é do **modelo**, e o teste do capítulo 10 confirma: o que é do modelo sobrevive à troca do método, e trocar de heurística deixaria os dois ótimos locais exatamente onde estão. A reformulação que devolve a garantia é modelar o \"ou\" com uma variável **binária** ($y = 1$ se compra de A, $y = 0$ se de B, com as restrições ativadas por $y$), o que transforma o problema em programação inteira. O custo é real: perde-se a garantia barata da região convexa e passa-se a depender de enumeração com poda, que é mais cara — mas entrega **certificado de otimalidade**, que a busca local não entrega."
+  },
+  {
+    "id": "cap38.exC",
+    "capitulo": 38,
+    "serie": "cap38",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "convexidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O que \"Optimal\" está dizendo",
+    "enunciado": "Chega à sua mesa um relatório de um consultor. O modelo é de dimensionamento de uma rede de distribuição, com custos que envolvem **economias de escala** — quanto maior o volume por centro, menor o custo unitário. O relatório traz:\n\n> *Status: **Optimal**. Custo total anual: R$ 14,2 milhões. Redução de 18% sobre a operação atual.*\n\nO consultor recomenda executar.\n\n1. A frase \"economias de escala\" diz algo sobre a **forma** da função de custo. O quê, e por que isso importa aqui?\n2. Que **duas** perguntas você faz antes de aceitar o número — e o que cada resposta possível muda?\n3. O consultor responde: *\"o solver é de última geração e rodou até convergir\"*. Isso responde às suas perguntas?\n4. Suponha que o modelo **não** seja convexo e que o consultor tenha rodado uma vez. Que evidência barata você pediria para aumentar a confiança no resultado — sem exigir que ele troque de método?\n5. Reescreva o *status* do relatório em uma frase que seja **verdadeira** no pior caso.",
+    "criterios": [
+      "Reconhece que economia de escala significa **custo unitário decrescente** com o volume, o que produz uma função de custo **côncava** — e que minimizar função côncava não tem a garantia de que ótimo local é global",
+      "As duas perguntas atacam o que decide: *o modelo é convexo?* e *o \"Optimal\" é certificado global ou parada local?* — e a resposta a cada uma muda se o número é um limite garantido ou um ponto encontrado",
+      "Reconhece que \"solver de última geração\" e \"rodou até convergir\" **não respondem**: convergência é propriedade da busca, não do problema, e nenhum solver cria garantia que o modelo não tem",
+      "Pede evidência barata e concreta: **múltiplas partidas** (dez execuções de pontos iniciais diferentes) e a dispersão dos resultados, ou um **limitante inferior** de uma relaxação — sem exigir troca de método",
+      "Reescreve o status de forma honesta, no espírito de \"encontramos uma solução de R$ 14,2 milhões que satisfaz as condições locais; não há certificado de que seja a melhor\""
+    ],
+    "erro_provavel": "Aceitar o número porque o campo diz `Optimal`. Esse rótulo tem significados diferentes conforme o problema: em Programação Linear é **certificado global**, porque a convexidade garante; em otimização não convexa costuma significar apenas *\"a busca satisfez as condições de parada\"*. Nada no relatório distingue os dois casos, e a palavra é a mesma. O segundo erro é o oposto e igualmente caro: rejeitar o trabalho inteiro por não ser convexo. Uma solução sem certificado ainda pode ser excelente e ainda pode valer os 18% — o que ela não pode é ser apresentada como **a melhor**. A diferença entre \"a melhor\" e \"uma boa que encontramos\" não é semântica: é o que se promete ao conselho.",
+    "resposta_guia": "Economia de escala significa custo unitário decrescente com o volume, o que torna a função de custo **côncava** — e minimizar uma função côncava é o caso em que a garantia não existe: ótimo local pode não ser global. As duas perguntas: (1) *o modelo é convexo?*; (2) *esse `Optimal` é certificado de otimalidade global ou condição de parada local?* Se o modelo for convexo e o certificado for global, o número é um limite garantido; se não, é uma solução encontrada, e nada além disso. \"O solver é de última geração e rodou até convergir\" **não** responde: convergência é propriedade da busca e não do problema, e nenhum solver cria uma garantia que o modelo não tem. Evidência barata, sem trocar de método: rodar de **dez pontos de partida diferentes** e reportar a dispersão dos resultados — se todos caírem perto de R$ 14,2 milhões, a confiança sobe muito; se variarem, você já sabe o tamanho do risco. Um limitante inferior por relaxação também serve. Status honesto: *\"Solução encontrada: R$ 14,2 milhões, satisfazendo as condições locais de otimalidade. O modelo não é convexo, portanto não há certificado de que seja a melhor solução existente.\"*"
   }
 ]

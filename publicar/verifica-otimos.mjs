@@ -203,6 +203,19 @@ const AFIRMA_OTIMO = /[óo]tim[oa]s?\b/i;
 const SEM_MODELO_DECLARADO = new Set([
   // Exercícios cuja rubrica fala de "ótimo" sem afirmar um valor calculável a
   // partir de um modelo de duas variáveis. Cada entrada precisa de justificativa.
+  //
+  // O capítulo 38 é o primeiro caso legítimo, e é instrutivo: ele trata de
+  // CONVEXIDADE, e o motor deste portão só sabe resolver o que é convexo por
+  // construção — enumera vértices de uma interseção de semiespaços. Um exercício
+  // sobre região NÃO convexa é, por definição, o que ele não consegue conferir.
+  "cap38.exA", // decide convexidade de conjuntos; a única menção a "ótimo" é ao
+               // teorema (ótimo local é global). Não afirma valor nenhum.
+  "cap38.exB", // a região é uma UNIÃO ("fornecedor A ou B"), que não se escreve
+               // como conjunção de desigualdades — o enumerador de vértices não
+               // a representa. Os números 22 e 30 são conferidos onde podem ser:
+               // po-zero/etapa-06-convexidade, com teste que lê esta rubrica.
+  "cap38.exC", // cenário de consultoria sem modelo numérico; "ótimo" aparece só
+               // na discussão do que a palavra `Optimal` significa num relatório.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");

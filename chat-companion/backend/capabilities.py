@@ -54,6 +54,10 @@ REGISTRO = [
      "descricao": "Leio o relatório de sensibilidade com você e separo as duas famílias de faixa — "
                   "a do lucro, que protege o plano, e a do estoque, que protege o preço. Digo "
                   "quando a resposta já está no relatório e quando é preciso resolver de novo."},
+    {"chave": "convexidade", "rotulo": "Convexidade", "libera": 38, "tools": (),
+     "descricao": "Ajudo a decidir se um conjunto é convexo — pela estrutura, não por amostragem — "
+                  "e a achar o contraexemplo quando não é. Cobro a pergunta que quase ninguém faz "
+                  "diante de um relatório: o modelo é convexo?"},
     {"chave": "leitura_critica", "rotulo": "Leitura crítica de artigo", "libera": 77, "tools": (),
      "descricao": "Conduzo as três passadas num artigo que você trouxe e cobro a checklist de "
                   "comparação computacional — instâncias, baseline, critério de parada, máquina, "

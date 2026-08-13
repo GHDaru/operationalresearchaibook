@@ -1,0 +1,63 @@
+{
+  "ponto_medio": [
+    {
+      "conjunto": "região da montadora (Programação Linear)",
+      "pares_testados": 12561,
+      "contraexemplo": null,
+      "veredito": "nenhum contraexemplo em toda a grade — evidência de convexidade, não prova"
+    },
+    {
+      "conjunto": "região com 'fornecedor A OU fornecedor B'",
+      "pares_testados": 15,
+      "contraexemplo": {
+        "a": [
+          "0",
+          "8"
+        ],
+        "b": [
+          "6",
+          "0"
+        ],
+        "meio": [
+          "3",
+          "4"
+        ]
+      },
+      "veredito": "NÃO é convexo — o contraexemplo prova"
+    }
+  ],
+  "busca_local": [
+    {
+      "partida": [
+        "0",
+        "8"
+      ],
+      "parou_em": [
+        "2",
+        "8"
+      ],
+      "lucro": "22",
+      "passos": 4
+    },
+    {
+      "partida": [
+        "6",
+        "0"
+      ],
+      "parou_em": [
+        "10",
+        "0"
+      ],
+      "lucro": "30",
+      "passos": 8
+    }
+  ],
+  "melhor_global": {
+    "ponto": [
+      "10",
+      "0"
+    ],
+    "lucro": "30"
+  },
+  "diferenca": "8"
+}

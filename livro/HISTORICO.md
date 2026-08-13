@@ -941,3 +941,45 @@ conteúdo.
 **Verificação:** nove portões verdes — `✓ consistência de ótimo OK: 41 modelo(s) resolvido(s) em
 aritmética exata`, `✓ registro de exercícios OK: 36 exercícios em 7 baterias`, `maturidade 🟡3 🔵0
 ✅4` —, `13 passed` na etapa 05 e `24 passed` no backend.
+
+### Edição 0.20 — 2026-08-13 · Capítulo 38: convexidade, e a dívida do capítulo 09 paga
+
+Quarto capítulo do lote 1, antecipado da Parte VI por dois motivos declarados: o
+[capítulo 09](capitulos/09-simplex.md) usou a convexidade **a crédito** ao afirmar que "parar no
+primeiro topo é seguro", e ~40 capítulos do mapa vão poder **apontar** para cá em vez de
+reexplicar.
+
+**Entrou:** [capítulo 38](capitulos/38-convexidade.md), em 🟡 **v0** e curto por desenho, mais a
+[etapa 06 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-06-convexidade).
+
+**A assimetria do teste, medida.** O teste do ponto médio percorreu **12.561** pares na região da
+montadora sem achar contraexemplo — e isso **não prova** convexidade, porque nenhuma amostragem
+prova. Na região com "fornecedor A **ou** B", **15** pares bastaram para provar a **não**
+convexidade, porque um contraexemplo é uma prova completa. O capítulo publica os dois vereditos
+com palavras diferentes de propósito.
+
+**O ótimo local, exibido em vez de advertido.** Mesma região não convexa, mesmo objetivo, duas
+partidas: a busca local para em $(2,8)$ com margem **22** e em $(10,0)$ com margem **30**. A busca
+é honesta — só aceita vizinho viável e melhor —, e em $(2,8)$ **nenhum vizinho é melhor**. Não
+houve erro, nem aviso, nem bandeira: o que estava errado era supor que aquilo bastava.
+
+**A não convexidade entrou pela porta da frente.** A regra que a produz é banal e está escrita em
+português: *compre pelo menos 6 de A **ou** pelo menos 8 de B*. Todo "ou" é uma união de regiões, e
+união de convexos quase nunca é convexa.
+
+**Um portão declarou o que não alcança.** O portão de consistência de ótimo enumera vértices de
+interseções de semiespaços — é, por construção, uma máquina de conjuntos **convexos**. Um exercício
+sobre região não convexa é exatamente o que ele não consegue conferir. Os três exercícios do
+capítulo 38 entraram na lista de isenção **com justificativa**, e a isenção **aponta para onde a
+conferência acontece**; um teste da etapa 06 verifica que a isenção e o apontamento continuam lá.
+Nenhum número do handbook fica sem dono.
+
+**Armadilha de idioma, consertada na configuração.** O padrão do pytest coleta como teste qualquer
+função cujo nome comece com `test` — **sem** o sublinhado. Num repositório em português isso
+significa que `teste_do_ponto_medio` era coletada e falhava com "fixture não encontrada": falso
+vermelho vindo do nome, não do código. Exigir o sublinhado resolve a classe inteira, e proteger as
+próximas funções vale mais do que renomear esta.
+
+**Verificação:** nove portões verdes — `maturidade 🟡4 🔵0 ✅4`, `39 exercícios em 8 baterias`,
+`41 modelo(s) resolvido(s) em aritmética exata` —, `19 passed` no `po-zero` e `24 passed` no
+backend.

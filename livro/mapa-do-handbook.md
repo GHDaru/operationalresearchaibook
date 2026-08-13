@@ -117,7 +117,7 @@ Módulo inteiro, e não um capítulo: é o que a indústria usa quando o exato n
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| ⬜ | 38 — Convexidade | A propriedade que decide se o problema é tratável. |
+| 🟡 | 38 — Convexidade | A propriedade que decide se o problema é tratável. |
 | ⬜ | 39 — Otimização irrestrita | Gradiente, Newton, quase-Newton e critérios de parada. |
 | ⬜ | 40 — Otimização com restrições | Multiplicadores de Lagrange, condições KKT, dualidade não linear. |
 | ⬜ | 41 — Programação quadrática, cônica e semidefinida | As classes que ainda são resolvidas com garantia. |

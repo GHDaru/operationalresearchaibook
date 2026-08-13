@@ -70,6 +70,17 @@
       ]
     },
     {
+      "nome": "Parte VI — Otimização Não Linear",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/38-convexidade.md",
+          "titulo": "38 — Convexidade",
+          "maturidade": "v0",
+          "teaser": "Antecipado para pagar a dívida do capítulo 09: a propriedade que autoriza parar no primeiro topo."
+        }
+      ]
+    },
+    {
       "nome": "Parte XI — Fronteira",
       "itens": [
         {
