@@ -1,0 +1,47 @@
+{
+  "instancia": "Montadora — último dia do mês, MRP inverso",
+  "primal": {
+    "status": "otimo",
+    "valor": "1100",
+    "ponto": [
+      "8",
+      "2"
+    ],
+    "precos": {
+      "CPUs": "50",
+      "pentes de memória de 16 GB": "50"
+    }
+  },
+  "dual": {
+    "status": "otimo",
+    "valor_dual": "1100",
+    "y": [
+      "50",
+      "50"
+    ],
+    "pivos": 2
+  },
+  "dualidade_forte_confere": true,
+  "faixas_de_validade": [
+    {
+      "componente": "CPUs",
+      "estoque_atual": "10",
+      "pode_cair_ate": "13/2",
+      "pode_subir_ate": "12",
+      "base_de_referencia": [
+        "x1",
+        "x2"
+      ]
+    },
+    {
+      "componente": "pentes de memória de 16 GB",
+      "estoque_atual": "12",
+      "pode_cair_ate": "10",
+      "pode_subir_ate": "39/2",
+      "base_de_referencia": [
+        "x1",
+        "x2"
+      ]
+    }
+  ]
+}
