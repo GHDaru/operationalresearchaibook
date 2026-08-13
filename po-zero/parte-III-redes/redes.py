@@ -619,6 +619,23 @@ def pert_por_simulacao(faixas: dict, tarefas: dict, criticas: list[str],
     diferença entre as médias é o merge bias puro, porque tudo o mais é idêntico:
     mesma distribuição, mesmos números sorteados, mesma rede.
     """
+    # `criticas` TEM de ser um caminho, e não um conjunto qualquer de tarefas
+    # de folga zero — porque `so_o_caminho` soma as durações, e somar duração de
+    # tarefas paralelas não é a duração de caminho nenhum.
+    #
+    # A situação não é rebuscada: basta um empate que deixe DOIS ramos com folga
+    # zero, e `caminho_critico` devolve os dois. A soma passaria a contar as duas
+    # pernas, `so_o_caminho` ficaria maior que a duração do projeto e o "viés"
+    # sairia **negativo** — número sem significado nenhum, publicado com a mesma
+    # cara dos outros. O controle de um ramo não pega isso, porque lá só existe
+    # um caminho possível.
+    encadeadas = sorted(criticas, key=lambda t: len(tarefas[t][1]))
+    for anterior, seguinte in zip(encadeadas, encadeadas[1:]):
+        assert anterior in tarefas[seguinte][1], (
+            f"o conjunto crítico {criticas} não forma um caminho: «{seguinte}» não "
+            f"depende de «{anterior}». Somar as durações mediria outra coisa, e o "
+            f"viés sairia sem significado — possivelmente negativo.")
+
     rnd = random.Random(semente)
     projeto, so_o_caminho = [], []
     for _ in range(amostras):

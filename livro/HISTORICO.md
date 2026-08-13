@@ -2011,3 +2011,31 @@ foram (30, 40, 55) e (2, 5, 9) — que não se cruzam. O ramo curto nunca vencia
 construção, e o controle escrito para substituir um controle tautológico era tautológico pelo mesmo
 motivo. Só a medição pegou. **Quem escreve controle precisa perguntar, antes de rodar, o que
 exatamente o faria dar diferente de zero** — e essa pergunta agora está escrita no capítulo 22.
+
+### Edição 0.44 — 2026-08-13 · Toda reafirmação ganha dono, e o PERT ganha um guarda
+
+**O padrão dos 110 números sem dono era estrutural.** A campanha de mutação mostrou que os testes
+prendiam **uma** ocorrência canônica de cada número — a linha de tabela, com formatação distintiva
+— e que toda **reafirmação** ficava livre: `assert "0,49" in texto` continua verdadeiro enquanto
+sobrar qualquer outra ocorrência na página. Os 110 estavam concentrados onde o leitor apressado lê:
+Leitura executiva (41), caixa "erro caro" (18), Procedência (16), Síntese (14).
+
+O instrumento é **contar**. O valor vem da medição, a contagem vem do texto: se qualquer ocorrência
+derivar, a contagem cai e o teste fica vermelho — não importa qual das seis derivou. Treze
+números-manchete dos capítulos 17 a 22 entraram assim, e um segundo teste garante que os valores
+contados são os que a medição produz, porque sem ele a suíte contaria uma ficção com precisão.
+
+**A primeira versão desse teste já deixou passar uma mutação**, e vale registrar porque é o mesmo
+tipo de erro que ele existe para pegar: o padrão era `**0,49**`, e o corpo do capítulo 22 escreve
+`**0,49 dia**` — a ênfase embrulha o número **e** a unidade. A contagem ficava em 1, só a linha da
+tabela, e a reafirmação do corpo seguia livre. Nada revelou isso além de mutar de novo.
+
+**O PERT ganhou um guarda contra um cenário que ninguém tinha exercitado.** A isolação do viés soma
+as durações do caminho declarado crítico — e isso só faz sentido se o conjunto crítico **for um
+caminho**. Basta um empate que deixe dois ramos com folga zero para o CPM devolver os dois, e aí a
+soma conta as duas pernas: `so_o_caminho` fica maior que a duração do projeto e o "viés" sai
+**negativo**, com a mesma cara dos outros números. Conferido: o guarda pega. O controle de um ramo
+não pegava, porque lá só existe um caminho possível.
+
+**Bookkeeping.** A revisão notou, e está certa: os capítulos 🔵 da Parte III são **seis** (17 a 22),
+não cinco. O 16 é 🟡.
