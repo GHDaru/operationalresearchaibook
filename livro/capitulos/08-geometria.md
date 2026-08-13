@@ -60,7 +60,7 @@ resolve; com `≤`, resolve o quê?
 
 ### A virada: Fourier, e a decisão de olhar
 
-Em **1826**, **Joseph Fourier** — o mesmo das séries de Fourier — publicou um trabalho com o
+A literatura data de **1826** o trabalho em que **Joseph Fourier** — o mesmo das séries de Fourier — apresentou o
 título modesto de *Solution d'une question particulière du calcul des inégalités*. Ele vinha
 esbarrando em desigualdades em problemas de mecânica, probabilidade e estatística, e fez duas
 coisas.
@@ -76,14 +76,22 @@ vez de procurar uma álgebra que ainda não existia, ele mudou de representaçã
 
 ### O nome, e um fio que atravessa dois capítulos
 
-O procedimento algébrico de Fourier foi esquecido e **redescoberto em 1936 por Theodore
-Motzkin**, que o transformou em algoritmo sistemático, fundado na geometria dos conjuntos
-convexos. Por isso hoje ele se chama **eliminação de Fourier–Motzkin**.
+O procedimento algébrico de Fourier foi esquecido e, segundo a literatura, **redescoberto por
+Theodore Motzkin** — a data corrente é 1936 —, que o transformou em algoritmo sistemático,
+fundado na geometria dos conjuntos convexos. É por isso que hoje ele se chama **eliminação de
+Fourier–Motzkin**: o nome duplo é o registro da redescoberta.
 
-Guarde o sobrenome. **É o mesmo Motzkin** que, alguns anos depois, numa conversa com Dantzig,
-sugeriu o nome de um algoritmo que você vai encontrar no próximo capítulo — o **Simplex**. A
-mesma pessoa está nas duas pontas: na redescoberta de como olhar para desigualdades, e no
-batismo do método que finalmente as resolveu em escala.
+Guarde o sobrenome, porque a literatura o põe nas duas pontas desta história: **atribui-se ao
+mesmo Motzkin**, alguns anos depois, a sugestão do nome de um algoritmo que você vai encontrar no
+próximo capítulo — o **Simplex**.
+
+> ⏳ **As duas atribuições acima são correntes e não foram confirmadas em fonte primária.** A data
+> de 1936 e a cena da conversa com Dantzig aparecem juntas na literatura de ensino, e este handbook
+> **localizou os trabalhos em busca sem abri-los**. O [capítulo 09](09-simplex.md) carrega a mesma
+> dívida do outro lado, e a marca do mesmo jeito.
+>
+> **O que não depende de atribuição nenhuma** é o que interessa aqui: o método existe, funciona, e
+> a razão de ele não servir em escala está medida na seção seguinte.
 
 ### Por que a eliminação não virou o método padrão
 
@@ -412,7 +420,8 @@ segunda passada sobre o mesmo conteúdo, no ritmo de quem está pensando em voz 
 ## Síntese — o que levar
 
 - **O desenho não é muleta didática: foi como o assunto se entendeu primeiro.** Fourier achava a
-  região das soluções geometricamente em 1826, 120 anos antes de existir o Simplex.
+  região das soluções geometricamente por volta de 1826 — data corrente, não conferida na fonte —,
+  cerca de 120 anos antes de existir o Simplex.
 - **Quando a álgebra não dá alça, troque de representação.** Nada do problema muda; muda o que
   você consegue ver dele.
 

@@ -1240,3 +1240,35 @@ for quitada e alguém esquecer de tirá-la da lista.
 volta a caber, com folga de cinco vagas.
 
 **Provado quebrando** nos dois sentidos antes de entrar.
+
+### Edição 0.27 — 2026-08-13 · O portão da procedência, e o que ele não pega
+
+O defeito "o corpo afirma o que a tabela nega" apareceu **quatro** vezes, em quatro capítulos —
+12, 14, 09 e agora **08**, encontrado por este portão. Prometer atenção não conserta padrão que
+reincide, então ele virou código.
+
+**O que ele mede.** Para cada linha `⏳`/`❌` da tabela de Procedência, extrai os termos que carregam
+a afirmação — nomes próprios e anos. Se um deles aparece no corpo, exige **ressalva por perto**.
+
+**A calibração mudou a regra, e a mudança importa.** A primeira versão exigia o glifo `⏳` e acusou
+o capítulo 10 por dizer *"costuma ser atribuída a Beale (1955)"* — que é exatamente a ressalva que a
+constituição pede, escrita em português em vez de em símbolo. Exigir o glifo seria exigir
+formatação, e portão que persegue formatação treina quem escreve a satisfazê-lo em vez de a pensar.
+O portão passou a procurar a **marca de atribuição**, no glifo ou na prosa.
+
+**Uma limitação declarada, e ela é do parser, não do texto.** Linha de estado **misto** —
+`✓ᵐ metadados; ⏳ enunciado exato` — fica fora do alcance: o portão não sabe a que metade da célula
+cada termo pertence, e chutar produziria o falso vermelho que ele existe para não produzir. Duas
+linhas do handbook estão nesse caso, e elas continuam sendo leitura humana.
+
+**O defeito real que ele achou:** o capítulo 08 — que carrega selo ✅ — afirmava como fato a
+redescoberta de Fourier–Motzkin em 1936 e a cena da conversa com Dantzig, com as duas marcadas `⏳`
+na própria tabela. Corrigido, e com a lição preservada de um jeito que não depende da atribuição.
+
+**O QUE ELE NÃO PEGA, medido e dito.** Ele cobre a forma **grosseira** — termo sem ressalva
+nenhuma por perto. Não cobre o termo ressalvado num lugar e afirmado em outro, que é o caso
+original do capítulo 12: removendo a ressalva de lá, o portão continua verde. A régua estrita foi
+medida e acusou "Karmarkar" num capítulo que trata de Karmarkar do início ao fim — troca um buraco
+por falso vermelho crônico. **Proximidade não decide se uma frase afirma**, e o resto continua
+sendo leitura humana. O ganho real é outro: o padrão tem nome, tem quatro ocorrências documentadas,
+e entra na instrução de toda revisão em contexto fresco.
