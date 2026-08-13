@@ -74,7 +74,8 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 18min04s | **Definitivo** |
 | 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 24min20s | **Definitivo** |
 | 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | [UNIVESP](https://www.youtube.com/@univesptv) | 18min48s | **Definitivo** |
-| 10 — Casos especiais e degenerescência | [Pesquisa Operacional I — Aula 11: casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ) | [UNIVESP](https://www.youtube.com/@univesptv) | ⏳ | Provisório |
+| 10 — Casos especiais e degenerescência | [Pesquisa Operacional I — Aula 11: casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ) | [UNIVESP](https://www.youtube.com/@univesptv) | 19min04s | **Definitivo** |
+| 12 — Dualidade | [Interpretação Econômica, Dualidade, Dual, Programação Linear](https://www.youtube.com/watch?v=HYKllgOuMzA) | [Pedro Munari](https://www.youtube.com/@munariflix) | 12min44s | **Definitivo** |
 
 ### A dívida dos `⏳`, quitada em 2026-08-09
 
@@ -91,16 +92,22 @@ Duas coisas que a conferência resolveu, e vale registrar as duas:
    atribuição da série a um curso público aparecia em resultado de busca e não estava confirmada.
    **Estava certa** — é da UNIVESP, publicado em 10 de agosto de 2016.
 
-### O vídeo do capítulo 10, e o campo que não saiu
+### O `⏳` do capítulo 10, quitado em 2026-08-13
 
-A ficha do capítulo 10 é a única **provisória** do handbook, e por um motivo estreito: título,
-endereço e **autoria** foram conferidos na fonte, mas a **duração não**. A página do vídeo não
-devolveu o campo em nenhuma das tentativas — nem por requisição direta, nem por navegador.
+A ficha do capítulo 10 foi a única **provisória** do handbook, e por um motivo estreito: título,
+endereço e autoria estavam conferidos, e só a **duração** não saía — a página do vídeo não
+devolvia o campo em nenhuma das tentativas.
 
-Registrar isso importa porque a diferença com as outras três fichas é de **um campo**, não de
-natureza. O `⏳` está no lugar exato, e não contamina o resto da ficha.
+**Fechou:** a duração é **19min04s**. A leitura veio pelo índice de resultados do próprio YouTube,
+que devolve o campo mesmo quando a página do vídeo recusa a requisição.
 
-**Como fecha:** basta alguém abrir o vídeo e ler a duração.
+E a leitura foi **conferida contra um caso conhecido** antes de ser aceita, que é o que separa uma
+medição de um palpite: pela mesma via, o vídeo do capítulo 09 devolve **18min48s** — exatamente o
+valor que já constava na tabela acima, conferido em outra ocasião e por outro caminho. Uma fonte
+nova que reproduz um valor já verificado é uma fonte que se pode usar para o valor que falta.
+
+**O handbook fica sem nenhuma ficha provisória.** É um estado que vale defender: nova entrada
+`⏳` é sempre aceitável — o que não é aceitável é ela ficar.
 
 ### O que continua sendo leitura humana
 
