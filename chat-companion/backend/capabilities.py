@@ -81,6 +81,19 @@ REGISTRO = [
      "descricao": "Acho o corte mínimo com você e traduzo o resultado em decisão: onde investir, "
                   "onde não adianta, e quando recalcular. Desfaço a confusão mais cara da Parte — "
                   "aresta estreita não é gargalo; gargalo é conjunto que separa."},
+    {"chave": "fluxo_custo", "rotulo": "Fluxo de custo mínimo", "libera": 20, "tools": (),
+     "descricao": "Escrevo com você o modelo único que serve a transporte, designação, transbordo "
+                  "e planejamento multiperíodo. E aviso quando uma restrição nova tira o problema "
+                  "da família de rede — porque nesse instante a integralidade de graça acaba, sem "
+                  "nenhum aviso do solver."},
+    {"chave": "designacao", "rotulo": "Transporte e designação", "libera": 21, "tools": (),
+     "descricao": "Formulo os três clássicos como um modelo só, e desaconselho a variável binária "
+                  "na designação: a estrutura já garante 0/1, e declarar Binary custa tempo e a "
+                  "análise de sensibilidade inteira."},
+    {"chave": "projetos", "rotulo": "PERT, CPM e prazo", "libera": 22, "tools": (),
+     "descricao": "Calculo folga e caminho crítico com você, e cobro a pergunta que salva projeto: "
+                  "esse prazo é média ou percentil? Média não é promessa — metade das realizações "
+                  "fica acima dela."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

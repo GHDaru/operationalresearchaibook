@@ -1731,3 +1731,42 @@ depois de investir é preciso **recalcular**, porque o corte se move.
 **O que o capítulo 19 declara não fazer:** demonstrar o teorema. Ele o **exibe** numa instância,
 com o corte nomeado, e diz que é isso que está fazendo. Um livro que mede um caso e chama isso de
 demonstração estaria mentindo; um que cita o teorema e nunca mostra o corte estaria pedindo fé.
+
+### Edição 0.39 — 2026-08-13 · A Parte III fecha: a integralidade de graça, e o prazo que estoura
+
+**Entrou:** os três últimos capítulos da Parte III — [20 — Fluxo de custo mínimo](capitulos/20-fluxo-custo-minimo.md),
+[21 — Transporte, designação e transbordo](capitulos/21-transporte-designacao.md) e
+[22 — PERT e CPM](capitulos/22-pert-cpm.md), os três 🔵 —, com nove exercícios e três vídeos.
+**A Parte III está completa**: sete capítulos, vinte e um exercícios, uma etapa de medição com
+sete resultados.
+
+**O capítulo 20 publica o resultado mais útil da Parte**, e ele muda decisão de projeto: a
+relaxação linear de um problema de rede **já vem inteira**. Medido: custo **220**, todos os
+embarques em unidades exatas, num modelo sem uma única variável declarada inteira ou binária. Não é
+sorte nem arredondamento — é a estrutura, e ela também mantém preço-sombra e faixa de validade, que
+um modelo inteiro não tem.
+
+E o outro lado está medido na mesma página: **uma** restrição banal — rotas ocupam espaço diferente
+no pátio — tira a matriz da família, e o ótimo vai a **223,33** com **quatro** embarques
+fracionários. `Optimal` nos dois casos, e nenhum aviso.
+
+**O capítulo 21 mede o caso em que isso mais surpreende.** A designação é combinatória em cada
+palavra do enunciado — *cada pessoa faz exatamente uma tarefa* — e resolvida como Programação
+Linear **contínua** devolve **0/1**: custo 9, três atribuições. Declarar `Binary` por precaução
+paga o custo do *branch-and-bound* e **perde a análise de sensibilidade junto**.
+
+> Há teste que lê o **código-fonte** do modelo, e não a saída: se alguém acrescentar `cat="Binary"`,
+> a resposta continua 0/1 e o capítulo passa a mentir — porque a lição não é que a saída é binária,
+> é que ela é binária **sem ter sido pedida**.
+
+**O capítulo 22 fecha a Parte com o resultado mais incômodo dela.** A fórmula do PERT publica
+**21 dias**; o projeto leva **24,48** em média e **estoura a estimativa em 82,3% das amostras**.
+
+E a parte que custou a manchete: **duas causas produzem esse desvio, e só uma é defeito do método**.
+Separando **nas mesmas amostras** — duração do projeto contra duração do caminho declarado crítico
+antes de sortear —, o viés próprio do PERT é **0,49 dia**, e não os ~3,5 que a comparação ingênua
+daria. Seria mais impressionante publicar o número grande; seria também falso.
+
+A varredura de ramos paralelos vem com **controle**: um ramo só dá **exatamente 0,0**, que é o que
+prova a isolação. Depois 1,71 · 2,55 · 3,64 · 4,45. E mesmo com um ramo só a estimativa estoura em
+**76,5%** das amostras — essa parte não é viés de convergência, é **média não ser promessa**.

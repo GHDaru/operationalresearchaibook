@@ -1,0 +1,262 @@
+# 22 — Planejamento de projetos: PERT e CPM
+
+> **Conteúdo revisado em 2026-08** · última revisão 2026-08-13 · [histórico](../HISTORICO.md)
+
+## Objetivos de aprendizagem
+
+**O1.** **Calcular** o caminho crítico e a folga de cada tarefa, e dizer o que a folga autoriza.
+
+**O2.** **Explicar por que a estimativa do PERT é otimista**, separando as duas causas do desvio.
+
+**O3.** **Decidir** o que fazer com uma estimativa de prazo, sabendo o que ela sustenta.
+
+## O problema
+
+Este capítulo fecha a Parte III com o modelo de rede mais usado do mundo — e com o resultado mais
+incômodo dela:
+
+> A fórmula do PERT publica **21 dias** para o projeto desta página. Simulado, ele leva **24,48
+> dias** em média e **estoura a estimativa em 82,3% das amostras**. O método não erra por pouco:
+> ele erra quase sempre, e para o mesmo lado.
+
+O erro caro deste capítulo é o que acontece com essa estimativa depois:
+
+> O número vira compromisso. Alguém apresenta "21 dias" como prazo, sem dizer que é uma média de
+> um caminho, e a organização planeja em cima disso. **Quatro em cada cinco vezes o projeto passa
+> do prazo** — e a conversa que se segue é sobre disciplina de execução, quando o defeito estava
+> na aritmética da estimativa.
+
+## De onde isto veio
+
+### O aperto: projetos grandes demais para caber numa cabeça
+
+O problema nasce em projetos com centenas de tarefas interdependentes, em que a pergunta *"quando
+isto termina?"* deixou de ter resposta por inspeção. Duas coisas eram necessárias ao mesmo tempo: a
+**duração total** e a informação de **onde apertar** para encurtá-la.
+
+### A virada: a folga
+
+A ideia que organiza tudo é uma subtração. Para cada tarefa, calcule o mais cedo que ela pode
+começar e o mais tarde que ela pode começar sem atrasar o projeto. A diferença é a **folga** —
+e as tarefas de folga zero formam o **caminho crítico**.
+
+O que isso compra é operacional: **atrasar uma tarefa com folga não atrasa o projeto**, e acelerar
+uma tarefa fora do caminho crítico não adianta nada. É a mesma lógica do corte mínimo do
+[capítulo 19](19-fluxo-maximo.md), agora no tempo.
+
+### O que o PERT acrescentou, e o que ele custou
+
+O CPM trabalha com durações fixas. O PERT acrescenta incerteza pedindo três estimativas por
+tarefa — otimista, provável, pessimista — e resumindo-as numa média, $(o + 4m + p)/6$, que ele
+então **soma ao longo do caminho crítico**.
+
+É nessa soma que mora o problema deste capítulo.
+
+### A ideia reaproveitável
+
+> **A média de um máximo é maior do que o máximo das médias.** Sempre que algo espera pelo mais
+> lento de vários processos paralelos, planejar pela média de um deles subestima — e o erro cresce
+> com o número de paralelos.
+
+Vale muito além de projeto: vale para qualquer atendimento que só termina quando a última parte
+chega.
+
+### A origem do nome
+
+**CPM** é *Critical Path Method*; **PERT** é *Program Evaluation and Review Technique*. Os dois
+nasceram no fim dos anos 1950, em contextos diferentes — um industrial, outro militar — e a
+atribuição precisa é `⏳` neste handbook.
+
+### Procedência
+
+| Afirmação | Estado |
+|---|---|
+| As origens do CPM e do PERT no fim dos anos 1950 | ⏳ **atribuição corrente**; este handbook **não abriu** as fontes primárias |
+| Que a fórmula do PERT use a média $(o+4m+p)/6$ | 📖 **leitura editorial** de procedimento de manual |
+| A duração 18, as folgas, e o caminho crítico do projeto desta página | ✓ **medidos** em `po-zero/parte-III-redes`, em aritmética exata |
+| Os 21 dias da fórmula, os 24,48 simulados, os 82,3% de estouro e o viés de 0,49 | ✓ **medidos** por simulação com **semente declarada** |
+
+## O caminho crítico, medido
+
+Um projeto de quatro tarefas:
+
+| Tarefa | Duração | Depende de |
+|---|---|---|
+| `especificar` | 5 | — |
+| `backend` | 10 | `especificar` |
+| `frontend` | 7 | `especificar` |
+| `integrar` | 3 | `backend`, `frontend` |
+
+**Duração do projeto: 18.** O caminho crítico é `especificar → backend → integrar`, e as folgas:
+
+| Tarefa | Folga | O que isso autoriza |
+|---|---|---|
+| `especificar` | **0** | Nada. Um dia de atraso é um dia no projeto |
+| `backend` | **0** | Nada |
+| `frontend` | **3** | Pode atrasar até 3 dias **sem** afetar a entrega |
+| `integrar` | **0** | Nada |
+
+> **A folga é a informação que o método entrega de graça**, e é a que mais muda gestão: acelerar
+> `frontend` não encurta o projeto em um único dia, e é exatamente lá que a pressão costuma cair,
+> porque é a tarefa que "parece atrasada".
+
+## O PERT, e as duas causas do desvio
+
+Agora com incerteza. As três estimativas por tarefa, e o que a fórmula publica:
+
+| Tarefa | Otimista | Provável | Pessimista | Média do PERT |
+|---|---|---|---|---|
+| `especificar` | 4 | 5 | 12 | 6 |
+| `backend` | 6 | 10 | 20 | 11 |
+| `frontend` | 4 | 7 | 16 | 8 |
+| `integrar` | 2 | 3 | 10 | 4 |
+
+**A fórmula publica 21 dias** — a soma ao longo do caminho crítico. Simulando o projeto **20 mil
+vezes**, com semente declarada:
+
+| | Medido |
+|---|---|
+| Duração média do projeto | **24,48** |
+| Probabilidade de estourar os 21 dias | **82,3%** |
+
+**Duas causas diferentes produzem esse desvio, e só uma é defeito do método.** Misturá-las daria
+um número grande e sem significado, então elas foram separadas:
+
+### A separação, feita nas mesmas amostras
+
+Para cada sorteio, mediram-se **duas** coisas: a duração real do projeto (o máximo sobre todos os
+caminhos) e a duração do **caminho que o CPM declarou crítico antes de sortear**. Tudo o mais é
+idêntico — mesma distribuição, mesmos números sorteados —, então a diferença isola o defeito.
+
+| | Média |
+|---|---|
+| Só o caminho declarado | 23,99 |
+| O projeto inteiro | 24,48 |
+| **Diferença — o viés do método** | **0,49** |
+
+**O viés é 0,49 dia**, e não os ~3,5 que a comparação ingênua sugeriria. O resto do desvio vem da
+**distribuição amostrada não ter a mesma média que a fórmula supõe** — o que é uma escolha de
+modelagem, não um defeito do PERT.
+
+> **Esta honestidade custa a manchete e vale a pena.** Seria mais impressionante publicar "o PERT
+> erra 3,5 dias". Seria também falso: a maior parte desse número não é do método.
+
+### E o viés cresce com os caminhos paralelos
+
+Medido, com **controle**:
+
+| Ramos paralelos | Viés | Estoura a estimativa em |
+|---|---|---|
+| **1** (controle) | **0,0** | 76,5% |
+| 2 | 1,71 | 89,7% |
+| 3 | 2,55 | 94,9% |
+| 5 | 3,64 | 98,5% |
+| 8 | 4,45 | 99,6% |
+
+**A linha de um ramo tem de dar zero, e dá.** Sem paralelismo, a duração do projeto **é** a do
+caminho declarado — o viés não existe por construção. Dar exatamente zero é o que prova que a
+isolação está correta.
+
+E repare na coluna da direita na primeira linha: **mesmo sem nenhum paralelismo, a estimativa
+estoura em 76,5% das amostras.** Essa parte não é viés de convergência — é a fórmula da média não
+descrever o que vai acontecer.
+
+## Quando não serve
+
+**1. Quando as durações são correlacionadas.** A simulação supõe tarefas independentes. Se o mesmo
+fornecedor atrasa três tarefas juntas, o desvio real é maior do que qualquer número desta página.
+
+**2. Quando o caminho crítico muda de lugar.** Com incerteza, o caminho crítico **é aleatório** —
+uma tarefa com folga de 3 pode virar crítica num cenário ruim. Falar de "o" caminho crítico com
+durações incertas é uma simplificação, e ela é a origem do viés medido acima.
+
+**3. Quando a rede não representa a restrição real.** Se o gargalo é uma pessoa que faz três
+tarefas "paralelas" sozinha, elas não são paralelas — e nenhum caminho crítico vai mostrar isso.
+É a restrição de **recurso**, e ela não está no modelo de precedência.
+
+**4. Quando a resposta pedida é uma data, e não uma distribuição.** O método pode dar a
+distribuição; a organização costuma querer um número. Entregar a média sem o percentil é o que
+produz o erro caro deste capítulo.
+
+## Fundamentos e fontes
+
+**O que está medido aqui.** A duração 18 e as folgas, em aritmética exata; e os 21 dias da fórmula,
+os 24,48 simulados, os 82,3% de estouro, o viés de 0,49 e a varredura de ramos paralelos — todos
+por simulação com **semente declarada** e 20 mil amostras. Em `po-zero/parte-III-redes/redes.py`,
+com teste que compara **este texto** à medição.
+
+> **Nota de método, e ela vale mais do que os números.** A primeira versão deste experimento
+> comparava a fórmula com a simulação diretamente, e teria publicado um viés de ~3,5 dias que é
+> quase todo artefato da distribuição escolhida. A separação nas mesmas amostras foi acrescentada
+> depois, e com ela o número honesto caiu para 0,49. **Um experimento que mede duas causas juntas
+> não mede nenhuma das duas.**
+
+**O que continua em dívida:** as origens do CPM e do PERT, `⏳`.
+
+> 🔵 **Este capítulo está em "medido".** O que falta para ✅ é revisão independente em contexto
+> fresco.
+
+## Pratique
+
+<div data-bateria="cap22"></div>
+
+Três exercícios. O primeiro calcula folgas e decide onde apertar; o segundo é o do capítulo —
+separar as duas causas do desvio; o terceiro transforma uma estimativa em compromisso defensável.
+
+## Assista
+
+**[Método do Caminho Crítico (CPM)](https://www.youtube.com/watch?v=1G_hitQYL5w)** ·
+[Prof. Demétrios Batista da Silva](https://www.youtube.com/@profDemetriosOficial) · 20min55s
+
+**O que ele resolve:** este capítulo gasta o espaço na **crítica** ao PERT e trata o cálculo do
+caminho crítico de forma resumida. O vídeo faz o cálculo completo: cedo, tarde, folga, tarefa por
+tarefa, com o diagrama sendo preenchido. Ver o procedimento inteiro antes de ler a seção da
+simulação é a ordem que funciona.
+
+## Síntese — o que levar
+
+- **Folga é a diferença entre o mais tarde e o mais cedo que a tarefa pode começar.** Folga zero é
+  o caminho crítico.
+- **Acelerar tarefa com folga não encurta o projeto** — medido: `frontend` tem folga 3.
+- **A fórmula do PERT publica 21 dias; o projeto leva 24,48 e estoura em 82,3% das amostras.**
+- **Duas causas produzem esse desvio, e só uma é do método.** Separadas nas mesmas amostras, o
+  viés é **0,49**, não 3,5.
+- **O viés cresce com caminhos paralelos**, e o controle de um ramo dá exatamente zero — que é o
+  que prova a isolação.
+- **Mesmo sem paralelismo, a estimativa estoura em 76,5%** das amostras: média não é promessa.
+- **Com incerteza, o caminho crítico é aleatório.** Falar de "o" caminho crítico é simplificação.
+- **Fora da Pesquisa Operacional:** a média de um máximo é maior que o máximo das médias — sempre
+  que algo espera pelo mais lento de vários paralelos.
+
+## Verificação
+
+1. No projeto desta página, o time quer entregar em 16 dias. Onde faz sentido investir, e onde
+   não? *(O1)*
+2. Um analista compara a fórmula do PERT com uma simulação e conclui que "o método subestima em
+   3,5 dias". Que erro metodológico ele cometeu, e como você o corrigiria? *(O2)*
+3. A diretoria pede "uma data" para o projeto. Escreva a frase que você entrega, e a que você se
+   recusa a entregar. *(O3)*
+
+### Leitura executiva
+
+O planejamento de projetos por rede entrega duas coisas: a **duração total** e a **folga** de cada
+tarefa — a diferença entre o mais tarde e o mais cedo que ela pode começar sem atrasar a entrega.
+As tarefas de folga zero formam o **caminho crítico**, e a consequência operacional é imediata:
+acelerar uma tarefa com folga não encurta o projeto em um único dia, e é justamente sobre ela que a
+pressão costuma cair, porque é a que "parece atrasada". No projeto medido aqui, a duração é **18** e
+`frontend` tem **3 dias de folga**. O PERT acrescenta incerteza pedindo três estimativas por tarefa
+e somando a média $(o+4m+p)/6$ ao longo do caminho crítico — e é nessa soma que está o problema:
+**a fórmula publica 21 dias, o projeto simulado leva 24,48 em média, e estoura a estimativa em
+82,3% das amostras**. O método não erra por pouco nem em casos raros: erra quase sempre e para o
+mesmo lado. Duas causas diferentes produzem esse desvio, e apenas uma é defeito do método, de modo
+que elas foram **separadas nas mesmas amostras** — medindo, para cada sorteio, a duração real do
+projeto e a duração do caminho declarado crítico antes de sortear. O viés próprio do método é
+**0,49 dia**, e não os ~3,5 da comparação ingênua; o resto vem da distribuição amostrada não ter a
+mesma média que a fórmula supõe, o que é escolha de modelagem. O viés cresce com o número de
+caminhos paralelos — 1,71 com dois ramos, 4,45 com oito —, e o **controle** de um ramo só dá
+exatamente zero, que é o que prova a correção da isolação. Vale notar que, mesmo sem paralelismo
+nenhum, a estimativa estoura em 76,5% das amostras: **média não é promessa**. Por fim, o modelo não
+serve quando as durações são correlacionadas, quando a restrição real é de recurso e não de
+precedência — três tarefas "paralelas" feitas pela mesma pessoa não são paralelas —, e quando o que
+se pede é uma data em vez de uma distribuição: entregar a média sem o percentil é exatamente o que
+transforma uma estimativa razoável num compromisso que se quebra quatro vezes em cinco.

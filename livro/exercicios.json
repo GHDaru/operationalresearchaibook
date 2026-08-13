@@ -3271,5 +3271,203 @@
     ],
     "erro_provavel": "Pôr capacidade 2 na aresta que sai da **fonte** para o enfermeiro, confundindo a lotação do plantão com a disponibilidade da pessoa. As duas capacidades vivem em pontas opostas do modelo, e trocá-las produz uma escala em que a mesma pessoa cobre dois plantões — o modelo roda, devolve um número maior, e a resposta é inexecutável. É o defeito do capítulo 03 na sua forma de rede: a peça está no lugar errado e nada avisa.",
     "resposta_guia": "**(1)** **Fonte** → cada enfermeiro, capacidade **1** (ninguém faz mais de um plantão). Cada **enfermeiro** → os plantões para os quais é habilitado, capacidade 1. Cada **plantão** → **sumidouro**, capacidade **2** (a lotação). **(2)** O fluxo máximo é o **número de posições de plantão que a equipe atual consegue cobrir**, dadas as habilitações — em português: *\"quantos postos conseguimos preencher neste fim de semana\"*. **(3)** Fluxo 8 contra lotação desejada 10 significa que **duas posições ficam vazias, e nenhuma escala resolve isso** — é limite estrutural, não falta de organização. Insistir em remanejar não vai produzir a nona posição. **(4)** O corte aponta **de que lado está a escassez**. Se ele corta arestas plantão→sumidouro, o problema é falta de gente habilitada para aqueles plantões específicos — a solução é treinar, não contratar. Se corta fonte→enfermeiro, o limite é o **tamanho da equipe**, e aí é contratar mesmo. Essa distinção é a informação de gestão que o modelo entrega de graça. **(5)** Não é preciso. A matriz deste modelo é de rede, e a estrutura garante que a relaxação linear já devolve solução **inteira** — o capítulo 20 mede exatamente isso, e o capítulo 21 mostra o mesmo na designação, com saída 0/1 sem nenhuma variável binária declarada. Declarar binária aqui pagaria um preço de resolução que a estrutura tinha dispensado."
+  },
+  {
+    "capitulo": 20,
+    "serie": "cap20",
+    "capacidade": "fluxo_custo",
+    "contexto": "livro",
+    "id": "cap20.exA",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "dificuldade": "media",
+    "titulo": "Um modelo, quatro problemas",
+    "enunciado": "Escreva os quatro como **fluxo de custo mínimo**, dizendo em cada caso o que é nó, o que produz, o que consome e o que a variável significa.\n\n| | O problema |\n|---|---|\n| **a** | Duas fábricas abastecem três lojas |\n| **b** | Seis consultores para seis clientes, um cada |\n| **c** | Fábricas abastecem lojas **passando por dois centros de distribuição** |\n| **d** | Produção mensal por 6 meses, podendo estocar de um mês para o seguinte |\n\n5. Escreva a **equação de conservação** do mês 3 em (d).\n6. Qual dos quatro herda a integralidade de graça? Justifique em uma frase.",
+    "criterios": [
+      "**(a)** nós = fábricas (produzem) e lojas (consomem); variável = quanto mandar por rota",
+      "**(b)** o mesmo, com **todas** as produções e consumos iguais a **1**; a variável significa *se* designar",
+      "**(c)** acrescenta nós de **transbordo**, que produzem e consomem **zero** — a carga só passa",
+      "**(d)** um nó por mês; produção do nó = produção do mês; consumo = demanda do mês; a aresta entre meses consecutivos é o **estoque**",
+      "A conservação do mês 3: `estoque_2 + producao_3 − demanda_3 = estoque_3`, e responde que **os quatro** herdam a integralidade, porque os quatro têm só restrições de conservação"
+    ],
+    "erro_provavel": "Em **(d)**, tratar cada mês como um problema separado e somar os seis ótimos. É o erro que a lente de rede desfaz: o estoque **liga** os períodos, e resolver mês a mês produz um plano anual pior — cada mês fica ótimo isoladamente e ninguém antecipa produção barata para um mês caro. O segundo erro provável é em (c): pôr oferta ou demanda nos centros de distribuição. Centro de transbordo produz e consome **zero**; dar-lhe oferta faz o modelo inventar carga do nada.",
+    "resposta_guia": "**(a)** Nós: duas fábricas com produção positiva (a oferta) e três lojas com produção negativa (a demanda). Variável: quanto mandar em cada rota; custo na aresta. **(b)** Idêntico, com **todas** as produções e consumos iguais a 1 — e é só isso que transforma transporte em designação. **(c)** Acrescentam-se dois nós de **transbordo**, com produção **zero**: eles não criam nem consomem carga, apenas repassam. As arestas passam a ser fábrica→centro e centro→loja. **(d)** Um nó por mês. Cada nó tem uma aresta de entrada *produzir* e uma de saída para a demanda; entre meses consecutivos, a aresta de **estoque**. **(5)** `estoque_2 + producao_3 − demanda_3 = estoque_3` — o que sobra do mês 2 mais o que se produz no 3, menos o que se entrega no 3, é o que passa para o 4. **(6)** **Os quatro.** Todos têm apenas restrições de conservação de fluxo, e é essa forma — e não o assunto — que torna a matriz totalmente unimodular. Com oferta e demanda inteiras, todo vértice é inteiro, e o Simplex para num vértice."
+  },
+  {
+    "capitulo": 20,
+    "serie": "cap20",
+    "capacidade": "fluxo_custo",
+    "contexto": "livro",
+    "id": "cap20.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "De onde vem a integralidade, e quando ela cai",
+    "enunciado": "O transporte do capítulo, resolvido como PL **contínua**, devolve custo **220** com todos os embarques inteiros. Acrescentando **uma** restrição de espaço de pátio, o ótimo vai para **223,33** com quatro embarques fracionários — e o solver diz `Optimal` nos dois casos.\n\n1. Um colega diz: *\"deu inteiro porque os custos são inteiros\"*. Corrija.\n2. Outro diz: *\"deu inteiro porque o solver arredonda\"*. Corrija.\n3. Enuncie de que a garantia **de fato** depende — são **duas** condições.\n4. Para cada restrição abaixo, diga se a integralidade sobrevive: (i) *\"a fábrica 1 não manda mais de 12 para a loja A\"*; (ii) *\"o total enviado pela frota terceirizada não passa de 40% do total\"*; (iii) *\"a demanda da loja C é 10,5 toneladas\"*.\n5. Você precisa de resposta inteira e a restrição (ii) é obrigatória. O que faz, e o que isso custa?",
+    "criterios": [
+      "Corrige (1): custo inteiro não tem nenhum papel — o custo está no **objetivo**, e a integralidade dos vértices depende da **matriz de restrições**",
+      "Corrige (2): o solver **não** arredonda; ele para num vértice, e o vértice já é inteiro",
+      "As duas condições: **matriz totalmente unimodular** (a forma de rede) **e** lados direitos inteiros (oferta e demanda)",
+      "**(i)** sobrevive — é um limite simples na própria aresta, e a matriz continua de rede; **(ii)** **não** sobrevive — é transversal; **(iii)** **não** sobrevive, e o motivo é o outro: o lado direito deixou de ser inteiro",
+      "No (5), responde que declara as variáveis como inteiras e assume o custo — e nomeia o que se perde: preço-sombra, faixa de validade e o tempo de resolução"
+    ],
+    "erro_provavel": "Achar que o item (iii) quebra a integralidade **pelo mesmo motivo** que o (ii). São motivos diferentes, e a distinção é o coração do exercício: em (ii) a **matriz** deixa de ser de rede; em (iii) a matriz continua perfeita e o que falha é o **lado direito**. A garantia tem duas pernas, e perceber que elas podem cair separadamente é o que evita diagnosticar errado quando aparece uma fração na saída.",
+    "resposta_guia": "**(1)** O custo vive no **objetivo** e não influencia quais pontos são vértices da região viável. A integralidade é uma propriedade da **região**, e portanto da matriz de restrições. **(2)** O solver não arredonda nada — se arredondasse, a resposta poderia ficar inviável. Ele para num **vértice** da região, e nesta região todo vértice já é inteiro. **(3)** Duas condições, e as duas são necessárias: a matriz de restrições precisa ser **totalmente unimodular** (o que a forma de rede garante), e os **lados direitos** — oferta e demanda — precisam ser inteiros. **(4)** **(i) Sobrevive**: é um limite superior na própria variável, e limites simples preservam a estrutura. **(ii) Não sobrevive**: a restrição mistura arestas que não compartilham nó, é transversal, e tira a matriz da família — é exatamente o mecanismo que o capítulo mediu com o pátio. **(iii) Não sobrevive**, mas por outra perna: a matriz continua unimodular e o **lado direito** deixou de ser inteiro, então o vértice pode cair em meia tonelada. **(5)** Declaro as variáveis como **inteiras** e assumo o custo. O que se perde é concreto: o tempo de resolução muda de patamar, e somem o **preço-sombra** e a **faixa de validade** — modelo inteiro não tem análise de sensibilidade no sentido do capítulo 13. É um preço legítimo, desde que pago com consciência."
+  },
+  {
+    "capitulo": 20,
+    "serie": "cap20",
+    "capacidade": "fluxo_custo",
+    "contexto": "livro",
+    "id": "cap20.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "O modelo que deixou de ser rede",
+    "enunciado": "Um modelo de distribuição está em produção há um ano. Começou como transporte puro e recebeu ajustes ao longo do tempo. Hoje ele tem, além da conservação:\n\n> **R1.** Cada rota tem um limite máximo de volume.\n> **R2.** O contrato com o sindicato exige que ao menos 30% do volume total saia da frota própria.\n> **R3.** A demanda mensal de um cliente é 8,5 mil unidades.\n> **R4.** Abrir a rota para o Norte custa R$ 40 mil fixos, além do custo por unidade.\n\nA equipe relata: *\"o modelo virou lento e às vezes devolve meia carreta\"*.\n\n1. Para cada restrição, diga se ela é de rede, e se quebra a integralidade.\n2. Qual delas explica a **lentidão**, e qual explica as **frações**? São a mesma?\n3. O que você faz primeiro, e por quê?\n4. A equipe sugere arredondar a saída. Diga o que pode dar errado, com um exemplo concreto.\n5. Escreva a frase que você põe no README do modelo para que o próximo analista não repita o problema.",
+    "criterios": [
+      "**R1** é de rede (limite na própria aresta) e **não** quebra nada; **R2** é transversal e quebra; **R3** não é da matriz, mas quebra pelo lado direito; **R4** exige binária e torna o problema inteiro de verdade",
+      "Identifica que a **lentidão** vem de R4 (binária de ativação, portanto branch-and-bound) e as **frações** vêm de R2 e R3 — **não** são a mesma causa",
+      "O primeiro passo é separar: rodar sem R4 para ver se a lentidão some, e conferir se as frações persistem — diagnóstico antes de correção",
+      "Sobre arredondar: pode ficar **inviável** (violar capacidade de rota ou a regra dos 30%) e não vem com garantia nenhuma de quão longe do ótimo está",
+      "A frase do README nomeia a regra: toda restrição que não seja de conservação de fluxo põe a integralidade em risco, e a decisão de declarar variável inteira passa a ser explícita"
+    ],
+    "erro_provavel": "Tratar lentidão e frações como um problema só, e \"resolver\" declarando tudo inteiro. Isso conserta as frações, piora a lentidão (que já vinha da binária de R4) e joga fora a análise de sensibilidade que ainda funcionava. As duas queixas têm causas distintas e merecem diagnósticos distintos — é a skill `diagnostico-antes-do-fix` aplicada a um modelo em vez de a um bug.",
+    "resposta_guia": "**(1)** **R1** é de rede — limite superior na própria variável — e **não** quebra a integralidade. **R2** é **transversal**: mistura arestas que não compartilham nó, tira a matriz da família e quebra. **R3** não altera a matriz, mas quebra pelo **lado direito** não inteiro. **R4** exige uma binária de ativação, e com ela o problema passa a ser inteiro **de verdade**. **(2)** Não são a mesma. A **lentidão** vem de **R4**: binária significa *branch-and-bound*, e o tempo muda de patamar. As **frações** vêm de **R2** e **R3**, que atuam sobre a estrutura contínua. Diagnosticar as duas como uma coisa só leva à correção errada. **(3)** Separar antes de corrigir: rodar sem R4 e ver se a lentidão some; rodar sem R2 e sem R3 e ver se as frações somem. Só depois decidir o que declarar inteiro. **(4)** Arredondar pode produzir solução **inviável** — por exemplo, arredondar 8,5 para 9 em quatro rotas pode estourar a capacidade de uma rota (R1) ou romper a regra dos 30% (R2). E mesmo quando fica viável, não vem com limitante: ninguém sabe dizer quão longe do ótimo o plano arredondado está. **(5)** *\"Este modelo só devolve solução inteira enquanto todas as restrições forem de conservação de fluxo e todos os lados direitos forem inteiros. Qualquer restrição transversal — cotas, percentuais, recursos compartilhados entre rotas — ou qualquer dado fracionário rompe essa garantia, e a partir daí a integralidade tem de ser pedida explicitamente, ao custo de tempo de resolução e da análise de sensibilidade.\"*"
+  },
+  {
+    "capitulo": 21,
+    "serie": "cap21",
+    "capacidade": "designacao",
+    "contexto": "livro",
+    "id": "cap21.exA",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Os três clássicos, num modelo só",
+    "enunciado": "Escreva a designação do capítulo — Ana, Bruno e Clara para relatório, auditoria e treinamento — **como um problema de transporte**.\n\n1. O que é oferta, o que é demanda, e quanto vale cada uma?\n2. O que a variável significa, e qual o seu intervalo?\n3. Agora transforme em **transbordo**: a empresa decide que toda tarefa passa por uma revisão feita por um de dois revisores, antes de ser entregue. O que muda no modelo?\n4. E se houvesse **quatro** pessoas para três tarefas? Descreva o ajuste e diga o que a folga significa.\n5. Em qual dos três casos a resposta deixa de sair inteira? Justifique.",
+    "criterios": [
+      "Oferta: cada pessoa, com **1**. Demanda: cada tarefa, com **1**",
+      "A variável é *quanto* mandar de uma pessoa para uma tarefa, entre 0 e 1 — e ela significa **se** designar",
+      "No transbordo entram dois nós de revisor, com produção **zero**, e as arestas passam a ser pessoa→revisor→tarefa",
+      "Com quatro pessoas, acrescenta-se uma tarefa **fictícia** de custo zero; quem for designado a ela é quem **não recebe tarefa**, e isso precisa ser dito",
+      "Responde que em **nenhum** dos três a integralidade se perde: os três são de conservação de fluxo com lados direitos inteiros"
+    ],
+    "erro_provavel": "No item 4, acrescentar a quarta pessoa sem acrescentar tarefa fictícia, e deixar a restrição de igualdade impossível de satisfazer. O modelo devolve `Infeasible`, e a leitura apressada é \"o problema não tem solução\" — quando o que falta é declarar o que acontece com quem sobra. A folga precisa existir **no modelo** e precisa ter significado **no relatório**: uma tarefa fictícia designada é uma pessoa ociosa, e alguém tem de ver isso.",
+    "resposta_guia": "**(1)** Cada pessoa é um nó de **oferta 1**; cada tarefa é um nó de **demanda 1**. **(2)** A variável é a quantidade enviada de uma pessoa a uma tarefa, no intervalo [0, 1]; como o ótimo cai num vértice e a matriz é de rede, ela sai 0 ou 1 — e é por isso que ela **significa** designar sem precisar ser declarada binária. **(3)** No transbordo entram dois nós de revisor, com produção e consumo **zero**. As arestas deixam de ir direto de pessoa a tarefa e passam por eles: pessoa→revisor e revisor→tarefa, cada trecho com o seu custo. A conservação nos nós de revisor diz apenas que o que entra sai. **(4)** Com quatro pessoas e três tarefas, acrescenta-se uma **tarefa fictícia** com custo zero para todos, e demanda 1. Quem for designado a ela é quem fica **sem tarefa** — e isso tem de aparecer no relatório, ou o gestor vê três designações e não percebe a pessoa ociosa. **(5)** Em nenhum. Os três continuam sendo conservação de fluxo com lados direitos inteiros, e a integralidade sobrevive a todos eles. Ela só cairia com uma restrição transversal — por exemplo, *\"nenhum revisor pode pegar duas tarefas do mesmo setor\"*."
+  },
+  {
+    "capitulo": 21,
+    "serie": "cap21",
+    "capacidade": "designacao",
+    "contexto": "livro",
+    "id": "cap21.exB",
+    "variante": "B",
+    "tipo": "julgar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "A binária que não precisa existir",
+    "enunciado": "Um colega vai declarar as variáveis da designação como `Binary`, argumentando: *\"pessoa não se divide; precisa ser binária, senão o modelo pode devolver meia pessoa\"*.\n\n1. O argumento dele é logicamente coerente? A conclusão é correta?\n2. Explique, sem usar a palavra \"unimodular\", por que a resposta sai 0/1 mesmo com variáveis contínuas.\n3. Liste o que ele **perde** se declarar binária. São pelo menos três coisas.\n4. Em que situação ele passaria a **ter razão**? Dê uma restrição concreta que torne a binária necessária.\n5. Na tabela do capítulo, `clara` é a mais rápida em `treinamento` (1h) **e** seria melhor que `bruno` em `relatorio` (5h contra 6h). O ótimo mesmo assim dá `relatorio` ao `bruno`. Explique, e diga que erro de gestão essa observação previne.",
+    "criterios": [
+      "Reconhece que o argumento é **coerente** (a preocupação é legítima) e a conclusão é **incorreta** — a estrutura já garante o que ele quer forçar",
+      "Explica sem jargão: a região viável deste modelo tem todos os seus **cantos** em pontos 0/1, e o Simplex sempre para num canto",
+      "O que se perde: tempo de resolução (branch-and-bound), **preço-sombra** e **faixa de validade** — a análise de sensibilidade do capítulo 13 desaparece",
+      "Dá uma restrição concreta que exige binária: por exemplo, custo fixo por designar, ou *\"se ana pegar auditoria, bruno não pode pegar relatório\"*",
+      "Explica o item 5 pelo **conjunto**: tirar `clara` do `treinamento` custaria mais do que economizaria em `relatorio`, e o erro prevenido é montar escala par a par, do melhor de cada tarefa"
+    ],
+    "erro_provavel": "Responder que o colega \"está simplesmente errado\". Ele não está: a preocupação é a certa, e num modelo **quase** igual — com uma restrição transversal a mais — ele estaria com toda a razão. O que se corrige é a **generalização**, não a intuição. Tratar o colega como errado, em vez de tratar a estrutura como a razão, produz a lição pela metade: da próxima vez ele não vai saber reconhecer o caso em que a binária volta a ser necessária.",
+    "resposta_guia": "**(1)** O argumento é **coerente** — meia pessoa de fato não serve — e a conclusão é **incorreta** neste modelo: a estrutura já garante o que ele quer forçar. **(2)** Sem jargão: a região viável deste modelo tem **todos os cantos** em pontos de coordenadas 0 e 1, e o Simplex sempre para num canto. Não há como ele parar em meio caminho, porque não existe canto no meio. **(3)** Ele perde: **(i)** tempo — a binária dispara *branch-and-bound*, e em instâncias grandes a diferença é de minutos para horas; **(ii)** o **preço-sombra**, que responde *\"quanto vale uma hora a mais de disponibilidade da Ana?\"*; **(iii)** a **faixa de validade**, e com ela toda a análise de sensibilidade do capítulo 13. Modelo inteiro não tem dual no sentido útil. **(4)** Ele passa a ter razão com qualquer restrição transversal — por exemplo, *\"há um custo fixo de R$ 500 por designar alguém a auditoria, independentemente de quem seja\"*, ou *\"se ana pegar auditoria, bruno não pode pegar relatório\"*. Custo fixo e implicação lógica exigem binária de verdade. **(5)** `clara` seria melhor que `bruno` em `relatorio` por 1 hora, mas tirá-la de `treinamento` custaria 2 horas ao próximo ocupante — o saldo é negativo. **Designação é sobre o conjunto, não sobre cada par.** O erro de gestão que isso previne é o mais comum de quem monta escala à mão: dar cada tarefa ao melhor nela, um par de cada vez, e terminar com um total pior do que o ótimo."
+  },
+  {
+    "capitulo": 21,
+    "serie": "cap21",
+    "capacidade": "designacao",
+    "contexto": "livro",
+    "id": "cap21.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Parece designação",
+    "enunciado": "Quatro pedidos. Para cada um: **ainda é designação**? Se não, diga o que ele exige.\n\n| | O pedido |\n|---|---|\n| **a** | 6 consultores para 6 clientes, um cada, minimizando horas |\n| **b** | 6 consultores para 6 clientes, **e nenhum consultor pega dois clientes do mesmo setor** |\n| **c** | 6 consultores para 12 clientes, cada consultor com **até 2** clientes |\n| **d** | 6 consultores para 6 clientes, mas o custo de um consultor depende **de qual cliente ele atendeu antes** |\n\n5. Dois dos quatro continuam com integralidade de graça. Quais, e por quê?\n6. Em **(d)**, que família de problema você está enfrentando, e o que isso muda no que você pode prometer?",
+    "criterios": [
+      "**(a)** é designação pura",
+      "**(b)** **não é**: a restrição de setor é transversal — mistura pares que não compartilham nó — e exige binária",
+      "**(c)** **ainda é** fluxo: basta pôr oferta 2 em cada consultor; a integralidade sobrevive",
+      "**(d)** **não é**: custo dependente de sequência é sequenciamento, e é combinatório de verdade",
+      "Identifica (a) e (c) como os que mantêm a integralidade, e reconhece em (d) a família de sequenciamento — com a consequência de que a promessa passa a ser 'a melhor que encontrei' ou 'a no máximo X% do melhor'"
+    ],
+    "erro_provavel": "Classificar **(c)** como \"não é mais designação, porque cada consultor pega dois\". A mudança de 1 para 2 é mudança de **dado**, não de estrutura: continua sendo conservação de fluxo com lados direitos inteiros, e a integralidade sobrevive intacta. Confundir mudança de dado com mudança de família é o que faz alguém declarar binária desnecessariamente — o mesmo desperdício do exercício B, agora disfarçado.",
+    "resposta_guia": "**(a) É designação pura.** Oferta 1, demanda 1, e a integralidade vem de graça. **(b) Não é.** *\"Nenhum consultor pega dois clientes do mesmo setor\"* relaciona pares que não compartilham nó — é transversal, tira a matriz da família de rede, e exige binária. **(c) Ainda é fluxo**, e isso é o que mais engana: mudar a capacidade de cada consultor de 1 para 2 é mudança de **dado**, não de estrutura. A conservação continua valendo, os lados direitos continuam inteiros, e a resposta continua saindo inteira sem variável binária. **(d) Não é.** Custo que depende de qual cliente veio antes é **sequenciamento** — a decisão deixa de ser *quem faz o quê* e passa a ser *em que ordem*, que é a diferença que o capítulo 18 mediu entre a árvore e o roteiro. **(5)** **(a)** e **(c)**: os dois têm apenas restrições de conservação com lados direitos inteiros. **(6)** Em (d) você está na família do caixeiro-viajante e afins, e o que muda é a **promessa**: em vez de *\"esta é a melhor designação\"*, passa a ser *\"esta está a no máximo X% do melhor possível\"* — se você rodar o exato com limite de tempo — ou *\"esta é a melhor que encontrei\"*, se for de heurística. É a tabela de promessas do capítulo 04, e ela vale aqui inteira."
+  },
+  {
+    "capitulo": 22,
+    "serie": "cap22",
+    "capacidade": "projetos",
+    "contexto": "livro",
+    "id": "cap22.exA",
+    "variante": "A",
+    "tipo": "resolver",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Folga, e onde a pressão não adianta",
+    "enunciado": "O projeto do capítulo:\n\n| Tarefa | Duração | Depende de |\n|---|---|---|\n| `especificar` | 5 | — |\n| `backend` | 10 | `especificar` |\n| `frontend` | 7 | `especificar` |\n| `integrar` | 3 | `backend`, `frontend` |\n\n1. Calcule o mais cedo e o mais tarde de início de cada tarefa, e a folga.\n2. Qual a duração do projeto e qual o caminho crítico?\n3. O time quer entregar em **16** dias. Onde faz sentido investir, e onde não faz **nenhuma** diferença?\n4. O gerente pressiona o `frontend`, porque é a tarefa que \"parece atrasada\". Quanto o projeto encurta se o `frontend` terminar 3 dias antes?\n5. Se o `frontend` atrasar **4** dias, o que acontece? E por que a resposta muda em relação ao item 4?",
+    "criterios": [
+      "Cedo de início: `especificar` 0, `backend` 5, `frontend` 5, `integrar` 15. Tarde de início: 0, 5, **8**, 15",
+      "Folgas: 0, 0, **3**, 0. Duração **18**, caminho crítico `especificar → backend → integrar`",
+      "Para chegar a 16, investir em `especificar`, `backend` ou `integrar` — e **nenhuma** diferença em `frontend`",
+      "Antecipar o `frontend` em 3 dias encurta o projeto em **zero**",
+      "Com 4 dias de atraso o `frontend` **vira crítico** e o projeto vai a 19 — a folga acabou, e é isso que muda a resposta"
+    ],
+    "erro_provavel": "Concluir do item 4 que \"a folga é gordura e pode ser cortada\". A folga não é desperdício: ela é **proteção**, e o item 5 mostra o que acontece quando ela acaba. Cortar recurso de uma tarefa com folga para dar a uma crítica pode parecer eficiente e transforma uma tarefa protegida numa segunda tarefa crítica — e projeto com dois caminhos críticos é mais frágil do que projeto com um, o que a segunda metade deste capítulo mede.",
+    "resposta_guia": "**(1)** Mais cedo de início: `especificar` 0, `backend` 5, `frontend` 5, `integrar` 15. Mais tarde de início: `especificar` 0, `backend` 5, `frontend` **8**, `integrar` 15. Folgas: 0, 0, **3**, 0. **(2)** Duração **18**; caminho crítico `especificar → backend → integrar`. **(3)** Para encurtar de 18 para 16 é preciso mexer no caminho crítico: `especificar`, `backend` ou `integrar`. Investir no `frontend` não muda **nada** — ele já termina antes de ser necessário. **(4)** **Zero.** Antecipar o `frontend` em 3 dias não encurta o projeto em um único dia, porque `integrar` continua esperando o `backend`. **(5)** Com 4 dias de atraso, o `frontend` consome os 3 de folga e passa 1 dia além: ele **vira crítico**, e o projeto vai para **19**. A resposta muda porque folga é um limite, não uma propriedade: dentro dela o atraso é gratuito, fora dela ele custa dia por dia. É por isso que folga é proteção, e não gordura."
+  },
+  {
+    "capitulo": 22,
+    "serie": "cap22",
+    "capacidade": "projetos",
+    "contexto": "livro",
+    "id": "cap22.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "dificil",
+    "titulo": "Duas causas, um número",
+    "enunciado": "Um analista compara a fórmula do PERT (**21 dias**) com uma simulação (**24,48 dias** de média) e escreve no relatório: *\"o PERT subestima o prazo em 3,5 dias por causa do viés de convergência de caminhos\"*.\n\n1. A conclusão dele atribui **todo** o desvio a uma causa. Que outra causa existe, e por que ela também produz desvio?\n2. Descreva um experimento que **separe** as duas, usando as mesmas amostras.\n3. O experimento do capítulo mede o viés em **0,49 dia**. O que isso diz sobre a frase do analista?\n4. A varredura de ramos paralelos mede **0,0** para um ramo só. Por que esse número é o mais importante da tabela inteira, apesar de ser zero?\n5. Mesmo com **um** ramo, a estimativa estoura em **76,5%** das amostras. Isso é viés de convergência? Se não, o que é?",
+    "criterios": [
+      "A outra causa é a **distribuição amostrada não ter a mesma média que a fórmula supõe** — triangular contra a média beta do PERT",
+      "O experimento correto mede, **no mesmo sorteio**, a duração do projeto e a duração do caminho declarado crítico **antes** de sortear; a diferença isola o viés",
+      "Com 0,49 medido, a frase do analista atribui à convergência um desvio que é em maior parte da distribuição — o número está inflado cerca de sete vezes",
+      "Reconhece que o zero do controle é o que **prova a correção da isolação**: sem paralelismo o viés não existe por construção, e medir outro valor indicaria erro no experimento",
+      "Responde ao (5) que os 76,5% **não** são viés de convergência — são a diferença entre a média da distribuição e a média que a fórmula usa, mais o fato de que **média não é promessa**"
+    ],
+    "erro_provavel": "Aceitar a frase do analista porque o número dele \"bate\" com a diferença observada. Bate mesmo — e é por isso que o erro é perigoso. Ele atribui a uma causa nomeada e sofisticada um desvio que é, em sua maior parte, consequência de uma escolha de modelagem banal. Um número correto com a explicação errada leva à ação errada: quem acredita que o problema é a convergência vai reduzir paralelismo, e não vai adiantar quase nada.",
+    "resposta_guia": "**(1)** A outra causa é a **distribuição**: a simulação amostra de uma triangular, cuja média é $(o+m+p)/3$, e a fórmula do PERT usa $(o+4m+p)/6$. Os dois números são diferentes por tarefa, então parte do desvio existiria **mesmo sem nenhum caminho paralelo**. **(2)** No mesmo sorteio, calcule duas coisas: a duração real do projeto — o máximo sobre todos os caminhos — e a duração do caminho que o CPM declarou crítico **antes** de sortear. Como a distribuição, os números sorteados e a rede são idênticos nos dois cálculos, a diferença entre as médias isola exatamente o efeito da convergência. **(3)** O viés medido é **0,49**, então a frase do analista atribui à convergência algo em torno de **sete vezes** o que ela de fato causa. O número dele bate com a diferença observada, e é justamente por isso que o erro é perigoso: número certo com explicação errada leva à ação errada. **(4)** O zero é o **controle** do experimento. Com um ramo só, a duração do projeto **é** a duração do caminho declarado — o viés não pode existir. Medir exatamente zero é o que prova que a isolação está correta; qualquer outro valor indicaria defeito no procedimento, não no PERT. **(5)** Não são viés de convergência — com um ramo ele é zero. Os 76,5% vêm de duas coisas: a diferença entre a média da distribuição amostrada e a que a fórmula supõe, e o fato mais simples de todos — **média não é promessa**. Mesmo que a média estivesse perfeita, metade das realizações ficaria acima dela."
+  },
+  {
+    "capitulo": 22,
+    "serie": "cap22",
+    "capacidade": "projetos",
+    "contexto": "livro",
+    "id": "cap22.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "A data que você entrega",
+    "enunciado": "A diretoria pede **uma data** para o projeto. Você tem: a fórmula do PERT (**21 dias**), a média simulada (**24,48**), a mediana (**24,30**) e o percentil 90 (**29,35**).\n\n1. Escreva a frase que você entrega, e a que você **se recusa** a entregar.\n2. A diretoria insiste: *\"me dá só um número\"*. Qual você dá, e com que qualificação mínima?\n3. Um gerente propõe adotar 24,48 como prazo oficial, \"já que é a média\". Qual a probabilidade aproximada de estourar esse prazo, e por quê?\n4. O que você faria para **reduzir** o p90, e não só para estimá-lo melhor?\n5. Um diretor pergunta por que não usar 21, \"que é o número do método consagrado\". Responda em duas frases.",
+    "criterios": [
+      "A frase entregue traz um **percentil declarado** (ex.: *\"90% de chance de terminar em até 29 dias\"*); a recusada é *\"o projeto leva 21 dias\"* sem qualificação",
+      "Se for um número só, dá o **p90** (ou outro percentil declarado), e a qualificação mínima é dizer **qual percentil é**",
+      "Adotar a média dá aproximadamente **50%** de chance de estourar — média não é compromisso, e metade das realizações fica acima dela",
+      "Para reduzir o p90 é preciso agir na **variabilidade**: reduzir incerteza das tarefas críticas, diminuir paralelismo convergente, ou criar reserva explícita",
+      "Ao diretor: os 21 dias vêm de somar médias ao longo de um caminho, e a medição mostra que o projeto estoura esse número em **82,3%** das vezes"
+    ],
+    "erro_provavel": "Entregar a mediana como \"a data\", achando que ela é mais segura que a média por ser robusta a extremos. A mediana é **50%** de chance de estourar, exatamente como a média neste caso — robustez estatística não é margem de segurança. Qualquer número entregue sem percentil declarado vira compromisso com metade de chance de falhar, e a diferença entre 24,30 e 24,48 é irrelevante diante disso.",
+    "resposta_guia": "**(1)** Entrego: *\"com os dados atuais, há cerca de 90% de chance de terminarmos em até 29 dias, e cerca de 50% de terminarmos em até 24\"*. Recuso-me a entregar: *\"o projeto leva 21 dias\"* — porque essa frase é uma média de um caminho apresentada como compromisso, e a medição diz que ela é estourada em 82,3% das vezes. **(2)** Se tiver de ser um número, dou o **p90 — 29 dias** — e a qualificação mínima é dizer que é o p90: *\"29 dias, com 90% de confiança\"*. Um número sem percentil não é estimativa, é aposta. **(3)** Aproximadamente **50%**. A média não é um compromisso: por definição, metade das realizações fica acima dela. Adotar a média como prazo oficial é escolher errar em uma de cada duas vezes. **(4)** Reduzir o p90 exige agir na **variabilidade**, não na estimativa: diminuir a incerteza das tarefas críticas (protótipo, prova de conceito, contrato fechado com fornecedor), reduzir a convergência de caminhos paralelos, ou criar uma **reserva explícita** de projeto — declarada como reserva, e não escondida dentro das durações das tarefas. **(5)** *\"Os 21 dias saem de somar médias ao longo de um caminho só, e nós medimos que o projeto estoura esse número em 82,3% das simulações. É um número consagrado para planejar internamente, e não para prometer a um cliente.\"*"
   }
 ]

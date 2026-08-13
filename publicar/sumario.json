@@ -141,9 +141,22 @@
           "teaser": "O gargalo não é a aresta mais estreita — é um conjunto que separa. E investir fora dele não muda nada."
         },
         {
-          "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Três vagas declaradas",
-          "teaser": "Fluxo de custo mínimo, transporte e designação, e planejamento de projetos."
+          "arquivo": "livro/capitulos/20-fluxo-custo-minimo.md",
+          "titulo": "20 — Fluxo de custo mínimo",
+          "maturidade": "medido",
+          "teaser": "A relaxação linear já vem inteira — e uma restrição banal destrói isso sem nenhum aviso."
+        },
+        {
+          "arquivo": "livro/capitulos/21-transporte-designacao.md",
+          "titulo": "21 — Transporte, designação e transbordo",
+          "maturidade": "medido",
+          "teaser": "Combinatório em cada palavra do enunciado, e resolvido em Programação Linear contínua."
+        },
+        {
+          "arquivo": "livro/capitulos/22-pert-cpm.md",
+          "titulo": "22 — Planejamento de projetos: PERT e CPM",
+          "maturidade": "medido",
+          "teaser": "A fórmula publica 21 dias. O projeto leva 24,48 — e estoura a estimativa em 82,3% das vezes."
         }
       ]
     },
