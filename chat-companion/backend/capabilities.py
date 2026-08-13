@@ -54,6 +54,11 @@ REGISTRO = [
                   "convexo — e digo qual garantia cada travessia destrói. Antes de discutir "
                   "método, cobro a pergunta que decide tudo: o que você vai poder prometer sobre "
                   "esta resposta?"},
+    {"chave": "complexidade", "rotulo": "Complexidade para quem modela", "libera": 5, "tools": (),
+     "descricao": "Traduzo com você uma afirmação de complexidade — 'é NP-difícil', 'o pior caso é "
+                  "exponencial' — no que ela de fato autoriza concluir sobre a SUA instância, que "
+                  "quase sempre é nada. E defendo a ordem: rode o exato com limite de tempo e leia "
+                  "o gap antes de decidir qualquer coisa."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

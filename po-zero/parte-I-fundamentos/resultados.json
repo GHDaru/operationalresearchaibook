@@ -1,0 +1,125 @@
+{
+  "pior_caso_construido": [
+    {
+      "n": 2,
+      "vertices": 4,
+      "esperado": 3,
+      "status": "otimo",
+      "pivos": 3
+    },
+    {
+      "n": 3,
+      "vertices": 8,
+      "esperado": 7,
+      "status": "otimo",
+      "pivos": 7
+    },
+    {
+      "n": 4,
+      "vertices": 16,
+      "esperado": 15,
+      "status": "otimo",
+      "pivos": 15
+    },
+    {
+      "n": 5,
+      "vertices": 32,
+      "esperado": 31,
+      "status": "otimo",
+      "pivos": 31
+    },
+    {
+      "n": 6,
+      "vertices": 64,
+      "esperado": 63,
+      "status": "otimo",
+      "pivos": 63
+    },
+    {
+      "n": 7,
+      "vertices": 128,
+      "esperado": 127,
+      "status": "otimo",
+      "pivos": 127
+    }
+  ],
+  "pior_caso_perturbado": {
+    "n": 6,
+    "medicoes": [
+      {
+        "n": 6,
+        "magnitude": "1/1000",
+        "semente": 1000,
+        "status": "otimo",
+        "pivos": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/100",
+        "semente": 1001,
+        "status": "otimo",
+        "pivos": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/10",
+        "semente": 1002,
+        "status": "otimo",
+        "pivos": 63
+      },
+      {
+        "n": 6,
+        "magnitude": "1/4",
+        "semente": 1003,
+        "status": "otimo",
+        "pivos": 57
+      },
+      {
+        "n": 6,
+        "magnitude": "1/2",
+        "semente": 1004,
+        "status": "otimo",
+        "pivos": 22
+      }
+    ]
+  },
+  "instancias_aleatorias": [
+    {
+      "n": 5,
+      "amostras": 20,
+      "minimo": 1,
+      "mediana": "2",
+      "maximo": 3,
+      "pior_caso_teorico": 31
+    },
+    {
+      "n": 10,
+      "amostras": 20,
+      "minimo": 2,
+      "mediana": "4",
+      "maximo": 9,
+      "pior_caso_teorico": 1023
+    },
+    {
+      "n": 15,
+      "amostras": 20,
+      "minimo": 2,
+      "mediana": "6",
+      "maximo": 10,
+      "pior_caso_teorico": 32767
+    },
+    {
+      "n": 20,
+      "amostras": 20,
+      "minimo": 3,
+      "mediana": "7",
+      "maximo": 12,
+      "pior_caso_teorico": 1048575
+    }
+  ],
+  "versoes": {
+    "python": "3.11.15",
+    "aritmetica": "fractions.Fraction (exata)"
+  },
+  "semente_base": 20260813
+}

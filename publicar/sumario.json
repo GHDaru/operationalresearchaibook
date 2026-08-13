@@ -41,9 +41,15 @@
           "teaser": "A classe decide o que você pode prometer — e cada travessia de eixo destrói uma garantia específica."
         },
         {
+          "arquivo": "livro/capitulos/05-complexidade.md",
+          "titulo": "05 — Complexidade computacional para quem modela",
+          "maturidade": "medido",
+          "teaser": "O pior caso existe e é construído — e a sua instância provavelmente está a ordens de grandeza dele."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Duas vagas declaradas",
-          "teaser": "Complexidade computacional e ferramentas de trabalho. Escritas depois da Programação Linear, de propósito."
+          "titulo": "⬜ Uma vaga declarada",
+          "teaser": "Ferramentas de trabalho: solvers, linguagens de modelagem e a instalação do po-zero."
         }
       ]
     },

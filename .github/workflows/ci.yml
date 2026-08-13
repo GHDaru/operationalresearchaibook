@@ -48,10 +48,11 @@ jobs:
       # O PASSO QUE FALTAVA, e a falta era séria.
       #
       # A ADR 0014 (D3) estabeleceu que "número no livro tem dono, e o dono é um
-      # teste": seis suítes do `po-zero` LEEM o texto dos capítulos e exigem que
+      # teste": as suítes do `po-zero` LEEM o texto dos capítulos e exigem que
       # cada número medido apareça lá na forma exata — e que as versões antigas
       # não apareçam. É o vínculo que existe porque duas faixas erradas foram
-      # publicadas.
+      # publicadas. (O número de suítes cresce a cada Parte; contá-lo aqui só
+      # criaria mais um número para envelhecer.)
       #
       # Esses testes nunca rodaram aqui. O filtro `paths:` acima listava livro/,
       # publicar/ e chat-companion/, e **não** po-zero/ — então mudar um script

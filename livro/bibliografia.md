@@ -337,6 +337,32 @@ reais.
 2974, 1953. — Referência **anterior** a Beale, creditada na fonte de 1955 acima. A data do
 exemplo (1951 ou 1953) diverge entre levantamentos e **não foi resolvida**.
 
+### Complexidade para quem modela (capítulo 05)
+
+✓ᵐ **EDMONDS, Jack.** "Paths, Trees, and Flowers". *Canadian Journal of Mathematics*, v. 17,
+p. 449–467, 1965. DOI [10.4153/cjm-1965-045-4](https://doi.org/10.4153/cjm-1965-045-4). —
+Metadados conferidos no Crossref; **o texto não foi lido**. É o artigo a que a literatura credita
+a proposta de tomar *tempo polinomial* como critério de "algoritmo bom".
+
+✓ᵐ **COOK, Stephen A.** "The complexity of theorem-proving procedures". *Proceedings of the third
+annual ACM symposium on Theory of computing (STOC '71)*, 1971.
+DOI [10.1145/800157.805047](https://doi.org/10.1145/800157.805047). — Metadados conferidos; **o
+texto não foi lido**. É o artigo a que se atribui a NP-completude.
+
+✓ᵐ **KARP, Richard M.** "Reducibility among Combinatorial Problems". In: *Complexity of Computer
+Computations*, 1972. DOI [10.1007/978-1-4684-2001-2_9](https://doi.org/10.1007/978-1-4684-2001-2_9).
+— Metadados conferidos; **o texto não foi lido**. É o trabalho a que se atribui a lista de
+problemas combinatórios reduzidos entre si, que popularizou a NP-completude fora da lógica.
+
+⏳ **KLEE, V.; MINTY, G. J.** "How good is the simplex algorithm?". In: *Inequalities III*,
+Academic Press, 1972. — **Sem DOI localizado** (capítulo de livro de 1972). O handbook **não
+depende** dele: o cubo é **construído e medido** em `po-zero`, nos capítulos 05 e 09. A referência
+fica como ponteiro para quem quiser a fonte original.
+
+⏳ **A atribuição do critério polinomial a Edmonds, da NP-completude a Cook e da lista de reduções
+a Karp.** — São **atribuições correntes**. Este handbook confirmou que os três trabalhos existem,
+com autor, veículo e ano; **não** confirmou o conteúdo de nenhum, e o capítulo 05 declara isso.
+
 ### As travessias de classe (capítulo 04)
 
 O capítulo 04 conta que a classificação nasceu **para trás**, a partir dos métodos: acrescentar

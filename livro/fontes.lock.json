@@ -26,6 +26,18 @@
       "verificado_em": "2026-08-13"
     },
     {
+      "doi": "10.1007/978-1-4684-2001-2_9",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "Reducibility among Combinatorial Problems",
+      "primeiro_autor": "Karp",
+      "ano": 1972,
+      "container": "Complexity of Computer Computations",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
       "doi": "10.1007/BF01589114",
       "estado": "resolvido",
       "prefixo": "10.1007",
@@ -110,10 +122,22 @@
       "verificado_em": "2026-08-13"
     },
     {
+      "doi": "10.1145/800157.805047",
+      "estado": "resolvido",
+      "prefixo": "10.1145",
+      "registrante": "Association for Computing Machinery (ACM)",
+      "titulo": "The complexity of theorem-proving procedures",
+      "primeiro_autor": "Cook",
+      "ano": 1971,
+      "container": "Proceedings of the third annual ACM symposium on Theory of computing  - STOC '71",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
       "doi": "10.1145/87252.88081",
       "estado": "resolvido",
       "prefixo": "10.1145",
-      "registrante": null,
+      "registrante": "Association for Computing Machinery (ACM)",
       "titulo": "Origins of the simplex method",
       "primeiro_autor": "Dantzig",
       "ano": 1990,
@@ -262,6 +286,18 @@
       "primeiro_autor": "Dantzig",
       "ano": 1954,
       "container": "Mathematical Tables and Other Aids to Computation",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.4153/cjm-1965-045-4",
+      "estado": "resolvido",
+      "prefixo": "10.4153",
+      "registrante": "Canadian Mathematical Society",
+      "titulo": "Paths, Trees, and Flowers",
+      "primeiro_autor": "Edmonds",
+      "ano": 1965,
+      "container": "Canadian Journal of Mathematics",
       "fonte": "crossref",
       "verificado_em": "2026-08-13"
     }

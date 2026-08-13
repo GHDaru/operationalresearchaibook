@@ -1427,3 +1427,49 @@ expressão original de Dantzig e o batismo por Koopmans em 1948, todos do MacTut
 > entrada para agradar o portão: foi o portão parar de confundir nome próprio com marcador de
 > campo. Um parser que falha por causa de um sobrenome falharia de novo, em silêncio, na próxima
 > bibliografia.
+
+### Edição 0.32 — 2026-08-13 · Capítulo 05: o pior caso existe, e não é frágil como se diz
+
+**Entrou:** o [capítulo 05 — Complexidade computacional para quem modela](capitulos/05-complexidade.md),
+🔵 **medido** — o primeiro capítulo da Parte I a nascer com experimento próprio —, com três
+exercícios, vídeo curado e a capacidade `complexidade` (libera 5) no tutor. E, com ele, a etapa
+`po-zero/parte-I-fundamentos`, a primeira criada já sob a regra de **uma etapa por Parte**
+(ADR 0013, D3).
+
+**A frase que o capítulo existe para desmontar** é dita por gente competente todo dia: *"esse
+problema é NP-difícil, então vamos direto para uma heurística."* Ela parece rigor e é o contrário
+— uma decisão de projeto tomada sem medir nada, com autoridade emprestada de um teorema que fala
+de outra coisa. E o prejuízo é invisível: quem descarta o método exato descarta junto o
+**limitante**, que era a única coisa capaz de dizer depois se a heurística ficou boa.
+
+**Três medições, em aritmética exata.**
+
+1. **O pior caso existe e é construído.** O cubo de Klee–Minty custa exatamente $2^n-1$ pivôs, de
+   $n=2$ a $n=7$. Não é tendência: é o valor exato em todos os tamanhos medidos.
+2. **A instância aleatória fica longe dele.** Mesmo tamanho, sem malícia: mediana de **2 a 7
+   pivôs**, contra pior caso teórico de 31 a mais de um milhão.
+3. **E o pior caso não é frágil** — que é o resultado desta edição.
+
+**Sobre o terceiro, com todas as letras.** Circula junto com Klee–Minty a frase *"tudo bem, o pior
+caso é frágil; qualquer perturbaçãozinha desmancha"*. Testar custa minutos, e a medição **não
+sustenta a frase**: com $n=6$, perturbar a matriz de restrições em **0,1%, 1% ou 10% deixa os 63
+pivôs absolutamente intactos**. Só em 25% (57 pivôs) e 50% (22) o caminho encurta — e aí a
+instância já é honestamente outra instância.
+
+> **O que a medição não autoriza concluir, e o capítulo diz isso em prosa:** ela **não** refuta a
+> análise suavizada de Spielman & Teng (2004). Aquele teorema é assintótico, vale **em esperança**,
+> supõe perturbação **gaussiana** e uma regra de pivoteamento específica — nenhuma das três
+> condições vale na tabela. O que a medição refuta é a **leitura popular** do teorema. Há teste que
+> falha se essa ressalva desaparecer numa revisão de estilo, porque sem ela o capítulo passaria a
+> afirmar algo que a medição não sustenta, e nenhum outro portão pegaria.
+
+**Três fontes novas, todas `✓ᵐ`:** Edmonds (1965), Cook (1971) e Karp (1972), com metadados
+conferidos no Crossref e **conteúdo não lido**. As atribuições — critério polinomial, NP-completude,
+lista de reduções — entram declaradas como **correntes**. O artigo original de Klee e Minty (1972)
+**não tem DOI localizado** e fica como ponteiro: o handbook não depende dele, porque constrói e
+mede o cubo.
+
+**O que a nova etapa não reimplementa:** nem o Simplex nem o cubo. Os dois vêm da `etapa-03`, por
+`sys.path`. Reimplementar criaria uma segunda fonte da verdade para números que o livro já
+publicou no capítulo 09 — a classe de defeito que a ADR 0016 proíbe nos cadernos, e que não tem por
+que ser tolerada entre etapas.

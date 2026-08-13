@@ -243,6 +243,11 @@ const SEM_MODELO_DECLARADO = new Set([
                // "ótimo" autoriza prometer em cada um; os únicos números são o
                // gap e os tempos, que são DADOS do enunciado, não resultados de
                // um modelo que este portão pudesse resolver.
+  "cap05.exB", // decisão de projeto sobre uma instância de 400 binárias que o
+               // exercício NÃO especifica — de propósito, porque o assunto é a
+               // ORDEM de trabalho (rodar o exato, ler o gap, só então decidir),
+               // e não a solução. A palavra "ótimo" aparece na frase que o
+               // relatório NÃO pode dizer. Nada a conferir.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");

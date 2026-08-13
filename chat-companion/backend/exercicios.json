@@ -2812,5 +2812,71 @@
     ],
     "erro_provavel": "Tratar o *gap* de 1,8% como uma estimativa do que ainda dá para ganhar. Ele é um **limitante superior**: o ganho real de continuar pode ser 1,8%, pode ser 0,3%, e pode ser exatamente zero — porque é perfeitamente possível que a solução em mãos **já seja** a ótima e o solver ainda não tenha provado. O segundo erro provável é achar que a heurística de (c) é pior por ser heurística. Ela pode até devolver a solução ótima; o que ela não devolve é **como saber disso**, e a promessa acompanha o que se sabe, não o que se espera.",
     "resposta_guia": "**(a)** Digo: *\"esta é a melhor solução possível para o modelo; nenhuma outra alocação é melhor\"* — em Programação Linear o problema é convexo e o `Optimal` é prova, não impressão. **Não** digo: *\"esta é a melhor decisão para a empresa\"*, porque isso depende de o modelo representar a empresa, que é a etapa 4 do capítulo 02 e não foi feita aqui. **(b)** Digo: *\"esta solução está a **no máximo** 1,8% do melhor que existe\"*. **Não** digo: *\"esta é a solução ótima\"*, nem *\"dá para ganhar mais 1,8%\"* — o gap é teto, e o ganho real pode ser zero. **(c)** Digo: *\"é a melhor solução que encontrei com este procedimento, em 8 minutos\"*. **Não** digo nada sobre distância ao ótimo, porque a heurística não produz limitante e portanto não há com o que comparar. **(4)** Por valor de promessa: **(a) > (b) > (c)**. E a ordem do tempo não tem relação nenhuma — (a) levou 3 segundos e promete o máximo; (c) levou 8 minutos e promete o mínimo. O que ordena não é o esforço, é a **estrutura do problema e o que o método consegue provar sobre ela**. **(5)** Respondo que 1,8% é o **teto** do que ainda existe para ganhar, e que a conta a fazer não é sobre o percentual: é traduzi-lo em dinheiro. Se 1,8% da função objetivo forem R$ 400, não vale mais meia hora de ninguém; se forem R$ 400 mil, vale rodar a noite inteira. E vale dizer a frase inteira: pode ser que a solução em mãos **já seja** a ótima e falte apenas a prova."
+  },
+  {
+    "capitulo": 5,
+    "serie": "cap05",
+    "capacidade": "complexidade",
+    "contexto": "livro",
+    "id": "cap05.exA",
+    "variante": "A",
+    "tipo": "julgar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "O que a frase diz, e o que ela não diz",
+    "enunciado": "Cinco frases, todas ditas por gente competente. Para **cada uma**: diga se é **verdadeira**, e depois diga **qual conclusão prática ela NÃO autoriza** — que é onde o erro costuma morar.\n\n| | A frase |\n|---|---|\n| **a** | *\"NP quer dizer não polinomial.\"* |\n| **b** | *\"O Simplex tem pior caso exponencial.\"* |\n| **c** | *\"Não existe algoritmo polinomial conhecido para o caixeiro-viajante.\"* |\n| **d** | *\"Esse algoritmo é polinomial, então cabe no nosso prazo.\"* |\n| **e** | *\"O pior caso do Simplex é frágil: qualquer perturbação pequena desmancha.\"* |\n\n6. Duas das cinco são **falsas**. Quais, e o que a versão correta de cada uma diz?",
+    "criterios": [
+      "**(a)** é **falsa**: NP é *não determinístico polinomial* — a classe do que se **confere** em tempo polinomial. Nada na sigla afirma que a busca não seja polinomial",
+      "**(b)** é **verdadeira** e está medida (o cubo de Klee–Minty custa 2ⁿ−1 pivôs). Não autoriza concluir nada sobre o desempenho na instância de quem pergunta",
+      "**(c)** é **verdadeira**, e é uma afirmação sobre o **estado do conhecimento**. Não autoriza dizer que não existe — ninguém provou que não há",
+      "**(d)** é um **salto**: polinomial não é sinônimo de rápido, e a constante não aparece na notação. O que autoriza a conclusão é medir o tempo real no tamanho que se tem, e no dobro dele",
+      "**(e)** é **falsa** na forma em que está dita, e o capítulo mede: perturbar o cubo em 0,1%, 1% ou 10% deixa os 63 pivôs intactos. Identifica **(a)** e **(e)** como as duas falsas"
+    ],
+    "erro_provavel": "Classificar **(c)** como falsa por confundir \"não se conhece\" com \"não existe\". A frase, como está escrita, é rigorosamente verdadeira e é justamente o tipo de frase que a área escreve com cuidado — a questão P versus NP continua aberta. O erro simétrico é aceitar **(e)** por soar sofisticada: ela invoca um resultado real (a análise suavizada de 2004) e o deforma até virar outra coisa. Uma frase pode citar um teorema verdadeiro e ainda assim ser falsa.",
+    "resposta_guia": "**(a) Falsa.** NP é *não determinístico polinomial*, e descreve a classe dos problemas cuja **resposta** pode ser conferida em tempo polinomial. Conferir é fácil; achar é que não se sabe. A versão correta: *\"NP é a classe do que se confere rápido.\"* **(b) Verdadeira**, e medida neste capítulo: o cubo de Klee–Minty custa exatamente 2ⁿ−1 pivôs, de n=2 a n=7. O que ela **não** autoriza é qualquer previsão sobre a instância de quem está perguntando — a mediana medida em instâncias aleatórias de mesmo tamanho fica entre 2 e 7 pivôs. **(c) Verdadeira**, e é uma afirmação sobre o **estado do conhecimento**, não sobre o mundo. Não autoriza dizer que não existe algoritmo polinomial: ninguém provou isso, e a questão continua aberta. **(d) Salto.** Polinomial é um critério grosseiro de propósito — n¹⁰⁰ é polinomial e é inútil. O que autoriza a conclusão sobre o prazo é medir o tempo real no tamanho que se tem, e depois no dobro. **(e) Falsa** na forma dita, e o capítulo mede: com n=6, perturbar a matriz em 0,1%, 1% ou 10% deixa os 63 pivôs **absolutamente intactos**; só em 25% e 50% o caminho encurta. A versão correta é bem mais estreita: existe um resultado assintótico, em esperança, sob perturbação gaussiana e com outra regra de pivoteamento, que explica por que o Simplex é rápido na prática — e ele **não** diz que mexer 1% numa instância ruim a melhora. **(6)** As falsas são **(a)** e **(e)**."
+  },
+  {
+    "capitulo": 5,
+    "serie": "cap05",
+    "capacidade": "complexidade",
+    "contexto": "livro",
+    "id": "cap05.exB",
+    "variante": "B",
+    "tipo": "escolher",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Exato ou heurístico, com números na mesa",
+    "enunciado": "Uma distribuidora precisa escolher quais de 400 rotas ativar no trimestre. O modelo tem **400 variáveis binárias** e cerca de 900 restrições. O prazo é de três dias. A equipe está dividida: metade quer partir direto para uma heurística gulosa, \"porque é NP-difícil\".\n\n1. Escreva os **quatro passos** que você faz **antes** de decidir, na ordem, e diga quanto tempo você reserva para cada um.\n2. Diga **qual número** decide a questão, e por quê é ele e não outro.\n3. Suponha que, no passo em que se roda o solver exato com limite de 20 minutos, ele volte com *gap* de **0,4%**. O que você faz, e o que escreve no relatório?\n4. Suponha, em vez disso, *gap* de **34%** depois de duas horas. O que muda, e o que **continua valendo** desse esforço?\n5. A equipe diz que rodar o exato \"é perder tempo, já que é NP-difícil\". Responda em duas frases.",
+    "criterios": [
+      "Os quatro passos começam por **formular e conferir o modelo**, e só depois rodam solver — a ordem importa e o exercício cobra a ordem",
+      "Identifica que o número que decide é o ***gap*** reportado pelo solver, e não o tempo de execução nem o tamanho da instância",
+      "Com *gap* de 0,4%: **encerra** — a decisão está tomada, e o relatório diz \"a no máximo 0,4% do melhor possível\", nunca \"solução ótima\"",
+      "Com *gap* de 34%: reconhece que o esforço **não foi perdido** — sobraram uma solução viável e um **limitante**, e é o limitante que permitirá julgar a heurística depois",
+      "A resposta ao (5) contém a ideia de que NP-difícil é afirmação sobre o pior caso da classe, e que 20 minutos de solver é um preço baixo para descobrir de qual lado da distância a instância caiu"
+    ],
+    "erro_provavel": "Tratar o item (4) como fracasso e jogar o resultado fora. É o oposto: um *gap* de 34% entrega **duas** coisas que a heurística não entrega sozinha — uma solução viável de referência e, sobretudo, um **limitante** sobre o melhor possível. Sem esse limitante, quando a heurística devolver uma resposta, ninguém terá com o que compará-la, e a equipe vai discutir qualidade por impressão. O segundo erro provável é reservar dias para o passo do solver: o passo é barato de propósito — 20 minutos é o suficiente para descobrir de que lado da distância a instância caiu.",
+    "resposta_guia": "**(1) Os quatro passos.** Primeiro, **formular e conferir o modelo** — inclusive o teste da unidade do capítulo 03 — porque rodar solver sobre modelo errado é medir a coisa errada rápido; reserve o grosso do primeiro dia. Segundo, **rodar o solver exato com limite de 20 minutos**, sem nenhuma expectativa. Terceiro, **ler o *gap***. Quarto, decidir — e só aqui a palavra \"heurística\" pode aparecer. **(2) O número que decide é o *gap***, porque ele é a única grandeza que diz **quanto ainda existe para ganhar**. Nem o tamanho da instância nem o tempo de execução dizem isso: 400 binárias podem ser fáceis ou impossíveis conforme a estrutura, e essa é exatamente a informação que a classificação teórica não carrega. **(3) Com 0,4%, acabou.** A decisão está tomada, e o relatório diz: *\"esta solução está a no máximo 0,4% do melhor possível\"* — nunca *\"solução ótima\"*, que é outra coisa. Discutir heurística depois disso seria gastar dias para disputar quatro décimos de por cento. **(4) Com 34% depois de duas horas**, a heurística volta à mesa — e o esforço **não foi perdido**: ficaram uma solução viável de referência e um **limitante** sobre o melhor possível. É esse limitante que vai permitir dizer, quando a heurística responder, se ela chegou perto ou não. Sem ele, a comparação seria entre uma resposta e nada. **(5)** *\"NP-difícil descreve o pior caso da classe inteira, e a nossa instância é um objeto específico — a medição do capítulo mostra que instâncias comuns ficam ordens de grandeza abaixo do pior caso. Vinte minutos de solver é um preço baixo para descobrir de que lado nós caímos, e se caímos do lado ruim eu ainda saio com um limitante que a heurística não me daria.\"*"
+  },
+  {
+    "capitulo": 5,
+    "serie": "cap05",
+    "capacidade": "complexidade",
+    "contexto": "livro",
+    "id": "cap05.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Três frases de reunião",
+    "enunciado": "Trechos de uma mesma reunião. Para cada um: nomeie o **uso errado** da teoria, explique em uma frase por que é errado, e diga **o que colocar no lugar** — em forma de ação, não de opinião.\n\n> **Ana:** *\"Escalonamento de tripulação é NP-difícil. Vamos direto para a heurística e economizamos duas semanas.\"*\n>\n> **Bruno:** *\"E olha que o Simplex é exponencial no pior caso. Melhor usar pontos interiores para tudo.\"*\n>\n> **Célia:** *\"O nosso algoritmo de pré-processamento é polinomial, então ele cabe tranquilo no batch da madrugada.\"*\n\n4. Uma das três falas erra **duas vezes** — comete o uso errado que você nomeou **e** contradiz um resultado que este handbook mediu em outro capítulo. Qual, e qual resultado?\n5. Escreva a frase que você diria na reunião para reabrir a decisão da Ana, em no máximo duas linhas.",
+    "criterios": [
+      "**Ana** — decidir sem medir; joga fora o limitante que só o exato dá. No lugar: rodar o exato com limite de tempo e ler o *gap*",
+      "**Bruno** — confunde pior caso com desempenho típico, e ainda generaliza para \"tudo\". No lugar: medir os dois na instância real",
+      "**Célia** — polinomial não é rápido; a constante e o grau não aparecem na palavra. No lugar: medir o tempo no tamanho atual e no dobro",
+      "Identifica que **Bruno** erra duas vezes: além de confundir pior caso com típico, contradiz o capítulo 14, que mediu que a saída do método interior **não é vértice** e portanto não vem com base nem preço-sombra — trocar tudo por pontos interiores custaria a análise de sensibilidade",
+      "A frase para a Ana é **acionável** e barata: propõe uma medição curta com critério de parada declarado, e não uma discussão de princípio"
+    ],
+    "erro_provavel": "Concordar com o Bruno por metade — \"ele exagerou, mas pontos interiores é melhor mesmo em problema grande\". O ponto do erro dele não é a preferência: é **generalizar para \"tudo\"** a partir de uma afirmação de pior caso, ignorando que a escolha entre os dois métodos se faz pela instância **e pelo que o projeto precisa da resposta**. Quem troca Simplex por interior sem *crossover* perde a base, o preço-sombra e a faixa de validade — que são, muitas vezes, a parte do resultado que o cliente de fato usa.",
+    "resposta_guia": "**Ana — decidir sem medir.** Ela usa uma afirmação sobre o pior caso da classe para descartar um método sem gastar vinte minutos testando a instância; e ao descartar o exato, descarta junto o **limitante**, que é a única coisa capaz de dizer depois se a heurística ficou boa. No lugar: rodar o exato com limite de tempo e ler o *gap*. **Bruno — pior caso confundido com desempenho típico**, e ainda estendido a \"tudo\". No lugar: medir os dois métodos na instância real. **Célia — polinomial lido como rápido.** O grau e a constante não aparecem na palavra, e um n³ com constante grande pode estourar a madrugada. No lugar: medir o tempo no tamanho de hoje e no dobro dele, que é o teste que revela o grau na prática. **(4) Bruno erra duas vezes.** Além do erro de pior caso, ele contradiz o que o capítulo 14 mediu: a saída do método de pontos interiores **não é vértice** — chega a 4,5 × 10⁻⁶ do vértice, com erro de 1,8 × 10⁻⁴ no valor — e por isso não vem com base, preço-sombra nem faixa de validade. Trocar tudo por pontos interiores custaria a análise de sensibilidade inteira, que costuma ser a parte do resultado que o cliente usa. **(5)** *\"Antes de fechar isso, me dá vinte minutos de solver: se o gap vier baixo, a decisão está tomada e economizamos as duas semanas de verdade; se vier alto, eu saio com um limitante que vai nos dizer se a heurística ficou boa.\"*"
   }
 ]
