@@ -114,6 +114,28 @@
       ]
     },
     {
+      "nome": "Parte III — Otimização em Redes e Fluxos",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/16-grafos-e-redes.md",
+          "titulo": "16 — Grafos e redes: fundamentos",
+          "maturidade": "v0",
+          "teaser": "Metade da PO aplicada é rede por baixo — e quase nada dela se apresenta como rede."
+        },
+        {
+          "arquivo": "livro/capitulos/17-caminho-minimo.md",
+          "titulo": "17 — Caminho mínimo",
+          "maturidade": "medido",
+          "teaser": "Com peso negativo, Dijkstra devolve uma resposta que contradiz a si mesma — e não avisa."
+        },
+        {
+          "externo": "mapa-do-handbook.html",
+          "titulo": "⬜ Cinco vagas declaradas",
+          "teaser": "Árvore geradora, fluxo máximo, fluxo de custo mínimo, transporte e designação, e planejamento de projetos."
+        }
+      ]
+    },
+    {
       "nome": "Parte VI — Otimização Não Linear",
       "itens": [
         {

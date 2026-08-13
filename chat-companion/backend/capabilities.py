@@ -64,6 +64,15 @@ REGISTRO = [
                   "costumam se confundir: o que é decisão do modelo, o que é escolha da ferramenta "
                   "e o que é ponto flutuante. E cobro a separação entre modelo e dados antes de "
                   "qualquer conversa sobre desempenho."},
+    {"chave": "redes", "rotulo": "Grafos e redes", "libera": 16, "tools": (),
+     "descricao": "Traduzo com você um enunciado que não fala de rede para nós e arestas, e cobro "
+                  "as duas escolhas que decidem tudo: a aresta tem sentido, e o número nela é "
+                  "custo ou capacidade? Aviso quando a lente de rede não serve — restrição sobre "
+                  "três coisas de uma vez não é aresta."},
+    {"chave": "caminho_minimo", "rotulo": "Caminho mínimo", "libera": 17, "tools": (),
+     "descricao": "Rodo Dijkstra com você passo a passo e cobro a hipótese que ele usa sem "
+                  "declarar. Se houver peso negativo, aviso antes: o método devolve uma resposta "
+                  "que contradiz a si mesma, sem erro nenhum."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

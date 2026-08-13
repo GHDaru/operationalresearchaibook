@@ -1656,3 +1656,44 @@ enunciado. Agora lê.
 > defeito que ele existe para impedir. O que separou os dois casos aqui foi **variar o que o teste
 > supõe fixo** — a semente, o tamanho, o modelo de ruído. Foi assim que a afirmação central
 > sobreviveu com mais força, e foi assim que as duas asserções frágeis caíram.
+
+### Edição 0.37 — 2026-08-13 · A Parte III abre: grafos, e o método que se contradiz
+
+**Entrou:** a etapa de medição `po-zero/parte-III-redes` — com sete resultados — e os dois
+primeiros capítulos da Parte III: [16 — Grafos e redes](capitulos/16-grafos-e-redes.md) 🟡 e
+[17 — Caminho mínimo](capitulos/17-caminho-minimo.md) 🔵.
+
+**O achado do capítulo 17 é o mais desconfortável do livro até aqui.** Diante de um peso negativo,
+Dijkstra não devolve um número errado — ele devolve **um número e um caminho que não fecham entre
+si**. Medido: distância **6** até o destino, e caminho `A → C → B → D`, que custa **4**. Sem erro,
+sem aviso, sem exceção.
+
+> O defeito não foi o método errar. Foi o método **não ter como saber** que errou: a hipótese de
+> peso não negativo está na cabeça de quem escolheu Dijkstra, não no código. Há teste que fica
+> vermelho se alguém "consertar" a implementação — porque aí o capítulo passaria a descrever algo
+> que não acontece mais.
+
+**Os outros seis resultados**, medidos e ainda esperando os capítulos que os publicam: max-fluxo
+igual a corte mínimo (**15**, com o corte exibido); a relaxação linear do transporte devolvendo
+**todos inteiros** sem restrição de integralidade, e **uma** restrição transversal quebrando isso;
+a designação saindo **0/1** sem variável binária; o mesmo gesto guloso sendo **ótimo na árvore** e
+**14,3% pior no roteiro**; e o PERT publicando **21 dias** para um projeto que leva **24,48** e
+**estoura a estimativa em 82,3%** das amostras.
+
+**Três erros meus pelo caminho, todos registrados no README da etapa**, e o terceiro é o que mais
+ensina:
+
+1. O experimento da estrutura quebrada **não quebrava nada** — a restrição escolhida deixava o
+   modelo inviável, e passou porque a função devolvia o plano sem ninguém olhar o `status`.
+2. A comparação do PERT misturava duas causas. Isolando **nas mesmas amostras** — duração do
+   projeto contra duração do caminho declarado antes de sortear —, o viés honesto é **0,49 dia**,
+   e não os ~4,7 que a comparação ingênua daria. Com controle: um ramo só dá **exatamente zero**.
+3. **O grafo das cinco cidades não sustentava a tese que ele existia para sustentar.** Eu escolhi
+   os pesos à mão para o guloso errar o roteiro, e **ele acertou** — 17 contra 17. A instância
+   publicada saiu de uma busca com semente declarada sobre 4.000 grafos aleatórios, tomando a de
+   maior perda. **Procurar um contraexemplo é mais honesto do que arranjar um.**
+
+**E o portão da procedência pegou, antes de publicar, o defeito que a revisão da Parte I tinha
+pegado depois:** o capítulo 16 afirmava "Euler mostrou, em 1736" no corpo enquanto a tabela marcava
+a atribuição como `⏳`. O hedge foi para a frase. É a diferença entre uma regra que alguém lembra e
+uma regra que a máquina cobra.

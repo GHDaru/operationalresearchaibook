@@ -78,8 +78,8 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| ⬜ | 16 — Grafos e redes: fundamentos | O vocabulário e a estrutura que atravessa metade da PO aplicada. |
-| ⬜ | 17 — Caminho mínimo | Dijkstra, Bellman-Ford e as aplicações que não parecem caminho. |
+| 🟡 | 16 — Grafos e redes: fundamentos | O vocabulário e a estrutura que atravessa metade da PO aplicada. |
+| 🔵 | 17 — Caminho mínimo | Dijkstra, Bellman-Ford e as aplicações que não parecem caminho. |
 | ⬜ | 18 — Árvore geradora mínima e projeto de redes | Quando a decisão é que ligações construir. |
 | ⬜ | 19 — Fluxo máximo e corte mínimo | O teorema que transforma capacidade em gargalo — e a ponte com a Teoria das Restrições. |
 | ⬜ | 20 — Fluxo de custo mínimo | O modelo que generaliza transporte, designação e transbordo. |

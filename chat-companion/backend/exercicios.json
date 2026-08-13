@@ -3007,5 +3007,137 @@
     ],
     "erro_provavel": "Parar nos números e deixar os **nomes** das variáveis dentro do modelo. Trocar `250` e `180` por parâmetros e manter `cpu = LpVariable(\"cpu\")` resolve metade do problema: o script continua sabendo que existem exatamente dois produtos, e chamados assim. A separação de verdade é entre a **estrutura** (\"uma variável por produto, uma restrição por componente\") e a instância (\"quais produtos, quais componentes, com que números\") — e o teste do item 3 é o que revela se ela aconteceu, porque só passa quando a contagem também vem de fora.",
     "resposta_guia": "**(1)** São dados de instância: as margens **250** e **180**; as capacidades **10** e **12**; e os coeficientes de consumo **1, 1, 1 e 2**. Nada disso é estrutura. **(2)** Algo como `def resolver_producao(instancia: dict) -> dict:`, com a instância no formato `{\"produtos\": {nome: {\"margem\": …, \"consumo\": {componente: …}}}, \"componentes\": {nome: {\"estoque\": …}}}` — que é, não por acaso, o formato de `po-zero/etapa-01-formulacao/instancias/montadora.json`. O corpo cria **uma variável por produto** e **uma restrição por componente**, por iteração, sem nenhum nome literal. **(3)** O teste é executável e é este: **resolver uma segunda instância, de tamanho diferente, sem editar uma linha do modelo**. Se for preciso tocar no código, a separação não aconteceu — e \"olhar e achar limpo\" não é teste. **(4)** No script original quebra tudo: são cinco variáveis e quatro restrições que não existem, e cada uma teria de ser escrita à mão, com o risco de esquecer um termo em alguma. Na versão separada **não quebra nada** — troca-se o arquivo de instância, e é esse o ganho inteiro. **(5)** Ficha: **origem** (\"planejamento da linha de montagem, fechamento de julho de 2026\"), **licença** (\"dado interno, uso restrito ao exemplo didático, números alterados\") e **limitações** (\"último dia do mês, com estoque já comprometido; não representa capacidade média, e não inclui setup entre produtos\"). O campo mais fácil de esquecer e mais caro de faltar é **limitações** — porque origem e licença fazem falta na hora de publicar, enquanto limitações faz falta na hora de **decidir**: é ele que impede alguém de usar um recorte de fim de mês para responder a uma pergunta sobre o ano."
+  },
+  {
+    "capitulo": 16,
+    "serie": "cap16",
+    "capacidade": "redes",
+    "contexto": "livro",
+    "id": "cap16.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Quatro enunciados que não falam de rede",
+    "enunciado": "Para **cada** situação: nomeie os **nós**, nomeie as **arestas**, diga se o grafo é **dirigido**, e diga se o número na aresta é **custo** ou **capacidade**.\n\n| | A situação |\n|---|---|\n| **a** | Um hospital precisa cobrir 21 turnos da semana com 12 enfermeiros, cada um habilitado a cobrir só alguns turnos |\n| **b** | Uma fábrica planeja a produção dos próximos 6 meses, podendo produzir a mais num mês e **estocar** para o seguinte |\n| **c** | Uma operadora quer saber quantos pacotes por segundo consegue escoar entre dois pontos da sua malha |\n| **d** | Um projeto tem 14 tarefas, algumas das quais só podem começar depois que outras terminam |\n\n5. Uma das quatro é a tradução que mais surpreende quem está começando. Qual, e o que é a aresta lá?",
+    "criterios": [
+      "**(a)** nós = enfermeiros e turnos; arestas = habilitação; **não dirigido**; o peso, se houver, é custo (preferência, hora extra) — é o padrão de designação do [capítulo 21](21-transporte-designacao.md)",
+      "**(b)** nós = meses; arestas = produzir naquele mês **e** estocar de um mês para o seguinte; **dirigido** (o tempo tem sentido); peso = custo",
+      "**(c)** nós = pontos da malha; arestas = enlaces; **dirigido**; peso = **capacidade**, não custo — e trocar os dois responderia a outra pergunta",
+      "**(d)** nós = tarefas; arestas = precedências; **dirigido**; o peso vive no NÓ (duração), não na aresta — e reconhecer isso é parte da resposta",
+      "Identifica **(b)** como a tradução que surpreende, e nomeia a aresta de estoque como **a que atravessa o tempo**"
+    ],
+    "erro_provavel": "Em **(b)**, tratar o problema como seis problemas independentes, um por mês. É exatamente o que a lente de rede desfaz: o estoque **liga** os períodos, e é essa aresta que transforma seis decisões locais numa decisão só. Quem não vê a aresta do tempo resolve cada mês no ótimo e obtém um plano anual pior. O segundo erro provável é em **(c)**: pôr custo na aresta em vez de capacidade. O modelo roda, devolve `Optimal`, e responde à pergunta errada — é o defeito silencioso do capítulo 03 aparecendo numa roupa nova.",
+    "resposta_guia": "**(a)** Nós: enfermeiros de um lado, turnos do outro. Arestas: quem pode cobrir o quê — não dirigidas, porque a habilitação não tem sentido. Peso, quando houver, é custo. É um grafo **bipartido**, e o capítulo 21 mostra que ele tem propriedade que o caso geral não tem. **(b)** Nós: os seis meses. Arestas: *produzir* (entra no nó) e **estocar** (liga cada mês ao seguinte) — dirigidas, porque o tempo só anda para a frente. Peso: custo. **(c)** Nós: pontos da malha; arestas: enlaces, dirigidas; peso: **capacidade**. A pergunta é de escoamento, e é o capítulo 19. **(d)** Nós: tarefas; arestas: precedências, dirigidas. O peso está no **nó** — a duração da tarefa —, e não na aresta; é o capítulo 22. **(5)** A que surpreende é **(b)**: a aresta é o **estoque**, e ela atravessa o tempo. Essa única tradução põe planejamento multiperíodo dentro da Parte III, com todas as garantias que o capítulo 20 prova."
+  },
+  {
+    "capitulo": 16,
+    "serie": "cap16",
+    "capacidade": "redes",
+    "contexto": "livro",
+    "id": "cap16.exB",
+    "variante": "B",
+    "tipo": "escolher",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "A mesma malha, três perguntas",
+    "enunciado": "Uma distribuidora tem o mesmo mapa de estradas entre seis cidades. Três perguntas diferentes chegam na mesma semana:\n\n1. *\"Qual o trajeto mais barato do depósito até o cliente?\"*\n2. *\"Quanto conseguimos escoar por dia do depósito até o cliente, dadas as capacidades das estradas?\"*\n3. *\"Quais estradas precisamos manter asfaltadas para que todas as cidades continuem ligadas, ao menor custo de manutenção?\"*\n\nPara cada uma: diga **o que o número na aresta representa**, se o grafo é **dirigido**, e qual capítulo desta Parte responde.\n\n4. Duas das três perguntas podem usar **o mesmo número** na aresta. Quais, e por quê a terceira não pode?\n5. Um analista responde a pergunta 2 somando as capacidades das estradas que saem do depósito. Por que isso está errado?",
+    "criterios": [
+      "**(1)** peso = custo/distância, somável ao longo do caminho; dirigido se as estradas tiverem mão única; capítulo 17",
+      "**(2)** peso = **capacidade**, que limita e não soma ao longo do caminho; dirigido; capítulo 19",
+      "**(3)** peso = custo de manutenção; **não dirigido**, porque manter uma estrada serve aos dois sentidos; capítulo 18",
+      "Identifica que **(1)** e **(3)** podem usar o mesmo número (custo), e que **(2)** não pode — capacidade e custo são grandezas de naturezas diferentes",
+      "Explica que somar as capacidades de saída ignora os **gargalos adiante**: o escoamento é limitado pelo corte mais fraco de toda a rede, não pelo primeiro"
+    ],
+    "erro_provavel": "Tratar capacidade como se ela somasse ao longo de um caminho, do mesmo jeito que o custo. Custo é aditivo — o caminho custa a soma das arestas. Capacidade é **mínimo** — o caminho escoa o que a aresta mais estreita deixa passar. Confundir as duas é o erro que produz o item 5, e ele é frequente porque as duas grandezas aparecem no mesmo lugar do desenho: em cima da aresta.",
+    "resposta_guia": "**(1)** Peso é **custo**, e ele **soma** ao longo do caminho. Dirigido se houver mão única; caso contrário, não. Responde o capítulo 17. **(2)** Peso é **capacidade**, e ela **não soma**: ao longo de um caminho vale o **mínimo**, e na rede inteira vale o corte mais fraco. Dirigido. Responde o capítulo 19. **(3)** Peso é custo de manutenção, e o grafo é **não dirigido** — asfaltar uma estrada serve aos dois sentidos. Responde o capítulo 18. **(4)** As perguntas 1 e 3 podem compartilhar o número, porque as duas somam custos; a 2 não pode, porque capacidade é outra grandeza e se combina por mínimo, não por soma. **(5)** Somar as capacidades que saem do depósito responde *\"quanto cabe na primeira perna\"*, e não *\"quanto chega ao cliente\"*. O escoamento é limitado pelo **gargalo da rede inteira** — e o capítulo 19 mostra que esse gargalo tem nome, é o corte mínimo, e que o seu valor é exatamente o fluxo máximo."
+  },
+  {
+    "capitulo": 16,
+    "serie": "cap16",
+    "capacidade": "redes",
+    "contexto": "livro",
+    "id": "cap16.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Quando a lente atrapalha",
+    "enunciado": "Quatro pedidos chegam ao seu time. Para cada um, decida se a lente de rede **serve**, **serve com ressalva** ou **não serve** — e diga o que fazer no lugar quando não servir.\n\n| | O pedido |\n|---|---|\n| **a** | *\"Modele nossas rotas de entrega; o custo de cada trecho é o combustível, que é proporcional à distância.\"* |\n| **b** | *\"Modele nossas rotas; nos horários de pico o tempo de trecho triplica conforme o número de veículos que passam.\"* |\n| **c** | *\"Modele a escala; e lembre que as três máquinas de corte não podem operar no mesmo turno por causa da rede elétrica.\"* |\n| **d** | *\"Faça um grafo do nosso organograma para a apresentação da diretoria.\"* |\n\n5. Um dos quatro **quase** é rede — a estrutura vale para tudo menos uma restrição. Qual, e por que esse caso é o mais caro dos quatro?",
+    "criterios": [
+      "**(a)** serve, sem ressalva: peso constante por aresta é exatamente a hipótese dos métodos desta Parte",
+      "**(b)** **não serve** como caminho mínimo: o peso depende de quanto passa pela aresta. É problema de fluxo com congestionamento, e sai do escopo desta Parte",
+      "**(c)** serve **com ressalva**: a escala é rede, mas *\"três máquinas não podem coincidir\"* é restrição de **conjunto**, não relação binária — grafo não a representa",
+      "**(d)** **não serve** no sentido de decisão: é diagrama, não modelo. A pergunta do capítulo 02 continua valendo — quem vai decidir diferente por causa disto?",
+      "Identifica **(c)** como o que **quase** é rede, e explica por que é o mais caro: o modelo continua rodando e devolvendo `Optimal`, mas perde as garantias que a estrutura dava"
+    ],
+    "erro_provavel": "Classificar **(d)** como o pior caso. Ele é inofensivo: um diagrama que não decide nada custa o tempo de fazê-lo e engana pouca gente, porque ninguém espera decisão dele. O caso caro é **(c)**, e é caro justamente por ser quase certo — a estrutura de rede vale para 90% do problema, o modelo roda, o solver diz `Optimal`, e a integralidade de graça que o capítulo 20 mede **já foi embora** sem que nada avisasse. Modelo quase certo é mais perigoso do que modelo obviamente errado.",
+    "resposta_guia": "**(a) Serve.** Custo proporcional à distância é peso constante por aresta, que é a hipótese de que os métodos desta Parte precisam. **(b) Não serve** como caminho mínimo: se o tempo do trecho depende de quantos veículos passam, o peso deixa de ser constante e o problema vira fluxo com congestionamento — outra família, fora do escopo desta Parte. Dizer isso é mais útil do que entregar um modelo que responde a outra pergunta. **(c) Serve com ressalva, e é o caso que merece atenção.** A escala é bipartida e cabe perfeitamente; *\"as três máquinas não podem operar no mesmo turno\"* é restrição sobre um **conjunto de três**, e grafo representa relação **binária**. A restrição entra no modelo como desigualdade linear, e ao entrar **quebra a estrutura de rede**. **(d) Não serve**, no sentido que importa: é diagrama de apresentação, não modelo de decisão. Fazer é legítimo; chamar de otimização, não. **(5)** O que **quase** é rede é o **(c)**, e ele é o mais caro dos quatro porque falha em silêncio: o modelo roda, devolve `Optimal`, e perde a integralidade que a estrutura dava — o capítulo 20 mede essa perda com uma única restrição transversal, e o ótimo passa de todo inteiro para quatro embarques fracionários."
+  },
+  {
+    "capitulo": 17,
+    "serie": "cap17",
+    "capacidade": "caminho_minimo",
+    "contexto": "livro",
+    "id": "cap17.exA",
+    "variante": "A",
+    "tipo": "resolver",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Dijkstra à mão, passo a passo",
+    "enunciado": "A malha do capítulo, com os pesos:\n\n```\ndeposito --4--> norte      norte --5--> leste\ndeposito --2--> sul        sul   --1--> norte\nsul      --8--> oeste      oeste --2--> leste\nleste    --3--> cliente    oeste --6--> cliente\n```\n\n1. Rode Dijkstra a partir de `deposito` e escreva a **ordem em que os nós fecham**, com a distância de cada um no momento em que fecha.\n2. Dê a distância final até `cliente` e o caminho.\n3. Em qual passo a distância de `norte` **melhora** depois de já ter sido estimada? O que isso mostra sobre a diferença entre *estimar* e *fechar*?\n4. A aresta `oeste → cliente` (peso 6) entra na resposta? Por quê?",
+    "criterios": [
+      "A ordem de fechamento é `deposito` (0), `sul` (2), `norte` (3), `leste` (8), `oeste` (10), `cliente` (11)",
+      "Distância final até `cliente` = **11**, caminho `deposito → sul → norte → leste → cliente`",
+      "Reconhece que `norte` é estimado em 4 pela aresta direta e **melhora para 3** via `sul` antes de fechar — estimativa muda, fechamento não",
+      "Responde que `oeste → cliente` **não** entra: chegar a `oeste` já custa 10, e 10 + 6 = 16 > 11",
+      "Ao menos uma das respostas usa a palavra certa para o que Dijkstra faz: ele **fecha** um nó quando nada aberto pode melhorá-lo"
+    ],
+    "erro_provavel": "Fechar `norte` com 4 logo no primeiro passo, porque é o vizinho direto do depósito. Dijkstra não fecha o primeiro que aparece: fecha o **mais barato entre os abertos**, e `sul` (2) é mais barato que `norte` (4). Fechar na ordem errada dá o resultado certo nesta malha por sorte — e é justamente por dar certo por sorte que o erro sobrevive até encontrar uma malha onde não dá.",
+    "resposta_guia": "**(1)** Fecha `deposito` (0). Estima `norte` em 4 e `sul` em 2. Fecha `sul` (2), e por ele **melhora** `norte` para 3 e estima `oeste` em 10. Fecha `norte` (3), estima `leste` em 8. Fecha `leste` (8), estima `cliente` em 11. Fecha `oeste` (10) — que já não muda nada. Fecha `cliente` (11). **(2)** Distância 11, caminho `deposito → sul → norte → leste → cliente`. **(3)** `norte` é estimado em 4 pela aresta direta e melhora para **3** quando `sul` fecha. É a distinção central do método: uma distância **estimada** pode melhorar quantas vezes for; uma distância **fechada** nunca mais muda — e é essa segunda garantia que faz o método ser rápido, e é ela que o peso negativo destrói. **(4)** Não entra: chegar a `oeste` custa 10, e 10 + 6 = 16, contra os 11 pela rota via `leste`. Repare que a aresta mais barata saindo do depósito (`sul`, 2) faz parte da resposta e a segunda mais barata (`norte`, 4) **não** — o caminho ótimo passa por `norte`, mas não por aquela aresta."
+  },
+  {
+    "capitulo": 17,
+    "serie": "cap17",
+    "capacidade": "caminho_minimo",
+    "contexto": "livro",
+    "id": "cap17.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Preveja o silêncio",
+    "enunciado": "Uma rede de trocas entre filiais, em que algumas arestas têm peso **negativo** porque representam um crédito recebido ao usar aquele trecho:\n\n```\nA --1--> B        B --5--> D\nA --2--> C        C --(-3)--> B\n```\n\n**Antes de calcular qualquer coisa**, responda 1 e 2. Só depois confira.\n\n1. Que distância até `D` você espera que Dijkstra devolva? E qual é a verdadeira?\n2. Que **caminho** você espera que ele devolva?\n3. Agora junte as duas respostas. O que há de anormal na saída, e por que nenhum aviso é emitido?\n4. Explique, no passo a passo, **em que momento** a informação se perde.\n5. Uma colega sugere \"somar 3 a todos os pesos para eliminar o negativo, rodar Dijkstra e subtrair depois\". Isso funciona? Justifique.",
+    "criterios": [
+      "Dijkstra devolve **6**; a distância verdadeira é **4**",
+      "O caminho devolvido é `A → C → B → D` — e ele **custa 4**, não 6",
+      "Identifica a anomalia: a distância reportada e o caminho reportado **se contradizem**, e nenhum aviso é emitido porque o método não tem como saber que a hipótese caiu",
+      "O passo a passo localiza a perda: `B` fecha com 1 e relaxa `B → D` para 6; só depois `C` melhora `B` para −1, e como `B` já está fechado, `D` nunca é recalculado",
+      "Responde que somar constante a todos os pesos **não funciona**: caminhos com números diferentes de arestas recebem acréscimos diferentes, e a ordem entre eles pode inverter"
+    ],
+    "erro_provavel": "Aceitar a sugestão do item 5. Somar uma constante a todas as arestas parece inofensivo e é a tentação natural, mas **um caminho de duas arestas recebe +6 e um de três recebe +9** — a transformação não preserva a ordem entre caminhos de comprimentos diferentes, e o ótimo pode mudar. Existe uma transformação que funciona (o reescalonamento de Johnson, com potenciais por nó), e ela é bem mais elaborada do que somar uma constante — precisa rodar Bellman-Ford antes, o que já resolve o problema que se queria evitar.",
+    "resposta_guia": "**(1)** Dijkstra devolve **6**; a verdadeira é **4** (`A → C` custa 2, `C → B` custa −3, `B → D` custa 5). **(2)** Ele devolve o caminho `A → C → B → D`. **(3)** As duas respostas **não fecham**: o caminho que ele reporta custa 4 e a distância que ele reporta é 6. A saída é internamente inconsistente, e nenhum aviso é emitido porque o método **não tem como saber** que errou — a hipótese de peso não negativo não está no código, está na cabeça de quem escolheu o método. **(4)** A perda acontece assim: fecha `A` (0); estima `B` em 1 e `C` em 2; fecha `B` (1) — porque 1 < 2 — e ao fechar relaxa `B → D` para **6**; fecha `C` (2) e descobre que `C → B` daria −1 para `B`; mas `B` **já está fechado**, o método não revisita, e `D` fica com o 6 que foi calculado a partir de uma estimativa que depois melhorou. **(5)** Não funciona. Somar 3 a todas as arestas acrescenta 3 **por aresta**, e caminhos com números diferentes de arestas recebem acréscimos diferentes — a comparação entre eles se distorce e o ótimo pode trocar. A saída correta é usar Bellman-Ford, que não depende da hipótese."
+  },
+  {
+    "capitulo": 17,
+    "serie": "cap17",
+    "capacidade": "caminho_minimo",
+    "contexto": "livro",
+    "id": "cap17.exC",
+    "variante": "C",
+    "tipo": "escolher",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Qual método, e por qual critério",
+    "enunciado": "Quatro problemas reais. Para cada um escolha entre **Dijkstra**, **Bellman-Ford** e **modelo de Programação Linear**, e declare o **critério** que decidiu — não a fama do método.\n\n| | O problema |\n|---|---|\n| **a** | GPS urbano: 200 mil ruas, pesos são tempos de percurso, resposta em milissegundos |\n| **b** | Arbitragem entre moedas: o \"peso\" é o logaritmo negativo da taxa de câmbio, e a pergunta é se existe um ciclo lucrativo |\n| **c** | Rota mais barata entre duas cidades, **com no máximo três pedágios** |\n| **d** | Rede logística com incentivos fiscais que aparecem como crédito em alguns trechos |\n\n5. Em **(b)**, o que exatamente você está procurando, e qual método devolve isso como **veredito** em vez de número?\n6. Em **(c)**, por que Dijkstra não resolve mesmo com todos os pesos positivos?",
+    "criterios": [
+      "**(a)** Dijkstra — pesos são tempos, portanto não negativos, e a escala exige o método rápido",
+      "**(b)** Bellman-Ford, e o que se procura é um **ciclo negativo**: um ciclo de câmbio com produto de taxas maior que 1 vira soma negativa nos logaritmos",
+      "**(c)** **Programação Linear** (ou grafo expandido com um nó por par cidade-pedágios usados): a restrição de contagem não é local à aresta",
+      "**(d)** Bellman-Ford — há peso negativo, e a única pergunta é se há ciclo negativo junto",
+      "Cada escolha vem acompanhada do **critério** (sinal do peso, escala, natureza da restrição), e não de preferência"
+    ],
+    "erro_provavel": "Em **(c)**, achar que basta rodar Dijkstra e depois descartar os caminhos com mais de três pedágios. Não basta: o caminho ótimo **com** a restrição pode não aparecer em lugar nenhum na execução sem a restrição, porque Dijkstra fecha cada nó uma vez e guarda um único rótulo por nó — o caminho mais barato até um nó com dois pedágios pode ser diferente do mais barato até o mesmo nó com nenhum. A saída é ou modelar em PL, ou expandir o grafo para carregar a contagem no próprio nó, que é a mesma ideia dita de outro jeito.",
+    "resposta_guia": "**(a) Dijkstra.** Critério: tempos de percurso são não negativos por natureza, então a hipótese vale, e a escala (200 mil arestas, resposta em milissegundos) exige o método que fecha nós. **(b) Bellman-Ford.** Critério: os logaritmos negativos das taxas produzem pesos de qualquer sinal, e a pergunta *\"existe arbitragem?\"* é literalmente *\"existe ciclo negativo?\"*. **(c) Programação Linear**, ou um grafo expandido em que cada nó vira quatro (o mesmo lugar, com 0, 1, 2 ou 3 pedágios já usados). Critério: a restrição é sobre a **contagem ao longo do caminho**, e não sobre a aresta. **(d) Bellman-Ford.** Critério: há peso negativo declarado; e vale rodar sabendo que a detecção de ciclo negativo é informação de negócio, não erro — um ciclo negativo aqui significaria um circuito de créditos que se paga sozinho, e isso é notícia. **(5)** Em (b) você procura um **ciclo negativo**, e Bellman-Ford o devolve como **veredito**: não existe caminho mínimo, existe caminho arbitrariamente barato. É o mesmo espírito do `Infeasible` do capítulo 10 — um método que diz *\"esta pergunta não tem resposta\"* vale mais do que um que devolve um número qualquer. **(6)** Porque Dijkstra guarda **um rótulo por nó** e fecha cada nó uma vez. Com a restrição de pedágios, o melhor caminho até um nó depende de quantos pedágios já foram gastos — são vários estados por lugar, e o método não tem onde guardá-los."
   }
 ]

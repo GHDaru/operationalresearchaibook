@@ -248,6 +248,17 @@ const SEM_MODELO_DECLARADO = new Set([
                // ORDEM de trabalho (rodar o exato, ler o gap, só então decidir),
                // e não a solução. A palavra "ótimo" aparece na frase que o
                // relatório NÃO pode dizer. Nada a conferir.
+  "cap16.exC", // julga se a LENTE de rede serve em quatro pedidos escritos em
+               // prosa. Não há modelo numérico em nenhum deles; "ótimo" aparece
+               // só na discussão do que o solver devolve quando a estrutura de
+               // rede se perde.
+  "cap17.exA", // caminho mínimo numa malha de SEIS nós — grafo, não modelo de
+               // duas variáveis. Os números (11, e a ordem de fechamento) são
+               // conferidos em po-zero/parte-III-redes/test_redes.py, que resolve
+               // a mesma malha em aritmética exata.
+  "cap17.exB", // a instância em que Dijkstra erra, também um grafo. Os dois
+               // números que a rubrica afirma — 6 e 4 — são medidos na mesma
+               // suíte, e o capítulo 17 os publica com teste que o lê.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");

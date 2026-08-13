@@ -20,7 +20,7 @@ python3 -m pytest .         # a medição, e o vínculo com o texto publicado
 | 6 | **Designação** | A relaxação linear devolve **0/1** sem nenhuma variável binária declarada |
 | 7 | **PERT** | A fórmula publica **21 dias**; o projeto leva **24,48** em média, e **estoura a estimativa em 82,3%** das amostras |
 
-## O item 5 merece o parágrafo que ele tem
+## O item 7 merece o parágrafo que ele tem
 
 A comparação ingênua — fórmula contra simulação — mistura **duas causas** num número só: a
 distribuição amostrada não tem a mesma média que a fórmula supõe, **e** o projeto espera a mais
@@ -46,7 +46,7 @@ caminho declarado. Dar zero é o que prova que a isolação está correta, e nã
 do experimento. Repare também que mesmo com um ramo só a estimativa estoura em 76,5% das amostras
 — essa parte **não** é merge bias, é a distribuição, e o capítulo 22 separa as duas.
 
-## Nota de método: dois erros meus, registrados
+## Nota de método: três erros meus, registrados
 
 1. **O experimento da estrutura quebrada não quebrava nada.** A restrição escolhida deixava o
    modelo **inviável**, não fracionário, e passou porque a função devolvia o plano sem que ninguém
