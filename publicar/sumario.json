@@ -64,6 +64,22 @@
       ]
     },
     {
+      "nome": "Parte XI — Fronteira",
+      "itens": [
+        {
+          "externo": "mapa-do-handbook.html",
+          "titulo": "⬜ Cinco vagas declaradas",
+          "teaser": "Aprendizado de máquina para otimização, predict-then-optimize, solvers aprendidos, modelos de linguagem como modeladores e otimização responsável. Camada de vida curta: todo capítulo aqui declara cláusula de expiração."
+        },
+        {
+          "arquivo": "livro/capitulos/77-ler-artigo.md",
+          "titulo": "77 — Como ler um artigo científico de PO",
+          "maturidade": "v0",
+          "teaser": "Antecipado de propósito: é o capítulo que dá ao resto do livro o direito de citar em vez de explicar."
+        }
+      ]
+    },
+    {
       "nome": "Aparato do livro",
       "itens": [
         {

@@ -188,7 +188,18 @@ for (const e of exercicios) {
 // A cobertura é o outro metade do portão. Sem isto, bastaria omitir o campo
 // `modelo` para o exercício voltar a passar sem ninguém conferir nada — que é
 // exatamente o estado em que o defeito do cap07.exC nasceu.
-const AFIRMA_OTIMO = /[óo]tim/i;
+// A régua era `/[óo]tim/i`, e num livro sobre OTIMIZAÇÃO isso é um falso
+// vermelho esperando a hora: "código otimizado", "o solver otimiza", "problema
+// de otimização" — nenhum deles afirma um ótimo, e todos disparavam o portão.
+// O primeiro caso apareceu no `cap77.exB`, cuja rubrica fala de código otimizado
+// num exercício que não tem modelo nenhum, por não ser de modelagem.
+//
+// Falso vermelho crônico é o que ensina a desligar portão, então a régua foi
+// estreitada para o SUBSTANTIVO — ótimo, ótima, ótimos, ótimas — que é o que de
+// fato afirma um valor. Medido antes de trocar, sobre o registro inteiro:
+// exatamente um exercício sai da vigilância (o falso positivo) e nenhum outro é
+// solto. "otimizado" não casa porque depois de `otim` vem `i`, e não `o`/`a`.
+const AFIRMA_OTIMO = /[óo]tim[oa]s?\b/i;
 const SEM_MODELO_DECLARADO = new Set([
   // Exercícios cuja rubrica fala de "ótimo" sem afirmar um valor calculável a
   // partir de um modelo de duas variáveis. Cada entrada precisa de justificativa.

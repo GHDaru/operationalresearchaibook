@@ -50,6 +50,11 @@ REGISTRO = [
      "descricao": "Escrevo o dual com você, confiro a unidade de cada variável dual e leio o "
                   "preço-sombra no quadro final. Cobro a faixa de validade antes de deixar "
                   "qualquer decisão de compra sair do preço."},
+    {"chave": "leitura_critica", "rotulo": "Leitura crítica de artigo", "libera": 77, "tools": (),
+     "descricao": "Conduzo as três passadas num artigo que você trouxe e cobro a checklist de "
+                  "comparação computacional — instâncias, baseline, critério de parada, máquina, "
+                  "semente, versão de solver. Não digo se o artigo é bom: ajudo você a dizer o "
+                  "que ele sustenta."},
     {"chave": "simplex", "rotulo": "Simplex de quadro", "libera": 9, "tools": (),
      "descricao": "Acompanho o quadro iteração a iteração: quem entra, quem sai pelo teste da "
                   "razão, e em que vértice cada quadro põe você. Confiro o seu pivoteamento — "

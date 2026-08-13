@@ -187,7 +187,7 @@ Camada de vida curta. **Todo capítulo aqui declara cláusula de expiração**: 
 | ⬜ | 74 — Otimização neural e solvers aprendidos | O que já entrega valor e o que ainda é promessa. |
 | ⬜ | 75 — Modelos de linguagem como modeladores | Da descrição em texto ao modelo executável: o que funciona, o que quebra, como verificar. |
 | ⬜ | 76 — Otimização responsável | Equidade, transparência e o que acontece com quem o modelo otimiza contra. |
-| ⬜ | 77 — Como ler um artigo científico de PO | Protocolo de leitura crítica: instância, *baseline*, teste estatístico, reprodutibilidade. |
+| 🟡 | 77 — Como ler um artigo científico de PO | Protocolo de leitura crítica: instância, *baseline*, critério de parada, máquina, semente, versão de solver. **Antecipado de propósito** — é o capítulo que dá ao resto do livro o direito de citar em vez de explicar. |
 
 ## Aparato
 

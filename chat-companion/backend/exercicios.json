@@ -1656,5 +1656,70 @@
         }
       }
     ]
+  },
+  {
+    "id": "cap77.exA",
+    "capitulo": 77,
+    "serie": "cap77",
+    "variante": "A",
+    "tipo": "aplicar",
+    "objetivo": "O1",
+    "capacidade": "leitura_critica",
+    "dificuldade": "media",
+    "contexto": "leitor",
+    "titulo": "As três passadas, num artigo que você escolhe",
+    "enunciado": "Escolha **um artigo de Pesquisa Operacional (PO)** que seja do seu interesse real — do seu trabalho, do seu tema de pesquisa, ou um que alguém te recomendou. Precisa ser um artigo com **experimento computacional**.\n\nAplique o protocolo e **registre o processo**, não só o resultado:\n\n1. **Passada 1, cronometrada em 5 minutos.** Responda as cinco perguntas da tabela do capítulo. Diga honestamente quais você **não** conseguiu responder — e se a culpa foi sua ou do artigo.\n2. Você seguiria para a passada 2? **Justifique a decisão**, seja ela qual for. Parar é uma resposta legítima e é metade do que o protocolo ensina.\n3. Se seguiu: aplique a passada 2 e descreva o experimento **sem olhar o artigo**. Onde a sua descrição ficou vaga, volte e veja se a vagueza é sua ou do texto.\n4. Escreva **uma frase** que o artigo sustenta e **uma frase** que ele não sustenta, mas que alguém poderia extrair do resumo.\n5. Quanto tempo você gastou no total? Compare com o que teria gasto lendo do começo ao fim.",
+    "criterios": [
+      "Registra o **processo** e não só a conclusão: o que respondeu em cada passada, o que não conseguiu responder, e a decisão de seguir ou parar com justificativa",
+      "Distingue, ao apontar uma lacuna, se ela é do **artigo** (mal descrito) ou do **leitor** (falta de repertório) — são diagnósticos diferentes e levam a ações diferentes",
+      "A descrição do experimento no item 3 é feita **de memória** e depois conferida, e não copiada do artigo",
+      "A frase que o artigo **não** sustenta é plausível — captura uma leitura que alguém de fato faria do resumo, e não um exagero óbvio",
+      "Compara o custo do protocolo com o custo da leitura linear, com número, ainda que aproximado"
+    ],
+    "erro_provavel": "Pular direto para a passada 2 porque \"cinco minutos é pouco\" e o artigo \"claramente\" interessa. A passada 1 não existe para economizar tempo em artigo bom — existe para produzir uma **decisão explícita**, e é a explicitação que vale. Quem pula a passada 1 nunca desiste de um artigo: continua lendo por inércia, porque já começou, e descobre no fim que não era aquilo. O segundo erro comum é responder as cinco perguntas com o que você já sabia do tema, em vez do que o artigo diz — o que transforma a triagem numa conversa consigo mesmo."
+  },
+  {
+    "id": "cap77.exB",
+    "capitulo": 77,
+    "serie": "cap77",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "leitura_critica",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Os 63% que o artigo não sustenta",
+    "enunciado": "> ⚠️ **O trecho abaixo é fictício**, escrito para este exercício. Não é de artigo nenhum, não deve ser citado, e qualquer semelhança com um resumo real é porque o formato é comum.\n\nDo resumo:\n\n> *\"Avaliamos o método proposto em 40 instâncias e obtivemos **redução média de 63% no tempo de solução** em relação ao método clássico, com soluções de qualidade equivalente ou superior.\"*\n\nDa seção de experimentos computacionais, tudo o que ela informa:\n\n- as 40 instâncias foram **geradas pelos autores**, com tamanhos entre 50 e 300 clientes;\n- o \"método clássico\" foi **implementado pelos próprios autores**, em Python;\n- o método proposto tem um parâmetro $\\alpha$ **ajustado empiricamente**;\n- cada método foi executado **uma vez** por instância.\n\nNão há menção a tempo limite, máquina, número de *threads*, semente, nem a como \"qualidade equivalente ou superior\" foi medida.\n\n1. Percorra a checklist do capítulo e liste **o que falta**.\n2. Das ausências, qual é a **mais grave**? Justifique — não pela quantidade de informação perdida, mas pelo que ela permite que aconteça.\n3. O parâmetro $\\alpha$ foi ajustado \"empiricamente\". Ajustado **em quê**? Por que essa pergunta importa mais do que parece?\n4. Qual é a afirmação **mais forte** que este artigo autoriza? Escreva-a.\n5. Você tem cinco minutos com os autores. Que **três perguntas** faz?",
+    "criterios": [
+      "Lista as ausências pela checklist: máquina, tempo limite, semente e número de execuções, critério de qualidade, versão de qualquer software, disponibilidade de código e dados",
+      "Identifica como mais grave o ***baseline* reimplementado pelos próprios autores**, e justifica pelo que isso permite: comparar código otimizado contra a própria implementação do método rival, sem que ninguém possa conferir",
+      "Percebe que \"$\\alpha$ ajustado empiricamente\" provavelmente significa ajustado **no mesmo conjunto** em que o método é avaliado — e que isso mede o ajuste, não o método",
+      "A afirmação mais forte é modesta e correta: em 40 instâncias geradas pelos autores, o método proposto foi mais rápido que **uma implementação dos autores** de um método clássico, numa execução por instância — e nada além disso",
+      "As três perguntas atacam o que muda a conclusão (instâncias públicas, *baseline* de referência com versão, separação entre ajuste e avaliação), e não detalhes cosméticos"
+    ],
+    "erro_provavel": "Concluir que o artigo é ruim ou desonesto. Ele pode ser um bom artigo — a maioria dos experimentos publicados tem lacunas, e nenhuma das quatro informações acima prova má-fé. O que a checklist estabelece não é culpa, é **alcance**: com o que está descrito, o resultado vale para aquelas 40 instâncias, contra aquela implementação, naquela execução única. O erro de leitura que custa caro é o inverso do que parece — não é acreditar demais no artigo, é **transportar** a conclusão dele para o seu problema sem notar que o alcance não chega até lá. Um artigo com lacunas ainda ensina; o que ele não faz é decidir por você.",
+    "resposta_guia": "Faltam: máquina (processador, memória, *threads*), tempo limite ou critério de parada, semente e número de execuções, o critério de \"qualidade equivalente ou superior\", versões de software, e disponibilidade de código e instâncias. A ausência mais grave é o *baseline* **reimplementado pelos autores**: quem implementa o método rival tem todo incentivo — mesmo sem má-fé — a otimizar melhor o próprio, e ninguém de fora consegue conferir, porque nem o código nem as instâncias estão disponíveis. Um *baseline* de referência com versão declarada (um solver conhecido, ou a implementação original dos autores do método clássico) mudaria a força do artigo inteiro. Sobre $\\alpha$: \"ajustado empiricamente\" quase sempre quer dizer ajustado **no mesmo conjunto de instâncias** em que o método é depois avaliado — e nesse caso a comparação mede o ajuste ao conjunto, não a qualidade do método, porque o rival não recebeu o mesmo tratamento. A afirmação mais forte que o artigo autoriza é: *em 40 instâncias geradas pelos próprios autores, com 50 a 300 clientes, o método proposto foi em média mais rápido que uma implementação dos autores de um método clássico, em uma execução por instância, com um parâmetro ajustado empiricamente*. Três perguntas: (1) as instâncias e o código estão disponíveis? (2) o $\\alpha$ foi ajustado em instâncias **separadas** das de avaliação? (3) contra que implementação de referência, e em que versão, vocês compararam?"
+  },
+  {
+    "id": "cap77.exC",
+    "capitulo": 77,
+    "serie": "cap77",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "leitura_critica",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Serve para o seu problema?",
+    "enunciado": "Você é responsável pelo roteamento de entregas de uma distribuidora. O problema real: **3.000 pontos de entrega por dia**, janelas de horário rígidas, frota heterogênea, e o plano precisa sair **em até 20 minutos** para não atrasar a expedição.\n\nUm artigo bem feito — instâncias públicas, *baseline* nomeado com versão, dez execuções por instância, código aberto — relata que o método proposto encontra soluções **4% melhores** que o estado da arte em instâncias de **até 200 clientes**, com tempo médio de **35 minutos** por instância.\n\nUm colega propõe adotar o método.\n\n1. Liste **três** diferenças entre o cenário do artigo e o seu que podem inverter a conclusão.\n2. Para cada uma, diga **o que precisaria ser verdade** para que ela não invertesse.\n3. Existe um teste barato que você pode fazer **antes** de investir em implementação? Descreva-o, com o critério de decisão definido **antes** de rodar.\n4. O artigo é bem feito e mesmo assim pode não servir para você. Explique, em uma frase, por que essas duas coisas não se contradizem.\n5. Que informação, se estivesse no artigo, mudaria a sua resposta?",
+    "criterios": [
+      "Aponta pelo menos três diferenças materiais: **escala** (200 contra 3.000 pontos), **orçamento de tempo** (35 minutos contra 20), e características do problema ausentes das instâncias do artigo (janelas rígidas, frota heterogênea)",
+      "Trata a escala como questão de **como o método cresce**, e não como \"é maior\": 15× mais pontos costuma custar muito mais que 15× mais tempo",
+      "Propõe um teste barato e concreto — rodar o código aberto do artigo numa amostra da instância real — e **fixa o critério de decisão antes de rodar**",
+      "Explica que qualidade metodológica e aplicabilidade são coisas diferentes: o artigo responde bem à pergunta que ele fez, e a sua pergunta é outra",
+      "Nomeia a informação que mudaria a resposta — curva de tempo por tamanho de instância, ou resultados em instâncias com janela de tempo — em vez de pedir genericamente \"mais experimentos\""
+    ],
+    "erro_provavel": "Rejeitar o método porque \"o artigo é de 200 clientes e eu tenho 3.000\", ou adotá-lo porque \"o artigo é bem feito\". Os dois erros têm a mesma raiz: tratar o artigo como veredito em vez de evidência. Um artigo bem feito é evidência **forte sobre o que ele mediu** — e o que ele mediu foi outro regime. A pergunta útil nunca é \"o artigo é bom?\", é **\"o que precisaria ser verdade para o resultado dele valer aqui?\"** — porque essa pergunta se transforma em teste, e o veredito não se transforma em nada.",
+    "resposta_guia": "Três diferenças que podem inverter a conclusão: (1) **escala** — 3.000 pontos contra até 200, e o que importa não é o fator 15 e sim como o tempo do método cresce com o tamanho; (2) **orçamento de tempo** — o artigo gasta 35 minutos e você tem 20, então o método já perde antes de começar, a menos que interrompa com solução utilizável; (3) **características do problema** — janelas rígidas e frota heterogênea podem não estar nas instâncias públicas usadas, e um método que ganha sem elas pode degradar com elas. Para cada uma, o que precisaria ser verdade: crescimento próximo de linear na faixa que interessa; existência de versão que devolve solução boa dentro do limite; e evidência de desempenho em instâncias com as mesmas características. O teste barato existe e é o motivo de o código aberto importar: pegue uma amostra real de 200 a 300 pontos do **seu** dia, rode o método publicado e o que você usa hoje, e compare — com o critério fixado antes: *se o método publicado não for pelo menos 2% melhor no meu dado, na minha janela de tempo, eu não invisto*. Qualidade e aplicabilidade não se contradizem porque o artigo responde bem à pergunta **dele**, e a sua é outra. A informação que mudaria a resposta é a curva de tempo por tamanho de instância, ou resultados em instâncias com janela de tempo — não \"mais experimentos\" em geral."
   }
 ]

@@ -860,3 +860,41 @@ foi aceita sem reconferência própria.
 
 **Verificação:** `8 passed` na etapa 05, nove portões verdes, `✓ consistência de ótimo OK: 30
 modelo(s) resolvido(s) em aritmética exata`.
+
+### Edição 0.18 — 2026-08-13 · Capítulo 77: como ler um artigo, antecipado de propósito
+
+Segundo capítulo do lote 1, e o único fora da Parte II. **A antecipação é a decisão**: o capítulo
+77 é barato de escrever, não tem método a medir, e dá a todo o resto do livro o direito de
+**citar em vez de explicar**. Enquanto ele não existisse, cada capítulo que dissesse "as fontes
+lidas mostram que X" estaria pedindo confiança; agora está apontando para um protocolo que o
+leitor pode aplicar à mesma fonte.
+
+**Entrou:** [capítulo 77](capitulos/77-ler-artigo.md), em 🟡 **v0**. Três passadas de custo
+crescente com critério explícito de desistência, e — o que o torna de Pesquisa Operacional e não
+um guia genérico — a **checklist da comparação computacional**: instâncias, *baseline* com versão,
+critério de parada, máquina, semente e número de execuções, forma de medir qualidade,
+disponibilidade de código e dados.
+
+**Este capítulo não publica número nenhum**, e isso é declarado no corpo. Ele é protocolo.
+
+**O que ele não afirma, e é o ponto mais delicado.** A ideia de organizar a leitura em passadas é
+creditada a Keshav (2007), com selo `✓ᵐ`: **o identificador foi conferido e o texto não foi
+aberto** — nenhuma via de acesso aberto o devolveu. Consequência assumida no desenho: o protocolo
+publicado é **autoral**, escrito para artigos de PO, e o capítulo diz isso em vez de atribuir a
+Keshav detalhes que não leu. A dívida fecha quando alguém com acesso institucional conferir o que
+é dele e o que é adaptação — e o resultado pode ser **encolher** a seção.
+
+**Cláusula de expiração**, porque o capítulo está na camada de fronteira: as três passadas não
+expiram por conta própria; a checklist de comparação computacional e a afirmação sobre variação de
+desempenho entre versões de solver são reverificadas **até 2028-08**.
+
+**Portão ajustado, com medição antes.** O portão de consistência de ótimo usava a régua `[óo]tim`,
+que num livro sobre **otimização** é falso vermelho esperando a hora: "código otimizado" disparava
+o portão num exercício sem modelo. A régua foi estreitada para o substantivo (`ótimo/ótima/
+ótimos/ótimas`). Medido sobre o registro inteiro **antes** de trocar: exatamente **um** exercício
+sai da vigilância — o falso positivo — e nenhum outro é solto. Falso vermelho crônico é o que
+ensina a desligar portão.
+
+**Verificação:** nove portões verdes — `✓ registro de exercícios OK: 33 exercícios em 6 baterias`,
+`✓ template verificado [pt]: 7 capítulos … maturidade 🟡2 🔵0 ✅4` —, `8 passed` na etapa 05 e
+`24 passed` no backend.
