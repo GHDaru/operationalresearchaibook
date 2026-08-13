@@ -1793,3 +1793,86 @@ autoriza confiar nos outros números.
 
 Três capítulos apontam para ele — 17, 20 e 22 —, e o teste de caderno órfão barrou o commit até que
 o primeiro link existisse.
+
+### Edição 0.41 — 2026-08-13 · A Parte III revisada por quem não a escreveu
+
+Revisão independente em contexto fresco dos capítulos 16 a 22 e das sete baterias. Quem
+escreveu não revisou, e cada achado foi **reconferido por medição própria** antes de virar
+correção. A medição desmentiu o revisor em nenhum dos três erros de fato e o confirmou nos três
+— mas mudou o desenho de duas correções.
+
+**Três erros de fato, e o padrão que eles revelam.**
+
+O gabarito de `cap18.exA` publicava **19** para a árvore geradora sem a aresta `a–c`; o correto é
+**21**. O número errado não era o pior: dele saía a moral *"a perda é de 2, e não de 3 — o custo de
+proibir uma aresta não é o custo dela"*, que está **invertida**. A aresta vale 3 e a perda é **4** —
+maior, não menor, porque a substituta não é a próxima aresta da lista, é a melhor reconexão
+disponível **depois que a topologia mudou**. Era o único número da Parte III sem medição, e o único
+errado. Agora existe `custo_de_proibir()`, o capítulo 18 publica a tabela, e dois testes prendem o
+valor: um lê o capítulo, o outro lê o gabarito.
+
+`cap22.exB` e `cap22.exC` afirmavam, em quatro trechos, que *"por definição, metade das realizações
+fica acima da média"*. Isso é a definição de **mediana**. Medido nas mesmas 20 mil amostras: a média
+simulada (24,48) é estourada em **48,1%** das amostras, e a mediana (24,30) em **50,0%** exatos —
+prazo de projeto é assimétrico à direita, então a média fica acima da mediana. O veredito prático
+não muda (nenhuma das duas é compromisso), mas o argumento estava trocado, e num capítulo cuja tese
+inteira é *"média não é promessa"*.
+
+O diagrama do capítulo 19 trazia `centro_sul --6--> loja_b`, aresta que **não existe** na rede
+medida — o 6 é de `centro_norte`. Nenhum teste pegava, porque o fluxo máximo dá 15 nas duas
+leituras; só um leitor conferindo à mão veria. Agora um teste compara **todo** desenho da rede —
+capítulo e enunciados — com a instância, aresta por aresta.
+
+**O padrão:** os três estavam onde não havia vínculo texto↔medição. A correção que interessa não é o
+número, é o vínculo.
+
+**Onde a garantia de integralidade para.** A Parte afirmava, sem qualificação, que *"a resposta não
+tem como sair fracionária"* — e o capítulo 21 transformava isso em conselho operacional (*não
+declare `Binary`*). O teorema garante que **existe vértice ótimo inteiro**; quem entrega o inteiro é
+o Simplex, porque para em vértice. Medido, com controle:
+
+| Instância | Método | Objetivo | Saída |
+|---|---|---|---|
+| Empate no ótimo | pontos interiores, *crossover* desligado | 3 | **1/3 em toda variável** |
+| Empate no ótimo | pontos interiores, *crossover* ligado | 3 | 0/1 |
+| Ótimo único | pontos interiores, *crossover* desligado | 9 | 0/1 |
+
+O `1/3` é um ponto **ótimo**, não erro numérico. As duas últimas linhas são o controle, e sem elas o
+resultado de cima poderia ser lido como solver ruim em vez de método diferente. Virou a quinta
+entrada de *"quando não serve"* do capítulo 20, uma ressalva no 21, e um teste que falha se qualquer
+um dos dois voltar a garantir integralidade sem dizer onde a garantia acaba.
+
+**Uma armadilha de projeto de experimento, registrada porque custou uma tentativa.** A primeira
+instância de "ótimo único" usava custo da forma $a_i + b_j$. Toda designação soma $\sum a + \sum b$,
+então **tudo empata** — o controle media o mesmo que o caso, e teria "confirmado" a hipótese por
+construção. A instância de ótimo único passou a ser a equipe do capítulo 21, cujo ótimo (custo 9) é
+único de fato.
+
+**Correção de um número desta página.** A **edição 0.39** registra *"e não os ~4,7 que a comparação
+ingênua daria"*, e a **edição 0.40** registra *"~3,5"* para a mesma comparação. Os dois estavam
+certos quando foram escritos: o 4,7 era da rede de projeto anterior, e o 3,5 é da rede publicada. O
+registro é *append-only* e as duas linhas ficam — **o valor corrente é 3,5**, e o viés próprio do
+método, isolado nas mesmas amostras, é **0,49**.
+
+**O resto.** O capítulo 04 produzia, como conselho, o erro caro do capítulo 21: o mapa de decisão
+mandava classificar como Programação Inteira Mista diante de qualquer decisão indivisível, sem
+ressalva. O link entre os dois era de mão única — quem para na Parte I saía com uma regra falsa para
+uma família inteira de problemas. `cap19.exC` avaliava o aluno por conteúdo do capítulo 20, que ele
+ainda não leu. `cap16.exA` fixava uma leitura de enfermeiro/turno que o próprio livro contradiz três
+capítulos adiante. Números de desempenho sem medição (*"resolvem em segundos"*) saíram do capítulo
+16, que na mesma página declarava não ter número novo. O capítulo 22 passou a declarar a
+distribuição amostrada — **triangular**, de média $(o+m+p)/3$ contra os $(o+4m+p)/6$ da fórmula —,
+que responde por quase todo o desvio e era cobrada num critério sem estar no texto. **"Restrição
+transversal"**, que carrega a tese da Parte, só estava definida em gabarito, que por arquitetura
+nunca é publicado; agora está no corpo do 20 e no glossário. O capítulo 17 ganhou *"os problemas que
+não parecem caminho"*, que o mapa prometia e a página não entregava — com a arbitragem de câmbio,
+onde o veredito *"ciclo negativo"* deixa de ser aviso de erro e vira **a resposta procurada**.
+
+**O que foi apontado e não acatado.** A revisão pediu para cortar as repetições do mecanismo da
+restrição transversal no capítulo 21. Duas das três estão na **Síntese** e na **Leitura executiva**,
+que o guia editorial existe para exigir que restatem o capítulo. Repetição ali é função, não ruído.
+
+**Baterias.** Os capítulos 19 e 20 eram as únicas séries da Parte sem exercício `facil`, e o 20 é o
+capítulo mais importante dela. Ganharam porta de entrada — o do 19 provoca de propósito o erro de
+somar só o que sai da fábrica; o do 20 escreve a equação de conservação de um nó e descobre, ao
+somar as cinco, por que oferta e demanda têm de fechar. A Parte III passa a ter **23 exercícios**.
