@@ -132,33 +132,51 @@ Há uma frase que circula junto com esse resultado — *"tudo bem, o pior caso �
 perturbaçãozinha desmancha"*. Ela vem de uma leitura apressada da **análise suavizada** de
 Spielman e Teng (2004), que este handbook cita no [capítulo 09](09-simplex.md).
 
-Testar essa frase é barato, e o resultado **contraria a leitura fácil**. Perturbando a matriz de
-restrições do cubo com $n = 6$, cujo caminho puro custa 63 pivôs — **20 sementes por magnitude**,
-porque uma perturbação é um sorteio e um sorteio não é uma medição:
+Testar essa frase é barato. **O modelo de perturbação importa e vai declarado**: cada coeficiente
+não nulo da matriz vira $c \cdot (1 + \delta)$, com $\delta$ uniforme em
+$[-\text{magnitude}, +\text{magnitude}]$, e **o padrão de zeros é preservado**. Com $n = 6$, cujo
+caminho puro custa 63 pivôs, sobre **200 sementes por magnitude**:
 
-| Perturbação relativa | Pivôs (mín · mediana · máx) | Caminhos intactos |
+| Perturbação relativa | Mediana de pivôs | Caminhos intactos |
 |---|---|---|
-| 0,1% | 63 · **63** · 63 | **20/20** |
-| 1% | 63 · **63** · 63 | **20/20** |
-| 10% | 57 · **63** · 63 | 14/20 |
-| 25% | 35 · **51** · 63 | 3/20 |
-| 50% | 19 · **33** · 47 | 0/20 |
+| 0,1% | **63** | **200/200** |
+| 1% | **63** | **200/200** |
+| 10% | **63** | 147/200 |
+| 25% | **49** | 18/200 |
+| 50% | **33** | 2/200 |
 
-**Perturbações pequenas não mudam nada** — e "nada" aqui é literal: em 0,1% e em 1%, as 20
-sementes devolvem os mesmos 63 pivôs. A partir de 10% o caminho **às vezes** encurta, e só em
-25% e 50% ele encurta com regularidade — quando a perturbação já é grande o bastante para a
-instância ser, honestamente, outra instância.
+**Perturbações pequenas não mudam nada** — e "nada" aqui é literal: em 0,1% e em 1%, as **200**
+sementes devolvem os mesmos 63 pivôs. A partir de 10% o caminho **às vezes** encurta, e só em 25%
+e 50% ele encurta com regularidade — quando a perturbação já é grande o bastante para a instância
+ser, honestamente, outra instância.
 
-> **A coluna da direita é a que decide**, e ela existe por causa de um defeito desta própria
-> página. A primeira versão desta tabela publicou **um sorteio por magnitude**, sem dizer que era
-> um. A revisão em contexto fresco notou a assimetria — a tabela da seção seguinte declarava "20
-> amostras por tamanho", esta declarava nada — e ao medir a distribuição o quadro mudou onde mais
-> importava: a linha de 10% dizia "63" e virou "63 na maioria das vezes, mas não sempre". O
-> resultado central sobreviveu; a linha que o exagerava, não.
+> **Por que a tabela não publica mínimo e máximo**, e por que isso é o assunto e não um detalhe.
+> Esta tabela já foi publicada duas vezes errado. Primeiro como **um sorteio por magnitude**, sem
+> dizer que era um. Depois com mínimo e máximo de **20** sementes — e mínimo e máximo são
+> estatísticas de ordem, que se mexem com o tamanho da amostra mesmo quando a distribuição não
+> mudou: o máximo da linha de 50% vai de 47 para 63 só por passar de 20 para 200 sementes. A
+> mediana e a fração de caminhos intactos ficam paradas. **A tabela publica o que estabiliza.**
+
+### O eixo que a tabela acima não olha
+
+A tabela mede um tamanho só, e o teorema de 2004 faz a sua afirmação sobre o **crescimento em
+$n$**. Ignorar esse eixo seria discutir um resultado assintótico com uma medição cega ao
+assintótico. Fração de caminhos intactos, 25 sementes por célula:
+
+| Perturbação | $n=4$ | $n=5$ | $n=6$ | $n=7$ | $n=8$ |
+|---|---|---|---|---|---|
+| 1% | **25/25** | **25/25** | **25/25** | **25/25** | **25/25** |
+| 10% | 25/25 | 23/25 | 20/25 | 13/25 | 7/25 |
+
+Duas leituras, e as duas importam. A de **1%** é a que sustenta o capítulo: o caminho fica intacto
+em todos os tamanhos medidos — a perturbação pequena não desmancha o pior caso, e não desmancha
+mais à medida que o cubo cresce. A de **10%** vai na direção que a análise suavizada prevê: quanto
+maior o cubo, mais fácil quebrar o caminho. **Isso é a favor do teorema, não contra** — e é a razão
+de esta tabela existir aqui.
 
 > **O que esta medição não autoriza concluir.** Ela **não** refuta o resultado de 2004. Aquele
 > teorema é assintótico, vale **em esperança**, sob perturbação gaussiana e com uma regra de
-> pivoteamento específica — e nenhuma das três condições vale na tabela acima. O que a medição
+> pivoteamento específica — e nenhuma das três condições vale nas tabelas acima. O que a medição
 > refuta é a **frase de corredor**, que trata um teorema delicado como se dissesse *"mexeu um
 > pouco, melhorou"*. Não diz.
 
@@ -166,17 +184,24 @@ instância ser, honestamente, outra instância.
 
 Do outro lado da distância está o número que decide o projeto. Instâncias aleatórias do **mesmo
 tamanho** do cubo, sem nenhuma malícia — coeficientes inteiros pequenos, todas as restrições `≤`,
-20 amostras por tamanho:
+**200 amostras por tamanho**:
 
-| $n = m$ | Pivôs (mín · mediana · máx) | Pior caso teórico |
-|---|---|---|
-| 5 | 1 · **2** · 3 | 31 |
-| 10 | 2 · **4** · 9 | 1.023 |
-| 15 | 2 · **6** · 10 | 32.767 |
-| 20 | 3 · **7** · 12 | 1.048.575 |
+| $n = m$ | Mediana de pivôs | Pior das 200 | O cubo do mesmo tamanho |
+|---|---|---|---|
+| 5 | **2** | 6 | 31 |
+| 10 | **4** | 12 | 1.023 |
+| 15 | **5** | 16 | 32.767 |
+| 20 | **7** | 19 | 1.048.575 |
 
-Enquanto o pior caso multiplica por mil a cada cinco variáveis, a mediana medida vai de 2 a 7. A
-distância entre as duas colunas **é o capítulo inteiro**.
+Aqui o **máximo é publicado**, ao contrário da tabela de perturbação, e a diferença tem razão: é
+ele que faz o argumento. Dizer que a **pior** de 200 instâncias de tamanho 20 custou 19 pivôs, onde
+o cubo do mesmo tamanho custa mais de um milhão, é mais forte do que dizer que a mediana custou 7.
+
+> **E o nome da última coluna mudou de propósito.** Ela dizia "pior caso teórico", e não é isso:
+> $2^n-1$ é o custo do cubo de Klee–Minty, um pior caso **construído** para uma regra de
+> pivoteamento específica. O número de vértices que um poliedro daquele tamanho **pode** ter é
+> muito maior. Num capítulo cujo primeiro objetivo é dizer sobre o que exatamente uma afirmação
+> fala, o rótulo escorregava.
 
 > **Cuidado com o que esta tabela sustenta.** Ela mede instâncias **aleatórias com esta receita**,
 > e problemas reais não são aleatórios — são estruturados, e a estrutura pode ajudar ou atrapalhar.
@@ -228,9 +253,9 @@ algoritmo polinomial para isto?"*, medir instâncias não responde. Aí a teoria
 ## Fundamentos e fontes
 
 **O que está medido aqui.** Tudo o que é número nesta página: os pivôs do cubo de Klee–Minty para
-$n$ de 2 a 7, a distribuição de perturbação com $n = 6$ sobre 20 sementes por magnitude, e o
-perfil de instâncias aleatórias para
-$n = 5, 10, 15, 20$. O código está em `po-zero/parte-I-fundamentos/complexidade.py`, roda em
+$n$ de 2 a 7, a distribuição de perturbação com $n = 6$ sobre **200 sementes** por magnitude, a
+varredura em $n$ com 25 sementes por célula, e o perfil de **200 instâncias aleatórias** por
+tamanho, para $n = 5, 10, 15, 20$. O código está em `po-zero/parte-I-fundamentos/complexidade.py`, roda em
 aritmética exata (`Fraction`), declara semente, e há teste que compara **este texto** à medição.
 
 **O que entra por fonte, e como:** Edmonds (1965), Cook (1971) e Karp (1972) entram `✓ᵐ` —
@@ -267,11 +292,12 @@ que é a peça que dá sentido à frase "é um problema difícil usando muitas r
 - **Afirmação de complexidade é sobre a classe no pior caso**, não sobre a sua instância.
 - **O pior caso existe e é construído.** Medido: o cubo de Klee–Minty custa exatamente $2^n - 1$
   pivôs, de $n = 2$ a $n = 7$.
-- **E não é frágil como se diz.** Medido em 20 sementes por magnitude: com $n = 6$, perturbar a
-  matriz em 0,1% ou 1% deixa os 63 pivôs intactos nas **20 de 20**. Em 10% ainda são 14 de 20; só
-  em 25% e 50% o caminho encurta com regularidade.
-- **A sua instância provavelmente está longe do pior caso.** Medido: mediana de 2 a 7 pivôs, onde
-  o pior caso teórico vai de 31 a mais de um milhão.
+- **E não é frágil como se diz.** Medido em 200 sementes por magnitude: com $n = 6$, perturbar a
+  matriz em 0,1% ou 1% deixa os 63 pivôs intactos nas **200 de 200** — e a 1% isso vale em todos os
+  tamanhos medidos, de $n=4$ a $n=8$.
+- **A sua instância provavelmente está longe do pior caso.** Medido em 200 instâncias por tamanho:
+  mediana de 2 a 7 pivôs, e a **pior** de 200 no tamanho 20 custou 19 — contra o cubo de
+  Klee–Minty do mesmo tamanho, que custa mais de um milhão.
 - **Da classe não se deduz o custo da sua instância.** Para saber o custo da sua, rode a sua.
 - **A ordem certa:** modele, rode o exato com limite de tempo, olhe o *gap*, e só então decida.
 - **Fora da Pesquisa Operacional:** um critério grosseiro que não depende de quem mede vale mais
@@ -298,13 +324,14 @@ coisa — e o prejuízo é invisível, porque quem desiste do método exato fica
 permitiria saber o que perdeu. Este capítulo mede os dois lados da distância. De um lado, **o pior
 caso é real e construível**: o cubo de Klee–Minty faz o Simplex com a regra clássica visitar todos
 os vértices, e a medição em aritmética exata devolve exatamente $2^n-1$ pivôs para $n$ de 2 a 7.
-Ele também **não é frágil** como a conversa de corredor sugere: medido em 20 sementes por
-magnitude, perturbar a matriz em 0,1% ou 1% deixa os 63 pivôs de $n=6$ intactos nas vinte, em 10%
-ainda em quatorze delas, e só em 25% e 50% o caminho encurta com regularidade; isso não refuta a
-análise suavizada de 2004, que é assintótica, vale em esperança e supõe outra regra de
-pivoteamento, mas refuta a leitura popular dela. Do outro lado, **instâncias
-aleatórias do mesmo tamanho ficam muito longe do pior caso**: a mediana medida vai de 2 a 7 pivôs
-enquanto o pior caso teórico vai de 31 a mais de um milhão. A conclusão prática é uma ordem de
+Ele também **não é frágil** como a conversa de corredor sugere: medido em 200 sementes por
+magnitude, perturbar a matriz em 0,1% ou 1% deixa os 63 pivôs de $n=6$ intactos nas duzentas — e a
+1% isso se mantém de $n=4$ a $n=8$ —, enquanto a 10% o caminho já quebra às vezes, e quebra mais
+quanto maior o cubo. Nada disso refuta a análise suavizada de 2004, que é assintótica, vale em
+esperança e supõe outra regra de pivoteamento; refuta a leitura popular dela. Do outro lado,
+**instâncias aleatórias do mesmo tamanho ficam muito longe do caso construído**: a mediana vai de 2
+a 7 pivôs e a pior de 200 instâncias de tamanho 20 custou 19, contra o cubo de Klee–Minty do mesmo
+tamanho, que custa mais de um milhão. A conclusão prática é uma ordem de
 trabalho, não uma teoria: modele, rode o método exato com limite de tempo, olhe o *gap* que ele
 reporta, e **só então** decida se precisa de outra coisa. A teoria da complexidade entra depois,
 para explicar o que você viu — não antes, para decidir o que você nem tentou. Ela volta a ser o

@@ -91,11 +91,49 @@ def test_os_dois_solvers_discordam_entre_si(flutuante):
 
 
 def test_a_tabela_do_flutuante_esta_no_capitulo(texto, flutuante):
-    """Os dígitos publicados são exatamente os medidos — versão declarada ao lado."""
+    """A LINHA inteira de cada solver, e não o número solto em qualquer lugar.
+
+    A versão anterior deste teste procurava `repr(valor)` no documento inteiro.
+    Como `45.882352` também aparece na Síntese e na Leitura executiva, **apagar
+    a linha do CBC da tabela deixava a suíte verde** — e trocar a célula por
+    `99.999999` também. Era o único número que o docstring deste arquivo chamava
+    de "dependente de versão" e para o qual prometia vermelho.
+    """
     higs, cbc = flutuante["solvers"]
-    assert f"| PuLP + HiGHS | {higs['valor']!r} |" in texto or f"| {higs['valor']!r} |" in texto
-    assert repr(higs["valor"]) in texto, "o valor do HiGHS mudou e o capítulo não acompanhou"
-    assert repr(cbc["valor"]) in texto, "o valor do CBC mudou e o capítulo não acompanhou"
+    erros = {"HiGHS": "4,18 × 10⁻¹⁶", "CBC": "9,41 × 10⁻⁷"}
+    for s in (higs, cbc):
+        linha = f"| PuLP + {s['solver']} | {s['valor']!r} | {erros[s['solver']]} |"
+        assert linha in texto, f"a linha do {s['solver']} não confere com a medição: esperada {linha!r}"
+    assert "| Simplex didático, `Fraction` | **780/17** | 0 — é a fração |" in texto
+
+
+def test_o_capitulo_declara_as_versoes_que_produziram_os_digitos(texto):
+    """O capítulo enunciava a regra da versão e a violava no mesmo diretório.
+
+    `resultados-ferramentas.json` gravava os NOMES dos solvers no campo
+    `versoes`. As versões do HiGHS e do CBC — que são as que produzem os dígitos
+    da tabela acima — não estavam em lugar nenhum.
+    """
+    import json as _json
+    v = _json.loads((RAIZ / "po-zero/parte-I-fundamentos/resultados-ferramentas.json")
+                    .read_text(encoding="utf-8"))["versoes"]
+    assert f"Python {v['python']}" in texto
+    assert f"PuLP {v['pulp']}" in texto
+    assert f"HiGHS\n> {v['solvers']['HiGHS']}" in texto or f"HiGHS {v['solvers']['HiGHS']}" in texto
+    assert v["solvers"]["CBC"] in texto
+    assert v["solvers"]["HiGHS"] != "HiGHS", "o campo `versoes` voltou a gravar nome em vez de versão"
+
+
+def test_os_decimais_publicados_do_empate_conferem(texto, empate):
+    """`A = 2,0, B = 8,0` é texto publicado, e `round()` não o verificava.
+
+    Se o solver devolvesse 2,4 o teste anterior passaria e a tabela estaria
+    errada — a asserção era sobre o inteiro mais próximo, não sobre o publicado.
+    """
+    for s in empate["solvers"]:
+        a, b = (f"{v:.1f}".replace(".", ",") for v in s["ponto"])
+        assert f"| PuLP + {s['solver']} | **A = {a}, B = {b}** | 10,0 |" in texto, \
+            f"a linha do empate para {s['solver']} não confere: ponto medido {s['ponto']}"
 
 
 def test_o_capitulo_declara_a_regra_da_tolerancia(texto):
@@ -144,3 +182,31 @@ def test_o_arquivo_de_dependencias_que_o_capitulo_cita_existe():
 
 def test_a_bateria_do_capitulo_existe_com_tres_exercicios(exercicios):
     assert len([e for e in exercicios if e.startswith("cap06.")]) >= 3
+
+
+# --- B2: a Síntese e a Leitura executiva do capítulo 06 -----------------------
+
+def _secao(texto: str, titulo: str) -> str:
+    inicio = texto.index(titulo)
+    resto = texto[inicio + len(titulo):]
+    fim = resto.find("\n## ")
+    return resto if fim < 0 else resto[:fim]
+
+
+def test_a_sintese_e_a_executiva_repetem_os_numeros_medidos(texto, empate, flutuante):
+    """Treze das dezenove mutações que passaram na revisão estavam nestas seções.
+
+    E o risco não é teórico: cada correção desta rodada teve de atualizar a mesma
+    medição em três lugares à mão. Esquecer um deixaria a suíte verde com o
+    capítulo se contradizendo.
+    """
+    higs, cbc = flutuante["solvers"]
+    exato = empate["exato"]["ponto"]
+    for nome in ("## Síntese — o que levar", "### Leitura executiva"):
+        secao = _secao(texto, nome)
+        assert repr(higs["valor"]) in secao, f"{nome}: o valor do HiGHS não confere"
+        assert repr(cbc["valor"]) in secao, f"{nome}: o valor do CBC não confere"
+        assert flutuante["valor_exato_fracao"] in secao, f"{nome}: a fração exata não confere"
+        assert f"({exato[0]}, {exato[1]})" in secao, f"{nome}: o plano do Simplex exato não confere"
+        assert f"{higs['casas_reportadas']} " in secao and f"{cbc['casas_reportadas']}" in secao, \
+            f"{nome}: a contagem de casas não confere com a medição"

@@ -1595,3 +1595,64 @@ de máquina** e não unidade produzida, o que faz o teste da unidade trabalhar d
 > **O que continua em dívida, declarado:** o campo de **âncora** que o Guia Editorial promete em
 > cada exercício ("aponte a seção que resolve a dúvida") não existe em nenhum dos 68. Não é
 > regressão desta rodada — é promessa editorial sem implementação, e fica registrada como tal.
+
+### Edição 0.36 — 2026-08-13 · A terceira lente atacou a medição, e ganhou
+
+A revisão da medição fez o que nenhuma leitura de texto faria: **rodou 46 mutações de um dígito**
+nos capítulos 05 e 06 e contou quantas a suíte deixava passar. Dezenove passavam. O relatório é o
+mais útil que este handbook já recebeu, e o que ele achou muda o desenho, não só os números.
+
+**Primeiro, a boa notícia, e ela é grande.** A afirmação central do capítulo 05 foi atacada por
+três ângulos independentes — 200 sementes, sete tamanhos de cubo, e três modelos diferentes de
+perturbação — e **sobreviveu aos três**. Ela é mais forte do que o capítulo dizia.
+
+**A tabela de perturbação estava publicando ruído.** Vinte sementes bastavam para a mediana e para
+a fração de caminhos intactos, e **não** para mínimo e máximo: o máximo da linha de 50% vai de 47
+para 63 só por passar de 20 para 200 sementes. Extremo de amostra pequena é estatística de ordem,
+não medição. A tabela agora roda **200 sementes** e publica **só o que estabiliza** — mediana e
+caminhos intactos.
+
+**E o teste que corrigi na edição anterior repetia o defeito que ele existia para pegar.** Ele
+assertava `intactas == 0` para a perturbação de 50%: verdade nas 20 sementes escolhidas, **falso na
+família** — com 200, dois caminhos sobrevivem. Assertar o extremo de uma amostra, dentro do teste
+criado para impedir que se publique um sorteio.
+
+**Entrou o eixo que faltava.** A tabela olhava um tamanho só, e o teorema de Spielman & Teng vive
+no crescimento em $n$. Medido: a **1%**, o caminho fica intacto em **25/25 de $n=4$ a $n=8$** — o
+que sustenta o capítulo; a **10%**, a fração cai de 25/25 para 7/25 conforme o cubo cresce, que é
+**a direção que o teorema prevê**. A medição passou a honrar o resultado que ela ressalva.
+
+**O modelo de perturbação era indeclarado e é load-bearing.** Ele é multiplicativo, relativo,
+entrada a entrada, e **preserva o padrão de zeros** do cubo. Quem reproduzir com ruído aditivo
+denso obtém mediana 9 em vez de 63 e concluirá que o livro errou — e não terá errado: preencher os
+zeros não é perturbação pequena, porque as variáveis do cubo chegam a $10^n$. Calibrado para 1% no
+vértice ótimo, o resultado volta. A declaração está no capítulo e há teste que exige que ela fique.
+
+**Um rótulo escorregava, e justamente neste capítulo.** A coluna dizia *"pior caso teórico"* para
+$2^n-1$, que é o custo do cubo — um pior caso **construído** para uma regra de pivoteamento. Um
+poliedro de dimensão 20 com 40 facetas admite mais de **40 milhões** de vértices. Num capítulo cujo
+primeiro objetivo é dizer sobre o que exatamente uma afirmação fala, o rótulo virou *"o cubo do
+mesmo tamanho"*.
+
+**Três bloqueios no capítulo 06, todos reais:**
+
+1. **A linha do CBC não tinha dono.** O teste procurava `45.882352` no documento inteiro, e o
+   número também aparece na Síntese — então **apagar a linha da tabela deixava a suíte verde**. Era
+   o único número que o próprio teste chamava de "dependente de versão".
+2. **A Síntese e a Leitura executiva de ambos os capítulos não tinham teste nenhum.** Treze das
+   dezenove mutações que passaram estavam ali. E o risco não era teórico: cada correção desta
+   rodada teve de atualizar a mesma medição **em três lugares à mão**.
+3. **O capítulo enunciava a regra da versão e a violava.** Ele manda *"diga a ferramenta e a versão
+   que produziu o número"*, e `resultados-ferramentas.json` gravava os **nomes** dos solvers no
+   campo `versoes`. As versões que produzem `45.88235294117647` e `45.882352` não estavam em lugar
+   nenhum. Agora estão — HiGHS 1.15.1, e o CBC declarado como *embutido no PuLP 3.3.2*, que é mais
+   honesto do que inventar um número de versão para o binário.
+
+**E o `test_anatomia.py` criou a segunda fonte da verdade que o seu próprio cabeçalho dizia estar
+evitando:** ele transcrevia os sete coeficientes do enunciado do `cap03.exC` e nenhum teste lia o
+enunciado. Agora lê.
+
+> **A lição que fica, e é sobre testes, não sobre números.** Um teste pode herdar exatamente o
+> defeito que ele existe para impedir. O que separou os dois casos aqui foi **variar o que o teste
+> supõe fixo** — a semente, o tamanho, o modelo de ruído. Foi assim que a afirmação central
+> sobreviveu com mais força, e foi assim que as duas asserções frágeis caíram.

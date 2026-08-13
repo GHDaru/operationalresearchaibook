@@ -72,6 +72,23 @@ def exercicios():
     return {e["id"]: e for e in json.loads((RAIZ / "livro/exercicios.json").read_text(encoding="utf-8"))}
 
 
+def test_o_modelo_daqui_e_o_do_enunciado(exercicios):
+    """A trava contra a segunda fonte da verdade — que este arquivo criou.
+
+    Os coeficientes acima são TRANSCRITOS do enunciado do `cap03.exC`. Enquanto
+    ninguém lê o enunciado, mudar um número lá deixa esta suíte verde afirmando
+    fatos sobre outro modelo — que é exatamente a deriva que o docstring deste
+    arquivo diz estar evitando. Apontado pela revisão da medição, e o padrão
+    certo já existia no repositório (`etapa-06-convexidade/test_convexidade.py`).
+    """
+    enunciado = exercicios["cap03.exC"]["enunciado"]
+    for numero in ("8500", "2,30", "190", "120000", "14", "9000", "600"):
+        assert numero in enunciado, \
+            f"o coeficiente {numero} não está mais no enunciado do cap03.exC — o modelo daqui é outro"
+    for nome in ("c = caminhões próprios", "k = quilômetros rodados", "t = terceirizações"):
+        assert nome in enunciado, f"a variável {nome!r} sumiu do enunciado"
+
+
 def test_o_modelo_cola_k_no_piso(solucao):
     """A afirmação literal da rubrica: `k` vai para o mínimo que a malha exige."""
     assert solucao["k"] == F(120000)

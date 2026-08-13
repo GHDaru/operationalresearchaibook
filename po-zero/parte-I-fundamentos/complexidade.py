@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import random
 import sys
+from functools import lru_cache
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -81,16 +82,29 @@ def perturba(n: int, magnitude: F, semente: int) -> dict:
     encurta, e "grande" aqui significa mudar a instância a ponto de ela ser
     outra instância.
 
-    UMA SEMENTE NÃO É UMA MEDIÇÃO — e a primeira versão desta etapa errou nisso.
+    O MODELO DE PERTURBAÇÃO, DECLARADO — porque ele é load-bearing.
 
-    A tabela publicada no capítulo 05 nasceu de **um sorteio por magnitude**, e a
-    revisão em contexto fresco apontou a assimetria: a tabela vizinha, das
-    instâncias aleatórias, declarava "20 amostras por tamanho", e esta declarava
-    nada. Ao medir 20 sementes por magnitude, o quadro mudou onde mais importava:
-    a linha de 10% deixou de ser "63 pivôs" e virou "63 na maioria das vezes,
-    mas não sempre". O resultado central sobreviveu — 0,1% e 1% não mexem em
-    nada, em nenhuma semente —, e é por isso que `perfil_de_perturbacao` existe:
-    quem publica distribuição não publica sorteio.
+    A perturbação é **multiplicativa, relativa, entrada a entrada, e preserva o
+    padrão de zeros** da matriz triangular do cubo: cada coeficiente não nulo
+    vira `c · (1 + δ)`, com `δ` uniforme em `[-magnitude, +magnitude]`. Quem
+    reproduzir isto com ruído **aditivo denso** obtém outro resultado e concluirá
+    que o handbook errou — e não terá errado: preencher os zeros do cubo com
+    valores da ordem dos não nulos não é uma perturbação pequena, porque as
+    variáveis do cubo chegam a 10ⁿ. Calibrando o preenchimento para que cada
+    restrição mude no máximo 1% **no vértice ótimo**, que é a única definição
+    invariante de "pequeno", o resultado volta a ser o mesmo.
+
+    DUAS SEMENTES NÃO SÃO UMA MEDIÇÃO, E VINTE TAMBÉM NÃO ERAM.
+
+    A tabela publicada no capítulo 05 nasceu de **um sorteio por magnitude**. A
+    primeira revisão apontou a assimetria — a tabela vizinha declarava "20
+    amostras por tamanho", esta declarava nada — e a correção foi para 20. A
+    revisão da medição mostrou que 20 ainda era pouco **para o que a tabela
+    publicava**: mínimo e máximo são estatísticas de ordem e se mexem muito com
+    o tamanho da amostra (o máximo de 50% vai de 47 para 63 ao passar de 20 para
+    200 sementes), enquanto **mediana e fração de caminhos intactos** ficam
+    parados. Daí o desenho atual: 200 sementes, e a tabela publica só o que
+    estabiliza.
     """
     rnd = random.Random(semente)
     lucros, rs = klee_minty(n)
@@ -104,15 +118,30 @@ def perturba(n: int, magnitude: F, semente: int) -> dict:
     return {"n": n, "magnitude": str(magnitude), "semente": semente, **pivos(lucros, pert)}
 
 
-AMOSTRAS_PERTURBACAO = 20
+AMOSTRAS_PERTURBACAO = 200
+AMOSTRAS_ALEATORIAS = 200
+# O eixo em que o teorema de 2004 vive é o crescimento em n, e a tabela principal
+# olha um n só. Esta varredura é curta de propósito — serve para dizer a direção,
+# não para medir a taxa.
+TAMANHOS_VARREDURA = (4, 5, 6, 7, 8)
+AMOSTRAS_VARREDURA = 25
 
 
+@lru_cache(maxsize=None)
 def perfil_de_perturbacao(n: int, magnitude: F, amostras: int = AMOSTRAS_PERTURBACAO) -> dict:
     """A distribuição de pivôs sob perturbação, e não um sorteio dela.
 
-    Devolve mínimo, mediana, máximo e — o número que o capítulo publica — **em
-    quantas das amostras o caminho ficou exatamente igual ao do cubo puro**. É
-    essa contagem que separa "não muda nada" de "quase nunca muda".
+    Devolve mediana e — o número que o capítulo publica — **em quantas das
+    amostras o caminho ficou exatamente igual ao do cubo puro**. É essa fração
+    que separa "não muda nada" de "quase nunca muda".
+
+    Mínimo e máximo saem no dicionário para inspeção, e **não são publicados**:
+    são estatísticas de ordem, e por isso se movem com o tamanho da amostra
+    mesmo quando a distribuição não mudou. Publicar extremo de amostra pequena é
+    a mesma classe de defeito que publicar um sorteio.
+
+    Em cache porque a suíte pede o mesmo perfil várias vezes, e 200 sementes por
+    magnitude não é barato.
     """
     puro = 2 ** n - 1
     contagens = sorted(
@@ -133,6 +162,27 @@ def perfil_de_perturbacao(n: int, magnitude: F, amostras: int = AMOSTRAS_PERTURB
     }
 
 
+@lru_cache(maxsize=None)
+def varredura_em_n(magnitude: F, amostras: int = AMOSTRAS_VARREDURA) -> list[dict]:
+    """A fração de caminhos intactos conforme o cubo cresce.
+
+    É o eixo que a tabela principal não olha, e é justamente o eixo em que a
+    análise suavizada faz a sua afirmação. Medir aqui não confirma o teorema —
+    a construção e a regra de pivoteamento são outras —, mas impede o capítulo
+    de dizer que "não muda nada" a partir de um único tamanho.
+    """
+    saida = []
+    for n in TAMANHOS_VARREDURA:
+        puro = 2 ** n - 1
+        intactas = sum(
+            perturba(n, magnitude, SEMENTE_BASE + 9000 + s)["pivos"] == puro
+            for s in range(amostras)
+        )
+        saida.append({"n": n, "magnitude": str(magnitude), "amostras": amostras,
+                      "intactas": intactas, "puro": puro})
+    return saida
+
+
 def instancia_aleatoria(n: int, m: int, semente: int) -> tuple[list[F], list[Restricao]]:
     """Uma instância de PL do mesmo tamanho do cubo, e sem nenhuma malícia.
 
@@ -149,8 +199,17 @@ def instancia_aleatoria(n: int, m: int, semente: int) -> tuple[list[F], list[Res
     return lucros, rs
 
 
-def perfil_aleatorio(n: int, amostras: int = 20) -> dict:
-    """Distribuição de pivôs em `amostras` instâncias aleatórias de tamanho n×n."""
+@lru_cache(maxsize=None)
+def perfil_aleatorio(n: int, amostras: int = AMOSTRAS_ALEATORIAS) -> dict:
+    """Distribuição de pivôs em `amostras` instâncias aleatórias de tamanho n×n.
+
+    O **máximo** desta tabela é publicado, ao contrário do da tabela de
+    perturbação, e a diferença tem razão: aqui ele é o argumento. Dizer que a
+    PIOR de 200 instâncias custou 19 pivôs, onde o cubo do mesmo tamanho custa
+    mais de um milhão, é mais forte do que dizer que a mediana custou 7. Com 20
+    amostras esse máximo era 12 e não significava quase nada — extremo de amostra
+    pequena é ruído; extremo de amostra grande é evidência.
+    """
     contagens = []
     for s in range(amostras):
         lucros, rs = instancia_aleatoria(n, n, SEMENTE_BASE + 1000 * n + s)
@@ -171,7 +230,7 @@ def perfil_aleatorio(n: int, amostras: int = 20) -> dict:
         "minimo": contagens[0],
         "mediana": str(mediana),
         "maximo": contagens[-1],
-        "pior_caso_teorico": 2 ** n - 1,
+        "pior_caso_construido": 2 ** n - 1,
     }
 
 
@@ -197,22 +256,31 @@ if __name__ == "__main__":
     print(f"{AMOSTRAS_PERTURBACAO} sementes por magnitude; o cubo puro custa {2 ** N_PERT - 1} pivôs")
     print("=" * 82)
     for p in perts:
-        print(f"  perturbação de {p['magnitude']:>6}: pivôs mín {p['minimo']:>3} · "
-              f"mediana {p['mediana']:>4} · máx {p['maximo']:>3}   "
-              f"intactas: {p['intactas']}/{p['amostras']}")
+        print(f"  perturbação de {p['magnitude']:>6}: mediana {p['mediana']:>4} pivôs   "
+              f"caminhos intactos: {p['intactas']}/{p['amostras']}"
+              f"   (mín {p['minimo']}, máx {p['maximo']} — extremos de amostra, NÃO publicados)")
+    print()
+
+    varreduras = {str(mag): varredura_em_n(mag) for mag in (F(1, 100), F(1, 10))}
+    print("O EIXO QUE A TABELA ACIMA NÃO OLHA — caminhos intactos conforme o cubo cresce")
+    print("=" * 82)
+    for mag, linhas in varreduras.items():
+        marcas = "  ".join(f"n={l['n']}: {l['intactas']}/{l['amostras']}" for l in linhas)
+        print(f"  perturbação de {mag:>6}: {marcas}")
     print()
 
     perfis = [perfil_aleatorio(n) for n in TAMANHOS_ALEATORIOS]
-    print("A INSTÂNCIA ALEATÓRIA — mesmo tamanho, nenhuma malícia, 20 amostras cada")
+    print(f"A INSTÂNCIA ALEATÓRIA — mesmo tamanho, nenhuma malícia, {AMOSTRAS_ALEATORIAS} amostras cada")
     print("=" * 82)
     for p in perfis:
-        print(f"  n=m={p['n']:>2}  pivôs: mín {p['minimo']:>2} · mediana {p['mediana']:>4} · "
-              f"máx {p['maximo']:>2}   contra o pior caso teórico de {p['pior_caso_teorico']}")
+        print(f"  n=m={p['n']:>2}  pivôs: mediana {p['mediana']:>4} · máx {p['maximo']:>3} · "
+              f"({p['amostras']} amostras)   contra o cubo de Klee–Minty do mesmo tamanho: {p['pior_caso_construido']}")
     print()
 
     saida = {
-        "pior_caso_construido": piores,
+        "pior_caso_do_cubo": piores,
         "pior_caso_perturbado": {"n": N_PERT, "amostras": AMOSTRAS_PERTURBACAO, "medicoes": perts},
+        "varredura_em_n": varreduras,
         "instancias_aleatorias": perfis,
         "versoes": {"python": sys.version.split()[0], "aritmetica": "fractions.Fraction (exata)"},
         "semente_base": SEMENTE_BASE,

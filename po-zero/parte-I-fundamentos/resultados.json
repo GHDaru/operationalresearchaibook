@@ -1,5 +1,5 @@
 {
-  "pior_caso_construido": [
+  "pior_caso_do_cubo": [
     {
       "n": 2,
       "vertices": 4,
@@ -45,92 +45,168 @@
   ],
   "pior_caso_perturbado": {
     "n": 6,
-    "amostras": 20,
+    "amostras": 200,
     "medicoes": [
       {
         "n": 6,
         "magnitude": "1/1000",
-        "amostras": 20,
+        "amostras": 200,
         "minimo": 63,
         "mediana": "63",
         "maximo": 63,
-        "intactas": 20,
+        "intactas": 200,
         "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/100",
-        "amostras": 20,
+        "amostras": 200,
         "minimo": 63,
         "mediana": "63",
         "maximo": 63,
-        "intactas": 20,
+        "intactas": 200,
         "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/10",
-        "amostras": 20,
-        "minimo": 57,
+        "amostras": 200,
+        "minimo": 49,
         "mediana": "63",
         "maximo": 63,
-        "intactas": 14,
+        "intactas": 147,
         "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/4",
-        "amostras": 20,
-        "minimo": 35,
-        "mediana": "51",
+        "amostras": 200,
+        "minimo": 23,
+        "mediana": "49",
         "maximo": 63,
-        "intactas": 3,
+        "intactas": 18,
         "puro": 63
       },
       {
         "n": 6,
         "magnitude": "1/2",
-        "amostras": 20,
-        "minimo": 19,
+        "amostras": 200,
+        "minimo": 13,
         "mediana": "33",
-        "maximo": 47,
-        "intactas": 0,
+        "maximo": 63,
+        "intactas": 2,
         "puro": 63
+      }
+    ]
+  },
+  "varredura_em_n": {
+    "1/100": [
+      {
+        "n": 4,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 15
+      },
+      {
+        "n": 5,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 31
+      },
+      {
+        "n": 6,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 63
+      },
+      {
+        "n": 7,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 127
+      },
+      {
+        "n": 8,
+        "magnitude": "1/100",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 255
+      }
+    ],
+    "1/10": [
+      {
+        "n": 4,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 25,
+        "puro": 15
+      },
+      {
+        "n": 5,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 23,
+        "puro": 31
+      },
+      {
+        "n": 6,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 20,
+        "puro": 63
+      },
+      {
+        "n": 7,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 13,
+        "puro": 127
+      },
+      {
+        "n": 8,
+        "magnitude": "1/10",
+        "amostras": 25,
+        "intactas": 7,
+        "puro": 255
       }
     ]
   },
   "instancias_aleatorias": [
     {
       "n": 5,
-      "amostras": 20,
+      "amostras": 200,
       "minimo": 1,
       "mediana": "2",
-      "maximo": 3,
-      "pior_caso_teorico": 31
+      "maximo": 6,
+      "pior_caso_construido": 31
     },
     {
       "n": 10,
-      "amostras": 20,
-      "minimo": 2,
+      "amostras": 200,
+      "minimo": 1,
       "mediana": "4",
-      "maximo": 9,
-      "pior_caso_teorico": 1023
+      "maximo": 12,
+      "pior_caso_construido": 1023
     },
     {
       "n": 15,
-      "amostras": 20,
+      "amostras": 200,
       "minimo": 2,
-      "mediana": "6",
-      "maximo": 10,
-      "pior_caso_teorico": 32767
+      "mediana": "5",
+      "maximo": 16,
+      "pior_caso_construido": 32767
     },
     {
       "n": 20,
-      "amostras": 20,
-      "minimo": 3,
+      "amostras": 200,
+      "minimo": 2,
       "mediana": "7",
-      "maximo": 12,
-      "pior_caso_teorico": 1048575
+      "maximo": 19,
+      "pior_caso_construido": 1048575
     }
   ],
   "versoes": {

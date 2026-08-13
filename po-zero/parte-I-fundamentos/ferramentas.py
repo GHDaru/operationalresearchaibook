@@ -32,6 +32,11 @@ from pathlib import Path
 
 import pulp
 
+try:                                     # highspy é a implementação do solver HiGHS
+    import highspy                       # e é dela que sai o `45.88235294117647`
+except ImportError:                      # pragma: no cover
+    highspy = None
+
 RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "po-zero/etapa-03-simplex"))
 
@@ -149,6 +154,28 @@ def vereditos() -> dict:
     return saida
 
 
+def versoes_dos_solvers() -> dict:
+    """As versões que produziram os dígitos publicados no capítulo 06.
+
+    Sem isto, a tabela de ponto flutuante publica `45.882352` e não diz de onde
+    — o que é exatamente o que o capítulo proíbe duas seções acima. O CBC vem
+    embutido no PuLP, então a versão dele é a do PuLP que o empacota; dizer isso
+    é mais honesto do que inventar um número de versão para o binário.
+    """
+    return {
+        "HiGHS": getattr(highspy, "__version__", None) or _versao_instalada("highspy"),
+        "CBC": f"embutido no PuLP {pulp.__version__}",
+    }
+
+
+def _versao_instalada(pacote: str) -> str:
+    from importlib.metadata import PackageNotFoundError, version
+    try:
+        return version(pacote)
+    except PackageNotFoundError:         # pragma: no cover
+        return "não instalado"
+
+
 AQUI = Path(__file__).resolve().parent
 
 if __name__ == "__main__":
@@ -183,10 +210,14 @@ if __name__ == "__main__":
         "multiplos_otimos": m,
         "racao": r,
         "vereditos": v,
+        # O capítulo 06 diz, em prosa: "ao publicar um número, diga a ferramenta e
+        # a VERSÃO que o produziu". Este bloco gravava os NOMES dos solvers e
+        # chamava isso de versões — o capítulo enunciava a regra e a violava no
+        # mesmo diretório. Encontrado pela revisão da medição.
         "versoes": {
             "python": platform.python_version(),
             "pulp": pulp.__version__,
-            "solvers": list(SOLVERS),
+            "solvers": versoes_dos_solvers(),
         },
     }
     (AQUI / "resultados-ferramentas.json").write_text(

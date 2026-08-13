@@ -157,6 +157,12 @@ não tem representação decimal finita.
 | PuLP + HiGHS | 45.88235294117647 | 4,18 × 10⁻¹⁶ |
 | PuLP + CBC | 45.882352 | 9,41 × 10⁻⁷ |
 
+> **As versões que produziram esses dígitos**, porque a seção seguinte manda declará-las e seria
+> constrangedor não fazê-lo aqui: Python 3.11.15, PuLP 3.3.2, HiGHS
+> 1.15.1, e o CBC **embutido no PuLP 3.3.2** — o binário vem embutido, então a
+> versão honesta é a do pacote que o empacota. Todas saem de `resultados-ferramentas.json`, e há
+> teste que fica vermelho se o capítulo e o arquivo divergirem.
+
 Os dois solvers estão certos e **discordam entre si**. A diferença não é de qualidade do
 algoritmo: é de quantas casas cada ferramenta escreve na sua saída — **14 contra 6**, e portanto
 oito dígitos em que as duas saídas divergem. Oito casas decimais não mudam decisão nenhuma numa
@@ -262,8 +268,9 @@ formalidade.
 - **Com múltiplos ótimos, a ferramenta escolhe o seu plano.** Medido: valor 10 nos três, planos
   (6, 4) e (2, 8).
 - **Nenhum solver de produção devolve a fração.** Medido: 780/17 vira 45.88235294117647 no HiGHS
-  e 45.882352 no CBC — os dois certos, e discordantes. Quem devolve a fração é o Simplex didático,
-  em aritmética exata, e é por isso que ele serve de referência e não de ferramenta.
+  e 45.882352 no CBC — **14 casas contra 6**, os dois certos e discordantes. Quem devolve a fração
+  é o Simplex didático, em aritmética exata, e é por isso que ele serve de referência e não de
+  ferramenta.
 - **Nunca compare saídas de solver com `==`.** Compare com tolerância, e declare a tolerância.
 - **Os vereditos concordam.** `Infeasible` não se resolve trocando de solver — é o modelo.
 - **Modelo não contém número de instância**, e instância tem ficha. O teste: trocar a instância
