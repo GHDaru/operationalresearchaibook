@@ -112,6 +112,14 @@ método não volta: `D` nunca é recalculado.
 > Dijkstra, não no código. Toda vez que um procedimento rápido depende de uma condição que ninguém
 > testa, existe uma versão deste episódio esperando.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte III no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)
+>
+> Lá dentro você **dá o seu palpite antes** de ver a contradição — e o palpite comum erra, porque quase ninguém espera que o método devolva número e caminho que não fecham entre si. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
+> verifica ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+
 ## Bellman-Ford: mais lento, e sabe o que não sabe
 
 Ele relaxa **todas** as arestas, $|V| - 1$ vezes. Isso é mais caro — e compra duas coisas:

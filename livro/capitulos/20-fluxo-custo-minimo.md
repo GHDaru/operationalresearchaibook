@@ -128,6 +128,14 @@ rede. A propriedade não é do assunto; é da **forma das restrições**.
 > ser inteira, aí sim declare a variável como inteira — e assuma o custo, sabendo por que está
 > pagando.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte III no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)
+>
+> As duas tabelas desta seção saem de uma célula do caderno: a integralidade aparecendo, e sumindo com uma restrição a mais. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
+> verifica ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+
 ## Os quatro problemas, num modelo só
 
 | Problema | O que muda no modelo de fluxo |

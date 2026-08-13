@@ -1770,3 +1770,26 @@ daria. Seria mais impressionante publicar o número grande; seria também falso.
 A varredura de ramos paralelos vem com **controle**: um ramo só dá **exatamente 0,0**, que é o que
 prova a isolação. Depois 1,71 · 2,55 · 3,64 · 4,45. E mesmo com um ramo só a estimativa estoura em
 **76,5%** das amostras — essa parte não é viés de convergência, é **média não ser promessa**.
+
+### Edição 0.40 — 2026-08-13 · O caderno da Parte III
+
+**Entrou:** [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb),
+o terceiro caderno do handbook, sob as mesmas sete regras da ADR 0016.
+
+**O erro que o leitor roda antes de ver o certo, desta vez, tem duas camadas.** O caderno pergunta,
+diante da rede com peso negativo: *"você espera que Dijkstra devolva o número errado, o caminho
+errado, ou os dois?"* — e a resposta é **nenhuma das três**. Ele devolve um número e um caminho que
+**não fecham entre si**, e é preciso olhar as duas linhas juntas para ver.
+
+**E há um segundo palpite**, no capítulo 22: *"a fórmula diz 21 dias, a simulação diz 24,48; desses
+~3,5 dias de diferença, quanto é culpa do método?"* O palpite comum é "tudo". A célula seguinte
+separa as duas causas nas mesmas amostras e mostra **0,49**.
+
+**A célula "mexa aqui" começa pelo controle.** O leitor é instruído a rodar primeiro com **um**
+ramo paralelo — que tem de dar viés exatamente zero — antes de aumentar. É a primeira vez que um
+caderno deste handbook pede que o leitor rode o **controle** do experimento antes do experimento, e
+a razão está escrita ao lado: sem paralelismo o viés não pode existir, e ver o zero é o que
+autoriza confiar nos outros números.
+
+Três capítulos apontam para ele — 17, 20 e 22 —, e o teste de caderno órfão barrou o commit até que
+o primeiro link existisse.

@@ -161,6 +161,14 @@ E repare na coluna da direita na primeira linha: **mesmo sem nenhum paralelismo,
 estoura em 76,5% das amostras.** Essa parte não é viés de convergência — é a fórmula da média não
 descrever o que vai acontecer.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte III no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)
+>
+> Lá dentro você **estima o viés antes de medi-lo** — e depois mexe no número de ramos paralelos, começando pelo controle de um ramo, que tem de dar exatamente zero. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
+> verifica ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+
 ## Quando não serve
 
 **1. Quando as durações são correlacionadas.** A simulação supõe tarefas independentes. Se o mesmo
