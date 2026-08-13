@@ -145,8 +145,8 @@ Dantzig: *"nada mal!"*
 Três lições saem daí, e nenhuma delas é sobre dieta:
 
 1. **A formulação sobrevive ao método.** O modelo de 1945 continuou válido quando o método de
-   1947 chegou; hoje ele roda em milissegundos, sem uma vírgula alterada. **O custo de calcular
-   despencou; o custo de formular, não.** É por isso que este capítulo existe e o solver é uma
+   1947 chegou, e continua rodando hoje **sem uma vírgula alterada** num solver que nada tem a ver
+   com os daquela época. **O custo de calcular despencou; o custo de formular, não.** É por isso que este capítulo existe e o solver é uma
    caixa-preta de uma linha.
 2. **Uma heurística boa pode estar muito perto do ótimo — e você não tem como saber.** Os 24
    centavos só viraram fato *depois* de existir o ótimo para comparar. Sem ele, "acho que está

@@ -64,6 +64,36 @@ REGISTRO = [
                   "costumam se confundir: o que é decisão do modelo, o que é escolha da ferramenta "
                   "e o que é ponto flutuante. E cobro a separação entre modelo e dados antes de "
                   "qualquer conversa sobre desempenho."},
+    {"chave": "redes", "rotulo": "Grafos e redes", "libera": 16, "tools": (),
+     "descricao": "Traduzo com você um enunciado que não fala de rede para nós e arestas, e cobro "
+                  "as duas escolhas que decidem tudo: a aresta tem sentido, e o número nela é "
+                  "custo ou capacidade? Aviso quando a lente de rede não serve — restrição sobre "
+                  "três coisas de uma vez não é aresta."},
+    {"chave": "caminho_minimo", "rotulo": "Caminho mínimo", "libera": 17, "tools": (),
+     "descricao": "Rodo Dijkstra com você passo a passo e cobro a hipótese que ele usa sem "
+                  "declarar. Se houver peso negativo, aviso antes: o método devolve uma resposta "
+                  "que contradiz a si mesma, sem erro nenhum."},
+    {"chave": "arvore_geradora", "rotulo": "Árvore geradora mínima", "libera": 18, "tools": (),
+     "descricao": "Construo a árvore com você e cobro a justificativa de cada recusa — o critério é "
+                  "fechar ciclo, não 'nó já usado'. E separo o caso em que o guloso é ótimo do caso "
+                  "em que ele não é, pela estrutura e nunca pelo tamanho da instância."},
+    {"chave": "fluxo_maximo", "rotulo": "Fluxo máximo e corte mínimo", "libera": 19, "tools": (),
+     "descricao": "Acho o corte mínimo com você e traduzo o resultado em decisão: onde investir, "
+                  "onde não adianta, e quando recalcular. Desfaço a confusão mais cara da Parte — "
+                  "aresta estreita não é gargalo; gargalo é conjunto que separa."},
+    {"chave": "fluxo_custo", "rotulo": "Fluxo de custo mínimo", "libera": 20, "tools": (),
+     "descricao": "Escrevo com você o modelo único que serve a transporte, designação, transbordo "
+                  "e planejamento multiperíodo. E aviso quando uma restrição nova tira o problema "
+                  "da família de rede — porque nesse instante a integralidade de graça acaba, sem "
+                  "nenhum aviso do solver."},
+    {"chave": "designacao", "rotulo": "Transporte e designação", "libera": 21, "tools": (),
+     "descricao": "Formulo os três clássicos como um modelo só, e desaconselho a variável binária "
+                  "na designação: a estrutura já garante 0/1, e declarar Binary custa tempo e a "
+                  "análise de sensibilidade inteira."},
+    {"chave": "projetos", "rotulo": "PERT, CPM e prazo", "libera": 22, "tools": (),
+     "descricao": "Calculo folga e caminho crítico com você, e cobro a pergunta que salva projeto: "
+                  "esse prazo é média ou percentil? Média não é promessa — metade das realizações "
+                  "fica acima dela."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

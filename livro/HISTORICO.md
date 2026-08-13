@@ -1656,3 +1656,386 @@ enunciado. Agora lê.
 > defeito que ele existe para impedir. O que separou os dois casos aqui foi **variar o que o teste
 > supõe fixo** — a semente, o tamanho, o modelo de ruído. Foi assim que a afirmação central
 > sobreviveu com mais força, e foi assim que as duas asserções frágeis caíram.
+
+### Edição 0.37 — 2026-08-13 · A Parte III abre: grafos, e o método que se contradiz
+
+**Entrou:** a etapa de medição `po-zero/parte-III-redes` — com sete resultados — e os dois
+primeiros capítulos da Parte III: [16 — Grafos e redes](capitulos/16-grafos-e-redes.md) 🟡 e
+[17 — Caminho mínimo](capitulos/17-caminho-minimo.md) 🔵.
+
+**O achado do capítulo 17 é o mais desconfortável do livro até aqui.** Diante de um peso negativo,
+Dijkstra não devolve um número errado — ele devolve **um número e um caminho que não fecham entre
+si**. Medido: distância **6** até o destino, e caminho `A → C → B → D`, que custa **4**. Sem erro,
+sem aviso, sem exceção.
+
+> O defeito não foi o método errar. Foi o método **não ter como saber** que errou: a hipótese de
+> peso não negativo está na cabeça de quem escolheu Dijkstra, não no código. Há teste que fica
+> vermelho se alguém "consertar" a implementação — porque aí o capítulo passaria a descrever algo
+> que não acontece mais.
+
+**Os outros seis resultados**, medidos e ainda esperando os capítulos que os publicam: max-fluxo
+igual a corte mínimo (**15**, com o corte exibido); a relaxação linear do transporte devolvendo
+**todos inteiros** sem restrição de integralidade, e **uma** restrição transversal quebrando isso;
+a designação saindo **0/1** sem variável binária; o mesmo gesto guloso sendo **ótimo na árvore** e
+**14,3% pior no roteiro**; e o PERT publicando **21 dias** para um projeto que leva **24,48** e
+**estoura a estimativa em 82,3%** das amostras.
+
+**Três erros meus pelo caminho, todos registrados no README da etapa**, e o terceiro é o que mais
+ensina:
+
+1. O experimento da estrutura quebrada **não quebrava nada** — a restrição escolhida deixava o
+   modelo inviável, e passou porque a função devolvia o plano sem ninguém olhar o `status`.
+2. A comparação do PERT misturava duas causas. Isolando **nas mesmas amostras** — duração do
+   projeto contra duração do caminho declarado antes de sortear —, o viés honesto é **0,49 dia**,
+   e não os ~4,7 que a comparação ingênua daria. Com controle: um ramo só dá **exatamente zero**.
+3. **O grafo das cinco cidades não sustentava a tese que ele existia para sustentar.** Eu escolhi
+   os pesos à mão para o guloso errar o roteiro, e **ele acertou** — 17 contra 17. A instância
+   publicada saiu de uma busca com semente declarada sobre 4.000 grafos aleatórios, tomando a de
+   maior perda. **Procurar um contraexemplo é mais honesto do que arranjar um.**
+
+**E o portão da procedência pegou, antes de publicar, o defeito que a revisão da Parte I tinha
+pegado depois:** o capítulo 16 afirmava "Euler mostrou, em 1736" no corpo enquanto a tabela marcava
+a atribuição como `⏳`. O hedge foi para a frase. É a diferença entre uma regra que alguém lembra e
+uma regra que a máquina cobra.
+
+### Edição 0.38 — 2026-08-13 · Capítulos 18 e 19: o mesmo gesto, e o gargalo que não é aresta
+
+**Entrou:** [18 — Árvore geradora mínima](capitulos/18-arvore-geradora.md) 🔵 e
+[19 — Fluxo máximo e corte mínimo](capitulos/19-fluxo-maximo.md) 🔵, com seis exercícios e dois
+vídeos.
+
+**O capítulo 18 existe por causa de uma pergunta que quase todo mundo faz errado:** *"se pegar
+sempre o mais barato agora funciona aqui, por que não funciona no roteiro?"* A resposta não é
+"porque o roteiro é maior" — e o capítulo mede a diferença **na mesma instância, com o mesmo
+gesto**: o guloso é ótimo na árvore (**17**, conferido por dois caminhos) e **14,3% pior** no
+roteiro (**32** contra **28**).
+
+> A diferença é estrutural: na árvore existe um argumento **local** — a aresta mais barata de
+> qualquer corte pertence a alguma árvore ótima — que sustenta a conclusão **global**. No roteiro
+> esse argumento não existe, e a decisão local **compromete o futuro**.
+
+**O capítulo 19 entrega o resultado mais bonito do campo, e ele é bonito por ser útil:** o quanto
+se escoa é **exatamente** a capacidade do corte mínimo. Medido: **15** e **15**, com o corte
+exibido — três arestas, e elas **não estão no mesmo nível da rede**.
+
+Daí saem três decisões que o método dá de graça: investir numa aresta **do** corte aumenta o
+fluxo; investir numa aresta **fora** dele não muda nada, por mais importante que ela pareça; e
+depois de investir é preciso **recalcular**, porque o corte se move.
+
+> **A confusão mais cara desta Parte é tratar aresta estreita como gargalo.** Na rede medida, a
+> aresta de menor capacidade (`centro_sul → loja_b`, com 3) **não** está no corte — o fluxo a
+> contorna. E a de maior capacidade também não está, porque sobra folga nela. O exercício B do
+> capítulo 19 é inteiro sobre isso, com três propostas de investimento das quais **duas não
+> aumentam nada**.
+
+**O que o capítulo 19 declara não fazer:** demonstrar o teorema. Ele o **exibe** numa instância,
+com o corte nomeado, e diz que é isso que está fazendo. Um livro que mede um caso e chama isso de
+demonstração estaria mentindo; um que cita o teorema e nunca mostra o corte estaria pedindo fé.
+
+### Edição 0.39 — 2026-08-13 · A Parte III fecha: a integralidade de graça, e o prazo que estoura
+
+**Entrou:** os três últimos capítulos da Parte III — [20 — Fluxo de custo mínimo](capitulos/20-fluxo-custo-minimo.md),
+[21 — Transporte, designação e transbordo](capitulos/21-transporte-designacao.md) e
+[22 — PERT e CPM](capitulos/22-pert-cpm.md), os três 🔵 —, com nove exercícios e três vídeos.
+**A Parte III está completa**: sete capítulos, vinte e um exercícios, uma etapa de medição com
+sete resultados.
+
+**O capítulo 20 publica o resultado mais útil da Parte**, e ele muda decisão de projeto: a
+relaxação linear de um problema de rede **já vem inteira**. Medido: custo **220**, todos os
+embarques em unidades exatas, num modelo sem uma única variável declarada inteira ou binária. Não é
+sorte nem arredondamento — é a estrutura, e ela também mantém preço-sombra e faixa de validade, que
+um modelo inteiro não tem.
+
+E o outro lado está medido na mesma página: **uma** restrição banal — rotas ocupam espaço diferente
+no pátio — tira a matriz da família, e o ótimo vai a **223,33** com **quatro** embarques
+fracionários. `Optimal` nos dois casos, e nenhum aviso.
+
+**O capítulo 21 mede o caso em que isso mais surpreende.** A designação é combinatória em cada
+palavra do enunciado — *cada pessoa faz exatamente uma tarefa* — e resolvida como Programação
+Linear **contínua** devolve **0/1**: custo 9, três atribuições. Declarar `Binary` por precaução
+paga o custo do *branch-and-bound* e **perde a análise de sensibilidade junto**.
+
+> Há teste que lê o **código-fonte** do modelo, e não a saída: se alguém acrescentar `cat="Binary"`,
+> a resposta continua 0/1 e o capítulo passa a mentir — porque a lição não é que a saída é binária,
+> é que ela é binária **sem ter sido pedida**.
+
+**O capítulo 22 fecha a Parte com o resultado mais incômodo dela.** A fórmula do PERT publica
+**21 dias**; o projeto leva **24,48** em média e **estoura a estimativa em 82,3% das amostras**.
+
+E a parte que custou a manchete: **duas causas produzem esse desvio, e só uma é defeito do método**.
+Separando **nas mesmas amostras** — duração do projeto contra duração do caminho declarado crítico
+antes de sortear —, o viés próprio do PERT é **0,49 dia**, e não os ~3,5 que a comparação ingênua
+daria. Seria mais impressionante publicar o número grande; seria também falso.
+
+A varredura de ramos paralelos vem com **controle**: um ramo só dá **exatamente 0,0**, que é o que
+prova a isolação. Depois 1,71 · 2,55 · 3,64 · 4,45. E mesmo com um ramo só a estimativa estoura em
+**76,5%** das amostras — essa parte não é viés de convergência, é **média não ser promessa**.
+
+### Edição 0.40 — 2026-08-13 · O caderno da Parte III
+
+**Entrou:** [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb),
+o terceiro caderno do handbook, sob as mesmas sete regras da ADR 0016.
+
+**O erro que o leitor roda antes de ver o certo, desta vez, tem duas camadas.** O caderno pergunta,
+diante da rede com peso negativo: *"você espera que Dijkstra devolva o número errado, o caminho
+errado, ou os dois?"* — e a resposta é **nenhuma das três**. Ele devolve um número e um caminho que
+**não fecham entre si**, e é preciso olhar as duas linhas juntas para ver.
+
+**E há um segundo palpite**, no capítulo 22: *"a fórmula diz 21 dias, a simulação diz 24,48; desses
+~3,5 dias de diferença, quanto é culpa do método?"* O palpite comum é "tudo". A célula seguinte
+separa as duas causas nas mesmas amostras e mostra **0,49**.
+
+**A célula "mexa aqui" começa pelo controle.** O leitor é instruído a rodar primeiro com **um**
+ramo paralelo — que tem de dar viés exatamente zero — antes de aumentar. É a primeira vez que um
+caderno deste handbook pede que o leitor rode o **controle** do experimento antes do experimento, e
+a razão está escrita ao lado: sem paralelismo o viés não pode existir, e ver o zero é o que
+autoriza confiar nos outros números.
+
+Três capítulos apontam para ele — 17, 20 e 22 —, e o teste de caderno órfão barrou o commit até que
+o primeiro link existisse.
+
+### Edição 0.41 — 2026-08-13 · A Parte III revisada por quem não a escreveu
+
+Revisão independente em contexto fresco dos capítulos 16 a 22 e das sete baterias. Quem
+escreveu não revisou, e cada achado foi **reconferido por medição própria** antes de virar
+correção. A medição desmentiu o revisor em nenhum dos três erros de fato e o confirmou nos três
+— mas mudou o desenho de duas correções.
+
+**Três erros de fato, e o padrão que eles revelam.**
+
+O gabarito de `cap18.exA` publicava **19** para a árvore geradora sem a aresta `a–c`; o correto é
+**21**. O número errado não era o pior: dele saía a moral *"a perda é de 2, e não de 3 — o custo de
+proibir uma aresta não é o custo dela"*, que está **invertida**. A aresta vale 3 e a perda é **4** —
+maior, não menor, porque a substituta não é a próxima aresta da lista, é a melhor reconexão
+disponível **depois que a topologia mudou**. Era o único número da Parte III sem medição, e o único
+errado. Agora existe `custo_de_proibir()`, o capítulo 18 publica a tabela, e dois testes prendem o
+valor: um lê o capítulo, o outro lê o gabarito.
+
+`cap22.exB` e `cap22.exC` afirmavam, em quatro trechos, que *"por definição, metade das realizações
+fica acima da média"*. Isso é a definição de **mediana**. Medido nas mesmas 20 mil amostras: a média
+simulada (24,48) é estourada em **48,1%** das amostras, e a mediana (24,30) em **50,0%** exatos —
+prazo de projeto é assimétrico à direita, então a média fica acima da mediana. O veredito prático
+não muda (nenhuma das duas é compromisso), mas o argumento estava trocado, e num capítulo cuja tese
+inteira é *"média não é promessa"*.
+
+O diagrama do capítulo 19 trazia `centro_sul --6--> loja_b`, aresta que **não existe** na rede
+medida — o 6 é de `centro_norte`. Nenhum teste pegava, porque o fluxo máximo dá 15 nas duas
+leituras; só um leitor conferindo à mão veria. Agora um teste compara **todo** desenho da rede —
+capítulo e enunciados — com a instância, aresta por aresta.
+
+**O padrão:** os três estavam onde não havia vínculo texto↔medição. A correção que interessa não é o
+número, é o vínculo.
+
+**Onde a garantia de integralidade para.** A Parte afirmava, sem qualificação, que *"a resposta não
+tem como sair fracionária"* — e o capítulo 21 transformava isso em conselho operacional (*não
+declare `Binary`*). O teorema garante que **existe vértice ótimo inteiro**; quem entrega o inteiro é
+o Simplex, porque para em vértice. Medido, com controle:
+
+| Instância | Método | Objetivo | Saída |
+|---|---|---|---|
+| Empate no ótimo | pontos interiores, *crossover* desligado | 3 | **1/3 em toda variável** |
+| Empate no ótimo | pontos interiores, *crossover* ligado | 3 | 0/1 |
+| Ótimo único | pontos interiores, *crossover* desligado | 9 | 0/1 |
+
+O `1/3` é um ponto **ótimo**, não erro numérico. As duas últimas linhas são o controle, e sem elas o
+resultado de cima poderia ser lido como solver ruim em vez de método diferente. Virou a quinta
+entrada de *"quando não serve"* do capítulo 20, uma ressalva no 21, e um teste que falha se qualquer
+um dos dois voltar a garantir integralidade sem dizer onde a garantia acaba.
+
+**Uma armadilha de projeto de experimento, registrada porque custou uma tentativa.** A primeira
+instância de "ótimo único" usava custo da forma $a_i + b_j$. Toda designação soma $\sum a + \sum b$,
+então **tudo empata** — o controle media o mesmo que o caso, e teria "confirmado" a hipótese por
+construção. A instância de ótimo único passou a ser a equipe do capítulo 21, cujo ótimo (custo 9) é
+único de fato.
+
+**Correção de um número desta página.** A **edição 0.39** registra *"e não os ~4,7 que a comparação
+ingênua daria"*, e a **edição 0.40** registra *"~3,5"* para a mesma comparação. Os dois estavam
+certos quando foram escritos: o 4,7 era da rede de projeto anterior, e o 3,5 é da rede publicada. O
+registro é *append-only* e as duas linhas ficam — **o valor corrente é 3,5**, e o viés próprio do
+método, isolado nas mesmas amostras, é **0,49**.
+
+**O resto.** O capítulo 04 produzia, como conselho, o erro caro do capítulo 21: o mapa de decisão
+mandava classificar como Programação Inteira Mista diante de qualquer decisão indivisível, sem
+ressalva. O link entre os dois era de mão única — quem para na Parte I saía com uma regra falsa para
+uma família inteira de problemas. `cap19.exC` avaliava o aluno por conteúdo do capítulo 20, que ele
+ainda não leu. `cap16.exA` fixava uma leitura de enfermeiro/turno que o próprio livro contradiz três
+capítulos adiante. Números de desempenho sem medição (*"resolvem em segundos"*) saíram do capítulo
+16, que na mesma página declarava não ter número novo. O capítulo 22 passou a declarar a
+distribuição amostrada — **triangular**, de média $(o+m+p)/3$ contra os $(o+4m+p)/6$ da fórmula —,
+que responde por quase todo o desvio e era cobrada num critério sem estar no texto. **"Restrição
+transversal"**, que carrega a tese da Parte, só estava definida em gabarito, que por arquitetura
+nunca é publicado; agora está no corpo do 20 e no glossário. O capítulo 17 ganhou *"os problemas que
+não parecem caminho"*, que o mapa prometia e a página não entregava — com a arbitragem de câmbio,
+onde o veredito *"ciclo negativo"* deixa de ser aviso de erro e vira **a resposta procurada**.
+
+**O que foi apontado e não acatado.** A revisão pediu para cortar as repetições do mecanismo da
+restrição transversal no capítulo 21. Duas das três estão na **Síntese** e na **Leitura executiva**,
+que o guia editorial existe para exigir que restatem o capítulo. Repetição ali é função, não ruído.
+
+**Baterias.** Os capítulos 19 e 20 eram as únicas séries da Parte sem exercício `facil`, e o 20 é o
+capítulo mais importante dela. Ganharam porta de entrada — o do 19 provoca de propósito o erro de
+somar só o que sai da fábrica; o do 20 escreve a equação de conservação de um nó e descobre, ao
+somar as cinco, por que oferta e demanda têm de fechar. A Parte III passa a ter **23 exercícios**.
+
+### Edição 0.42 — 2026-08-13 · A Parte III ganha literatura, e um portão novo
+
+**A Parte III era a única do handbook sem ancoragem em literatura.** Nenhum dos sete capítulos
+tinha a seção **Fundamentos científicos** que o esqueleto obrigatório exige, nem um link para a
+bibliografia, nem um identificador. Apontado pela revisão independente, e é violação de princípio,
+não questão de estilo.
+
+**A dívida foi paga: 30 referências novas, todas com identificador conferido.** As seções entraram
+nos sete capítulos, a bibliografia ganhou a seção da Parte III, e o Radar ganhou oito linhas — desta
+vez **na ordem certa**, junto com a bibliografia e não depois, ao contrário do que aconteceu na
+rodada 006 e está registrado no próprio Radar.
+
+**Todas são `✓ᵐ` e nenhuma é `✓`, e a diferença importa.** O ambiente desta rodada bloqueia o
+acesso às páginas das editoras. O que foi conferido, por identificador em Crossref, é autor,
+título, periódico e ano — **nenhum texto foi aberto**. Onde o conteúdo mudaria uma afirmação do
+livro, a afirmação **não foi feita**, e o selo `⏳` do capítulo permanece:
+
+- a origem do nome **"húngaro"** (capítulo 21) continua `⏳`, mesmo agora que existe a reimpressão
+  de 2004 em que, pelos registros, o próprio Kuhn explica a homenagem;
+- o enunciado de **Hoffman & Kruskal** (capítulo 20) continua `⏳`, mesmo sendo o resultado que
+  sustenta o capítulo inteiro. **Confirmar um DOI não é confirmar um teorema**;
+- **Klingel (1966)** entrou como bloqueante declarado: há indício de que a direção do viés que ele
+  relata não seja a que o capítulo 22 mede, e por isso o capítulo **não faz nenhuma afirmação
+  comparativa com a literatura**.
+
+**A referência de maior retorno da Parte é Megiddo (1991)**, e ela chegou por acaso feliz: trata de
+recuperar base ótima a partir de um ponto interior, que é exatamente o mecanismo do *crossover* —
+o mesmo que esta rodada mediu ao encontrar `1/3` numa designação totalmente unimodular. A literatura
+e a medição própria se encontraram no mesmo parágrafo.
+
+**Uma lição de método, e ela é sobre não aceitar o relatório de ninguém.** O levantamento foi feito
+por um agente em contexto próprio, que reportou **zero DOIs resolvidos** — todo acesso bloqueado — e
+marcou sete identificadores como "candidatos não conferidos". Reconferido por medição própria:
+**os 31 identificadores resolvem**, inclusive os sete. A diferença era de ferramenta, não de
+ambiente — `fetch` nativo leva 403 do proxy e `curl` passa, coisa que uma rodada anterior deste
+repositório já havia diagnosticado e registrado no próprio código. Sem a reconferência, a Parte III
+teria ficado sem literatura por um obstáculo que não existia. **Duas datas do relatório também
+estavam erradas** (2005 onde o registro diz 2004).
+
+**E entrou o décimo portão: `verifica-desempenho.mjs`.** O guia proíbe comparação de velocidade sem
+cronômetro — *"nem 'cerca de 10× mais rápido'"* — e numa única rodada o defeito apareceu três vezes,
+a terceira delas escrita **por quem tinha acabado de corrigir as duas primeiras**. É o que separa
+lapso de tentação de escrita, e tentação de escrita não se resolve com disciplina.
+
+O portão só ficou útil na quarta versão, e as três primeiras **falharam no teste que importa** —
+reintroduzir os defeitos documentados e exigir vermelho:
+
+1. aceitar a **renúncia** como autorização deixou os três passarem, porque os defeitos moravam ao
+   lado das renúncias que os corrigiram. Renúncia é o que se escreve **no lugar** da afirmação, não
+   ao lado dela — agora ela é falha própria;
+2. a janela de 900 caracteres deixou dois passarem: um "Medido nesta página: custo 9" a setecentos
+   caracteres autorizava "de minutos para horas". O escopo virou **a frase**;
+3. a palavra solta "medido" deixou um passar, por algo que nenhuma expressão regular resolve —
+   *"garantias que o modelo genérico não oferece, a principal delas **medida** no capítulo 20"*. O
+   portão passou a exigir o que a constituição já exige: **procedência é lugar**, um ponteiro que o
+   leitor possa abrir.
+
+Ele encontrou, de saída, dois defeitos fora da Parte III: o capítulo 07 e o gabarito de `cap17.exC`.
+
+### Edição 0.43 — 2026-08-13 · A segunda revisão derruba duas afirmações centrais
+
+Revisão independente com **lente de medição** — campanha de mutação, implementações de referência,
+reprodução da busca declarada. Dois bloqueantes, e os dois do tipo pior: **afirmação conferível que
+não sobrevive à conferência**. Os dois reconferidos por medição própria antes de virar correção.
+
+**A contradição do Dijkstra era artefato da implementação.** O capítulo 17 afirmava que o método
+*"devolve uma resposta que contradiz a si mesma"* e que *"não há erro, não há aviso, não há exceção
+lançada"*. Medido na mesma instância:
+
+| | Distância | Caminho devolvido custa | |
+|---|---|---|---|
+| com a guarda do nó fechado | 6 | 6 | erra, **coerente** |
+| sem a guarda (a que estava no repositório) | 6 | 4 | **contradiz a si mesma** |
+| com fila de prioridade | 4 | 4 | **acerta**, por acidente |
+| `networkx` 3.6.1 | — | — | **levanta exceção** |
+
+A contradição vinha de um `if` que faltava: a relaxação escrevia em nó já fechado e corrompia a
+árvore de predecessores. E o "silêncio" era falso — biblioteca consagrada avisa.
+
+**O agravante é sobre teste, e é a lição da rodada.** O teste
+`test_a_saida_de_dijkstra_contradiz_a_si_mesma` existia para impedir que o contraexemplo morresse —
+e por isso **trancava o artefato**, obrigando o capítulo a descrever um defeito como propriedade do
+método. Um teste preserva um erro com o mesmo zelo com que preservaria um acerto: **o que ele
+garante é estabilidade, não verdade.** Está registrado no cabeçalho da suíte, para quem vier depois.
+
+A correção não enfraqueceu o capítulo. A lição publicada agora é melhor e é verdadeira: **três
+coisas chamadas "Dijkstra" dão três respostas** assim que a hipótese cai, e *"usei Dijkstra"* não
+descreve o que foi executado. A `networkx` entrou em `requirements.txt` — é a única dependência
+deste handbook que existe para **contradizer** o handbook.
+
+**A procedência da instância do roteiro era falsa.** O capítulo 18 dizia que a instância veio de
+*"uma busca sobre 4.000 grafos, tomando a de maior perda relativa"* — numa caixa que se gabava de
+honestidade. O código da busca **não existia**; só a prosa. Reconstruído e medido: a instância
+publicada é o **sorteio nº 3**, com perda de 14,3%, enquanto a de maior perda é o 1867, com 150%, e
+**848 das 4.000** perdem tanto quanto ou mais. A regra de seleção narrada nunca foi aplicada.
+
+Afirmação de procedência que é conferível e falha na conferência é **pior que número sem fonte** —
+porque convida à conferência e a decepciona.
+
+A busca agora existe, e trouxe o que o capítulo devia ao leitor: a **distribuição**. Mediana da
+perda **0%**; o guloso é **ótimo em 55,93%** das instâncias. Publicar só o caso em que ele perde
+14,3% distorcia — e a lição foi deslocada para onde é verdadeira: **o problema do guloso não é
+errar muito, é não ter como avisar**.
+
+**Duas asserções não conseguiam falhar.** O custo 223,33 tinha um `or "223,33"` literal, que passava
+mesmo se a medição mudasse; e os fracionários comparavam só o nome da rota, descartando o valor — é
+por isso que 1,67 · 3,33 · 23,33 · 6,67 estavam sem dono **apesar de parecerem cobertos**.
+
+**Os dados de entrada ganharam dono.** Todo teste conferia *resultado*; nenhum conferia a
+**definição** da instância — que é o que o leitor usa para refazer a conta à mão, e onde o defeito
+do diagrama do capítulo 19 nasceu. As seis instâncias passam a ser conferidas célula por célula.
+Campanha de mutação: **6 de 6 pegas**.
+
+**Três refinamentos que não bloqueavam e melhoram o livro.**
+
+*Ser transversal não basta.* Três restrições igualmente transversais: coeficientes 2 e 3 quebram a
+integralidade, coeficiente 1 não quebra, e um percentual do total não quebra. O que separa não é a
+transversalidade — é o **coeficiente**. Um exercício de Verificação pedia ao leitor que previsse a
+quebra justamente no caso em que ela não acontece.
+
+*Até onde o dígito carrega.* Entre seis sementes, a duração média varia de 24,43 a 24,51 e a
+probabilidade de estouro de 81,83% a 83,06%. **O segundo dígito carrega e o terceiro não** — e agora
+a página diz isso.
+
+*O controle que não podia falhar.* O controle de um ramo dá zero **por construção**, então prova
+menos do que o capítulo afirmava. Foi acrescentado um que pode falhar: dois ramos desiguais com
+faixas sobrepostas, viés **0,0618** — positivo e pequeno.
+
+E aqui a rodada repetiu o próprio defeito que estava corrigindo, o que vale mais registrado do que
+escondido: **a primeira versão desse novo controle também não podia falhar.** As faixas escolhidas
+foram (30, 40, 55) e (2, 5, 9) — que não se cruzam. O ramo curto nunca vencia, o viés dava 0,0 por
+construção, e o controle escrito para substituir um controle tautológico era tautológico pelo mesmo
+motivo. Só a medição pegou. **Quem escreve controle precisa perguntar, antes de rodar, o que
+exatamente o faria dar diferente de zero** — e essa pergunta agora está escrita no capítulo 22.
+
+### Edição 0.44 — 2026-08-13 · Toda reafirmação ganha dono, e o PERT ganha um guarda
+
+**O padrão dos 110 números sem dono era estrutural.** A campanha de mutação mostrou que os testes
+prendiam **uma** ocorrência canônica de cada número — a linha de tabela, com formatação distintiva
+— e que toda **reafirmação** ficava livre: `assert "0,49" in texto` continua verdadeiro enquanto
+sobrar qualquer outra ocorrência na página. Os 110 estavam concentrados onde o leitor apressado lê:
+Leitura executiva (41), caixa "erro caro" (18), Procedência (16), Síntese (14).
+
+O instrumento é **contar**. O valor vem da medição, a contagem vem do texto: se qualquer ocorrência
+derivar, a contagem cai e o teste fica vermelho — não importa qual das seis derivou. Treze
+números-manchete dos capítulos 17 a 22 entraram assim, e um segundo teste garante que os valores
+contados são os que a medição produz, porque sem ele a suíte contaria uma ficção com precisão.
+
+**A primeira versão desse teste já deixou passar uma mutação**, e vale registrar porque é o mesmo
+tipo de erro que ele existe para pegar: o padrão era `**0,49**`, e o corpo do capítulo 22 escreve
+`**0,49 dia**` — a ênfase embrulha o número **e** a unidade. A contagem ficava em 1, só a linha da
+tabela, e a reafirmação do corpo seguia livre. Nada revelou isso além de mutar de novo.
+
+**O PERT ganhou um guarda contra um cenário que ninguém tinha exercitado.** A isolação do viés soma
+as durações do caminho declarado crítico — e isso só faz sentido se o conjunto crítico **for um
+caminho**. Basta um empate que deixe dois ramos com folga zero para o CPM devolver os dois, e aí a
+soma conta as duas pernas: `so_o_caminho` fica maior que a duração do projeto e o "viés" sai
+**negativo**, com a mesma cara dos outros números. Conferido: o guarda pega. O controle de um ramo
+não pegava, porque lá só existe um caminho possível.
+
+**Bookkeeping.** A revisão notou, e está certa: os capítulos 🔵 da Parte III são **seis** (17 a 22),
+não cinco. O 16 é 🟡.

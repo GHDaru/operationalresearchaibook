@@ -248,6 +248,36 @@ const SEM_MODELO_DECLARADO = new Set([
                // ORDEM de trabalho (rodar o exato, ler o gap, só então decidir),
                // e não a solução. A palavra "ótimo" aparece na frase que o
                // relatório NÃO pode dizer. Nada a conferir.
+  "cap16.exC", // julga se a LENTE de rede serve em quatro pedidos escritos em
+               // prosa. Não há modelo numérico em nenhum deles; "ótimo" aparece
+               // só na discussão do que o solver devolve quando a estrutura de
+               // rede se perde.
+  "cap17.exA", // caminho mínimo numa malha de SEIS nós — grafo, não modelo de
+               // duas variáveis. Os números (11, e a ordem de fechamento) são
+               // conferidos em po-zero/parte-III-redes/test_redes.py, que resolve
+               // a mesma malha em aritmética exata.
+  "cap17.exB", // a instância em que Dijkstra erra, também um grafo. Os dois
+               // números que a rubrica afirma — 6 e 4 — são medidos na mesma
+               // suíte, e o capítulo 17 os publica com teste que o lê.
+  "cap18.exB", // compara guloso e ótimo num grafo de CINCO cidades — dez arestas,
+               // não duas variáveis. Os quatro números (17, 32, 28, 14,3%) são
+               // medidos em po-zero/parte-III-redes, e o 17 é conferido por um
+               // segundo caminho: enumeração de todas as árvores geradoras.
+  "cap18.exC", // classifica quatro decisões de projeto de rede escritas em prosa.
+               // Não há modelo numérico; "ótimo" aparece na discussão de qual
+               // problema tem guloso ótimo e qual não tem.
+  "cap19.exB", // rede de fluxo com sete nós. O fluxo máximo (15) e a capacidade
+               // do corte (15) são medidos na mesma suíte, e o capítulo 19 os
+               // publica com teste que o lê.
+  "cap20.exD", // diagnostica um modelo de distribuição descrito em PROSA, com
+               // quatro restrições nomeadas e nenhum número. "Ótimo" aparece na
+               // discussão do que se perde ao arredondar.
+  "cap21.exA", // designação 3×3 escrita como transporte — seis variáveis, não
+               // duas. O custo 9 e a saída 0/1 são medidos em
+               // po-zero/parte-III-redes, e o capítulo 21 os publica com teste.
+  "cap21.exB", // argumenta contra declarar variável binária na designação. O
+               // único número é o custo 9, medido na mesma suíte; o resto é
+               // sobre o que se perde com a binária.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");

@@ -76,8 +76,13 @@ nenhuma solução plausível é restrição redundante — custa tempo de solver
 **Região viável.** O conjunto de soluções que satisfazem todas as restrições. Vazia significa
 modelo inviável, e quase sempre é erro de formulação, não do mundo.
 
-**Folga.** A distância entre o lado esquerdo e o direito de uma restrição na solução. Folga
-zero significa restrição **ativa** — é ela que está segurando o resultado.
+**Folga (em Programação Linear).** A distância entre o lado esquerdo e o direito de uma restrição
+na solução. Folga zero significa restrição **ativa** — é ela que está segurando o resultado.
+
+**Folga (em rede de projeto).** Outro sentido, e a colisão é real: no [capítulo 22](capitulos/22-pert-cpm.md)
+folga é quanto uma **tarefa** pode atrasar sem atrasar o projeto. Folga zero define o caminho
+crítico. As duas acepções compartilham a intuição de "quanto sobra antes de apertar", e nada mais —
+e é por isso que este glossário as separa em vez de fundi-las.
 
 **Preço-sombra.** Quanto o valor ótimo melhora por unidade adicional do recurso de uma
 restrição ativa. Vale **apenas dentro de uma faixa**, e ler fora dela é o erro clássico de
@@ -100,6 +105,72 @@ um ponto, existem vários planos igualmente ótimos — e a ferramenta escolhe u
 caso exponencial: sob pequenas perturbações **aleatórias** da entrada, o número esperado de passos
 é polinomial. É assintótico e vale **em esperança** — não diz que perturbar uma instância ruim
 específica a melhore.
+
+### Termos da Parte III — redes e fluxos
+
+**Nó** (ou **vértice**). O que se conecta num grafo: cidade, depósito, tarefa, pessoa, período.
+
+**Aresta.** A conexão entre dois nós. **Dirigida** quando tem sentido — fluxo, precedência —, e o
+número sobre ela é **custo** (que se soma ao longo do caminho) ou **capacidade** (que limita, e se
+combina por mínimo). Trocar um pelo outro produz um modelo que responde a outra pergunta.
+
+**Grafo dirigido.** Grafo em que as arestas têm sentido. A **matriz de incidência** de um grafo
+dirigido é totalmente unimodular, e é daí que vem a integralidade de graça do
+[capítulo 20](capitulos/20-fluxo-custo-minimo.md).
+
+**Árvore geradora.** Conjunto de arestas que liga **todos** os nós sem fechar ciclo. Com $n$ nós,
+tem exatamente $n-1$ arestas. Não tem redundância: qualquer aresta que caia desconecta alguém.
+
+**Propriedade do corte.** O argumento local que autoriza o guloso na árvore geradora mínima: a
+aresta mais barata que atravessa qualquer corte do grafo pertence a alguma árvore ótima. É a
+ausência de um argumento equivalente que faz o mesmo gesto falhar no roteiro.
+
+**Corte.** Partição dos nós em dois lados, com a origem de um e o destino do outro. A **capacidade
+do corte** é a soma das capacidades que atravessam de um lado para o outro, e o **corte mínimo** é
+o gargalo da rede — que quase nunca é uma aresta sozinha.
+
+**Caminho aumentante.** Caminho da origem ao destino que ainda tem folga de capacidade. Empurrar
+fluxo por ele é o passo do método de fluxo máximo.
+
+**Grafo residual.** O que ainda cabe em cada aresta depois do fluxo já empurrado — incluindo as
+**arestas reversas**.
+
+**Aresta reversa.** A capacidade de **desfazer** um envio anterior. É ela que torna o procedimento
+guloso do fluxo máximo **exato**; sem ela, o método trava num fluxo bloqueante e devolve um número
+menor com cara de ótimo.
+
+**Fluxo bloqueante.** Estado em que não há mais caminho aumentante **no grafo escolhido** — mas
+ainda existe fluxo maior, alcançável apenas desfazendo um envio anterior. É o que a aresta reversa
+evita, e a razão de o método de fluxo máximo precisar do grafo residual para ser exato.
+
+**Grafo bipartido.** Grafo cujos nós se dividem em **dois** conjuntos, e toda aresta liga um lado ao
+outro — pessoas e tarefas, enfermeiros e turnos, candidatos e vagas. Nunca há aresta dentro do mesmo
+lado. É a forma da designação, e o que garante a integralidade de graça do
+[capítulo 21](capitulos/21-transporte-designacao.md).
+
+**Emparelhamento.** Conjunto de arestas que não compartilham nó — cada pessoa em no máximo uma
+tarefa. **Emparelhamento máximo** é o maior conjunto assim, e num grafo bipartido é o mesmo problema
+que fluxo máximo com todas as capacidades iguais a 1.
+
+**Restrição transversal.** Restrição que **soma arestas de nós diferentes**, e por isso não é uma
+equação de conservação de fluxo — *"estas duas rotas, de fábricas diferentes, dividem o mesmo
+pátio"*. É o que tira a matriz da família de rede e destrói a unimodularidade total: uma só já
+basta. É o critério prático para desconfiar de um modelo de rede, e o mecanismo está medido no
+[capítulo 20](capitulos/20-fluxo-custo-minimo.md).
+
+**Transbordo.** Nó que não produz nem consome: a carga apenas passa por ele.
+
+**Unimodularidade total.** Propriedade de uma matriz em que todo determinante de toda submatriz
+quadrada vale 0, 1 ou −1. Quando ela vale **e** os lados direitos são inteiros, todo vértice da
+região viável é inteiro — e a relaxação linear já devolve solução executável, sem variável inteira
+declarada. **As duas condições são necessárias**, e podem cair separadamente.
+
+**Caminho crítico.** A sequência de tarefas de folga zero num projeto. Atrasar qualquer uma delas
+atrasa a entrega; acelerar uma tarefa **fora** dele não encurta nada.
+
+***Merge bias*.** A subestimação do prazo que aparece quando várias tarefas paralelas convergem: o
+projeto espera a **mais lenta**, e a média do máximo é maior do que o máximo das médias. Medido no
+capítulo 22, e menor do que a comparação ingênua sugere.
 
 **Forma padrão.** O modelo reescrito só com igualdades e com todas as variáveis não-negativas.
 Não muda o problema — é a mesma coisa dita numa língua que a álgebra linear sabe processar.
@@ -184,9 +255,13 @@ por isso que o Simplex pode parar no primeiro vértice de onde nada melhora.
 os preços das restrições do original. Não é curiosidade teórica: é o que dá interpretação
 econômica à resposta e sustenta boa parte dos algoritmos.
 
-**Relaxação.** Uma versão mais permissiva do problema — tipicamente removendo a exigência de
-integralidade. Sua solução é um **limitante** para a do problema original, e é assim que se
-mede quão boa é uma solução sem conhecer o ótimo.
+**Relaxação (*relaxação linear*).** Uma versão mais permissiva do problema — tipicamente removendo a
+exigência de integralidade. Sua solução é um **limitante** para a do problema original, e é assim
+que se mede quão boa é uma solução sem conhecer o ótimo. Quando o
+[capítulo 20](capitulos/20-fluxo-custo-minimo.md) diz que *"a relaxação linear de um problema de
+rede já vem inteira"*, o problema relaxado é a formulação inteira natural — *quantas unidades
+inteiras vão daqui para ali* —, e o resultado medido é que essa etapa intermediária **já é a
+resposta final**: relaxar não custou nada, e por isso o modelo inteiro nunca precisa ser escrito.
 
 **Limitante (*bound*).** Um valor que garantidamente limita o ótimo por cima ou por baixo. É o
 que permite dizer "esta solução está a no máximo 2% do ótimo" — a única forma honesta de

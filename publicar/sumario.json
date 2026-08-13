@@ -114,6 +114,53 @@
       ]
     },
     {
+      "nome": "Parte III — Otimização em Redes e Fluxos",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/16-grafos-e-redes.md",
+          "titulo": "16 — Grafos e redes: fundamentos",
+          "maturidade": "v0",
+          "teaser": "Metade da PO aplicada é rede por baixo — e quase nada dela se apresenta como rede."
+        },
+        {
+          "arquivo": "livro/capitulos/17-caminho-minimo.md",
+          "titulo": "17 — Caminho mínimo",
+          "maturidade": "medido",
+          "teaser": "Com peso negativo, Dijkstra devolve uma resposta que contradiz a si mesma — e não avisa."
+        },
+        {
+          "arquivo": "livro/capitulos/18-arvore-geradora.md",
+          "titulo": "18 — Árvore geradora mínima e projeto de redes",
+          "maturidade": "medido",
+          "teaser": "O mesmo gesto guloso: ótimo na árvore, 14,3% pior no roteiro — e a diferença não é de tamanho."
+        },
+        {
+          "arquivo": "livro/capitulos/19-fluxo-maximo.md",
+          "titulo": "19 — Fluxo máximo e corte mínimo",
+          "maturidade": "medido",
+          "teaser": "O gargalo não é a aresta mais estreita — é um conjunto que separa. E investir fora dele não muda nada."
+        },
+        {
+          "arquivo": "livro/capitulos/20-fluxo-custo-minimo.md",
+          "titulo": "20 — Fluxo de custo mínimo",
+          "maturidade": "medido",
+          "teaser": "A relaxação linear já vem inteira — e uma restrição banal destrói isso sem nenhum aviso."
+        },
+        {
+          "arquivo": "livro/capitulos/21-transporte-designacao.md",
+          "titulo": "21 — Transporte, designação e transbordo",
+          "maturidade": "medido",
+          "teaser": "Combinatório em cada palavra do enunciado, e resolvido em Programação Linear contínua."
+        },
+        {
+          "arquivo": "livro/capitulos/22-pert-cpm.md",
+          "titulo": "22 — Planejamento de projetos: PERT e CPM",
+          "maturidade": "medido",
+          "teaser": "A fórmula publica 21 dias. O projeto leva 24,48 — e estoura a estimativa em 82,3% das vezes."
+        }
+      ]
+    },
+    {
       "nome": "Parte VI — Otimização Não Linear",
       "itens": [
         {
