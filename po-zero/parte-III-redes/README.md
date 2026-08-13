@@ -16,7 +16,9 @@ python3 -m pytest .         # a medição, e o vínculo com o texto publicado
 | 2 | **Bellman-Ford** | Acerta os 4, e detecta o ciclo negativo que faria uma busca ingênua rodar para sempre |
 | 3 | **Max-fluxo = corte mínimo** | Os dois dão **15**, e o corte é exibido: três arestas. O teorema vira coisa que se olha |
 | 4 | **Transporte, relaxação linear** | Custo **220**, **todos inteiros**, sem nenhuma restrição de integralidade. Com **uma** restrição transversal de pátio, o ótimo vira **223,33** e quatro embarques saem fracionários |
-| 5 | **PERT** | A fórmula publica **21 dias**; o projeto leva **24,48** em média, e **estoura a estimativa em 82,3%** das amostras |
+| 5 | **O mesmo gesto guloso** | Ótimo na árvore (**17**, conferido por enumeração de todas as árvores geradoras) e **14,3% pior** no roteiro (**32** contra **28**) |
+| 6 | **Designação** | A relaxação linear devolve **0/1** sem nenhuma variável binária declarada |
+| 7 | **PERT** | A fórmula publica **21 dias**; o projeto leva **24,48** em média, e **estoura a estimativa em 82,3%** das amostras |
 
 ## O item 5 merece o parágrafo que ele tem
 
@@ -52,3 +54,8 @@ do experimento. Repare também que mesmo com um ramo só a estimativa estoura em
    mede outra coisa.
 2. **A primeira versão do PERT comparava fórmula com simulação direto**, e teria publicado um viés
    de ~4,7 dias que é quase todo artefato da distribuição escolhida. O número honesto é 0,49.
+3. **O primeiro grafo de cidades não sustentava a afirmação que ele existia para sustentar.** Eu
+   escolhi os pesos à mão para o guloso errar o roteiro, e **ele acertou** — 17 contra 17. A
+   instância publicada saiu de uma busca com semente declarada sobre 4.000 grafos aleatórios de
+   cinco cidades, tomando a de maior perda relativa. **Procurar um contraexemplo é mais honesto do
+   que arranjar um**, e mais rápido do que insistir num exemplo que não coopera.

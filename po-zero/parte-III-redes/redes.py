@@ -467,6 +467,163 @@ def pert_por_simulacao(faixas: dict, tarefas: dict, criticas: list[str],
     }
 
 
+# ---------------------------------------------------------------------------
+# 3b. ÁRVORE GERADORA MÍNIMA — e o guloso que funciona, ao lado do que não
+# ---------------------------------------------------------------------------
+
+def kruskal(arestas: list[tuple]) -> dict:
+    """Guloso que **prova** o ótimo: ordena por peso e aceita o que não fecha ciclo.
+
+    O capítulo 18 vive desta comparação: o mesmo gesto — *pegue sempre o mais
+    barato agora* — é ótimo aqui e não é ótimo no caixeiro-viajante. A diferença
+    não é de sorte nem de tamanho: é a **propriedade do corte**, que a árvore
+    tem e o roteiro não.
+    """
+    pai = {n: n for n in nos(arestas)}
+
+    def raiz(x):
+        while pai[x] != x:
+            pai[x] = pai[pai[x]]
+            x = pai[x]
+        return x
+
+    escolhidas, custo = [], F(0)
+    for u, v, c in sorted(arestas, key=lambda a: (a[2], a[0], a[1])):
+        ru, rv = raiz(u), raiz(v)
+        if ru != rv:
+            pai[ru] = rv
+            escolhidas.append((u, v, str(c)))
+            custo += c
+    return {"arestas": escolhidas, "custo": str(custo), "metodo": "kruskal"}
+
+
+def tsp_guloso(arestas: list[tuple], inicio: str) -> dict:
+    """O mesmo gesto guloso, no caixeiro-viajante: vá sempre ao vizinho mais perto."""
+    peso = {}
+    for u, v, c in arestas:
+        peso[(u, v)] = peso[(v, u)] = c
+    restantes = [n for n in nos(arestas) if n != inicio]
+    rota, atual, custo = [inicio], inicio, F(0)
+    while restantes:
+        proximo = min(restantes, key=lambda n: (peso.get((atual, n), F(10 ** 9)), n))
+        custo += peso[(atual, proximo)]
+        rota.append(proximo)
+        restantes.remove(proximo)
+        atual = proximo
+    custo += peso[(atual, inicio)]
+    rota.append(inicio)
+    return {"rota": rota, "custo": str(custo), "metodo": "guloso"}
+
+
+def tsp_exato(arestas: list[tuple], inicio: str) -> dict:
+    """Enumeração de todas as permutações. Só cabe porque a instância é minúscula."""
+    from itertools import permutations
+    peso = {}
+    for u, v, c in arestas:
+        peso[(u, v)] = peso[(v, u)] = c
+    outros = [n for n in nos(arestas) if n != inicio]
+    melhor, melhor_custo = None, None
+    for ordem in permutations(outros):
+        trilha = [inicio, *ordem, inicio]
+        if any((a, b) not in peso for a, b in zip(trilha, trilha[1:])):
+            continue
+        c = sum(peso[(a, b)] for a, b in zip(trilha, trilha[1:]))
+        if melhor_custo is None or c < melhor_custo:
+            melhor, melhor_custo = trilha, c
+    return {"rota": melhor, "custo": str(melhor_custo), "metodo": "enumeração"}
+
+
+# Um grafo completo de cinco cidades em que o mesmo gesto guloso acerta a árvore
+# e ERRA o roteiro.
+#
+# A instância não foi desenhada à mão: a primeira tentativa foi, e o guloso
+# acertou o roteiro nela — a afirmação "guloso erra no caixeiro" não se
+# sustentava no exemplo que eu tinha escolhido. Esta saiu de uma busca com
+# semente declarada (20260813) sobre 4.000 grafos aleatórios de cinco cidades,
+# tomando a de maior perda relativa. Procurar um contraexemplo é mais honesto do
+# que arranjar um.
+CIDADES = [
+    ("a", "b", F(8)), ("a", "c", F(3)), ("a", "d", F(12)), ("a", "e", F(7)),
+    ("b", "c", F(5)), ("b", "d", F(8)), ("b", "e", F(6)),
+    ("c", "d", F(7)), ("c", "e", F(3)),
+    ("d", "e", F(6)),
+]
+
+
+def mst_por_enumeracao(arestas: list[tuple]) -> dict:
+    """Confere Kruskal por um segundo caminho: enumera TODAS as árvores geradoras.
+
+    Chegar ao mesmo número por dois caminhos é o que separa medição de
+    coincidência. Só cabe porque a instância tem cinco nós.
+    """
+    from itertools import combinations
+    lista = nos(arestas)
+    melhor, melhor_custo = None, None
+    for escolha in combinations(arestas, len(lista) - 1):
+        pai = {n: n for n in lista}
+
+        def raiz(x):
+            while pai[x] != x:
+                x = pai[x]
+            return x
+
+        ok = True
+        for u, v, _ in escolha:
+            ru, rv = raiz(u), raiz(v)
+            if ru == rv:
+                ok = False
+                break
+            pai[ru] = rv
+        if not ok:
+            continue
+        c = sum(x[2] for x in escolha)
+        if melhor_custo is None or c < melhor_custo:
+            melhor, melhor_custo = escolha, c
+    return {"custo": str(melhor_custo),
+            "arestas": [(u, v, str(c)) for u, v, c in melhor],
+            "metodo": "enumeração de árvores geradoras"}
+
+
+# ---------------------------------------------------------------------------
+# 3c. DESIGNAÇÃO — a integralidade de graça, de novo, e agora em 0/1
+# ---------------------------------------------------------------------------
+
+def designacao(custo: dict) -> dict:
+    """Aloca pessoas a tarefas resolvendo **PL contínua**, sem variável binária.
+
+    E a saída sai 0/1. É a mesma unimodularidade do transporte, no caso em que
+    ela mais surpreende: o problema é combinatório por enunciado — *cada pessoa
+    faz exatamente uma tarefa* — e mesmo assim não precisa de programação
+    inteira. Quem declara `cat="Binary"` aqui paga um preço que a estrutura já
+    tinha dispensado.
+    """
+    import pulp
+
+    pessoas = sorted({p for p, _ in custo})
+    tarefas = sorted({t for _, t in custo})
+    p = pulp.LpProblem("designacao", pulp.LpMinimize)
+    x = {(i, j): pulp.LpVariable(f"x_{i}_{j}", lowBound=0, upBound=1) for i, j in custo}
+    p += pulp.lpSum(float(custo[(i, j)]) * x[(i, j)] for i, j in custo)
+    for i in pessoas:
+        p += pulp.lpSum(x[(i, j)] for j in tarefas) == 1
+    for j in tarefas:
+        p += pulp.lpSum(x[(i, j)] for i in pessoas) == 1
+
+    status = pulp.LpStatus[p.solve(pulp.HiGHS(msg=False))]
+    valores = {f"{i}->{j}": x[(i, j)].value() for i, j in custo}
+    escolhidos = sorted(k for k, v in valores.items() if v > 0.5)
+    binarios = all(abs(v - round(v)) < 1e-9 for v in valores.values())
+    return {"status": status, "custo": pulp.value(p.objective),
+            "escolhidos": escolhidos, "todos_binarios": binarios}
+
+
+EQUIPE = {
+    ("ana", "relatorio"): 9, ("ana", "auditoria"): 2, ("ana", "treinamento"): 7,
+    ("bruno", "relatorio"): 6, ("bruno", "auditoria"): 4, ("bruno", "treinamento"): 3,
+    ("clara", "relatorio"): 5, ("clara", "auditoria"): 8, ("clara", "treinamento"): 1,
+}
+
+
 def rede_com_ramos(k: int) -> tuple[dict, dict, list[str]]:
     """Uma rede de projeto com `k` ramos paralelos idênticos entre duas tarefas.
 
@@ -545,6 +702,24 @@ if __name__ == "__main__":
           f"{ {k: round(v, 4) for k, v in qb['fracionarios'].items()} }")
     print()
 
+    print("3b. O MESMO GESTO GULOSO: ótimo na árvore, 14% pior no roteiro")
+    print("=" * 82)
+    kr, enu = kruskal(CIDADES), mst_por_enumeracao(CIDADES)
+    print(f"  árvore por Kruskal: custo {kr['custo']}  ·  por enumeração de TODAS as "
+          f"árvores: {enu['custo']}  ·  batem: {kr['custo'] == enu['custo']}")
+    tg, te = tsp_guloso(CIDADES, "a"), tsp_exato(CIDADES, "a")
+    perda = F(tg["custo"]) - F(te["custo"])
+    print(f"  roteiro guloso: {tg['custo']} ({' → '.join(tg['rota'])})")
+    print(f"  roteiro ótimo : {te['custo']} ({' → '.join(te['rota'])})")
+    print(f"  perda do guloso: {perda}  ·  {float(F(tg['custo']) / F(te['custo']) - 1):.1%}")
+    print()
+
+    print("3c. DESIGNAÇÃO — 0/1 sem pedir binária")
+    print("=" * 82)
+    dg = designacao(EQUIPE)
+    print(f"  custo {dg['custo']:g}  ·  todos 0/1: {dg['todos_binarios']}  ·  {dg['escolhidos']}")
+    print()
+
     print("4. CPM — caminho crítico e folga")
     print("=" * 82)
     c = caminho_critico(PROJETO)
@@ -581,6 +756,9 @@ if __name__ == "__main__":
         },
         "fluxo_maximo": f,
         "transporte": {"integral": tr, "estrutura_quebrada": qb},
+        "arvore_e_roteiro": {"mst_kruskal": kr, "mst_por_enumeracao": enu,
+                             "tsp_guloso": tg, "tsp_exato": te, "perda_do_guloso": str(perda)},
+        "designacao": dg,
         "cpm": c,
         "pert": {"formula": pf, "simulacao": ps, "varredura_de_ramos": varredura},
         "versoes": {"aritmetica": "fractions.Fraction (exata), exceto a simulação do PERT",

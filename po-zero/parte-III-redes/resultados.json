@@ -125,6 +125,95 @@
       }
     }
   },
+  "arvore_e_roteiro": {
+    "mst_kruskal": {
+      "arestas": [
+        [
+          "a",
+          "c",
+          "3"
+        ],
+        [
+          "c",
+          "e",
+          "3"
+        ],
+        [
+          "b",
+          "c",
+          "5"
+        ],
+        [
+          "d",
+          "e",
+          "6"
+        ]
+      ],
+      "custo": "17",
+      "metodo": "kruskal"
+    },
+    "mst_por_enumeracao": {
+      "custo": "17",
+      "arestas": [
+        [
+          "a",
+          "c",
+          "3"
+        ],
+        [
+          "b",
+          "c",
+          "5"
+        ],
+        [
+          "c",
+          "e",
+          "3"
+        ],
+        [
+          "d",
+          "e",
+          "6"
+        ]
+      ],
+      "metodo": "enumeração de árvores geradoras"
+    },
+    "tsp_guloso": {
+      "rota": [
+        "a",
+        "c",
+        "e",
+        "b",
+        "d",
+        "a"
+      ],
+      "custo": "32",
+      "metodo": "guloso"
+    },
+    "tsp_exato": {
+      "rota": [
+        "a",
+        "b",
+        "d",
+        "e",
+        "c",
+        "a"
+      ],
+      "custo": "28",
+      "metodo": "enumeração"
+    },
+    "perda_do_guloso": "4"
+  },
+  "designacao": {
+    "status": "Optimal",
+    "custo": 9.0,
+    "escolhidos": [
+      "ana->auditoria",
+      "bruno->relatorio",
+      "clara->treinamento"
+    ],
+    "todos_binarios": true
+  },
   "cpm": {
     "duracao": "18",
     "cedo_inicio": {
