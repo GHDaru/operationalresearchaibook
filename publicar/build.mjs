@@ -244,6 +244,7 @@ const COMPANION_CAPS = [
   { chave: "dualidade", rotulo: "Dualidade e preço-sombra", libera: 12 },
   { chave: "sensibilidade", rotulo: "Análise de sensibilidade", libera: 13 },
   { chave: "pontos_interiores", rotulo: "Pontos interiores", libera: 14 },
+  { chave: "modelagem_aplicada", rotulo: "Padrões de modelagem", libera: 15 },
   { chave: "convexidade", rotulo: "Convexidade", libera: 38 },
   { chave: "leitura_critica", rotulo: "Leitura crítica de artigo", libera: 77 },
 ];

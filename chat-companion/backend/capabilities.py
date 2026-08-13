@@ -58,6 +58,10 @@ REGISTRO = [
      "descricao": "Explico por que atravessar não contradiz o teorema do vértice, e ajudo a ler "
                   "uma saída que NÃO é vértice — sem base, sem zeros exatos, sem preço-sombra. "
                   "Ajudo a escolher entre Simplex e interior pela instância, não pela fama."},
+    {"chave": "modelagem_aplicada", "rotulo": "Padrões de modelagem", "libera": 15, "tools": (),
+     "descricao": "Ajudo a reconhecer o padrão de um enunciado — mix, mistura, transporte, "
+                  "cobertura — começando pela única pergunta que importa: o que exatamente se "
+                  "escolhe? E cobro se o modelo responde à pergunta que foi feita."},
     {"chave": "convexidade", "rotulo": "Convexidade", "libera": 38, "tools": (),
      "descricao": "Ajudo a decidir se um conjunto é convexo — pela estrutura, não por amostragem — "
                   "e a achar o contraexemplo quando não é. Cobro a pergunta que quase ninguém faz "

@@ -69,9 +69,15 @@
           "teaser": "Atravessar em vez de contornar — e por que a resposta que chega não é um vértice."
         },
         {
+          "arquivo": "livro/capitulos/15-modelagem-aplicada.md",
+          "titulo": "15 — Modelagem aplicada em Programação Linear",
+          "maturidade": "v0",
+          "teaser": "Os quatro padrões que cobrem a maior parte do campo — e o que acontece quando se escolhe o errado."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Duas vagas declaradas",
-          "teaser": "Simplex revisado (11) e modelagem aplicada em PL (15). O 11 vem com medição própria; a lacuna entre o 10 e o 12 é declarada, não esquecida."
+          "titulo": "⬜ Uma vaga declarada",
+          "teaser": "Simplex revisado e implementação eficiente (11), que vem com medição própria. A lacuna entre o 10 e o 12 é declarada, não esquecida."
         }
       ]
     },

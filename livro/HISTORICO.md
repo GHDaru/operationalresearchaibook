@@ -1032,3 +1032,40 @@ reescalado; detectar ilimitado não é trabalho desta etapa.
 **Verificação:** nove portões verdes — `maturidade 🟡5 🔵0 ✅4`, `42 exercícios em 9 baterias`,
 `42 modelo(s) resolvido(s) em aritmética exata` —, `26 passed` no `po-zero` e `24 passed` no
 backend.
+
+### Edição 0.22 — 2026-08-13 · Capítulo 15: os quatro padrões, e o erro que não avisa
+
+Último capítulo 🟡 do lote 1, e o que **fecha a Parte II** — resta o capítulo 11, que tem spec e
+medição próprias.
+
+**Entrou:** [capítulo 15](capitulos/15-modelagem-aplicada.md), em 🟡 **v0**, e a
+[etapa 08 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-08-modelagem),
+que resolve mistura, transporte e cobertura com o **mesmo Simplex da etapa 03** — sem uma linha de
+método novo, porque a tese do capítulo é que o repertório é de **formulação**. Há teste que
+verifica isso: se a etapa passar a importar solver externo, ele quebra.
+
+**O erro mais silencioso do livro.** Todos os anteriores tinham sintoma — `Infeasible` avisa,
+`Unbounded` avisa, ciclagem trava, preço fora da faixa dá prejuízo. **Padrão errado não avisa
+nada.** Medido: a mesma situação de distribuição custa **R$ 365** modelada como transporte e
+**R$ 403,33** modelada como mix de produção com custo médio de frete — `Optimal` nos dois.
+
+E o dano maior não é a diferença de 10,5%: o modelo errado tem **duas variáveis**, uma por fábrica,
+e portanto **não diz quanto vai para cada centro**. A informação não está imprecisa — ela não
+existe. A perda aconteceu na escolha da variável de decisão, e o custo médio foi consequência, não
+causa.
+
+**A porta de entrada da programação inteira, medida.** A cobertura relaxada para contínua devolve
+`['1/2','1/2','1/2','1/2']` ao custo **9**; a decisão executável mais barata, obtida por
+**enumeração dos 16 subconjuntos**, é abrir as estações 2 e 3 ao custo **10**. A relaxação é um
+limitante inferior que **não se alcança**, e o buraco de 1 é exatamente o que a Parte de
+programação inteira existe para fechar.
+
+**Um alcance de portão, declarado em vez de descoberto depois.** O `verifica-otimos.mjs` não pegou
+os números deste capítulo, e não por estarem certos: ele só resolve modelos de **duas** variáveis
+(o transporte tem seis) e só inspeciona rubricas que contenham a palavra "ótimo" (as deste capítulo
+afirmam custos sem usá-la). Isso não é defeito — é o alcance dele. O controle compensatório é o
+teste da etapa 08, que confere o capítulo **e** a rubrica, e que declara no próprio cabeçalho qual
+buraco está fechando.
+
+**Verificação:** nove portões verdes — `maturidade 🟡6 🔵0 ✅4`, `45 exercícios em 10 baterias` —,
+`32 passed` no `po-zero` e `24 passed` no backend.

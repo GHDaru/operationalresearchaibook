@@ -2339,5 +2339,71 @@
     ],
     "erro_provavel": "Escolher pelo tamanho em todos os quatro casos: \"grande → interior, pequeno → Simplex\". O tamanho decide o item (a) e **não decide nenhum dos outros três**. Em (b) o que manda é a reotimização, e a instância pode ser enorme sem que isso mude a resposta; em (c) manda a necessidade de preço-sombra; em (d) manda a exatidão. Escolher método por uma característica só é o mesmo erro que o capítulo 77 ensina a recusar em artigo — tomar uma dimensão de comparação pela comparação inteira.",
     "resposta_guia": "**(a)** Ponto interior: problema grande, esparso e resolvido uma única vez por ano — não há reotimização a aproveitar, e é exatamente o regime em que a família interior é a escolha usual do mercado. **(b)** Simplex, e o argumento é decisivo: o *branch and bound* resolve milhares de problemas quase idênticos em sequência, e o Simplex reaproveita a base do nó anterior para reotimizar em poucos pivôs, enquanto o método interior recomeça a cada nó. **(c)** Simplex — ou interior seguido de ***crossover*** —, porque a reunião de compras quer preço-sombra, que só existe a partir de uma **base**, e a solução interior não tem base. **(d)** Simplex, porque a auditoria exige resultado exato: o Simplex opera em frações e devolve o valor cravado; o método interior converge a um limite e entrega aproximação, por natureza e não por descuido. Ao fornecedor: *idade não é critério — os dois métodos convivem nos solvers de mercado porque respondem a necessidades diferentes; me mostre a comparação com instância, baseline e máquina declarados, e aí conversamos.*"
+  },
+  {
+    "id": "cap15.exA",
+    "capitulo": 15,
+    "serie": "cap15",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "modelagem_aplicada",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Quatro enunciados, quatro padrões",
+    "enunciado": "Para **cada** situação abaixo, diga: (i) o padrão, (ii) **a variável de decisão**, com índices e unidade, (iii) o sentido do objetivo, (iv) o tipo dominante de restrição.\n\n| | A situação |\n|---|---|\n| **a** | *\"Uma refinaria compra quatro tipos de óleo cru e precisa produzir um combustível que atenda a especificações mínimas de octanagem e máximas de enxofre, gastando o mínimo.\"* |\n| **b** | *\"Uma rede tem 3 centros de distribuição e 8 lojas. Precisa decidir o abastecimento diário, minimizando frete, respeitando o estoque de cada centro e a demanda de cada loja.\"* |\n| **c** | *\"Uma fábrica de móveis tem 200 horas de marcenaria e 120 de pintura por semana, e quer decidir quantas mesas e cadeiras produzir para maximizar a margem.\"* |\n| **d** | *\"Um hospital precisa escolher, entre 9 turnos possíveis de 8 horas, quais ativar para que cada hora do dia tenha pelo menos a cobertura mínima de enfermagem, ao menor custo.\"* |\n\n5. Duas dessas quatro são **espelhos** uma da outra. Quais, e o que exatamente se inverte entre elas?\n6. Uma delas tem um problema que a Programação Linear **não resolve direito**. Qual, e por quê?",
+    "criterios": [
+      "**(a)** mistura — variável: quantidade (em unidade de volume ou massa) de cada tipo de óleo cru; minimiza custo; restrições de mínimo **e** de máximo sobre as especificações",
+      "**(b)** transporte — variável com **dois índices**: quanto vai do centro $i$ para a loja $j$; minimiza frete; oferta `≤` por centro e demanda `≥` por loja",
+      "**(c)** mix de produção — variável: quantas mesas e quantas cadeiras produzir; maximiza margem; recursos `≤`",
+      "**(d)** cobertura — variável **binária**: ativar ou não cada um dos 9 turnos; minimiza custo; cada hora coberta ao menos pelo mínimo exigido",
+      "Identifica (a) e (c) como espelhos, dizendo o que se inverte — **maximizar/minimizar** e `≤`/`≥` —, e aponta (d) como o caso que a Programação Linear não fecha, porque a variável honesta é binária e a relaxação devolve fração"
+    ],
+    "erro_provavel": "Classificar (b) como mix de produção porque \"cada centro decide quanto manda\". É o erro medido no capítulo, e a marca dele é o **desaparecimento do índice de destino**: com uma variável por centro, o modelo roda, devolve `Optimal`, e não sabe dizer quanto vai para cada loja — que é justamente a decisão que a operação precisa executar. O segundo erro é classificar (d) como mistura porque tem \"mínimo a atender\": a diferença não está na direção da restrição, e sim no que se escolhe — em mistura escolhe-se **quanto** de algo contínuo, em cobertura escolhe-se **quais**, e essa distinção é o que torna a variável binária.",
+    "resposta_guia": "**(a)** Mistura: a variável é quanto comprar de cada um dos quatro óleos (em m³ ou toneladas), o objetivo minimiza custo e as restrições são de especificação — mínimo de octanagem e máximo de enxofre. **(b)** Transporte: a variável tem dois índices, $x_{ij}$ = quanto vai do centro $i$ para a loja $j$ por dia; minimiza frete; oferta de cada centro `≤` e demanda de cada loja `≥`. **(c)** Mix de produção: a variável é quantas mesas e quantas cadeiras produzir por semana; maximiza margem; recursos (horas de marcenaria e de pintura) `≤`. **(d)** Cobertura: a variável é binária — ativar ou não cada um dos 9 turnos; minimiza custo; cada hora do dia precisa de cobertura mínima. Os espelhos são **(a) e (c)**: mix maximiza sob restrições `≤` de recurso, mistura minimiza sob restrições `≥` de exigência — invertem-se o sentido do objetivo e a direção da restrição. O caso que a Programação Linear não fecha é **(d)**: a variável honesta é binária, e relaxando para contínua o modelo devolve frações de turno, que não são escaláveis — a resposta vira um limitante inferior, não uma decisão."
+  },
+  {
+    "id": "cap15.exB",
+    "capitulo": 15,
+    "serie": "cap15",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "modelagem_aplicada",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "O modelo menor que respondia a outra pergunta",
+    "enunciado": "Uma distribuidora tem duas fábricas (capacidade 30 e 40) e três centros (demanda 20, 25 e 25). O custo por unidade em cada rota:\n\n| | centro 1 | centro 2 | centro 3 |\n|---|---:|---:|---:|\n| **fábrica 1** | 4 | 6 | 9 |\n| **fábrica 2** | 5 | 3 | 8 |\n\nO analista escreveu um modelo com **duas variáveis** — o total que sai de cada fábrica — usando o **custo médio** de cada uma (R$ 19/3 e R$ 16/3), com as capacidades e a demanda total de 70. O modelo roda, devolve `Optimal` e custo **R$ 403,33**. Ele apresenta como plano de frete.\n\n1. Refaça o modelo **certo**, com a variável de dois índices. Qual o plano e o custo?\n2. Qual é a diferença de custo, em reais e em porcentagem?\n3. **A diferença de custo não é o pior dano.** Qual é, e por quê?\n4. Em que momento exato da modelagem a informação foi perdida? Nomeie o passo.\n5. O analista argumenta: *\"o modelo menor roda em metade do tempo e o erro é de 10%\"*. Responda.",
+    "criterios": [
+      "Monta o modelo com $x_{ij}$ e chega ao plano $x_{11}=20$, $x_{13}=10$, $x_{22}=25$, $x_{23}=15$ com custo **R$ 365**",
+      "Calcula a diferença: R$ 38,33, cerca de **10,5%**",
+      "Identifica o dano maior: o modelo errado **não diz quanto vai para cada centro** — a informação que a operação precisa executar simplesmente não existe nele",
+      "Nomeia o passo: a perda ocorreu na **escolha da variável de decisão**, ao trocar $x_{ij}$ por um total por fábrica; o custo médio é consequência dessa escolha, não a causa",
+      "Responde ao argumento do tempo: um modelo que não responde à pergunta não tem erro de 10% — ele tem erro de **100%**, porque a saída dele não é executável, e o tempo economizado é irrelevante diante disso"
+    ],
+    "erro_provavel": "Tratar o caso como um problema de **precisão**: \"o custo médio é uma aproximação, dá 10% de erro, e em muitos contextos 10% é aceitável\". O raciocínio é razoável e a conclusão é falsa, porque mede a coisa errada. O modelo menor não é uma versão aproximada do modelo certo — é um modelo de **outro problema**. Ele responde \"quanto cada fábrica despacha no total\", e a pergunta era \"quanto vai de cada fábrica para cada centro\". Nenhuma melhora de precisão faria a resposta aparecer, porque a variável que a carregaria foi apagada. Confundir modelo aproximado com modelo de outra pergunta é o erro estrutural deste capítulo.",
+    "resposta_guia": "Com a variável de dois índices, o plano é $x_{11} = 20$, $x_{13} = 10$, $x_{22} = 25$, $x_{23} = 15$ — a fábrica 1 abastece o centro 1 inteiro e parte do 3, a fábrica 2 cobre o centro 2 e o resto do 3 —, ao custo de **R$ 365**. A diferença é de R$ 38,33, cerca de 10,5%. Mas o dano maior não é esse: o modelo errado **não informa quanto vai para cada centro**, e é exatamente essa a decisão que a operação precisa executar. A informação não está imprecisa — ela não existe. A perda aconteceu na **escolha da variável de decisão**: ao trocar $x_{ij}$ por um total por fábrica, o índice de destino saiu do modelo, e o custo médio foi apenas a consequência inevitável dessa escolha. Ao argumento do tempo: um modelo que não responde à pergunta feita não erra 10% — ele não serve, e meia hora economizada não compensa um plano de frete que ninguém consegue executar."
+  },
+  {
+    "id": "cap15.exC",
+    "capitulo": 15,
+    "serie": "cap15",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "modelagem_aplicada",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Meia estação",
+    "enunciado": "A prefeitura precisa decidir **quais** estações de coleta abrir. São quatro candidatas, com custos de R$ 5, 4, 6 e 3 (em milhões), e cinco bairros que precisam ficar cobertos — cada bairro é alcançado por um subconjunto das estações.\n\nO modelo linear rodou e devolveu:\n\n```\nestações: [1/2, 1/2, 1/2, 1/2]   ·   custo 9   ·   Optimal\n```\n\nO secretário quer levar \"R$ 9 milhões\" para a reunião do orçamento.\n\n1. O que significa \"abrir 1/2 estação\"? A conta está errada?\n2. Por enumeração, a escolha mais barata que **de fato** cobre todos os bairros é abrir as estações 2 e 3, ao custo de **10**. Que relação existe entre 9 e 10, e como se chama esse 9?\n3. O secretário pode levar \"R$ 9 milhões\" para a reunião? E \"R$ 10 milhões\"? Justifique **cada** resposta.\n4. Arredondar a solução para cima — abrir as quatro estações — resolve? Quanto custaria, e o que isso diz sobre arredondar?\n5. O que precisa mudar para o modelo responder à pergunta que foi feita — e o que isso custa?",
+    "criterios": [
+      "Explica que \"1/2 estação\" não é executável e que **a conta não está errada**: o modelo relaxou uma variável que deveria ser binária, e resolveu corretamente o problema relaxado",
+      "Identifica 9 como **limitante inferior** do custo real, e reconhece que ele não é atingível — nenhuma escolha executável custa 9",
+      "Decide sobre a reunião: R$ 9 milhões **não** pode ser levado como orçamento, porque nenhuma decisão real custa isso; R$ 10 milhões pode, porque corresponde a uma escolha executável e verificada",
+      "Mostra que arredondar para cima custa 5+4+6+3 = **18**, quase o dobro do necessário — arredondar produz solução viável e ruim, e não há garantia geral de que arredondar sequer produza viável",
+      "Conclui que a variável precisa ser **binária**, o que leva a programação inteira, e reconhece o custo: enumeração com poda, mais cara que resolver um problema linear"
+    ],
+    "erro_provavel": "Levar os R$ 9 milhões para a reunião porque \"foi o que o modelo deu\" e o status era `Optimal`. É o erro que fecha a Parte II, e ele resume o livro: `Optimal` é uma afirmação sobre **o problema que foi resolvido**, não sobre o problema que foi perguntado. Aqui o modelo resolveu com perfeição um problema em que se pode abrir meia estação, e esse problema não existe. O erro simétrico é descartar o 9 como inútil: ele é um **limitante inferior** legítimo e valioso — diz que nenhuma solução vai custar menos que isso, o que já permite recusar uma proposta de R$ 8 milhões sem fazer conta nenhuma.",
+    "resposta_guia": "\"Abrir 1/2 estação\" não é executável, e a conta **não está errada**: o modelo relaxou para contínua uma variável que deveria ser binária e resolveu corretamente esse problema relaxado. A relação entre 9 e 10 é a de **limitante inferior**: como toda decisão binária também é viável no problema relaxado, o custo relaxado nunca supera o real — logo 9 ≤ 10 —, e neste caso o limite **não é atingível**. Na reunião: R$ 9 milhões não pode ser apresentado como orçamento, porque nenhuma decisão executável custa isso; R$ 10 milhões pode, porque corresponde a abrir as estações 2 e 3, uma escolha real e verificada. Arredondar para cima significa abrir as quatro, ao custo de 18 — quase o dobro do necessário —, e o caso ilustra por que arredondar não é estratégia: além de cara, ela não tem garantia geral nem de produzir solução viável. O que precisa mudar é a natureza da variável, que tem de ser binária; isso leva o problema para programação inteira, e o custo é real: em vez de resolver um problema linear, passa-se a depender de enumeração com poda, bem mais cara — em troca de uma resposta que se pode executar."
   }
 ]

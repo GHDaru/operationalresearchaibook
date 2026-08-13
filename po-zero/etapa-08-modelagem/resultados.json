@@ -1,0 +1,73 @@
+{
+  "mistura": {
+    "status": "otimo",
+    "ponto": [
+      "180/17",
+      "48/17"
+    ],
+    "valor": "780/17",
+    "pivos": 2,
+    "padrao": "mistura",
+    "pergunta": "quanto comprar de cada insumo para atender às exigências ao menor custo"
+  },
+  "transporte": {
+    "status": "otimo",
+    "ponto": [
+      "20",
+      "0",
+      "10",
+      "0",
+      "25",
+      "15"
+    ],
+    "valor": "365",
+    "pivos": 4,
+    "padrao": "transporte",
+    "pergunta": "quanto mandar de cada origem para cada destino ao menor custo",
+    "rotulos": [
+      "x11",
+      "x12",
+      "x13",
+      "x21",
+      "x22",
+      "x23"
+    ]
+  },
+  "transporte_errado": {
+    "status": "otimo",
+    "ponto": [
+      "30",
+      "40"
+    ],
+    "valor": "1210/3",
+    "pivos": 2,
+    "padrao": "mix de produção (ERRADO para esta situação)",
+    "custo_medio_usado": [
+      "19/3",
+      "16/3"
+    ]
+  },
+  "cobertura": {
+    "status": "otimo",
+    "ponto": [
+      "1/2",
+      "1/2",
+      "1/2",
+      "1/2"
+    ],
+    "valor": "9",
+    "pivos": 5,
+    "padrao": "cobertura (relaxada para contínua)",
+    "pergunta": "quais estações abrir para cobrir todos os bairros ao menor custo",
+    "fracionaria": true,
+    "inteira": {
+      "estacoes": [
+        2,
+        3
+      ],
+      "custo": "10"
+    },
+    "buraco": "1"
+  },
+  "diferenca_do_padrao_errado": "115/3"
+}
