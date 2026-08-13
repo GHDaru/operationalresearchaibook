@@ -820,3 +820,81 @@ def test_o_capitulo_22_declara_ate_onde_o_digito_carrega(texto22):
     assert f"**{lo * 100:.2f}% a {hi * 100:.2f}%**".replace(".", ",") in texto22, \
         f"a faixa da probabilidade não confere: {lo} a {hi}"
     assert "o segundo dígito carrega e o terceiro não" in texto22
+
+
+# ===========================================================================
+# TODA REAFIRMAÇÃO TEM DONO — contra o número que envelhece na Síntese
+# ===========================================================================
+#
+# O defeito que este bloco fecha foi medido por campanha de mutação: os testes
+# acima prendem UMA ocorrência canônica de cada número — a linha de tabela, com
+# formatação distintiva — e toda **reafirmação** fica livre. Trocar o 0,49 da
+# Síntese, ou o 15 da Leitura executiva, ou o 223,33 da caixa de erro caro,
+# passava verde, porque `assert "0,49" in texto` continua verdadeiro enquanto
+# sobrar qualquer outra ocorrência na página.
+#
+# Foram 110 números nessa situação na Parte III, concentrados exatamente onde o
+# leitor apressado lê: Leitura executiva (41), caixa "erro caro" (18),
+# Procedência (16) e Síntese (14).
+#
+# O instrumento é contar. O VALOR vem da medição; a CONTAGEM vem do texto. Se
+# qualquer ocorrência derivar, a contagem cai e o teste fica vermelho — não
+# importa qual das seis derivou.
+#
+# Consequência aceita, e ela é desejável: acrescentar uma menção nova ao mesmo
+# número exige subir a contagem aqui. É uma decisão consciente a mais por
+# menção, e é barata perto de um número que envelhece calado numa síntese.
+
+def _ocorrencias(texto: str, valor: str) -> int:
+    """Conta `valor` sem casar dentro de outro número (`3,33` dentro de `23,33`)."""
+    import re
+    return len(re.findall(r"(?<![\d,])" + re.escape(valor) + r"(?![\d,])", texto))
+
+
+# (capítulo, o valor medido, de onde ele sai, quantas vezes a página o afirma)
+REAFIRMACOES = [
+    ("17", "**6**", "distância que Dijkstra devolve", 4),
+    ("17", "**4**", "distância verdadeira, que Bellman-Ford acha", 3),
+    ("18", "**17**", "custo da árvore geradora mínima", 1),
+    ("18", "**32**", "roteiro guloso", 3),
+    ("18", "**28**", "roteiro ótimo", 3),
+    ("18", "14,3", "perda relativa do guloso", 8),
+    ("19", "**15**", "fluxo máximo e capacidade do corte", 4),
+    ("20", "**220**", "custo do transporte com estrutura de rede", 4),
+    ("20", "223,33", "custo com a restrição transversal", 7),
+    ("21", "**9**", "custo da designação", 2),
+    ("22", "24,48", "duração média simulada do projeto", 9),
+    ("22", "82,3", "probabilidade de estourar a estimativa do PERT", 6),
+    # Sem os asteriscos, de propósito: o corpo escreve `**0,49 dia**` — a ênfase
+    # embrulha o número E a unidade, e um padrão `**0,49**` não casaria com ela.
+    # Foi assim que a primeira versão deste teste deixou passar a mutação do
+    # corpo do capítulo 22, e a única coisa que revelou isso foi mutar de novo.
+    ("22", "0,49", "o viés do método, isolado nas mesmas amostras", 7),
+]
+
+
+@pytest.mark.parametrize("cap,valor,o_que,vezes", REAFIRMACOES)
+def test_toda_reafirmacao_do_numero_medido_confere(request, cap, valor, o_que, vezes):
+    texto = request.getfixturevalue(f"texto{cap}")
+    achadas = _ocorrencias(texto, valor)
+    assert achadas == vezes, (
+        f"capítulo {cap}: «{valor}» ({o_que}) aparece {achadas} vez(es), e a suíte "
+        f"registra {vezes}.\n"
+        f"  Se uma reafirmação derivou da medição, corrija o texto.\n"
+        f"  Se você acrescentou ou removeu uma menção de propósito, atualize a "
+        f"contagem em REAFIRMACOES — de propósito, e não por reflexo.")
+
+
+def test_os_valores_contados_sao_os_valores_medidos(transp):
+    """A outra metade do vínculo: as contagens acima só valem se os VALORES
+    vierem da medição. Sem isto, a suíte contaria uma ficção com precisão."""
+    from redes import EQUIPE, MALHA  # noqa: F401
+    d = designacao(EQUIPE)
+    assert f"**{d['custo']:g}**" == "**9**"
+    assert f"**{kruskal(CIDADES)['custo']}**" == "**17**"
+    assert f"**{tsp_guloso(CIDADES, 'a')['custo']}**" == "**32**"
+    assert f"**{tsp_exato(CIDADES, 'a')['custo']}**" == "**28**"
+    assert f"**{fluxo_maximo(REDE, 'fabrica', 'mercado')['fluxo']}**" == "**15**"
+    assert f"{transp['custo']:.0f}" == "220"
+    assert f"**{dijkstra(COM_PESO_NEGATIVO, 'A')['distancias']['D']}**" == "**6**"
+    assert f"**{bellman_ford(COM_PESO_NEGATIVO, 'A')['distancias']['D']}**" == "**4**"
