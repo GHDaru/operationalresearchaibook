@@ -20,3 +20,12 @@ pulp>=3.0
 highspy>=1.11
 numpy>=1.26
 pytest>=8.0
+
+# `networkx` entrou na revisão da Parte III, e por uma razão específica: o
+# capítulo 17 afirmava que Dijkstra falha **sempre em silêncio** — "não há erro,
+# não há aviso, não há exceção lançada". A afirmação era falsa e conferível, e
+# quem a derrubou foi uma biblioteca consagrada, que levanta exceção diante da
+# mesma instância. Publicar isso exigia medi-lo, e medi-lo exige a dependência.
+#
+# É a única dependência do handbook que existe para **contradizer** o handbook.
+networkx>=3.0

@@ -50,13 +50,61 @@ def nos(arestas: list[tuple]) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def dijkstra(arestas: list[tuple], origem: str) -> dict:
-    """Dijkstra, escrito para ser lido — e para errar quando tem de errar.
+    """Dijkstra de livro — com a guarda do nó fechado, e errando mesmo assim.
 
-    A implementação NÃO se defende de peso negativo, de propósito. Defender-se
-    esconderia o que o capítulo 17 precisa mostrar: o método não avisa que
-    falhou, ele devolve um número errado com toda a confiança do mundo. A razão
-    é a hipótese que ele usa sem dizer — **uma vez fechado, um nó nunca melhora**
-    —, e ela só vale com peso não negativo.
+    **Esta é a versão canônica**, e a guarda `if v not in abertos: continue` é
+    o que a define: nó fechado não é mais relaxado. É exatamente a hipótese que
+    o método usa sem declarar — *uma vez fechado, um nó nunca melhora* — e que
+    só vale com peso não negativo.
+
+    A implementação NÃO se defende de peso negativo, de propósito. Com a
+    aresta `C → B` de peso −3 ela devolve **6** onde a resposta é **4**, sem
+    aviso e sem exceção. O erro é do método, não do código.
+
+    Por que a guarda importa, e por que ela voltou: sem ela, a relaxação
+    escreve em nó já fechado e corrompe a árvore de predecessores, produzindo
+    uma saída **internamente inconsistente** — distância 6 ao lado de um
+    caminho que custa 4. Esse sintoma é artefato da variante, não propriedade
+    do método, e o capítulo 17 chegou a publicá-lo como se fosse o segundo. A
+    variante sem guarda continua no arquivo, com nome próprio, logo abaixo.
+    """
+    dist: dict[str, F | None] = {n: INFINITO for n in nos(arestas)}
+    anterior: dict[str, str | None] = {n: None for n in dist}
+    dist[origem] = F(0)
+    abertos = set(dist)
+
+    while abertos:
+        candidatos = [n for n in abertos if dist[n] is not None]
+        if not candidatos:
+            break
+        atual = min(candidatos, key=lambda n: dist[n])
+        abertos.discard(atual)
+        for _, v, custo in vizinhos(arestas, atual):
+            if v not in abertos:      # <-- A GUARDA. Nó fechado não se relaxa.
+                continue
+            novo = dist[atual] + custo
+            if dist[v] is None or novo < dist[v]:
+                dist[v] = novo
+                anterior[v] = atual
+
+    return {"distancias": dist, "anterior": anterior, "metodo": "dijkstra"}
+
+
+def dijkstra_sem_guarda(arestas: list[tuple], origem: str) -> dict:
+    """A variante que muita gente escreve sem perceber: relaxa nó já fechado.
+
+    É o mesmo laço acima **sem** `if v not in abertos`. Parece mais simples e
+    até mais correto — *"se achei caminho melhor, atualizo"* —, e com peso não
+    negativo não faz diferença nenhuma, porque a situação nunca ocorre.
+
+    Com peso negativo ela produz um defeito de outra natureza: `dist[B]` melhora
+    depois de `B` fechar, e `anterior[B]` passa a apontar para `C`, mas `dist[D]`
+    — que já tinha sido relaxado a partir do `B` antigo — **não é recalculado**.
+    O resultado é uma saída que **contradiz a si mesma**: distância 6 e um
+    caminho que custa 4.
+
+    Ela está aqui porque a comparação com a versão canônica é a lição: o método
+    erra nas duas, e o *modo* de errar depende de um `if`.
     """
     dist: dict[str, F | None] = {n: INFINITO for n in nos(arestas)}
     anterior: dict[str, str | None] = {n: None for n in dist}
@@ -75,7 +123,84 @@ def dijkstra(arestas: list[tuple], origem: str) -> dict:
                 dist[v] = novo
                 anterior[v] = atual
 
-    return {"distancias": dist, "anterior": anterior, "metodo": "dijkstra"}
+    return {"distancias": dist, "anterior": anterior, "metodo": "dijkstra sem guarda"}
+
+
+def dijkstra_com_fila(arestas: list[tuple], origem: str) -> dict:
+    """A terceira variante: fila de prioridade com entradas obsoletas.
+
+    É a implementação mais comum em código de produção, e nela um nó **pode**
+    voltar à fila. Nesta instância ela acerta — devolve 4 — e o acerto é
+    **acidente**, não garantia: sem a hipótese de peso não negativo, nada aqui
+    prova terminação nem otimalidade. Um ciclo negativo a faz rodar para sempre.
+
+    Publicar esse acerto ao lado dos dois erros é o ponto do capítulo 17: três
+    coisas chamadas "Dijkstra" dão três respostas diferentes assim que a
+    hipótese cai.
+    """
+    import heapq
+
+    dist: dict[str, F | None] = {n: INFINITO for n in nos(arestas)}
+    anterior: dict[str, str | None] = {n: None for n in dist}
+    dist[origem] = F(0)
+    fila = [(F(0), origem)]
+    while fila:
+        d, u = heapq.heappop(fila)
+        if dist[u] is not None and d > dist[u]:
+            continue
+        for _, v, custo in vizinhos(arestas, u):
+            novo = d + custo
+            if dist[v] is None or novo < dist[v]:
+                dist[v] = novo
+                anterior[v] = u
+                heapq.heappush(fila, (novo, v))
+    return {"distancias": dist, "anterior": anterior, "metodo": "dijkstra com fila"}
+
+
+def as_tres_variantes(arestas: list[tuple], origem: str, destino: str) -> list[dict]:
+    """As três variantes na mesma instância, com o veredito de cada uma.
+
+    `contradiz` é o teste que separa erro de incoerência: a distância que a
+    variante publica bate com o custo do caminho que ela mesma devolve?
+    """
+    peso = {(u, v): c for u, v, c in arestas}
+    saida = []
+    for nome, f in (("com guarda (canônica)", dijkstra),
+                    ("sem guarda", dijkstra_sem_guarda),
+                    ("com fila de prioridade", dijkstra_com_fila)):
+        r = f(arestas, origem)
+        trilha = caminho(r, destino)
+        custo_do_caminho = sum(peso[(a, b)] for a, b in zip(trilha, trilha[1:]))
+        saida.append({
+            "variante": nome,
+            "distancia": str(r["distancias"][destino]),
+            "caminho": trilha,
+            "custo_do_caminho": str(custo_do_caminho),
+            "contradiz_a_si_mesma": r["distancias"][destino] != custo_do_caminho,
+            "acerta": custo_do_caminho == F(4) and r["distancias"][destino] == F(4),
+        })
+    return saida
+
+
+def o_que_uma_biblioteca_faz(arestas: list[tuple], origem: str) -> dict:
+    """E o que faz uma biblioteca consagrada diante da mesma instância.
+
+    Importa porque o capítulo afirmava que o método falha **em silêncio**, sem
+    aviso e sem exceção. Medido: a `networkx` **levanta exceção**. O silêncio
+    é propriedade de algumas implementações, não do método — e essa distinção
+    é o que separa uma lição verdadeira de uma lição confortável.
+    """
+    import networkx as nx
+
+    g = nx.DiGraph()
+    g.add_weighted_edges_from([(u, v, float(c)) for u, v, c in arestas])
+    try:
+        d = nx.single_source_dijkstra(g, origem)
+        return {"biblioteca": "networkx", "versao": nx.__version__,
+                "avisa": False, "resultado": str(d)}
+    except Exception as e:                                   # noqa: BLE001
+        return {"biblioteca": "networkx", "versao": nx.__version__,
+                "avisa": True, "excecao": type(e).__name__, "mensagem": str(e)[:120]}
 
 
 def bellman_ford(arestas: list[tuple], origem: str) -> dict:
@@ -547,16 +672,82 @@ def tsp_exato(arestas: list[tuple], inicio: str) -> dict:
 #
 # A instância não foi desenhada à mão: a primeira tentativa foi, e o guloso
 # acertou o roteiro nela — a afirmação "guloso erra no caixeiro" não se
-# sustentava no exemplo que eu tinha escolhido. Esta saiu de uma busca com
-# semente declarada (20260813) sobre 4.000 grafos aleatórios de cinco cidades,
-# tomando a de maior perda relativa. Procurar um contraexemplo é mais honesto do
-# que arranjar um.
+# sustentava no exemplo que eu tinha escolhido. Esta saiu de um sorteio com
+# semente declarada (20260813), `randint(1, 12)` em cada uma das dez arestas.
+#
+# CORREÇÃO REGISTRADA. Até a revisão desta rodada, este comentário e o capítulo
+# 18 diziam que a instância era "a de MAIOR perda relativa entre 4.000 grafos".
+# **Não é**, e a afirmação era conferível: a busca está agora implementada em
+# `varredura_do_guloso_no_roteiro()`, e ela mostra que a instância publicada é o
+# **sorteio nº 3**, com perda de 14,3% — enquanto a de maior perda, o sorteio
+# 1867, perde 150%. O que aconteceu de fato foi parar no primeiro sorteio com
+# perda substancial, que é uma escolha legítima e **outra** da que foi narrada.
+#
+# A instância continua publicada: ela serve ao capítulo, e trocá-la por outra
+# não conserta o defeito, que era de procedência e não de número. O que mudou é
+# que agora existe o código, e ele publica também a distribuição — que diz o
+# contrário do que o capítulo insinuava: nestas instâncias o guloso é ótimo
+# **mais vezes do que erra**.
 CIDADES = [
     ("a", "b", F(8)), ("a", "c", F(3)), ("a", "d", F(12)), ("a", "e", F(7)),
     ("b", "c", F(5)), ("b", "d", F(8)), ("b", "e", F(6)),
     ("c", "d", F(7)), ("c", "e", F(3)),
     ("d", "e", F(6)),
 ]
+
+
+SEMENTE_CIDADES = 20260813
+SORTEIOS_CIDADES = 4000
+
+
+def varredura_do_guloso_no_roteiro(semente: int = SEMENTE_CIDADES,
+                                   sorteios: int = SORTEIOS_CIDADES) -> dict:
+    """A busca que o comentário acima descrevia e o repositório não continha.
+
+    Ela existe por dois motivos, e o segundo é mais importante que o primeiro.
+
+    **Primeiro**: procedência é afirmação, e afirmação de procedência tem de ser
+    conferível. Enquanto a busca era só prosa, "tomando a de maior perda
+    relativa" era indistinguível de uma lembrança errada — e era uma.
+
+    **Segundo**: a distribuição corrige uma distorção pedagógica do capítulo 18.
+    Ao publicar só a instância em que o guloso perde 14,3%, o texto insinuava que
+    o guloso costuma falhar no roteiro. Medido, ele é **ótimo na maioria** das
+    instâncias aleatórias de cinco cidades, e os 14,3% ficam perto do percentil
+    80. A lição verdadeira do capítulo não é "o guloso erra" — é "o guloso **não
+    tem como avisar** quando erra", e essa não depende de frequência.
+    """
+    from itertools import combinations
+
+    rnd = random.Random(semente)
+    perdas, indice_da_publicada = [], None
+    for i in range(sorteios):
+        arestas = [(u, v, F(rnd.randint(1, 12)))
+                   for u, v in combinations(("a", "b", "c", "d", "e"), 2)]
+        g, o = tsp_guloso(arestas, "a"), tsp_exato(arestas, "a")
+        perdas.append(F(g["custo"]) / F(o["custo"]) - 1)
+        if arestas == CIDADES:
+            indice_da_publicada = i
+
+    ordenadas = sorted(perdas)
+    publicada = perdas[indice_da_publicada] if indice_da_publicada is not None else None
+    pct = lambda x: round(float(x) * 100, 2)  # noqa: E731
+    return {
+        "semente": semente,
+        "sorteios": sorteios,
+        "indice_da_instancia_publicada": indice_da_publicada,
+        "perda_da_publicada": pct(publicada) if publicada is not None else None,
+        "indice_da_maior_perda": max(range(sorteios), key=lambda i: perdas[i]),
+        "maior_perda": pct(ordenadas[-1]),
+        "mediana": pct(ordenadas[sorteios // 2]),
+        "guloso_ja_otimo": round(sum(1 for p in perdas if p == 0) / sorteios * 100, 2),
+        "p90": pct(ordenadas[int(0.9 * sorteios)]),
+        "quantas_batem_ou_superam_a_publicada":
+            sum(1 for p in perdas if publicada is not None and p >= publicada),
+        "percentil_da_publicada":
+            round(sum(1 for p in perdas if publicada is not None and p < publicada)
+                  / sorteios * 100, 2),
+    }
 
 
 def mst_por_enumeracao(arestas: list[tuple]) -> dict:

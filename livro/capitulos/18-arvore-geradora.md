@@ -147,9 +147,39 @@ pergunta diferente: **qual a rota mais curta que visita todas as cidades e volta
 
 > **A instância não foi desenhada para isso, e vale dizer como ela foi obtida.** A primeira
 > tentativa foi escolher os pesos à mão para o guloso errar — **e ele acertou**, 17 contra 17. A
-> instância publicada saiu de uma busca sobre 4.000 grafos aleatórios de cinco cidades, com semente
-> declarada, tomando a de maior perda relativa. **Procurar um contraexemplo é mais honesto do que
-> arranjar um**, e é bem mais rápido do que insistir num exemplo que não coopera.
+> instância publicada veio de um sorteio com semente declarada (20260813), dez arestas com peso
+> inteiro entre 1 e 12. **Procurar um contraexemplo é mais honesto do que arranjar um**, e é bem
+> mais rápido do que insistir num exemplo que não coopera.
+>
+> **Correção, e ela é sobre esta caixa.** Até a revisão de 2026-08, este parágrafo dizia que a
+> instância era *"a de maior perda relativa entre 4.000 grafos"*. **Não é** — e a afirmação era
+> conferível, o que a torna pior do que um número sem fonte. A busca existe agora em
+> `varredura_do_guloso_no_roteiro()`, e ela mostra que a instância publicada é o **sorteio nº 3**,
+> enquanto a de maior perda é o 1867, com **150%**. O que aconteceu de fato foi parar no primeiro
+> sorteio com perda substancial — escolha legítima, e **outra** da que estava narrada. A caixa que
+> se gabava de honestidade era a que continha a afirmação falsa.
+
+### E o guloso erra com que frequência?
+
+A instância acima mostra o guloso perdendo 14,3%. Ela não é típica, e publicar só ela **distorce**.
+Rodando as mesmas 4.000 instâncias aleatórias de cinco cidades:
+
+| | Medido |
+|---|---|
+| Mediana da perda do guloso | **0%** |
+| Instâncias em que o guloso **já é ótimo** | **55,93%** |
+| Percentil 90 da perda | **25%** |
+| Maior perda encontrada | **150%** |
+| Onde caem os 14,3% desta página | percentil **78,8** |
+| Instâncias que perdem **tanto quanto ou mais** que a desta página | **848** de 4.000 |
+
+**O guloso acerta o roteiro mais vezes do que erra** — em mais da metade dos casos ele devolve o
+ótimo. Isso não enfraquece a lição do capítulo; **desloca** a lição para onde ela é verdadeira:
+
+> **O problema do guloso não é errar muito. É não ter como avisar.** Numa instância dessas, quem
+> roda o guloso e recebe 32 não tem nenhum sinal de que 28 existia — e a chance de estar diante de
+> um dos 44% é invisível de dentro do resultado. Um método que erra 44% das vezes **e avisa** é
+> administrável; um que erra 44% das vezes em silêncio, não.
 
 ### Por que um e não o outro
 

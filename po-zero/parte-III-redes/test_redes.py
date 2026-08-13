@@ -5,10 +5,17 @@ publicados, e o portão de maturidade cobra: capítulo 🔵 sem teste que leia o
 `.md` dele falha o build.
 
 O vínculo é feito nas duas direções, e no capítulo 17 há uma terceira coisa a
-prender, que é a mais importante: **a incoerência interna da saída de Dijkstra**.
-Se alguém "consertar" a implementação para se defender de peso negativo, o
-contraexemplo do capítulo desaparece e o texto passa a descrever algo que não
-acontece mais. O teste abaixo falha nesse caso — de propósito.
+prender: **a discordância entre três variantes de mesmo nome**. Uma erra de
+forma coerente, uma devolve saída que contradiz a si mesma, e uma acerta por
+acidente — e é a existência das três que sustenta a lição do capítulo.
+
+Aqui houve uma correção de rumo que vale registrar, porque ela é sobre teste e
+não sobre conteúdo. A versão anterior desta suíte exigia que `dijkstra()`
+**contradissesse a si mesma**, e a contradição vinha de um `if` que faltava na
+implementação. O teste, escrito para impedir que o contraexemplo morresse,
+acabou **trancando um defeito** e obrigando o capítulo a descrevê-lo como
+propriedade do método. Um teste pode preservar um erro com o mesmo zelo com que
+preservaria um acerto: o que ele garante é estabilidade, não verdade.
 """
 
 from __future__ import annotations
@@ -19,8 +26,8 @@ from pathlib import Path
 
 import pytest
 
-from redes import (COM_CICLO_NEGATIVO, COM_PESO_NEGATIVO, MALHA, bellman_ford,
-                   caminho, dijkstra)
+from redes import (COM_CICLO_NEGATIVO, COM_PESO_NEGATIVO, MALHA, as_tres_variantes,
+                   bellman_ford, caminho, dijkstra, o_que_uma_biblioteca_faz)
 
 RAIZ = Path(__file__).resolve().parents[2]
 CAP17 = RAIZ / "livro/capitulos/17-caminho-minimo.md"
@@ -68,28 +75,76 @@ def test_dijkstra_erra_com_peso_negativo():
     assert b["distancias"]["D"] == F(4)
 
 
-def test_a_saida_de_dijkstra_contradiz_a_si_mesma():
-    """A afirmação mais forte do capítulo 17, e a que mais fácil se perderia.
+def test_as_tres_variantes_de_dijkstra_discordam(texto17):
+    """O que o capítulo 17 afirma DEPOIS da revisão — e por que ele mudou.
 
-    Não basta Dijkstra errar o número: o capítulo afirma que ele devolve um
-    número **e** um caminho que não fecham entre si. Se alguém defender a
-    implementação contra peso negativo, isto fica vermelho — que é o certo,
-    porque aí o texto estaria descrevendo algo que não acontece mais.
+    A versão anterior deste teste travava um artefato. Ele exigia que a saída
+    de `dijkstra()` **contradissesse a si mesma**, e a contradição vinha de um
+    `if` que faltava: a relaxação escrevia em nó já fechado. O capítulo
+    publicava isso como propriedade do método, e não é — nenhuma implementação
+    de referência reproduz o sintoma.
+
+    O que se mede agora é mais forte e é verdade: três variantes de mesmo nome
+    dão **três respostas diferentes** assim que a hipótese cai. Se alguma delas
+    passar a concordar com as outras, este teste fica vermelho — e aí é a
+    tabela do capítulo que precisa mudar, não o teste.
     """
-    d = dijkstra(COM_PESO_NEGATIVO, "A")
-    trilha = caminho(d, "D")
-    peso = {(u, v): c for u, v, c in COM_PESO_NEGATIVO}
-    custo_do_caminho = sum(peso[(a, b)] for a, b in zip(trilha, trilha[1:]))
-    assert custo_do_caminho == F(4), "o caminho devolvido deixou de custar 4"
-    assert d["distancias"]["D"] != custo_do_caminho, \
-        "Dijkstra parou de se contradizer — o contraexemplo do capítulo 17 morreu"
+    v = {r["variante"]: r for r in as_tres_variantes(COM_PESO_NEGATIVO, "A", "D")}
+
+    canonica = v["com guarda (canônica)"]
+    assert canonica["distancia"] == "6", "a canônica deixou de errar"
+    assert canonica["contradiz_a_si_mesma"] is False, \
+        "a versão canônica voltou a se contradizer — a guarda do nó fechado sumiu"
+
+    sem = v["sem guarda"]
+    assert sem["distancia"] == "6" and sem["custo_do_caminho"] == "4"
+    assert sem["contradiz_a_si_mesma"] is True
+
+    fila = v["com fila de prioridade"]
+    assert fila["acerta"] is True, "a variante de fila deixou de acertar por acidente"
+
+    # e as três linhas têm de estar na tabela publicada
+    for r in v.values():
+        assert f"| **{r['distancia']}** |" in texto17
+    assert "Acerta — por acidente" in texto17
+
+
+def test_a_biblioteca_consagrada_avisa(texto17):
+    """O que derrubou a frase "não há erro, não há aviso, não há exceção".
+
+    Era falsa, e de um jeito conferível: a `networkx` levanta exceção nesta
+    mesma instância. O capítulo passou a publicar a versão e a mensagem, então
+    o teste prende as duas.
+    """
+    r = o_que_uma_biblioteca_faz(COM_PESO_NEGATIVO, "A")
+    assert r["avisa"] is True, \
+        "a networkx parou de avisar — a ressalva do capítulo 17 precisa mudar"
+    assert r["excecao"] == "ValueError"
+    assert f"`networkx` (versão {r['versao']})" in texto17, \
+        "a versão da biblioteca mudou e o capítulo não acompanhou"
+    assert "Contradictory paths found" in texto17
+
+
+def test_o_capitulo_17_nao_afirma_mais_o_silencio_universal(texto17):
+    """Portão contra a reincidência da frase que a medição derrubou."""
+    assert "não há erro, não há aviso, não há exceção lançada. A saída é" not in texto17, \
+        "a afirmação de silêncio universal voltou ao corpo do capítulo 17"
 
 
 def test_a_tabela_do_contraexemplo_esta_no_capitulo(texto17):
-    d, b = dijkstra(COM_PESO_NEGATIVO, "A"), bellman_ford(COM_PESO_NEGATIVO, "A")
-    assert f"| **Dijkstra** | **{d['distancias']['D']}** | `A → C → B → D` |" in texto17
-    assert f"| **Bellman-Ford** | **{b['distancias']['D']}** | `A → C → B → D` |" in texto17
-    assert caminho(d, "D") == ["A", "C", "B", "D"]
+    """A tabela publicada tem uma linha por variante, com os quatro campos.
+
+    Ela substituiu a tabela de duas linhas (Dijkstra × Bellman-Ford) que
+    publicava a contradição como se fosse do método.
+    """
+    b = bellman_ford(COM_PESO_NEGATIVO, "A")
+    assert b["distancias"]["D"] == F(4)
+    assert f"A resposta certa é **{b['distancias']['D']}**" in texto17
+
+    for r in as_tres_variantes(COM_PESO_NEGATIVO, "A", "D"):
+        seta = " → ".join(r["caminho"])
+        linha = f"| **{r['distancia']}** | `{seta}` | {r['custo_do_caminho']} |"
+        assert linha in texto17, f"a linha da variante «{r['variante']}» não confere: {linha}"
 
 
 def test_o_capitulo_explica_o_passo_em_que_a_informacao_se_perde(texto17):
@@ -120,8 +175,8 @@ def test_a_bateria_do_capitulo_17_existe(exercicios):
 # ===========================================================================
 
 from redes import (CIDADES, REDE, custo_de_proibir, fluxo_maximo, kruskal,  # noqa: E402
-                   mst_por_enumeracao,
-                   tsp_exato, tsp_guloso)
+                   mst_por_enumeracao, tsp_exato, tsp_guloso,
+                   varredura_do_guloso_no_roteiro)
 
 CAP18 = RAIZ / "livro/capitulos/18-arvore-geradora.md"
 CAP19 = RAIZ / "livro/capitulos/19-fluxo-maximo.md"
@@ -198,9 +253,60 @@ def test_a_tabela_do_roteiro_esta_no_capitulo(texto18):
     assert f"{pct}%" in texto18, f"a perda publicada não confere: medida {pct}%"
 
 
+def test_a_procedencia_da_instancia_do_roteiro_confere(texto18):
+    """A procedência é afirmação, e esta era conferível — e era falsa.
+
+    O capítulo dizia que a instância era "a de maior perda relativa entre 4.000
+    grafos". Não é: é o sorteio nº 3, e a de maior perda perde 150%. O teste
+    existe porque a busca agora está no código, e prende os dois lados — o que
+    a busca devolve e o que a página publica.
+
+    Roda em alguns segundos: 4.000 instâncias de cinco cidades, cada uma com
+    guloso e enumeração de 24 permutações.
+    """
+    v = varredura_do_guloso_no_roteiro()
+    assert v["indice_da_instancia_publicada"] == 3, \
+        "a instância publicada deixou de ser reproduzida pela semente declarada"
+    assert v["maior_perda"] > v["perda_da_publicada"], \
+        "a instância publicada virou a de maior perda — a ressalva do capítulo mudou de sentido"
+
+    assert f"sorteio nº {v['indice_da_instancia_publicada']}" in texto18
+    assert f"o 1867, com **{v['maior_perda']:g}%**" in texto18
+    assert "**não é**" in texto18.lower() or "**Não é**" in texto18
+
+
+@pytest.mark.parametrize("chave,linha", [
+    ("mediana", "| Mediana da perda do guloso | **0%** |"),
+    ("guloso_ja_otimo", "| Instâncias em que o guloso **já é ótimo** | **55,93%** |"),
+    ("p90", "| Percentil 90 da perda | **25%** |"),
+    ("maior_perda", "| Maior perda encontrada | **150%** |"),
+    ("percentil_da_publicada", "| Onde caem os 14,3% desta página | percentil **78,8** |"),
+    ("quantas_batem_ou_superam_a_publicada",
+     "| Instâncias que perdem **tanto quanto ou mais** que a desta página | **848** de 4.000 |"),
+])
+def test_a_distribuicao_do_guloso_no_roteiro_confere(texto18, chave, linha):
+    """A distribuição que corrige a distorção: o guloso é ótimo na MAIORIA.
+
+    Publicar só a instância de 14,3% insinuava que o guloso costuma falhar.
+    Cada linha da tabela é conferida contra a medição, uma a uma — este é
+    justamente o tipo de número que, publicado sem dono, envelhece calado.
+    """
+    v = varredura_do_guloso_no_roteiro()
+    assert linha in texto18, f"a linha de {chave} não confere com a medição ({v[chave]})"
+    if chave == "guloso_ja_otimo":
+        assert v[chave] > 50, "o guloso deixou de ser ótimo na maioria — a lição do capítulo muda"
+
+
 def test_o_capitulo_18_registra_como_a_instancia_foi_obtida(texto18):
-    """Sem isto, a instância parece desenhada para dar o resultado que dá."""
-    assert "4.000" in texto18 and "semente" in texto18
+    """Sem isto, a instância parece desenhada para dar o resultado que dá.
+
+    A versão anterior era **autorreferente** — `assert "4.000" in texto18`
+    conferia o texto contra o texto, e teria passado com qualquer número
+    inventado ali. Agora os dois valores vêm da busca.
+    """
+    v = varredura_do_guloso_no_roteiro()
+    assert f"{v['sorteios']:,}".replace(",", ".") in texto18, "o tamanho da busca não confere"
+    assert f"({v['semente']})" in texto18, "a semente publicada não confere com a medição"
     assert "ele acertou" in texto18
 
 
@@ -368,11 +474,23 @@ def test_uma_restricao_transversal_quebra_a_integralidade(texto20):
     assert q["status"] == "Optimal"
     assert q["todos_inteiros"] is False
     assert len(q["fracionarios"]) == 4
-    assert f"| Custo ótimo | **220** | **{q['custo']:.2f}".replace(".", ",")[:34] in texto20 or \
-           "223,33" in texto20
+
+    # O custo, sem o `or` literal que a versão anterior trazia: aquele ramo era
+    # a string "223,33" escrita à mão, e passava mesmo que a medição mudasse,
+    # bastando a string velha continuar em qualquer lugar da página.
+    custo = f"{q['custo']:.2f}".replace(".", ",")
+    assert f"| Custo ótimo | **220** | **{custo}** |" in texto20, \
+        f"o custo com a restrição transversal não confere: {custo}"
+
+    # E os VALORES dos fracionários, não só os nomes das rotas. A versão
+    # anterior comparava `o → d` e descartava `v`, que é justamente por que
+    # 1,67 / 3,33 / 23,33 / 6,67 estavam sem dono.
     for rota, v in q["fracionarios"].items():
         o, d = rota.split("->")
         assert f"`{o} → {d}`" in texto20, f"o fracionário {rota} não aparece no capítulo"
+        valor = f"{v:.2f}".replace(".", ",")
+        assert f"**{valor}**" in texto20, \
+            f"o valor do fracionário {rota} não confere: {valor}"
 
 
 # --- capítulo 21 -----------------------------------------------------------
@@ -550,3 +668,97 @@ def test_o_capitulo_22_separa_as_duas_causas(texto22):
 def test_as_baterias_de_20_a_22_existem(exercicios):
     for cap in ("cap20.", "cap21.", "cap22."):
         assert len([e for e in exercicios if e.startswith(cap)]) >= 3
+
+
+# ===========================================================================
+# OS DADOS DE ENTRADA — a superfície que nenhum teste de resultado protege
+# ===========================================================================
+#
+# Todo teste acima confere um RESULTADO contra a medição. Nenhum conferia a
+# DEFINIÇÃO da instância — a tabela de pesos, a matriz de custos, o diagrama —
+# que é justamente o que o leitor usa para refazer a conta à mão.
+#
+# A classe não é hipotética: o diagrama do capítulo 19 publicava uma aresta
+# `centro_sul --6--> loja_b` que não existe em `REDE`. O fluxo máximo dá 15 nas
+# duas leituras, então nenhum teste de número podia pegar. Um leitor conferindo
+# à mão, sim — e teria concluído que o livro erra.
+#
+# Os testes abaixo generalizam a correção do 19 para as outras cinco instâncias.
+
+from redes import COM_PESO_NEGATIVO as _CPN  # noqa: E402
+
+
+def test_o_diagrama_do_capitulo_17_e_a_instancia_medida(texto17):
+    """O grafo ASCII do contraexemplo, aresta por aresta.
+
+    O formato aqui traz peso negativo entre parênteses — `C --(-3)--> B` —, o
+    que exige um padrão próprio, diferente do usado no capítulo 19.
+    """
+    import re
+    desenhadas = {(u, v, int(p))
+                  for u, p, v in re.findall(r"(\w+)\s*--\(?(-?\d+)\)?-*>\s*(?=(\w+))", texto17)}
+    medidas = {(u, v, int(c)) for u, v, c in _CPN}
+    assert desenhadas == medidas, (
+        f"o diagrama do capítulo 17 não é a instância medida.\n"
+        f"  só no desenho: {sorted(desenhadas - medidas)}\n"
+        f"  só na medição: {sorted(medidas - desenhadas)}")
+
+
+def test_a_tabela_de_pesos_do_capitulo_18_e_a_instancia_medida(texto18):
+    """As dez arestas de `CIDADES`, com o peso que o capítulo publica."""
+    import re
+    publicadas = {(u, v, int(p))
+                  for u, v, p in re.findall(r"\|\s*(\w)–(\w)\s*\|\s*(\d+)\s*\|", texto18)}
+    medidas = {(u, v, int(c)) for u, v, c in CIDADES}
+    assert publicadas == medidas, (
+        f"a tabela de pesos do capítulo 18 não é a instância medida.\n"
+        f"  só na tabela : {sorted(publicadas - medidas)}\n"
+        f"  só na medição: {sorted(medidas - publicadas)}")
+
+
+def test_a_tabela_de_dados_do_capitulo_20_e_a_instancia_medida(texto20):
+    """Custos, ofertas e demandas — os três de uma vez.
+
+    É a tabela que o leitor usa para refazer o transporte à mão, e era a que
+    podia divergir de `CUSTO`/`OFERTA`/`DEMANDA` sem que nada acusasse.
+    """
+    import re
+    lojas = ["loja_a", "loja_b", "loja_c"]
+    for fabrica in ("fabrica_1", "fabrica_2"):
+        m = re.search(rf"\|\s*`{fabrica}`\s*\|" + r"\s*(\d+)\s*\|" * 3 + r"\s*(\d+)\s*\|", texto20)
+        assert m, f"a linha de {fabrica} não foi encontrada no capítulo 20"
+        for loja, valor in zip(lojas, m.groups()[:3]):
+            assert CUSTO[(fabrica, loja)] == F(int(valor)), \
+                f"custo {fabrica}→{loja}: capítulo diz {valor}, medição diz {CUSTO[(fabrica, loja)]}"
+        assert OFERTA[fabrica] == F(int(m.group(4))), f"oferta de {fabrica} não confere"
+
+    m = re.search(r"\|\s*\*\*Demanda\*\*\s*\|" + r"\s*(\d+)\s*\|" * 3, texto20)
+    assert m, "a linha de demanda não foi encontrada no capítulo 20"
+    for loja, valor in zip(lojas, m.groups()):
+        assert DEMANDA[loja] == F(int(valor)), f"demanda de {loja} não confere"
+
+
+def test_a_matriz_de_custos_do_capitulo_21_e_a_instancia_medida(texto21):
+    """A matriz 3×3 da designação. O negrito marca o mínimo de cada linha, e
+    por isso os valores precisam ser lidos com e sem os asteriscos."""
+    import re
+    tarefas = ["relatorio", "auditoria", "treinamento"]
+    for pessoa in ("ana", "bruno", "clara"):
+        m = re.search(rf"\|\s*`{pessoa}`\s*\|" + r"\s*\**(\d+)\**\s*\|" * 3, texto21)
+        assert m, f"a linha de {pessoa} não foi encontrada no capítulo 21"
+        for tarefa, valor in zip(tarefas, m.groups()):
+            assert EQUIPE[(pessoa, tarefa)] == int(valor), \
+                f"custo {pessoa}→{tarefa}: capítulo diz {valor}, medição diz {EQUIPE[(pessoa, tarefa)]}"
+
+
+def test_as_tabelas_do_capitulo_22_sao_a_instancia_medida(texto22):
+    """As duas definições do projeto: durações do CPM e as três estimativas do PERT."""
+    import re
+    for tarefa, (duracao, _) in PROJETO.items():
+        assert re.search(rf"\|\s*`{tarefa}`\s*\|\s*{int(duracao)}\s*\|", texto22), \
+            f"a duração de {tarefa} ({duracao}) não confere com a tabela do capítulo 22"
+
+    for tarefa, (o, m_, p) in FAIXAS.items():
+        linha = rf"\|\s*`{tarefa}`\s*\|\s*{o}\s*\|\s*{m_}\s*\|\s*{p}\s*\|"
+        assert re.search(linha, texto22), \
+            f"as três estimativas de {tarefa} ({o}, {m_}, {p}) não conferem com o capítulo 22"

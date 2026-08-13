@@ -20,10 +20,14 @@ enuncia ao usá-lo.
 
 O erro caro deste capítulo é o mais desconfortável do livro inteiro:
 
-> Dijkstra, diante de um peso negativo, **devolve uma resposta que contradiz a si mesma**. Medido
-> aqui: ele reporta distância **6** até o destino e, ao mesmo tempo, reporta o caminho
-> `A → C → B → D` — que custa **4**. Não há erro, não há aviso, não há exceção lançada. A saída é
-> internamente inconsistente e ninguém olha.
+> Dijkstra, diante de um peso negativo, **devolve um número errado sem ter como saber disso**.
+> Medido aqui: ele reporta **6** até o destino, e a resposta é **4**. Não há erro, não há exceção,
+> não há sinal nenhum na saída — o número sai com a mesma cara de um número certo.
+>
+> E há um agravante que só aparece quando se mede mais de uma implementação: **três variantes
+> chamadas "Dijkstra" devolvem três coisas diferentes** nesta instância. Uma erra de forma coerente,
+> outra devolve uma saída que **contradiz a si mesma**, e a terceira acerta por acidente. Dizer
+> *"usei Dijkstra"* não descreve o que foi executado.
 
 ## De onde isto veio
 
@@ -95,30 +99,54 @@ A --1--> B        B --5--> D
 A --2--> C        C --(-3)--> B
 ```
 
-| Método | Distância até `D` | Caminho que ele devolve |
-|---|---|---|
-| **Dijkstra** | **6** | `A → C → B → D` |
-| **Bellman-Ford** | **4** | `A → C → B → D` |
+A resposta certa é **4**, pelo caminho `A → C → B → D` — e Bellman-Ford a encontra. Dijkstra não. Mas
+*como* ele não encontra depende de um detalhe de implementação, e é aí que está a lição deste
+capítulo:
 
-**Olhe a linha de cima com atenção.** O caminho que Dijkstra devolve custa 2 − 3 + 5 = **4**, e a
-distância que Dijkstra devolve é **6**. A saída contradiz a si mesma.
+| Variante de Dijkstra | Distância até `D` | Caminho devolvido | Custo real desse caminho | Veredito |
+|---|---|---|---|---|
+| **Com a guarda do nó fechado** (canônica) | **6** | `A → B → D` | 6 | Errada, e **coerente consigo mesma** |
+| **Sem a guarda** | **6** | `A → C → B → D` | 4 | Errada e **contradiz a si mesma** |
+| **Com fila de prioridade** | **4** | `A → C → B → D` | 4 | **Acerta — por acidente** |
 
-**Por que isso acontece**, e vale seguir o passo a passo porque ele é curto. O método fecha `A`
-(0), depois fecha `B` com distância 1 — porque 1 < 2 — e, ao fechar `B`, relaxa `B → D` para 6.
-Só então fecha `C` (2) e descobre que `C → B` melhora `B` para −1. Mas `B` **já está fechado**, e o
-método não volta: `D` nunca é recalculado.
+**As três se chamam Dijkstra.** Nenhuma delas testa a hipótese; nenhuma delas avisa. E a resposta
+que sai muda conforme um `if`.
 
-> **O que fica dessa medição, e é maior do que o algoritmo.** O defeito não foi o método errar —
-> foi o método **não ter como saber** que errou. A hipótese estava na cabeça de quem escolheu
-> Dijkstra, não no código. Toda vez que um procedimento rápido depende de uma condição que ninguém
-> testa, existe uma versão deste episódio esperando.
+**Por que a versão canônica erra**, e vale seguir o passo a passo porque ele é curto: o método fecha
+`A` (0), depois fecha `B` com distância 1 — porque 1 < 2 — e, ao fechar `B`, relaxa `B → D` para 6.
+Só então fecha `C` (2) e descobre que `C → B` daria −1. Mas `B` **já está fechado**, e a guarda diz
+que nó fechado não se relaxa. O 6 fica, e o método nunca soube.
+
+**A variante sem a guarda erra de um jeito pior.** Ela aceita a melhora e reescreve `anterior[B]`
+para `C` — mas `dist[D]` já tinha sido calculado a partir do `B` antigo e **não é recalculado**. A
+saída fica internamente inconsistente: distância 6 ao lado de um caminho que custa 4. É um defeito
+de *aquela* implementação, não uma propriedade do método — e este capítulo já publicou a
+inconsistência como se fosse propriedade. Ver a [nota de correção](../HISTORICO.md).
+
+**E a terceira acerta sem ter direito.** Com fila de prioridade um nó pode voltar à fila, e aqui isso
+salva a resposta. Não é garantia de nada: sem a hipótese de peso não negativo, essa variante não tem
+prova de otimalidade nem de terminação — diante de um **ciclo negativo** ela roda para sempre, e é
+por isso que Bellman-Ford, que devolve veredito, continua sendo a resposta certa.
+
+> **O que fica dessa medição, e é maior do que o algoritmo.** O defeito não foi o método errar — foi
+> **ninguém ter como saber** que ele errou. A hipótese estava na cabeça de quem escolheu Dijkstra,
+> não no código. E como as três variantes têm o mesmo nome, *"usei Dijkstra"* não descreve o que foi
+> executado: para saber qual resposta você recebeu, é preciso ler a implementação.
+
+> **A honestidade que esta página deve ao leitor.** Uma versão anterior deste capítulo afirmava que
+> o método falha **sempre em silêncio** — *"não há erro, não há aviso, não há exceção lançada"*.
+> Medido: é falso para bibliotecas consagradas. A `networkx` (versão 3.6.1), diante desta mesma
+> instância, **levanta exceção** — `ValueError: ('Contradictory paths found:', 'negative weights?')`.
+> O silêncio é propriedade de *algumas* implementações, e a afirmação forte foi trocada pela
+> verdadeira: **o método não tem como saber, mas quem o empacota pode desconfiar** — e as boas
+> bibliotecas desconfiam.
 
 > ### ▶ Rode você mesmo
 >
 > **[Abrir a Parte III no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)** · fonte em
 > [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)
 >
-> Lá dentro você **dá o seu palpite antes** de ver a contradição — e o palpite comum erra, porque quase ninguém espera que o método devolva número e caminho que não fecham entre si. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
+> Lá dentro você **dá o seu palpite antes** de ver o resultado — e o palpite comum erra, porque quase ninguém espera que três implementações do mesmo método devolvam três respostas diferentes. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
 > verifica ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
 
 ## Bellman-Ford: mais lento, e sabe o que não sabe
@@ -220,7 +248,7 @@ critério declarado.
 [Matemática Para Gente Grande](https://www.youtube.com/@prof_allanIFBA) · 13min45s
 
 **O que ele resolve:** este capítulo gasta o espaço no **contraexemplo** — o caso em que o método
-falha em silêncio — e trata o procedimento em si de forma resumida. O vídeo faz o inverso: executa
+falha sem avisar — e trata o procedimento em si de forma resumida. O vídeo faz o inverso: executa
 Dijkstra passo a passo, com a tabela sendo preenchida na tela. Ver o método funcionando antes de
 ver o método falhando é a ordem que economiza confusão.
 
@@ -229,8 +257,10 @@ ver o método falhando é a ordem que economiza confusão.
 - **Dijkstra fecha nós em definitivo**, e é isso que o torna rápido.
 - **A hipótese que autoriza fechar é peso não negativo** — e ela não está no código, está na cabeça
   de quem escolheu o método.
-- **Com peso negativo, a saída contradiz a si mesma.** Medido: distância 6 e caminho que custa 4,
-  sem erro nem aviso.
+- **Com peso negativo, Dijkstra devolve 6 onde a resposta é 4**, sem erro nem aviso. Medido.
+- **E o modo de errar depende da implementação:** medidas três variantes de mesmo nome, uma erra de
+  forma coerente, uma devolve saída que **contradiz a si mesma** (distância 6, caminho que custa 4)
+  e uma acerta por acidente. A `networkx` 3.6.1, na mesma instância, **levanta exceção**.
 - **Bellman-Ford é mais lento e sabe o que não sabe:** funciona com peso negativo e **detecta ciclo
   negativo**, devolvendo veredito em vez de número.
 - **Quando a hipótese vale, os dois concordam** — e é assim que se confere.
@@ -256,11 +286,14 @@ padrão está em toda biblioteca e carrega uma hipótese que quase ninguém enun
 barato, o caminho até ele já é o melhor possível quando ele for expandido. Esse argumento só vale
 se nenhuma aresta puder baixar o custo depois, ou seja, **se não houver peso negativo**; e a
 hipótese não está no código, está na cabeça de quem escolheu o método. Quando ela cai, o resultado
-é o pior tipo possível de falha: medido aqui, Dijkstra reporta distância **6** até o destino e, ao
-mesmo tempo, reporta o caminho `A → C → B → D`, que custa **4** — **a saída contradiz a si mesma**,
-sem erro, sem aviso e sem exceção. O motivo é curto: ele fecha o nó `B` com distância 1 e relaxa
-`B → D` para 6 antes de descobrir, via `C`, que `B` valia −1; como `B` já está fechado, `D` nunca é
-recalculado. **Bellman-Ford** custa mais — relaxa todas as arestas $|V|-1$ vezes — e compra duas
+é o pior tipo possível de falha: medido aqui, Dijkstra reporta **6** até o destino, e a resposta é
+**4** — um número errado, sem erro, sem aviso e sem exceção. O motivo é curto: ele fecha o nó `B`
+com distância 1 e relaxa `B → D` para 6 antes de descobrir, via `C`, que `B` valia −1; como `B` já
+está fechado, `D` nunca é recalculado. Medindo **três variantes de mesmo nome**, o quadro fica pior:
+a canônica erra de forma coerente, a que relaxa nó já fechado devolve uma saída que **contradiz a si
+mesma** — distância 6 ao lado de um caminho que custa 4 —, e a de fila de prioridade **acerta, por
+acidente e sem garantia**. Uma biblioteca consagrada, a `networkx` 3.6.1, levanta exceção na mesma
+instância: o silêncio é propriedade de algumas implementações, não do método. **Bellman-Ford** custa mais — relaxa todas as arestas $|V|-1$ vezes — e compra duas
 coisas: funciona com peso negativo, e **detecta ciclo negativo**, devolvendo o veredito de que a
 pergunta não tem resposta em vez de um número qualquer. Quando a hipótese de Dijkstra vale, os dois
 concordam, e essa concordância é o modo prático de conferir. Os dois falham juntos quando o peso da
