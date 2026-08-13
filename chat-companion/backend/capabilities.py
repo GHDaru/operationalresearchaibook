@@ -44,6 +44,11 @@ REGISTRO = [
      "descricao": "Situo com você a tarefa nas cinco etapas — definir, formular, resolver, validar, "
                   "implantar — e cobro o entregável que falta. Pergunto sempre a mesma coisa antes "
                   "de ajudar a formular: quem vai decidir diferente por causa disto?"},
+    {"chave": "anatomia_modelo", "rotulo": "Anatomia de um modelo", "libera": 3, "tools": (),
+     "descricao": "Separo com você as quatro peças de um modelo — variáveis, objetivo, restrições, "
+                  "parâmetros — pela pergunta que resolve a maioria dos erros: isto é algo que "
+                  "alguém decide, ou algo que alguém mede? E aplico o teste da unidade, que pega "
+                  "o erro que o solver não pega."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

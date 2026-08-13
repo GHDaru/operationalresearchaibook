@@ -131,7 +131,7 @@ ela devolve. Cada linha é uma decisão que teria sido tomada errado por quem s�
 
 **2. Quando a medida única não existe de verdade.** Muitos problemas reais têm objetivos
 genuinamente conflitantes — custo e risco, lucro e emprego. Forçá-los numa única função objetivo
-esconde a escolha em vez de revelá-la, e o [capítulo 03](../mapa-do-handbook.md) trata disso.
+esconde a escolha em vez de revelá-la, e o [capítulo 03](03-anatomia-do-modelo.md) trata disso.
 
 **3. Quando o dado não existe.** Um modelo bom com dado inventado é pior do que nenhum modelo,
 porque tem aparência de rigor. A PO não cria dado.

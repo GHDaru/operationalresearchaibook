@@ -1355,3 +1355,42 @@ fracassam mais por definição e adoção do que por método — `⏳`, **não m
 memória**. Os dois capítulos nascem 🟡 porque nenhum dos dois produz número próprio: os que
 aparecem são citação dos capítulos que os mediram, com teste que compara o texto publicado à
 medição.
+
+### Edição 0.30 — 2026-08-13 · Capítulo 03: três das quatro peças erram em silêncio
+
+**Entrou:** o [capítulo 03 — Anatomia de um modelo de otimização](capitulos/03-anatomia-do-modelo.md),
+🟡 v0, com três exercícios, vídeo curado e a capacidade `anatomia_modelo` (libera 3) no tutor.
+
+**O recorte, que não é o usual.** Um capítulo de anatomia costuma ser vocabulário: aqui está a
+variável, aqui está o objetivo, aqui está a restrição. Este organiza as quatro peças **pelo erro
+que cada uma produz**, porque a assimetria entre elas é o que vale ensinar:
+
+> Três das quatro peças, quando erradas, produzem um modelo que roda e devolve `Optimal`. Só a
+> restrição tem chance de gritar — e mesmo ela grita em apenas metade dos casos.
+
+**O instrumento do capítulo é o teste da unidade**, que custa um minuto e pega o que o solver não
+pega: unidade incoerente, coeficiente na escala errada, e a variável que virou parâmetro sem
+ninguém notar.
+
+**O exercício C ensina o limite do próprio instrumento.** Ele traz um modelo de transportadora que
+**passa** no teste da unidade — todos os termos fecham em reais, todas as restrições fecham em
+quilômetros — e ainda assim está errado: o quilometrado entrou como variável de decisão, e
+quilometrado não é algo que alguém decide. Quem procurar o defeito na unidade não vai achar, e é
+esse o ponto.
+
+**E a rubrica desse exercício não ficou solta.** Ela afirma que o Simplex cola o quilometrado no
+piso da malha, e o portão de ótimo não alcança a afirmação — ele só resolve modelos de duas
+variáveis, e esse tem três. Em vez de isentar e seguir, a conferência foi para
+`po-zero/etapa-01-formulacao/test_anatomia.py`, em aritmética exata, pelo mesmo Simplex da etapa 03
+que sustenta os selos 🔵 da Parte II. **Um número novo não entra no handbook por um caminho novo.**
+
+A medição trouxe um achado que a rubrica não tinha: com a variável errada, o modelo recomenda
+**zero caminhões próprios** e 200 terceirizações. O dano do defeito, visível.
+
+**O que o portão pegou desta vez:** o capítulo 01 apontava *"capítulo 03"* para o mapa do handbook,
+e o capítulo 03 passou a existir. O portão de costura barrou o link obsoleto no mesmo build em que
+a página nasceu — que é exatamente quando um link desses costuma passar despercebido.
+
+**A dívida declarada:** o aperto histórico que produziu a forma comum de escrever modelos entra
+`⏳`. A narrativa é estrutural e verificável no que existe hoje; **o que falta é a citação primária
+que a date e a atribua**, e enquanto ela faltar a linha não muda de estado.

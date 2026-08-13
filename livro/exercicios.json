@@ -2680,5 +2680,71 @@
     ],
     "erro_provavel": "Aceitar **(c)**. É o pedido mais confortável dos quatro — vem com escopo claro, patrocínio da diretoria e resultado esperado conhecido — e é o único em que o trabalho técnico serve para **encerrar** uma discussão em vez de informá-la. Um modelo encomendado para provar uma conclusão já tomada não é modelo, é apresentação com equações; e quem o constrói empresta credibilidade a uma decisão que não examinou. O segundo erro é tratar **(d)** como \"modele com o que tem\": sem data de validade não existe modelo de estoque perecível que se sustente, e produzir um seria o caso do capítulo — modelo bom com dado inventado, pior do que nenhum porque tem aparência de rigor.",
     "resposta_guia": "**(a)** Não modelar: a decisão é única, não há repetição que pague o ciclo, e é a primeira loja do formato — não há histórico para validar. Entregue um roteiro de critérios e uma comparação estruturada de alternativas, que é útil e honesto. **(b)** Modelar, e é o caso de maior retorno dos quatro: a decisão acontece **todo dia**, a alavanca é clara (a distribuição), a medida é única e as restrições são reais. Um ciclo completo se paga em dias, e o modelo passa a rodar sozinho. **(c)** Não modelar: a decisão já foi tomada e o modelo serviria de cobertura técnica. Isso não é cinismo, é reconhecer a natureza do pedido — e o que se pode entregar, se houver espaço, é uma análise dos riscos da fusão dita como análise de riscos, não como prova de que compensa. **(d)** Não modelar ainda: sem data de validade dos lotes não há modelo de estoque perecível que se sustente. O projeto é **de dado**, e dizer isso na primeira semana é o serviço mais valioso possível — o contrário é entregar um modelo com aparência de rigor sobre informação que não existe. Os casos em que \"não modelar\" vem com entrega são o (a) e o (d)."
+  },
+  {
+    "capitulo": 3,
+    "serie": "cap03",
+    "capacidade": "anatomia_modelo",
+    "contexto": "livro",
+    "id": "cap03.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Peça ou enfeite",
+    "enunciado": "Um enunciado real, escrito como as pessoas escrevem:\n\n> *\"A padaria abre às 5h e fecha às 20h. Ela faz pão francês e pão de queijo. O pão francês dá R$ 1,20 de margem por unidade e o de queijo dá R$ 2,10. O forno assa no máximo 900 peças por dia, contando os dois juntos. A farinha que chega toda segunda dá para 600 pães franceses ou 400 de queijo, e o consumo é proporcional. O gerente quer saber quanto fazer de cada um. Ah, e o pão de queijo é o preferido da vizinhança.\"*\n\n1. Liste as **variáveis de decisão**, com unidade explícita.\n2. Escreva a **função objetivo**.\n3. Liste as **restrições**, e diga qual frase do enunciado gerou cada uma.\n4. Liste os **parâmetros**.\n5. Aponte o que no enunciado **não é peça nenhuma**, e explique por que não é.",
+    "criterios": [
+      "Variáveis com **unidade**: `x` = pães franceses por dia, `y` = pães de queijo por dia — e não \"pão francês\" nem \"produção\"",
+      "Objetivo: **maximizar** `1,20x + 2,10y`, em reais por dia",
+      "Restrição de forno: `x + y ≤ 900`, da frase *\"no máximo 900 peças por dia, contando os dois juntos\"*",
+      "Restrição de farinha escrita em **fração do estoque**, do tipo `x/600 + y/400 ≤ 1`, ou equivalente com um consumo por unidade — o enunciado dá o limite de cada um **sozinho**, e o consumo é proporcional",
+      "Identifica o horário de funcionamento e a preferência da vizinhança como **não-peças**: nenhum dos dois limita nem mede nada no modelo como está escrito"
+    ],
+    "erro_provavel": "Transformar *\"o forno assa 900 peças, contando os dois juntos\"* em duas restrições separadas (`x ≤ 900` e `y ≤ 900`). São coisas diferentes: o limite é do **total**, e separá-lo autoriza 1800 peças. O segundo erro provável é escrever a farinha como `x ≤ 600` e `y ≤ 400`, o que pela mesma razão autoriza um consumo que o estoque não sustenta — o enunciado dá dois pontos extremos de uma única restrição, não duas restrições.",
+    "resposta_guia": "**Variáveis:** `x` = pães franceses assados por dia, `y` = pães de queijo assados por dia — as duas com unidade, porque \"pão francês\" sozinho não é variável. **Objetivo:** maximizar `1,20x + 2,10y` (R$/dia); é uma medida só, e todos os termos estão em reais. **Restrições:** forno, `x + y ≤ 900`, um limite do **total** e não de cada um; farinha, `x/600 + y/400 ≤ 1`, porque o enunciado dá dois extremos de uma mesma restrição e declara o consumo proporcional; e as não-negatividades, `x, y ≥ 0`. **Parâmetros:** as margens 1,20 e 2,10, a capacidade 900, e os rendimentos 600 e 400 — todos medidos, nenhum decidido. **O que não é peça:** o horário de funcionamento, que não aparece em nenhuma restrição do jeito que o modelo está escrito (só apareceria se a capacidade fosse por hora), e a preferência da vizinhança, que é informação sobre demanda **não quantificada** — se ela virar um número (\"vende no máximo 500 de queijo\"), aí sim vira restrição. Nomear isso como não-peça é parte do trabalho: enunciado real vem com contexto, e o modelo é o recorte."
+  },
+  {
+    "capitulo": 3,
+    "serie": "cap03",
+    "capacidade": "anatomia_modelo",
+    "contexto": "livro",
+    "id": "cap03.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Do defeito ao sintoma",
+    "enunciado": "Para **cada** defeito abaixo, diga (i) em qual das quatro peças ele está, (ii) o que o solver vai devolver, e (iii) como alguém descobriria o defeito, já que em vários casos o solver não ajuda.\n\n| | O defeito |\n|---|---|\n| **a** | A demanda do mês que vem entrou no modelo como variável, e não como dado |\n| **b** | Esqueceram a restrição de capacidade do caminhão, num modelo em que o custo cresce com a carga |\n| **c** | O objetivo minimiza `custo em reais + tempo em horas` |\n| **d** | O custo unitário foi digitado como custo do lote de mil |\n| **e** | Escreveram `produção ≥ demanda` e, mais abaixo, `produção ≤ demanda − 10` |\n\n6. Ordene os cinco do **mais fácil** ao **mais difícil de descobrir**, e defenda a ordem.",
+    "criterios": [
+      "**(a)** variável/parâmetro trocados — devolve `Optimal`, com a demanda no valor mais conveniente; descobre-se perguntando *quem decide este número?*",
+      "**(b)** restrição faltando — pode devolver `Unbounded` **ou** `Optimal` com carga impossível, conforme o resto do modelo limitar ou não; descobre-se validando contra a operação",
+      "**(c)** função objetivo com unidades somadas — devolve `Optimal` e o número **não significa nada**; descobre-se pelo teste da unidade, nunca pelo solver",
+      "**(d)** parâmetro na escala errada — `Optimal`, plano coerente e mil vezes fora; descobre-se por ordem de grandeza ou por sensibilidade",
+      "**(e)** restrições contraditórias — `Infeasible`, e é o **único** dos cinco em que o solver aponta o problema"
+    ],
+    "erro_provavel": "Supor que restrição faltando sempre produz `Unbounded`. Ela só produz quando **nada mais** limita a variável naquela direção; se houver outra restrição segurando, o solver devolve `Optimal` com uma resposta que a operação simplesmente não executa — e este é o caso comum, não a exceção. O erro simétrico é achar que `Infeasible` é o pior veredito. É o melhor: é o único em que o modelo se recusa a produzir um número plausível e errado.",
+    "resposta_guia": "**(a)** Peça: variável de decisão (a demanda não é decidível — é parâmetro). Solver: `Optimal`, e a demanda sai no valor que mais convém ao objetivo. Descoberta: pela pergunta de triagem, *isto é algo que alguém decide?* **(b)** Peça: restrição. Solver: `Unbounded` se nada mais limitar a carga naquela direção, e `Optimal` com um plano inexecutável se algo limitar — o caso comum. Descoberta: validação contra quem opera (capítulo 02), que devolve a restrição faltando dita em português. **(c)** Peça: função objetivo. Solver: `Optimal`, com um número sem significado, porque reais e horas não somam. Descoberta: teste da unidade, e só ele. **(d)** Peça: parâmetro. Solver: `Optimal`, plano internamente coerente e errado por três ordens de grandeza. Descoberta: conferência de ordem de grandeza, ou análise de sensibilidade mostrando uma faixa absurda. **(e)** Peça: restrições. Solver: `Infeasible`. Descoberta: o solver, imediatamente. **A ordem**, do mais fácil ao mais difícil: **(e)**, que o solver aponta; **(b)**, quando dá `Unbounded`, porque também é um grito; **(d)**, que uma conferência de ordem de grandeza pega; **(a)**, que exige olhar o modelo com a pergunta certa; e **(c)**, o mais difícil, porque tudo parece funcionar — o modelo roda, o número aparece, e ninguém tem motivo para desconfiar de um `Optimal`."
+  },
+  {
+    "capitulo": 3,
+    "serie": "cap03",
+    "capacidade": "anatomia_modelo",
+    "contexto": "livro",
+    "id": "cap03.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "O teste da unidade num modelo que roda",
+    "enunciado": "Uma transportadora escreveu o modelo abaixo. Ele roda, devolve `Optimal` e a diretoria já aprovou o plano.\n\n```\nvariáveis:\n  c = caminhões próprios contratados no mês\n  k = quilômetros rodados no mês\n  t = terceirizações contratadas no mês\n\nminimizar   8500·c  +  2,30·k  +  190·t\n\nsujeito a:  k  ≥  120000            (a malha exige)\n            c  ≤  14                (garagem)\n            k  ≤  9000·c  +  600·t  (autonomia da frota)\n            c, k, t ≥ 0\n```\n\nOs números são reais: caminhão próprio custa R$ 8.500 por mês, o combustível dá R$ 2,30 por quilômetro, e cada terceirização custa R$ 190.\n\n1. Aplique o **teste da unidade** aos três termos do objetivo e às três restrições.\n2. Uma das variáveis está errada, e não é por causa da unidade. Qual, e por quê?\n3. O modelo devolveu `Optimal`. Isso é evidência de quê?",
+    "criterios": [
+      "Objetivo: os três termos fecham em **R$/mês** — `8500 R$/caminhão·mês × c`, `2,30 R$/km × k`, `190 R$/terceirização × t`. **O objetivo passa no teste da unidade**",
+      "Restrições: `k ≥ 120000` em km; `c ≤ 14` em caminhões; a terceira tem `9000 km/caminhão × c` e `600 km/terceirização × t`, e fecha em **km** dos dois lados. **Todas passam**",
+      "Identifica que `k` **não é variável de decisão**: ninguém decide o quilometrado — ele é consequência da malha e das entregas, e o modelo o trata como escolha",
+      "Percebe a consequência: com `k` decidível e custo positivo, o modelo empurra `k` para o mínimo (120.000) e otimiza o número errado — a pergunta real é **quantos caminhões e quantas terceirizações**, com o quilometrado como **parâmetro**",
+      "Responde à (3) que `Optimal` é evidência **apenas** de que o problema formulado tem solução ótima; não é evidência de que é o problema certo"
+    ],
+    "erro_provavel": "Procurar o defeito **na unidade**, porque o exercício vem logo depois da seção do teste da unidade. O modelo passa no teste da unidade — e é justamente isso que o exercício ensina: o teste é barato e vale sempre, mas ele pega **uma** classe de erro. Um modelo dimensionalmente perfeito pode ter a variável de decisão errada, e nenhuma conferência de unidade vai encostar nesse defeito. O segundo erro provável é aceitar `k` como variável porque ela aparece numa restrição de `≥`: restrição sobre uma grandeza não faz dela uma decisão.",
+    "resposta_guia": "**(1) O teste da unidade passa, e passa inteiro.** No objetivo, `8500 R$/(caminhão·mês)` vezes caminhões dá R$/mês; `2,30 R$/km` vezes km dá R$; `190 R$/terceirização` vezes terceirizações dá R$ — os três termos somam em reais, que é o que o teste exige. Nas restrições, a primeira e a segunda são triviais, e a terceira fecha em quilômetros dos dois lados, com `9000 km/caminhão` e `600 km/terceirização` como rendimentos. Nada a apontar. **(2) A variável errada é `k`.** Quilômetro rodado não é algo que alguém **decide**: é consequência da malha que a empresa atende e das entregas que ela aceitou. Pela pergunta de triagem, é algo que se **mede**, portanto **parâmetro**. E a consequência é concreta: como `k` aparece no objetivo com custo positivo e é livre para baixo até 120.000, o modelo vai colar em 120.000 e reportar uma economia que ninguém pode realizar, porque ninguém pode escolher rodar menos sem deixar de entregar. O modelo certo fixa `k = 120000` como dado e decide **`c` e `t`** — que são as duas coisas que a empresa de fato contrata. **(3) `Optimal` é evidência de que o problema formulado tem solução ótima, e de nada mais.** Não é evidência de que o problema formulado é o problema da empresa. É por isso que este capítulo organiza as quatro peças pelo sintoma: três delas erram em silêncio, e o silêncio soa igual a acerto."
   }
 ]

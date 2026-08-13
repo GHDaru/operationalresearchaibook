@@ -29,9 +29,15 @@
           "teaser": "O projeto raramente morre no algoritmo — e as duas pontas do ciclo são onde o dinheiro se perde."
         },
         {
+          "arquivo": "livro/capitulos/03-anatomia-do-modelo.md",
+          "titulo": "03 — Anatomia de um modelo de otimização",
+          "maturidade": "v0",
+          "teaser": "Quatro peças, e a assimetria que organiza tudo: três delas, quando erradas, devolvem `Optimal`."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Quatro vagas declaradas",
-          "teaser": "Anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
+          "titulo": "⬜ Três vagas declaradas",
+          "teaser": "Escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
         }
       ]
     },

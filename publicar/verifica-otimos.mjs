@@ -226,6 +226,13 @@ const SEM_MODELO_DECLARADO = new Set([
                // inferência "mesmo valor, logo mesma solução", e não o modelo. Os
                // números que ele cita (erro relativo, base igual) são conferidos
                // em po-zero/etapa-05-parte2/test_revisado.py.
+  "cap03.exC", // modelo de TRÊS variáveis (caminhões, quilômetros, terceirizações),
+               // fora do alcance deste enumerador, que é de duas. A rubrica afirma
+               // um comportamento — que o Simplex cola `k` em 120.000 —, e a
+               // afirmação NÃO fica solta: está medida em aritmética exata em
+               // po-zero/etapa-01-formulacao/test_anatomia.py, que resolve o
+               // modelo pelo Simplex da etapa 03 e ainda confere que a rubrica
+               // continua dizendo o que foi medido.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");
