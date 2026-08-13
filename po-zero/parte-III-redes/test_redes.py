@@ -811,15 +811,30 @@ def test_o_controle_que_pode_falhar_da_positivo_e_pequeno(texto22):
 
 
 def test_o_capitulo_22_declara_ate_onde_o_digito_carrega(texto22):
-    """Publicar 82,3% de uma semente só implica precisão que a simulação não tem."""
+    """Publicar 82,3% de uma semente só implica precisão que a simulação não tem.
+
+    E publica-se **desvio-padrão**, não mínimo e máximo: faixa de amostra
+    pequena é estatística de ordem, cresce com o número de sementes e não
+    converge. A primeira versão deste teste conferia a faixa de seis sementes —
+    e uma revisão independente achou, com dez, um valor fora dela.
+    """
     f = sensibilidade_a_semente()
-    lo, hi = f["media_do_projeto"]
-    assert f"**{lo:.2f} a {hi:.2f}**".replace(".", ",") in texto22, \
-        f"a faixa da média entre sementes não confere: {lo} a {hi}"
-    lo, hi = f["prob_de_estourar"]
-    assert f"**{lo * 100:.2f}% a {hi * 100:.2f}%**".replace(".", ",") in texto22, \
-        f"a faixa da probabilidade não confere: {lo} a {hi}"
+    m = f["media_do_projeto"]
+    assert f"**{m['media_entre_sementes']:.2f}**".replace(".", ",") in texto22
+    assert f"**{m['desvio_padrao']:.2f}**".replace(".", ",") in texto22
+    assert m["desvio_padrao"] < 0.1, "a dispersão entre sementes cresceu — a caixa muda"
+
+    p = f["prob_de_estourar"]
+    assert f"**{p['media_entre_sementes'] * 100:.2f}%**".replace(".", ",") in texto22
+    # 0,005 em probabilidade é 0,5 ponto percentual — o fator é 100, não 1000.
+    assert f"**{p['desvio_padrao'] * 100:.1f} pp**".replace(".", ",") in texto22
+
+    v = f["merge_bias"]
+    assert f"**{v['media_entre_sementes']:.3f}**".replace(".", ",") in texto22
+    assert f"**{v['desvio_padrao']:.3f}**".replace(".", ",") in texto22
+
     assert "o segundo dígito carrega e o terceiro não" in texto22
+    assert "estatísticas de ordem" in texto22
 
 
 # ===========================================================================
