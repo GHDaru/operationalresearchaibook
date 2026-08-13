@@ -71,6 +71,7 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 
 | Capítulo | Vídeo | Autor | Duração | Estado |
 |---|---|---|---|---|
+| 01 — O que é Pesquisa Operacional | [O que é Pesquisa Operacional — EP 1](https://www.youtube.com/watch?v=y5zDojg3hzo) | [João Sarubbi](https://www.youtube.com/@joaosarubbi) | 7min28s | **Definitivo** · fonte autorizada |
 | 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 18min04s | **Definitivo** |
 | 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 24min20s | **Definitivo** |
 | 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | [UNIVESP](https://www.youtube.com/@univesptv) | 18min48s | **Definitivo** |
@@ -115,6 +116,14 @@ nova que reproduz um valor já verificado é uma fonte que se pode usar para o v
 
 **O handbook fica sem nenhuma ficha provisória.** É um estado que vale defender: nova entrada
 `⏳` é sempre aceitável — o que não é aceitável é ela ficar.
+
+### A fonte autorizada, usada pela primeira vez
+
+O capítulo 01 estreia o canal de **João Sarubbi** (CEFET-MG), que é a fonte curada **primária**
+desta Videoteca desde a rodada de fundação e que, até 2026-08-13, nunca tinha sido usada. A
+autorização do autor do canal está registrada acima; a obrigação que ela cria — crédito visível,
+link para o canal, nenhuma reprodução fora do player de origem — está cumprida na ficha e no
+capítulo.
 
 ### As oito fichas do lote 1 da v0, e por qual via
 

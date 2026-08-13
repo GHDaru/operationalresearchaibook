@@ -36,6 +36,10 @@ REGISTRO = [
     {"chave": "exercicios", "rotulo": "Exercícios", "libera": 1,
      "tools": ("exercicio_registrar_tentativa",),
      "descricao": "Conduzo o exercício da página, avalio sua resposta pelos critérios e registro a tentativa."},
+    {"chave": "o_que_e_po", "rotulo": "O que é (e o que não é) PO", "libera": 1, "tools": (),
+     "descricao": "Aplico com você as quatro perguntas que decidem se um problema é de Pesquisa "
+                  "Operacional — há alavanca? há medida única? há restrição? dá para dizer o que a "
+                  "resposta NÃO autoriza? — e ajudo a julgar um caso publicado."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

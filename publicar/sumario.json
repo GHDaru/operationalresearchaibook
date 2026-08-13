@@ -17,9 +17,15 @@
       "nome": "Parte I — Fundamentos",
       "itens": [
         {
+          "arquivo": "livro/capitulos/01-o-que-e-po.md",
+          "titulo": "01 — O que é Pesquisa Operacional",
+          "maturidade": "v0",
+          "teaser": "Escrito depois da Parte II de propósito: não promete o que o campo entrega — presta contas do que já foi medido."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Seis vagas declaradas",
-          "teaser": "O que é PO, o ciclo de modelagem, anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
+          "titulo": "⬜ Cinco vagas declaradas",
+          "teaser": "O ciclo de modelagem, anatomia de um modelo, escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
         }
       ]
     },

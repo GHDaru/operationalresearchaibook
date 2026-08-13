@@ -50,7 +50,7 @@ A porta de entrada. Termina com o leitor sabendo **reconhecer um problema de PO*
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| ⬜ | 01 — O que é Pesquisa Operacional | Origem, natureza e o que distingue PO de "usar matemática no negócio". |
+| 🟡 | 01 — O que é Pesquisa Operacional | Origem, natureza e o que distingue PO de "usar matemática no negócio". |
 | ⬜ | 02 — O ciclo de modelagem | Da situação confusa ao modelo: definir, formular, resolver, validar, implantar. |
 | ⬜ | 03 — Anatomia de um modelo de otimização | Variáveis de decisão, função objetivo, restrições, parâmetros — e o que cada erro nesses quatro produz. |
 | ⬜ | 04 — Classificação de problemas e escolha de método | O mapa de decisão: linear ou não, inteiro ou contínuo, determinístico ou estocástico. |

@@ -2548,5 +2548,71 @@
     ],
     "erro_provavel": "Aceitar \"a diferença é desprezível, logo é a mesma solução\". A inferência troca uma afirmação sobre o **valor** por uma afirmação sobre a **solução**, e elas não são equivalentes: o capítulo 10 já tinha mostrado que um mesmo lucro pode ser produzido por planos diferentes — é o caso de múltiplos ótimos. Quando isso acontece, a escolha entre eles é feita pelo que o modelo não captura, e um relatório que só compara valores esconde exatamente a decisão que interessa. É também por isso que a medição do handbook compara a base: um erro na décima terceira casa que **não** muda a base é uma notícia muito melhor do que um erro pequeno que muda.",
     "resposta_guia": "A conclusão não está justificada: o relatório mediu **valores** e concluiu sobre **soluções**. Falta comparar as bases — ou, em linguagem de negócio, os planos. É por isso que a medição do handbook reporta a base separada: o valor diz quanto se ganha, a base diz **qual plano** produz esse ganho, e dois planos diferentes podem render o mesmo lucro até a última casa que se olhou. Um cenário concreto: dois planos de mesma margem em que um concentra a compra num único fornecedor e o outro a divide entre dois — mesmo lucro, riscos de contrato completamente diferentes; ou dois planos que usam turnos diferentes, com implicações de escala de pessoal. Para escolher a tolerância é preciso saber a **escala dos dados do modelo**: se os custos estão na casa dos milhões, $10^{-9}$ é ruído; se estão na casa dos centavos, é diferença real — \"perto de zero\" só significa algo em relação à ordem de grandeza do problema. Apertada demais, a tolerância faz o solver continuar pivoteando por ruído numérico e possivelmente não parar; frouxa demais, ele para antes do ótimo e **ninguém percebe**, porque o status continua sendo `Optimal`."
+  },
+  {
+    "capitulo": 1,
+    "serie": "cap01",
+    "capacidade": "o_que_e_po",
+    "contexto": "livro",
+    "id": "cap01.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "As quatro perguntas, em quatro pedidos",
+    "enunciado": "Quatro pedidos chegam à sua mesa na mesma semana. Para **cada um**, aplique as quatro perguntas do capítulo — há alavanca? há medida única? há restrição? dá para dizer o que a resposta **não** autoriza? — e diga se é problema de Pesquisa Operacional (PO), e por quê.\n\n| | O pedido |\n|---|---|\n| **a** | *\"Quero saber quantos clientes vão cancelar o plano no próximo trimestre.\"* |\n| **b** | *\"Tenho 12 técnicos e 40 chamados por dia em 6 regiões. Quero a escala que atenda mais chamados dentro da jornada.\"* |\n| **c** | *\"Quero escolher o fornecedor que combine melhor preço, prazo, risco e relação de longo prazo.\"* |\n| **d** | *\"Quero saber qual foi o produto mais rentável do ano passado.\"* |\n\n5. Um dos quatro **vira** problema de PO com uma frase a mais. Qual, e qual frase?\n6. Um deles é PO e, mesmo assim, o modelo pode fracassar por causa da **quarta** pergunta. Qual, e como o fracasso apareceria?",
+    "criterios": [
+      "**(a)** não é PO — é previsão: não há alavanca, ninguém escolhe o cancelamento; vira insumo de uma decisão, não a decisão",
+      "**(b)** é PO — há alavanca (a escala), medida única (chamados atendidos), restrição (12 técnicos, jornada, 6 regiões)",
+      "**(c)** **ainda não** é PO — há alavanca e restrição, mas **não há medida única**: quatro critérios genuinamente conflitantes pedem decisão multicritério, e forçá-los numa função objetivo esconde a escolha",
+      "**(d)** não é PO — é medição do passado, sem alavanca e sem escolha",
+      "Identifica que **(a)** vira PO ao ganhar uma decisão em cima da previsão (*\"...para eu dimensionar a equipe de retenção\"*), e que **(b)** é o que pode fracassar pela quarta pergunta — entregando uma escala ótima sem dizer sob que variação de demanda ela deixa de valer"
+    ],
+    "erro_provavel": "Classificar (c) como PO porque \"dá para pôr peso em cada critério e somar\". Dá, e é exatamente aí que a escolha se esconde: os pesos **são** a decisão, e escolhê-los sem método é decidir sem admitir que se decidiu. O modelo então devolve um número que parece objetivo e que carrega, embutida, a preferência de quem arbitrou os pesos. Não é que ponderar seja proibido — é que ponderar é uma decisão multicritério disfarçada de otimização, e o capítulo 03 e a Parte IX tratam disso com o aparato certo.",
+    "resposta_guia": "**(a)** Não é PO: é previsão. Não há alavanca — ninguém escolhe quem cancela —, e sem escolha não há problema de decisão. **(b)** É PO, e limpo: a alavanca é a escala, a medida única é chamados atendidos, e as restrições são 12 técnicos, a jornada e as 6 regiões. **(c)** Ainda não é PO. Há alavanca e restrição, mas não há **medida única**: preço, prazo, risco e relação de longo prazo são objetivos genuinamente conflitantes, e forçá-los numa função objetivo por pesos arbitrados esconde a decisão em vez de revelá-la — é caso de decisão multicritério. **(d)** Não é PO: é medição do passado, sem alavanca. O item **(a)** vira PO com uma frase a mais — *\"…para eu dimensionar a equipe de retenção\"* —, porque aí aparece a alavanca e a previsão passa a ser parâmetro. E o item **(b)**, que é PO, pode fracassar pela quarta pergunta: entregar a escala ótima sem dizer a partir de que variação de demanda ela deixa de valer produz um plano que ninguém sabe quando revisar — o mesmo defeito que o capítulo 12 mediu em reais."
+  },
+  {
+    "capitulo": 1,
+    "serie": "cap01",
+    "capacidade": "o_que_e_po",
+    "contexto": "livro",
+    "id": "cap01.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "O projeto que rodava e não decidia",
+    "enunciado": "Uma empresa contratou um projeto de \"otimização da malha logística\". Ao fim de seis meses, a entrega foi:\n\n> *Um modelo que roda em 4 minutos, com status `Optimal`, e recomenda fechar 3 dos 11 centros de distribuição, com economia projetada de R$ 8,4 milhões/ano.*\n\nA diretoria não executou. Ao perguntar por quê, você ouve três coisas:\n\n1. ninguém consegue dizer **o que aconteceria** se a demanda de uma região subisse 15%;\n2. os custos de frete usados são de uma **tabela de dois anos atrás**;\n3. o modelo trata todos os centros como iguais, e **dois deles têm contrato de aluguel com multa** que não está no modelo.\n\nPara **cada uma** das três: classifique como (i) falha da quarta pergunta, (ii) falha de dado, ou (iii) falha de formulação. Diga o que cada uma custa e o que resolve.\n\n4. Qual das três é a **mais barata** de resolver? E a mais cara?\n5. O modelo está \"errado\"? Justifique com cuidado — a palavra importa aqui.\n6. Que uma frase você teria exigido no início do projeto para que nenhuma das três acontecesse?",
+    "criterios": [
+      "**(1)** é falha da **quarta pergunta** — o modelo não diz o que a resposta autoriza; resolve-se com análise de sensibilidade, que já existe e é barata (capítulo 13)",
+      "**(2)** é falha de **dado**; custa credibilidade e a correção é operacional — atualizar a tabela e declarar a data da captura",
+      "**(3)** é falha de **formulação**: a multa é uma restrição (ou um custo) que existe no mundo e não no modelo, e por isso a recomendação de fechar pode estar economicamente errada",
+      "Reconhece que (1) é a mais barata — os dados da sensibilidade saem do mesmo quadro já resolvido — e (3) a mais cara, porque muda o modelo e obriga a resolver de novo",
+      "Responde com cuidado que o modelo não está \"errado\": ele responde **corretamente** a um problema que não é o da empresa — e a frase que teria evitado tudo é a que declara, antes de modelar, **o que a resposta precisará autorizar** para ser executada"
+    ],
+    "erro_provavel": "Concluir que \"o modelo está errado\" e recomeçar do zero. As três falhas são de naturezas diferentes e só uma delas toca o modelo: a multa de aluguel. Recomeçar joga fora seis meses de formulação correta para resolver um problema que era de dado e um que era de leitura. O erro simétrico, mais comum em quem já leu este livro, é tratar tudo como falha da quarta pergunta: a tabela de frete desatualizada **não** se conserta com análise de sensibilidade, e nenhuma faixa de validade compensa um custo que está errado na origem.",
+    "resposta_guia": "A primeira é falha da **quarta pergunta**: o modelo entregou um número sem dizer o que ele autoriza, e a correção é análise de sensibilidade — barata, porque as faixas saem do mesmo quadro já resolvido, como o capítulo 13 mostrou. A segunda é falha de **dado**: custa credibilidade e se corrige atualizando a tabela e declarando a data de captura; nenhuma técnica de modelagem compensa custo errado na origem. A terceira é falha de **formulação**: a multa de aluguel existe no mundo e não no modelo, então a recomendação de fechar dois centros pode estar economicamente invertida — e é a mais cara das três, porque muda o modelo e obriga a resolver tudo de novo. A mais barata é a primeira. Sobre a palavra: o modelo **não está errado**. Ele responde corretamente a um problema que não é o da empresa, que é coisa diferente e mais difícil de detectar, porque não há sintoma. A frase que teria evitado as três é a que se exige antes de modelar: *\"o que esta resposta vai precisar autorizar para que alguém a execute?\"* — ela obriga a listar sensibilidade, procedência do dado e restrições contratuais no primeiro dia."
+  },
+  {
+    "capitulo": 1,
+    "serie": "cap01",
+    "capacidade": "o_que_e_po",
+    "contexto": "livro",
+    "id": "cap01.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Os 30% do caso publicado",
+    "enunciado": "Você encontra um caso publicado por uma consultoria:\n\n> *\"Aplicando Pesquisa Operacional à malha de distribuição do cliente, obtivemos **redução de 30% nos custos logísticos** já no primeiro ano.\"*\n\nSeu diretor quer citar o caso na apresentação de terça.\n\n1. Que **três** perguntas você faz antes de citar? Para cada uma, diga o que muda na conclusão conforme a resposta.\n2. \"Redução de 30% nos custos logísticos\" — 30% **em relação a quê**? Liste ao menos três linhas de base possíveis que dariam números muito diferentes.\n3. O caso não diz se a comparação é contra a operação anterior ou contra um cenário simulado. Por que essa distinção decide quase tudo?\n4. Suponha que tudo esteja correto e bem medido. O caso **ainda assim** pode não se aplicar à sua empresa. Diga duas razões concretas.\n5. Reescreva a frase do caso de modo que ela seja **verdadeira e útil** — isto é, de modo que um leitor consiga julgar se serve para ele.",
+    "criterios": [
+      "As três perguntas atacam o que muda a conclusão: qual a **linha de base**, o que **mais** mudou no período além do modelo, e qual o **escopo** de \"custos logísticos\"",
+      "Lista linhas de base que dão números diferentes — o ano anterior, o orçado, o cenário sem projeto, a média do setor — e reconhece que a escolha entre elas pode dobrar ou zerar o resultado",
+      "Explica que comparar com a operação anterior mistura o efeito do modelo com tudo o mais que mudou no ano (volume, preço de combustível, renegociação de contratos), enquanto comparar com cenário simulado depende inteiramente de o cenário ser honesto",
+      "Dá duas razões concretas de não aplicabilidade — escala diferente, estrutura de malha diferente, contratos diferentes, ponto de partida pior — em vez de \"cada empresa é diferente\"",
+      "Reescreve a frase declarando linha de base, escopo, período e o que mais mudou — no espírito do capítulo 77"
+    ],
+    "erro_provavel": "Citar o caso porque \"é de uma consultoria séria\". A seriedade de quem publica não substitui a informação que falta: sem linha de base, escopo e período, \"30%\" não é um resultado, é um número. E o erro simétrico é descartar o caso por ser propaganda — ele pode ser inteiramente verdadeiro. A postura útil não é acreditar nem descartar: é **pedir o que falta**, e notar que a ausência dessas informações é, ela própria, uma informação sobre o que o caso pode sustentar.",
+    "resposta_guia": "As três perguntas: **qual é a linha de base** dos 30%; **o que mais mudou** no período além do projeto; e **o que está dentro** de \"custos logísticos\". Cada uma pode inverter a leitura — comparar com o orçado em vez do realizado, por exemplo, transforma economia em variação de planejamento. Linhas de base possíveis: o custo do ano anterior, o custo orçado, um cenário simulado sem o projeto, ou a média do setor — e as quatro dão números muito diferentes. A distinção entre operação anterior e cenário simulado decide quase tudo porque a primeira mistura o efeito do modelo com volume, preço de combustível e renegociações que aconteceram no mesmo ano, enquanto a segunda depende inteiramente de o cenário contrafactual ter sido construído com honestidade — e ele não é observável. Mesmo tudo correto, o caso pode não se aplicar a você por escala (uma malha de 11 centros não se comporta como uma de 200) ou por ponto de partida (quem estava muito mal melhora muito com pouco). Reescrita útil: *\"Comparado ao custo logístico realizado no ano anterior, com volume ajustado e escopo limitado a frete e armazenagem, a malha redesenhada operou 30% mais barata no primeiro ano; no mesmo período o preço médio do diesel caiu 6%.\"*"
   }
 ]

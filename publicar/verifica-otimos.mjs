@@ -216,6 +216,11 @@ const SEM_MODELO_DECLARADO = new Set([
                // po-zero/etapa-06-convexidade, com teste que lê esta rubrica.
   "cap38.exC", // cenário de consultoria sem modelo numérico; "ótimo" aparece só
                // na discussão do que a palavra `Optimal` significa num relatório.
+  "cap01.exA", // classifica quatro PEDIDOS em prosa como sendo ou não de PO. Não
+               // há modelo nenhum — nem podia haver, porque o exercício é sobre
+               // reconhecer que dois deles NÃO são problemas de otimização. A
+               // única menção a "ótima" é a expressão "a escala ótima", usada
+               // para descrever um risco de leitura.
   "cap11.exE", // relatório hipotético de dois solvers num modelo de mistura que o
                // exercício NÃO especifica — de propósito, porque o assunto é a
                // inferência "mesmo valor, logo mesma solução", e não o modelo. Os
