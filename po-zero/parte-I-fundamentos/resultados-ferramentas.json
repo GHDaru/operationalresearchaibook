@@ -1,0 +1,92 @@
+{
+  "multiplos_otimos": {
+    "exato": {
+      "status": "otimo",
+      "ponto": [
+        "6",
+        "4"
+      ],
+      "valor": "10"
+    },
+    "solvers": [
+      {
+        "solver": "HiGHS",
+        "status": "Optimal",
+        "ponto": [
+          2.0,
+          8.0
+        ],
+        "valor": 10.0
+      },
+      {
+        "solver": "CBC",
+        "status": "Optimal",
+        "ponto": [
+          2.0,
+          8.0
+        ],
+        "valor": 10.0
+      }
+    ]
+  },
+  "racao": {
+    "exato": {
+      "status": "otimo",
+      "ponto": [
+        "180/17",
+        "48/17"
+      ],
+      "valor": "780/17"
+    },
+    "valor_exato_fracao": "780/17",
+    "valor_exato_float": 45.88235294117647,
+    "solvers": [
+      {
+        "solver": "HiGHS",
+        "status": "Optimal",
+        "ponto": [
+          10.588235294117647,
+          2.823529411764706
+        ],
+        "valor": 45.88235294117647,
+        "erro_absoluto": 4.179663151530001e-16,
+        "casas_reportadas": 14
+      },
+      {
+        "solver": "CBC",
+        "status": "Optimal",
+        "ponto": [
+          10.588235,
+          2.8235294
+        ],
+        "valor": 45.882352,
+        "erro_absoluto": 9.411764732275889e-07,
+        "casas_reportadas": 6
+      }
+    ]
+  },
+  "vereditos": {
+    "ilimitado": {
+      "exato": "ilimitado",
+      "solvers": [
+        "Unbounded",
+        "Unbounded"
+      ]
+    },
+    "inviavel": {
+      "exato": "inviavel",
+      "solvers": [
+        "Infeasible",
+        "Infeasible"
+      ]
+    }
+  },
+  "versoes": {
+    "python": "3.11.15",
+    "pulp": "3.3.2",
+    "solvers": [
+      "HiGHS",
+      "CBC"
+    ]
+  }
+}

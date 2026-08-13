@@ -47,9 +47,10 @@
           "teaser": "O pior caso existe e é construído — e a sua instância provavelmente está a ordens de grandeza dele."
         },
         {
-          "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Uma vaga declarada",
-          "teaser": "Ferramentas de trabalho: solvers, linguagens de modelagem e a instalação do po-zero."
+          "arquivo": "livro/capitulos/06-ferramentas.md",
+          "titulo": "06 — Ferramentas de trabalho",
+          "maturidade": "medido",
+          "teaser": "Mesmo modelo, mesmo valor, planos diferentes — e o que numa saída de solver é escolha da ferramenta."
         }
       ]
     },

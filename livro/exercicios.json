@@ -2878,5 +2878,134 @@
     ],
     "erro_provavel": "Concordar com o Bruno por metade — \"ele exagerou, mas pontos interiores é melhor mesmo em problema grande\". O ponto do erro dele não é a preferência: é **generalizar para \"tudo\"** a partir de uma afirmação de pior caso, ignorando que a escolha entre os dois métodos se faz pela instância **e pelo que o projeto precisa da resposta**. Quem troca Simplex por interior sem *crossover* perde a base, o preço-sombra e a faixa de validade — que são, muitas vezes, a parte do resultado que o cliente de fato usa.",
     "resposta_guia": "**Ana — decidir sem medir.** Ela usa uma afirmação sobre o pior caso da classe para descartar um método sem gastar vinte minutos testando a instância; e ao descartar o exato, descarta junto o **limitante**, que é a única coisa capaz de dizer depois se a heurística ficou boa. No lugar: rodar o exato com limite de tempo e ler o *gap*. **Bruno — pior caso confundido com desempenho típico**, e ainda estendido a \"tudo\". No lugar: medir os dois métodos na instância real. **Célia — polinomial lido como rápido.** O grau e a constante não aparecem na palavra, e um n³ com constante grande pode estourar a madrugada. No lugar: medir o tempo no tamanho de hoje e no dobro dele, que é o teste que revela o grau na prática. **(4) Bruno erra duas vezes.** Além do erro de pior caso, ele contradiz o que o capítulo 14 mediu: a saída do método de pontos interiores **não é vértice** — chega a 4,5 × 10⁻⁶ do vértice, com erro de 1,8 × 10⁻⁴ no valor — e por isso não vem com base, preço-sombra nem faixa de validade. Trocar tudo por pontos interiores custaria a análise de sensibilidade inteira, que costuma ser a parte do resultado que o cliente usa. **(5)** *\"Antes de fechar isso, me dá vinte minutos de solver: se o gap vier baixo, a decisão está tomada e economizamos as duas semanas de verdade; se vier alto, eu saio com um limitante que vai nos dizer se a heurística ficou boa.\"*"
+  },
+  {
+    "capitulo": 6,
+    "serie": "cap06",
+    "capacidade": "ferramentas",
+    "contexto": "livro",
+    "id": "cap06.exA",
+    "variante": "A",
+    "tipo": "aplicar",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Do zero ao primeiro modelo que roda",
+    "enunciado": "Monte o ambiente do `po-zero` e resolva o seu primeiro modelo.\n\n1. Clone o repositório, crie um ambiente virtual e instale as dependências pelo arquivo que o capítulo indica. Rode `python3 -m pytest po-zero -q` e **cole a última linha da saída**.\n2. Escreva, num arquivo novo, o modelo da montadora dos capítulos 07 e 08 usando PuLP, e resolva com o HiGHS. Reporte o ponto e o valor.\n3. Resolva **o mesmo modelo** trocando o solver para o CBC. Os dois concordam? Em quê exatamente?\n4. Agora estrague de propósito: acrescente a restrição `x1 >= 100`. O que cada solver devolve, e o que esse veredito diz — sobre a ferramenta ou sobre o modelo?\n5. Uma pessoa relata que o passo 1 falhou com `ModuleNotFoundError: No module named 'pulp'`. Diga o que ela pulou e por que o código não podia adivinhar isso sozinho.",
+    "criterios": [
+      "Cola a saída real do pytest, e não uma descrição dela — o capítulo inteiro é sobre não confiar em afirmação sem evidência",
+      "O modelo em PuLP declara variáveis com `lowBound=0`, objetivo de **maximização** e uma restrição por componente",
+      "Reconhece que HiGHS e CBC concordam no **valor** e no **veredito**, e que concordar no ponto é uma coisa a mais — que só é garantida quando o ótimo é único",
+      "Com a restrição estragada, os dois devolvem `Infeasible`, e a leitura correta é que **o problema é o modelo**: trocar de solver não muda veredito",
+      "Identifica que o passo pulado foi a instalação das dependências, e que o arquivo de dependências é declaração externa ao código — o `import pulp` diz que precisa, não diz de onde vem nem em que versão"
+    ],
+    "erro_provavel": "Concluir do item 3 que \"os solvers dão a mesma resposta\" e generalizar. Neste modelo o ótimo é único, então concordar no ponto é consequência da instância, não uma propriedade das ferramentas — e o próprio capítulo mede um caso em que os pontos divergem com o mesmo valor. O segundo erro provável é, no item 4, procurar defeito na instalação: `Infeasible` é um veredito bem-sucedido do solver, e não uma falha dele.",
+    "resposta_guia": "**(1)** A instalação é `pip install -r po-zero/requirements.txt` dentro do ambiente virtual, e a última linha do pytest deve indicar todos os testes passando. **(2)** O modelo em PuLP declara duas variáveis com `lowBound=0`, maximiza a soma dos lucros e acrescenta uma restrição `<=` por componente, com o estoque do lado direito. **(3)** Os dois concordam no **valor** e no **veredito** (`Optimal`), e neste caso também no ponto — mas isso é porque o ótimo desta instância é único. Concordar no ponto **não** é propriedade das ferramentas: o capítulo mede um modelo com face ótima em que o valor é 10 nos três e os planos são (6,4) e (2,8). **(4)** Ambos devolvem `Infeasible`, e o veredito é sobre o **modelo**: a nova restrição contradiz o estoque disponível. Trocar de solver não muda nada, e é exatamente a armadilha que o capítulo chama de \"parece progresso e não é\". **(5)** Ela pulou a instalação das dependências. O código não podia adivinhar: `import pulp` declara que o módulo é necessário, mas **não** diz de onde ele vem nem em que versão — essa informação é externa ao código de propósito, e mora no arquivo de dependências, que é o mesmo que a integração contínua instala a cada envio.",
+    "modelo": [
+      {
+        "rotulo": "montadora, como o item 2 pede",
+        "sentido": "max",
+        "objetivo": [
+          "100",
+          "150"
+        ],
+        "restricoes": [
+          [
+            "1",
+            "1",
+            "<=",
+            "10"
+          ],
+          [
+            "1",
+            "2",
+            "<=",
+            "12"
+          ]
+        ],
+        "otimo": {
+          "status": "otimo",
+          "valor": "1100",
+          "ponto": [
+            "8",
+            "2"
+          ]
+        }
+      },
+      {
+        "rotulo": "montadora estragada de propósito no item 4",
+        "sentido": "max",
+        "objetivo": [
+          "100",
+          "150"
+        ],
+        "restricoes": [
+          [
+            "1",
+            "1",
+            "<=",
+            "10"
+          ],
+          [
+            "1",
+            "2",
+            "<=",
+            "12"
+          ],
+          [
+            "1",
+            "0",
+            ">=",
+            "100"
+          ]
+        ],
+        "otimo": {
+          "status": "inviavel"
+        }
+      }
+    ]
+  },
+  {
+    "capitulo": 6,
+    "serie": "cap06",
+    "capacidade": "ferramentas",
+    "contexto": "livro",
+    "id": "cap06.exB",
+    "variante": "B",
+    "tipo": "interpretar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Três saídas, e o que em cada uma é decisão da ferramenta",
+    "enunciado": "Três saídas do **mesmo** modelo de mistura, produzidas por caminhos diferentes. Para cada uma, separe o que é **decisão do modelo**, o que é **decisão da ferramenta** e o que é **ponto flutuante**.\n\n| | A saída |\n|---|---|\n| **a** | `Optimal` · milho = 180/17, farelo = 48/17 · custo = 780/17 |\n| **b** | `Optimal` · milho = 10.588235294117647, farelo = 2.823529411764706 · custo = 45.88235294117647 |\n| **c** | `Optimal` · milho = 10.588235, farelo = 2.8235294 · custo = 45.882352 |\n\n4. Um analista compara (b) e (c) com `==` para conferir se \"deu a mesma coisa\", e o teste falha. Ele conclui que um dos dois solvers tem um bug. O que você responde?\n5. Escreva a regra de comparação que você usaria no lugar, com a tolerância declarada — e diga como se escolhe o número da tolerância.\n6. Em qual das três saídas você confiaria para **auditar** um resultado publicado, e por quê?",
+    "criterios": [
+      "Reconhece que o **veredito** `Optimal` e a **estrutura da resposta** (quais insumos entram) são decisão do modelo, iguais nas três",
+      "Identifica que o número de casas decimais é decisão da **ferramenta**, e não do modelo nem do algoritmo",
+      "Identifica (a) como aritmética exata e as outras duas como ponto flutuante, com (c) reportando menos casas",
+      "Responde ao (4) que não há bug: os dois estão corretos dentro da sua precisão, e o defeito está no `==` — comparar float por igualdade é o erro",
+      "A regra do (5) usa erro **relativo** ou absoluto com tolerância declarada, e a escolha da tolerância é justificada pela decisão que o número sustenta, não por um valor de costume"
+    ],
+    "erro_provavel": "Achar que (a) é \"mais precisa\" e portanto melhor em toda situação. Ela é **exata**, o que é diferente de melhor: aritmética racional custa caro e não escala para os modelos que os solvers reais resolvem. O valor de (a) neste handbook é ser **referência** — é ela que permite dizer quanto (b) e (c) arredondaram. Um solver de produção que trabalhasse em frações seria inutilizável, e isso não é defeito dele.",
+    "resposta_guia": "**Decisão do modelo, e igual nas três:** o veredito `Optimal`, e a estrutura da resposta — os dois insumos entram, nenhum fica em zero. Se um dos três dissesse `Infeasible`, aí sim haveria algo grave. **Decisão da ferramenta:** o número de casas reportadas. (c) escreve seis; (b) escreve dezessete; a diferença não vem do algoritmo, vem de quantos dígitos cada ferramenta grava na saída. **Ponto flutuante:** (b) e (c) são aproximações de 780/17, que não tem representação decimal finita; (a) é a fração, produzida por aritmética exata. **(4)** Não há bug: os dois estão certos dentro da sua precisão, e o erro está no `==`. Comparar resultado de ponto flutuante por igualdade exata é o defeito clássico, e ele aparece justamente quando alguém tenta ser cuidadoso. **(5)** A regra é comparar por diferença **relativa** com tolerância declarada — por exemplo, `abs(a-b) <= 1e-6 * max(1, abs(b))`. E a tolerância não se escolhe por costume: escolhe-se pela **decisão que o número sustenta**. Se o valor vai virar uma compra em reais e centavos, uma tolerância de 1e-6 é folgada demais para ser interessante e apertada demais para causar problema; se vai entrar numa conta que multiplica o erro, ela precisa ser justificada. **(6)** Para **auditar**, (a) — porque é a única sem arredondamento, e auditoria é justamente o caso em que se quer distinguir erro de modelo de erro de representação. Isso não faz de (a) a melhor para produzir: aritmética exata não escala, e essa é a razão de os solvers reais não a usarem."
+  },
+  {
+    "capitulo": 6,
+    "serie": "cap06",
+    "capacidade": "ferramentas",
+    "contexto": "livro",
+    "id": "cap06.exC",
+    "variante": "C",
+    "tipo": "diagnosticar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Modelo e dados grudados",
+    "enunciado": "Um script real, que roda e devolve a resposta certa:\n\n```python\ndef resolver_producao():\n    p = LpProblem(\"prod\", LpMaximize)\n    cpu = LpVariable(\"cpu\", lowBound=0)\n    ram = LpVariable(\"ram\", lowBound=0)\n    p += 250 * cpu + 180 * ram          # margem por unidade\n    p += 1 * cpu + 1 * ram <= 10        # placas\n    p += 1 * cpu + 2 * ram <= 12        # pentes de memória\n    p.solve()\n    return cpu.value(), ram.value()\n```\n\n1. Aponte **cada** número que é dado de instância, e não estrutura de modelo.\n2. Reescreva a assinatura da função — só a assinatura e o formato do que ela recebe — de modo que modelo e dados fiquem separados.\n3. Descreva o **teste** que comprova que a separação aconteceu. Ele não pode ser \"olhar o código\".\n4. A empresa passa a ter **cinco** produtos e **quatro** componentes. O que quebra no script original, e o que **não** quebra na sua versão?\n5. O capítulo exige que a instância tenha **ficha**. Escreva a ficha desta instância com os três campos exigidos, inventando o que for razoável — e diga qual dos três é o mais fácil de esquecer e o mais caro de faltar.",
+    "criterios": [
+      "Identifica como dado de instância: as margens 250 e 180, as capacidades 10 e 12, e os coeficientes de consumo (1, 1, 1, 2) — **todos** eles",
+      "Percebe que os nomes `cpu` e `ram` também são instância: a estrutura é \"um produto por variável\", e não \"estes dois produtos\"",
+      "A nova assinatura recebe a instância como argumento (dicionário ou caminho de arquivo) e constrói variáveis e restrições por iteração, sem nome literal no corpo",
+      "O teste é **executável**: resolver uma segunda instância, de tamanho diferente, sem editar uma linha do código do modelo",
+      "A ficha traz origem, licença e limitações, e identifica **limitações** como o campo mais fácil de esquecer e mais caro de faltar — é ele que impede o dado de ser usado para responder à pergunta que ele não sustenta"
+    ],
+    "erro_provavel": "Parar nos números e deixar os **nomes** das variáveis dentro do modelo. Trocar `250` e `180` por parâmetros e manter `cpu = LpVariable(\"cpu\")` resolve metade do problema: o script continua sabendo que existem exatamente dois produtos, e chamados assim. A separação de verdade é entre a **estrutura** (\"uma variável por produto, uma restrição por componente\") e a instância (\"quais produtos, quais componentes, com que números\") — e o teste do item 3 é o que revela se ela aconteceu, porque só passa quando a contagem também vem de fora.",
+    "resposta_guia": "**(1)** São dados de instância: as margens **250** e **180**; as capacidades **10** e **12**; e os coeficientes de consumo **1, 1, 1 e 2**. Nada disso é estrutura. **(2)** Algo como `def resolver_producao(instancia: dict) -> dict:`, com a instância no formato `{\"produtos\": {nome: {\"margem\": …, \"consumo\": {componente: …}}}, \"componentes\": {nome: {\"estoque\": …}}}` — que é, não por acaso, o formato de `po-zero/etapa-01-formulacao/instancias/montadora.json`. O corpo cria **uma variável por produto** e **uma restrição por componente**, por iteração, sem nenhum nome literal. **(3)** O teste é executável e é este: **resolver uma segunda instância, de tamanho diferente, sem editar uma linha do modelo**. Se for preciso tocar no código, a separação não aconteceu — e \"olhar e achar limpo\" não é teste. **(4)** No script original quebra tudo: são cinco variáveis e quatro restrições que não existem, e cada uma teria de ser escrita à mão, com o risco de esquecer um termo em alguma. Na versão separada **não quebra nada** — troca-se o arquivo de instância, e é esse o ganho inteiro. **(5)** Ficha: **origem** (\"planejamento da linha de montagem, fechamento de julho de 2026\"), **licença** (\"dado interno, uso restrito ao exemplo didático, números alterados\") e **limitações** (\"último dia do mês, com estoque já comprometido; não representa capacidade média, e não inclui setup entre produtos\"). O campo mais fácil de esquecer e mais caro de faltar é **limitações** — porque origem e licença fazem falta na hora de publicar, enquanto limitações faz falta na hora de **decidir**: é ele que impede alguém de usar um recorte de fim de mês para responder a uma pergunta sobre o ano."
   }
 ]

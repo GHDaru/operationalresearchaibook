@@ -69,8 +69,8 @@
       "titulo": "A new polynomial-time algorithm for linear programming",
       "primeiro_autor": "Karmarkar",
       "ano": 1984,
-      "container": "Combinatorica",
-      "fonte": "crossref",
+      "container": "COMBINATORICA",
+      "fonte": "openalex",
       "verificado_em": "2026-08-13"
     },
     {
@@ -82,6 +82,18 @@
       "primeiro_autor": "Hall",
       "ano": 2004,
       "container": "Mathematical Programming",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1007/s12532-017-0130-5",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "Parallelizing the dual revised simplex method",
+      "primeiro_autor": "Huangfu",
+      "ano": 2017,
+      "container": "Mathematical Programming Computation",
       "fonte": "crossref",
       "verificado_em": "2026-08-13"
     },
@@ -101,7 +113,7 @@
       "doi": "10.1090/s0002-9904-1958-10224-4",
       "estado": "resolvido",
       "prefixo": "10.1090",
-      "registrante": "American Mathematical Society (AMS)",
+      "registrante": null,
       "titulo": "Outline of an algorithm for integer solutions to linear programs",
       "primeiro_autor": "Gomory",
       "ano": 1958,
@@ -170,10 +182,22 @@
       "verificado_em": "2026-08-13"
     },
     {
-      "doi": "10.1287/moor.2.2.103",
+      "doi": "10.1287/mnsc.36.5.519",
       "estado": "resolvido",
       "prefixo": "10.1287",
       "registrante": "Institute for Operations Research and the Management Sciences (INFORMS)",
+      "titulo": "A Modeling Language for Mathematical Programming",
+      "primeiro_autor": "Fourer",
+      "ano": 1990,
+      "container": "Management Science",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1287/moor.2.2.103",
+      "estado": "resolvido",
+      "prefixo": "10.1287",
+      "registrante": null,
       "titulo": "New Finite Pivoting Rules for the Simplex Method",
       "primeiro_autor": "Bland",
       "ano": 1977,
@@ -269,7 +293,7 @@
       "doi": "10.2307/1910129",
       "estado": "resolvido",
       "prefixo": "10.2307",
-      "registrante": "JSTOR",
+      "registrante": null,
       "titulo": "An Automatic Method of Solving Discrete Programming Problems",
       "primeiro_autor": "Land",
       "ano": 1960,

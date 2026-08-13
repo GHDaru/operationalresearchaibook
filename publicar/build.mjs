@@ -242,6 +242,7 @@ const COMPANION_CAPS = [
   { chave: "anatomia_modelo", rotulo: "Anatomia de um modelo", libera: 3 },
   { chave: "classificacao", rotulo: "Classificação e escolha de método", libera: 4 },
   { chave: "complexidade", rotulo: "Complexidade para quem modela", libera: 5 },
+  { chave: "ferramentas", rotulo: "Ferramentas de trabalho", libera: 6 },
   { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
   { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },

@@ -63,8 +63,15 @@ jobs:
       # Encontrado pelo comitê da rodada dos cadernos, e consertado antes de o
       # primeiro caderno existir — porque acrescentar artefato novo a um
       # pipeline que não cobre o antigo é multiplicar o buraco.
+      # SEGUNDA CORREÇÃO DO MESMO PASSO, 2026-08-13. Ele instalava `pytest` e
+      # `numpy` e mais nada — e `etapa-08-modelagem/test_padroes.py` importa
+      # `pulp` direto, além de vários módulos de etapa o importarem no topo.
+      # Ou seja: o passo criado para proteger os selos 🔵 não podia ter passado.
+      # A dependência agora é declarada em `po-zero/requirements.txt`, o MESMO
+      # arquivo que o capítulo 06 manda o leitor instalar — instrução que a CI
+      # não executa é instrução que envelhece em silêncio.
       - name: Testes da medição (po-zero)
-        run: pip install -q pytest numpy && python -m pytest po-zero -q
+        run: pip install -q -r po-zero/requirements.txt && python -m pytest po-zero -q
 
       # O corpus do tutor é regerado a cada build: o chat nunca responde por uma
       # versão antiga do livro (dívida herdada do motor original, corrigida aqui).

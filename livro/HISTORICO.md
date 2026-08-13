@@ -1473,3 +1473,45 @@ mede o cubo.
 `sys.path`. Reimplementar criaria uma segunda fonte da verdade para números que o livro já
 publicou no capítulo 09 — a classe de defeito que a ADR 0016 proíbe nos cadernos, e que não tem por
 que ser tolerada entre etapas.
+
+### Edição 0.33 — 2026-08-13 · Capítulo 06, e a Parte I fecha
+
+**Entrou:** o [capítulo 06 — Ferramentas de trabalho](capitulos/06-ferramentas.md), 🔵 **medido**,
+com três exercícios, vídeo curado e a capacidade `ferramentas` (libera 6). **Com ele a Parte I
+fecha**: seis vagas declaradas na rodada de fundação, seis publicadas.
+
+**Um capítulo de ferramenta é o mais fácil de escrever mal**, porque a tentação é entregar um
+folheto — *instale isto, escreva assim*. O que impede aqui são três medições, e as três mudam o
+modo de ler uma saída de solver.
+
+1. **Com múltiplos ótimos, a ferramenta escolhe o seu plano.** Mesmo modelo, valor **10** nos
+   três; o Simplex exato devolve **(6, 4)** e os dois solvers devolvem **(2, 8)**. Nenhum está
+   errado — e é o **plano**, não o valor, que a fábrica executa na segunda-feira.
+2. **Nenhum solver devolve a fração.** O ótimo da ração é **780/17**. O HiGHS reporta
+   `45.88235294117647` (erro de 4,18 × 10⁻¹⁶) e o CBC reporta `45.882352` (erro de 9,41 × 10⁻⁷).
+   Os dois estão certos e **discordam entre si** — o que não muda decisão nenhuma até alguém
+   comparar duas saídas com `==`.
+3. **Os vereditos concordam**, e isso também é resultado: `Unbounded` e `Infeasible` saem iguais
+   nas três implementações. **`Infeasible` não se conserta trocando de solver.**
+
+**E o capítulo encontrou um defeito ao ser escrito — o segundo do mesmo passo de CI.** A edição
+0.28 registrou que os testes do `po-zero` nunca haviam rodado na integração contínua. O passo foi
+criado, e **instalava `pytest` e `numpy` e mais nada** — enquanto `etapa-08-modelagem` importa
+`pulp` direto e vários módulos de etapa o importam no topo. Ou seja: o passo criado para proteger
+os selos 🔵 **também não podia passar**. A correção não foi remover a dependência, e sim declará-la
+em `po-zero/requirements.txt` — **o mesmo arquivo que o capítulo 06 manda o leitor instalar**.
+
+> **A regra que sai daí, e ela vale além deste repositório:** instrução de instalação que ninguém
+> executa envelhece em silêncio. A do capítulo 06 é executada a cada envio, e quando quebrar o
+> build fica vermelho. Há teste que falha se a CI deixar de instalar o arquivo que o capítulo cita.
+
+**Duas fontes novas, ambas `✓ᵐ`:** Fourer, Gay & Kernighan (1990), a que se atribui a separação
+entre modelo algébrico e dados; e Huangfu & Hall (2017), na origem do HiGHS. Metadados conferidos,
+**conteúdo não lido**, atribuições declaradas correntes. A data do segundo é a da publicação
+eletrônica — o fascículo impresso é de 2018, e a divergência é do registro: o portão de fontes
+compara com o Crossref e barraria a outra escolha.
+
+**Uma dependência de versão, assumida de propósito.** Os dígitos da tabela de ponto flutuante
+mudam se o solver mudar, e o teste fica vermelho quando isso acontecer. É o comportamento certo —
+o capítulo publica dígitos e diz a versão ao lado. O PuLP 3.3 já marca `PULP_CBC_CMD` como
+descontinuado, com remoção anunciada para a 4.0: quando chegar, o teste avisa antes do leitor.

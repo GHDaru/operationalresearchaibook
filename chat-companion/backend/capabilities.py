@@ -59,6 +59,11 @@ REGISTRO = [
                   "exponencial' — no que ela de fato autoriza concluir sobre a SUA instância, que "
                   "quase sempre é nada. E defendo a ordem: rode o exato com limite de tempo e leia "
                   "o gap antes de decidir qualquer coisa."},
+    {"chave": "ferramentas", "rotulo": "Ferramentas de trabalho", "libera": 6, "tools": (),
+     "descricao": "Ajudo a montar o ambiente e a ler uma saída de solver separando três coisas que "
+                  "costumam se confundir: o que é decisão do modelo, o que é escolha da ferramenta "
+                  "e o que é ponto flutuante. E cobro a separação entre modelo e dados antes de "
+                  "qualquer conversa sobre desempenho."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

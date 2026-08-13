@@ -55,7 +55,7 @@ A porta de entrada. Termina com o leitor sabendo **reconhecer um problema de PO*
 | 🟡 | 03 — Anatomia de um modelo de otimização | Variáveis de decisão, função objetivo, restrições, parâmetros — e o que cada erro nesses quatro produz. |
 | 🟡 | 04 — Classificação de problemas e escolha de método | O mapa de decisão: linear ou não, inteiro ou contínuo, determinístico ou estocástico. |
 | 🔵 | 05 — Complexidade computacional para quem modela | P, NP e o que a teoria decide na prática: quando parar de buscar o ótimo. |
-| ⬜ | 06 — Ferramentas de trabalho | Solvers, linguagens de modelagem e dados. Instalação do `po-zero`. |
+| 🔵 | 06 — Ferramentas de trabalho | Solvers, linguagens de modelagem e dados. Instalação do `po-zero`. |
 
 ## Parte II — Programação Linear
 
