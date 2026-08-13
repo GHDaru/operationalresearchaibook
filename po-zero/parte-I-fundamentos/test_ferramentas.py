@@ -79,8 +79,23 @@ def test_o_exato_e_a_fracao(flutuante):
 
 
 def test_nenhum_solver_devolve_a_fracao(flutuante):
+    """Este teste quase nasceu incapaz de falhar, e vale dizer por quê.
+
+    A versão anterior verificava que nenhum solver devolve 780/17 exatamente.
+    Como 17 não é potência de 2, **nenhum `float` pode** ser igual a 780/17 — a
+    asserção falava de IEEE-754, não de comportamento de solver, e ficaria verde
+    para sempre. Decoração no meio de testes que trabalham.
+
+    A asserção com conteúdo é sobre a REFERÊNCIA: o Simplex didático devolve a
+    fração, os dois solvers não, e é essa assimetria que autoriza o capítulo a
+    dizer quanto cada um arredondou. Se a implementação exata passar a devolver
+    `float`, o handbook perde o instrumento — e isto fica vermelho.
+    """
+    assert flutuante["exato"]["valor"] == "780/17", \
+        "a implementação de referência deixou de ser exata — sem ela não há como medir o arredondamento"
     for s in flutuante["solvers"]:
-        assert F(s["valor"]).limit_denominator(10 ** 15) != F(780, 17)
+        assert isinstance(s["valor"], float), f"{s['solver']} deixou de reportar em ponto flutuante"
+        assert s["erro_absoluto"] > 0, f"{s['solver']} teria acertado a fração, o que é impossível em float"
 
 
 def test_os_dois_solvers_discordam_entre_si(flutuante):
