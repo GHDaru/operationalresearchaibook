@@ -23,8 +23,14 @@ preços   CPUs = 50 · pentes de 16 GB = 50
 dual     y = (50, 50)   valor 1100   (2 pivôs, problema separado)
 dualidade forte confere: True
 
-CPUs             hoje 10 · faixa [13/2, 12]
-pentes de 16 GB  hoje 12 · faixa [10, 39/2]
+faixa do ESTOQUE — até onde o preço-sombra vale
+  CPUs                        hoje 10 · faixa [6, 12]
+  pentes de memória de 16 GB  hoje 12 · faixa [10, 20]
+faixas conferidas por caminho independente: True
+
+faixa do LUCRO UNITÁRIO — até onde o plano continua o mesmo
+  Tipo 1 (16 GB): hoje 100 · faixa [75, 150]
+  Tipo 2 (32 GB): hoje 150 · faixa [100, 200]
 ```
 
 **Se a dualidade forte não conferisse, o script aborta** — e o capítulo 12 não poderia ser
@@ -33,8 +39,16 @@ escrito. A verificação é gate, não relatório.
 ## O que esta etapa NÃO prova
 
 - Nada sobre solvers reais: é aritmética exata, em instância de duas variáveis.
-- A faixa de validade é achada por **busca direta**, não por fórmula de sensibilidade. Ensina a
-  fronteira sem exigir álgebra que o leitor v0 ainda não tem — e é por isso que o passo é `1/2`,
-  não infinitesimal. **A fronteira é a menor mudança de base detectável nesse passo.**
+- A faixa de validade sai de **álgebra exata** sobre o quadro final: com todas as restrições `<=`,
+  as colunas de folga são $B^{-1}$, e a base segue viável enquanto $x_B + \Delta \cdot (B^{-1}e_i)
+  \ge 0$. É a fronteira exata, em fração, sem passo e sem resolver de novo.
+
+  > **Uma versão anterior desta etapa fazia isso por varredura de meio em meio, e publicou duas
+  > faixas ERRADAS no capítulo 12** — `[13/2, 12]` e `[10, 39/2]`, quando o certo é `[6, 12]` e
+  > `[10, 20]`. O defeito não era de precisão: a varredura media **em que base o Simplex
+  > aterrissa**, e não **para que estoque a base continua ótima**. Registrado na
+  > [ADR 0014](../../adr/0014-relatorio-de-sensibilidade-e-a-faixa-medida.md), D2. Toda faixa
+  > passou a ser conferida por um segundo caminho, que a põe na fronteira e um pouco além e exige
+  > que o preço **acerte na fronteira** e **erre além dela**.
 - Em **vértice degenerado** a faixa fica ambígua, e o capítulo 10 já avisou disso. A montadora não
   é degenerada, então este caso **não está medido aqui**.

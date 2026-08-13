@@ -155,8 +155,11 @@ Leia a última coluna. Acima de 1, a forma revisada gasta menos.
 restrições, 1,87× com 30 para 8, **2,96×** com 120 para 10. Faz sentido: quanto mais colunas o
 quadro tem de manter, mais ele mantém à toa.
 
-**Nas esparsas ela perde**, ou quase: 0,94×, 1,34× e **0,75×**. Isto **não** é o que o folclore
-diz — "a forma revisada aproveita a esparsidade" —, e entra no capítulo porque a
+**Nas esparsas ela perde em duas das três:** **0,94×** e **0,75×** — e ganha na terceira, com
+**1,34×**. Repare que a régua "esparso ⇒ a revisada perde" **não é a que foi medida**: se fosse,
+1,34× seria contraexemplo dela. O que a medição sustenta é outra coisa, e a próxima seção diz
+qual. Isto tampouco é o que o folclore diz — "a forma revisada aproveita a esparsidade" —, e entra
+no capítulo porque a
 [spec da rodada](https://github.com/GHDaru/operationalresearchaibook/blob/main/specs/008-cap11-simplex-revisado/spec.md)
 comprometeu-se com isso antes de medir.
 
@@ -312,7 +315,8 @@ sentiu a ponte curta.
   preços correntes. Deixa de ser resíduo de procedimento.
 - **Ninguém calcula $B^{-1}$.** O símbolo é notação; solvers guardam fatores e resolvem sistemas.
 - **Medido: a forma revisada ganha nas densas** (até 2,96×, e o ganho cresce com $n/m$) **e perde
-  nas esparsas** (0,75×). O folclore diz o contrário.
+  em duas das três esparsas** (0,94× e 0,75×; na terceira ganha, com 1,34×). Não existe régua por
+  esparsidade — a régua é o preenchimento.
 - **A explicação é o preenchimento**, e foi medida: o quadro que preenche muito fica caro e a
   revisada ganha; o que quase não preenche continua barato e a revisada perde.
 - **Esparsidade é propriedade do modelo.** O método não a cria nem a destrói — decide se ela é

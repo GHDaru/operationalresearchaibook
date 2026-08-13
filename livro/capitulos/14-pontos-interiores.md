@@ -18,7 +18,7 @@ pelo que a instância tem, não pela fama do método.
 Cinco capítulos atrás você aprendeu que o ótimo mora numa quina, e desde então tudo neste livro
 anda pelas quinas. O [capítulo 08](08-geometria.md) provou que basta olhar os vértices; o
 [capítulo 09](09-simplex.md) construiu o método que caminha de vértice em vértice; o
-[capítulo 11](../mapa-do-handbook.md) o fará caber em memória.
+[capítulo 11](11-simplex-revisado.md) o fez caber em memória — e mediu o preço disso.
 
 Agora imagine um problema com **um milhão de variáveis**. O ótimo continua numa quina — o teorema
 não mudou. Mas o número de quinas cresce de um jeito que não cabe em nenhuma agenda, e a pergunta
@@ -52,21 +52,36 @@ asterisco.
 
 ### A virada, em duas etapas — e elas são diferentes
 
-**1979 — Khachiyan** responde a pergunta teórica com o **método do elipsoide**: sim, Programação
-Linear é polinomial. Foi notícia muito além da academia — o [estudo 002](https://github.com/GHDaru/operationalresearchaibook/blob/main/estudos/002-historia-dos-metodos.md)
-registra a repercussão no *New York Times* em 1979.
+**Khachiyan** responde a pergunta teórica com o **método do elipsoide**: sim, Programação Linear
+é polinomial.
 
-E aí veio a decepção instrutiva: **na prática o método do elipsoide perdia feio para o Simplex**.
-A resposta teórica estava certa e não servia para trabalhar. É um dos casos mais limpos da
-computação em que *polinomial* e *rápido* se separam de forma visível.
+> ⏳ **Duas datas, e a diferença entre elas é do tipo que este handbook não apaga.** O resultado é
+> correntemente datado de **1979**, e o identificador que foi **conferido** é o da publicação de
+> **1980** — `10.1016/0041-5553(80)90061-0`, no periódico que traduzia para o inglês a matemática
+> soviética. A data de 1979 aparece também na repercussão registrada no
+> [estudo 002](https://github.com/GHDaru/operationalresearchaibook/blob/main/estudos/002-historia-dos-metodos.md),
+> que segue `⏳`. **Este capítulo não reconcilia as duas** — diz o que tem conferido e marca o
+> resto.
 
-**1984 — Karmarkar** apresenta um algoritmo que é polinomial **e** competitivo na prática. É a
-virada que abre a família dos métodos de ponto interior como ferramenta, não como teorema.
+E aí veio o que a literatura didática relata como decepção instrutiva: **atribui-se ao método do
+elipsoide desempenho prático muito inferior ao do Simplex**. Se for verdade, é um dos casos mais
+limpos em que *polinomial* e *rápido* se separam de forma visível.
 
-| Ano | Quem | O que estabeleceu | Prática |
+> ⏳ **Este handbook não mediu isso e não o afirma.** A comparação corrente circula sem instância,
+> *baseline* e máquina declarados — que é exatamente o que o [capítulo 77](77-ler-artigo.md) ensina
+> a recusar, e recusar também quando o resultado agrada.
+
+**1984 — Karmarkar** apresenta um algoritmo polinomial que a literatura descreve como competitivo
+na prática. É a virada a que se atribui a abertura da família dos métodos de ponto interior como
+ferramenta, e não como teorema.
+
+| Quando | Quem | O que estabeleceu | O que se atribui à prática |
 |---|---|---|---|
-| 1979 | Khachiyan | Programação Linear **é** polinomial (elipsoide) | perdia para o Simplex |
-| 1984 | Karmarkar | polinomial **e** competitivo | mudou o mercado |
+| 1979/1980 ⏳ | Khachiyan | Programação Linear **é** polinomial (elipsoide) | ⏳ desempenho inferior ao Simplex |
+| 1984 | Karmarkar | polinomial, e descrito como competitivo | ⏳ mudança no mercado de solvers |
+
+**As três células `⏳` da última coluna não são detalhe de formatação.** Elas são a diferença entre
+o que este handbook mediu — nada, nesta seção — e o que ele repete da literatura.
 
 ### A ideia reaproveitável
 
@@ -84,7 +99,8 @@ limite, muitas vezes não se muda a direção do esforço — **muda-se a métri
 
 | Afirmação | Estado |
 |---|---|
-| Khachiyan, "Polynomial algorithms in linear programming", 1980 | ✓ᵐ metadados conferidos — [bibliografia](../bibliografia.md) |
+| Khachiyan, "Polynomial algorithms in linear programming", **1980** | ✓ᵐ metadados e existência conferidos — [bibliografia](../bibliografia.md) |
+| Que o resultado do elipsoide é de **1979** | ⏳ **data corrente**; o identificador conferido é o da publicação de 1980 |
 | Karmarkar, "A new polynomial-time algorithm for linear programming", *Combinatorica*, 1984 | ✓ᵐ metadados conferidos |
 | Repercussão do resultado de 1979 no *New York Times* | ⏳ registrada no [estudo 002](https://github.com/GHDaru/operationalresearchaibook/blob/main/estudos/002-historia-dos-metodos.md), não conferida na fonte primária |
 | A controvérsia da patente da AT&T sobre o algoritmo de Karmarkar | ⏳ atribuição corrente, não confirmada |
@@ -200,11 +216,13 @@ inteira continua sendo território do Simplex.
 de mercado são *primal-dual* com barreira logarítmica, preditor-corretor e álgebra esparsa. A
 distância entre um e outro é grande, e este handbook não a atravessa na v0.
 
-**4. Este handbook não mediu desempenho comparado.** Não há aqui nenhuma afirmação do tipo "ponto
-interior ganha acima de $N$ variáveis" — seria exatamente o tipo de comparação sem instância,
-*baseline* e máquina que o [capítulo 77](77-ler-artigo.md) ensina a recusar. O que se afirma é
-**qualitativo e verificável**: em problemas grandes e esparsos a família interior é a escolha
-usual do mercado, e o número de iterações cresce muito devagar com o tamanho.
+**4. Este handbook não mediu desempenho comparado, e por isso não afirma nenhum.** Não há aqui
+"ponto interior ganha acima de $N$ variáveis", nem "é a escolha usual do mercado em problemas
+grandes", nem "o número de iterações cresce devagar com o tamanho". As três frases circulam, as
+três são plausíveis, e nenhuma delas foi medida aqui — seriam exatamente a comparação sem
+instância, *baseline* e máquina que o [capítulo 77](77-ler-artigo.md) ensina a recusar. **Recusar
+também quando o resultado agrada** é o que torna a régua uma régua. O que este capítulo afirma é o
+que ele mediu, e está em [O código](#o-código).
 
 **5. A tolerância é uma decisão sua.** "Convergiu" significa "o resíduo ficou abaixo do que eu
 pedi". Em problemas mal condicionados, apertar a tolerância pode custar muito e, em casos ruins,
@@ -300,10 +318,13 @@ interior. Em vez de caminhar pelas quinas como o Simplex, eles partem do meio da
 avançam por dentro, sem nunca encostar na fronteira; o obstáculo técnico — que perto da parede
 qualquer passo na direção do gradiente sai da região — é contornado **reescalando o espaço** a cada
 iteração, de modo que o ponto atual fique longe de todas as paredes e o passo encolha
-automaticamente nas direções apertadas. Historicamente foram duas viradas distintas: em 1979
-Khachiyan provou, com o método do elipsoide, que Programação Linear é polinomial, resultado
-teórico que na prática perdia para o Simplex; em 1984 Karmarkar apresentou um algoritmo polinomial
-**e** competitivo, e é dele que a família prática descende. A diferença de natureza aparece em
+automaticamente nas direções apertadas. Historicamente atribuem-se duas viradas distintas:
+Khachiyan provou, com o método do elipsoide, que Programação Linear é polinomial — resultado
+datado correntemente de 1979, cujo identificador conferido é o da publicação de 1980 —, e a esse
+método se atribui desempenho prático inferior ao do Simplex; em 1984 Karmarkar apresentou um
+algoritmo polinomial que a literatura descreve como competitivo, e é dele que a família prática
+descende. **Nenhuma das afirmações sobre desempenho nesse parágrafo foi medida por este handbook**,
+e todas estão marcadas na tabela de Procedência do capítulo. A diferença de natureza aparece em
 número: na montadora deste livro o Simplex devolve o ponto $(8,2)$ e o valor 1100 em fração exata,
 com 2 pivôs, enquanto o método interior chega a $(7{,}999996;\ 2{,}000002)$ e 1099,99982 em 11
 iterações — uma distância de $4{,}5 \times 10^{-6}$ ao vértice que **não é defeito**, e sim o

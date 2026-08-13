@@ -265,7 +265,7 @@ Leia a primeira linha com atenção, porque ela é a resposta ao telefonema: **a
 CPU seguinte vale zero**. Não "vale um pouco menos" — vale **zero**, porque a partir dali o
 gargalo passou a ser outro, e comprar mais CPU não muda plano nenhum.
 
-Como usar a faixa é o [capítulo 13](../mapa-do-handbook.md). O que este capítulo exige de você é
+Como usar a faixa é o [capítulo 13](13-sensibilidade.md), que vem a seguir e paga esta promessa. O que este capítulo exige de você é
 mais simples e mais urgente: **nunca cite um preço-sombra sem citar a faixa junto**.
 
 ## O código

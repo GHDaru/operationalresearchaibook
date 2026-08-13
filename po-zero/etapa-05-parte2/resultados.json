@@ -79,7 +79,7 @@
       "lucro_atual": "100",
       "pode_cair_ate": "75",
       "pode_subir_ate": "150",
-      "na_base": false,
+      "na_base": true,
       "rotulo": "Tipo 1 (16 GB)"
     },
     {
@@ -87,7 +87,7 @@
       "lucro_atual": "150",
       "pode_cair_ate": "100",
       "pode_subir_ate": "200",
-      "na_base": false,
+      "na_base": true,
       "rotulo": "Tipo 2 (32 GB)"
     }
   ]

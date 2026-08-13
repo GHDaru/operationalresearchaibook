@@ -1116,3 +1116,54 @@ mecânica em **28,2%** das linhas contra o teto de 50% (A13); **cinco** exercíc
 
 **Verificação:** nove portões verdes — `maturidade 🟡6 🔵1 ✅4`, `50 exercícios em 11 baterias` —,
 `40 passed` no `po-zero` e `24 passed` no backend.
+
+### Edição 0.24 — 2026-08-13 · A revisão do lote reprovou, e o que ela pegou
+
+A revisão em contexto fresco do lote 1 — feita por quem não escreveu nada dele, lendo **seguindo o
+fio** e não capítulo a capítulo — **reprovou**. Não pelo conteúdo: as sete medições se regeneram
+exatamente como publicadas. Reprovou a **costura**, e num padrão que vale registrar.
+
+**O defeito que voltou dentro do mesmo lote.** A edição 0.17 corrigiu, no capítulo 12, o corpo
+afirmando o que a tabela de Procedência marcava `⏳` — e escreveu que *"corpo afirmando o que a
+tabela nega é o modo mais silencioso de um sistema de selos deixar de valer"*. O capítulo 14, do
+mesmo lote, fazia exatamente isso três vezes: afirmava que o método do elipsoide "perdia feio", que
+Karmarkar "mudou o mercado" e que a família interior "é a escolha usual do mercado" — tudo com a
+Procedência marcando `⏳` ou sem linha nenhuma. **Corrigido**: as três viraram atribuição explícita,
+e a tabela de viradas ganhou uma coluna `⏳` que separa o que foi medido do que se repete.
+
+**Junto, uma data ganhou honestidade.** O capítulo ensinava "1979" cinco vezes para Khachiyan,
+enquanto o único identificador conferido é o da publicação de **1980**. O capítulo agora publica as
+duas e **não reconcilia** — diz o que tem conferido e marca o resto.
+
+**O capítulo 11 exagerava o próprio resultado negativo.** Escrevia *"nas esparsas ela perde, ou
+quase: 0,94×, 1,34× e 0,75×"* — e 1,34× é **vitória**, a segunda maior de todas. Num capítulo cujo
+argumento é "não suavizamos resultado negativo", inflar um negativo é a mesma falha espelhada.
+Corrigido para **duas das três**, com a régua certa dita em seguida: não existe regra por
+esparsidade, a régua é o **preenchimento**.
+
+**Três elos do fio não existiam.** O 12 mandava o leitor ao **mapa** para o capítulo 13, publicado
+no mesmo lote; o 14 dizia que o 11 "**fará** caber em memória", no futuro, sobre o capítulo mais
+maduro do lote; e o 38 pagava a dívida de convexidade do 09 sem que o 09 soubesse — o leitor que
+segue a ordem nunca era avisado. Os três foram ligados.
+
+**O README da etapa 05 ainda publicava as faixas erradas.** A correção da edição 0.17 tocou o
+script, o capítulo, os resultados e os testes — e não o README, que é a primeira tela de quem segue
+o link dos capítulos 12 e 13. Corrigido, com o defeito registrado nele.
+
+**Oito fichas de vídeo, uma registrada.** A Videoteca declara ser mantida à mão, *"quem adiciona um
+vídeo atualiza os dois lugares"* — e o lote registrou uma das oito. As sete faltantes entraram, com
+o registro de **por qual via** título, autoria e duração foram lidos.
+
+**Dois portões novos, porque as duas falhas eram invisíveis aos nove existentes.** Um barra
+capítulo publicado que aponte para o mapa quando o capítulo-alvo **já existe** — legítimo enquanto
+a vaga é vaga, defeito no instante em que ela é preenchida, e ninguém volta para trocar o link. O
+outro exige que toda ficha `## Assista` esteja no índice da Videoteca. **Os dois foram provados
+quebrando** antes de entrar.
+
+**Fica para o autor**, porque não é trabalho de agente: a revisão apontou que o ✅ do capítulo 09
+não tem registro da revisão em contexto fresco que a ADR 0013 usa para definir o selo — o
+`specs/004-cap09-simplex/verificacao.md` marca `⏳ pendente`. Ou o 09 recebe a revisão, ou o selo
+cai para 🔵. Importa duplamente porque o teto do portão de razão é `3 × ✅`.
+
+**Verificação:** nove portões verdes com os dois novos incluídos, `40 passed` no `po-zero`,
+`24 passed` no backend.

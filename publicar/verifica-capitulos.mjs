@@ -28,6 +28,10 @@ const PDF_LIVRO = EN ? "operations-research.pdf" : "pesquisa-operacional.pdf";
 
 const RE_ORIGEM = /^##\s+De onde isto veio/m;
 
+// O índice da Videoteca, lido uma vez — os dois portões de costura o consultam.
+const VIDEOTECA = existsSync(resolve(RAIZ, "livro/videoteca.md"))
+  ? readFileSync(resolve(RAIZ, "livro/videoteca.md"), "utf8") : "";
+
 // Selo de maturidade (ADR 0013, D2). A escada e os emojis são os mesmos de
 // `build.mjs` — aqui só o que se VERIFICA, para o portão não depender de o
 // gerador ter acertado.
@@ -163,6 +167,45 @@ for (const item of itens) {
     const emDia = atual === m[3];
     if (emDia && !html.includes("sinc-ok")) erro("tradução em dia sem selo sinc-ok");
     if (!emDia && !html.includes("sinc-atras")) erro("tradução atrasada sem selo sinc-atras");
+  }
+}
+
+// ---------------------------------------------------------------------------
+// DOIS PORTÕES QUE NASCERAM DA REVISÃO EM CONTEXTO FRESCO DO LOTE 1.
+//
+// As duas falhas eram invisíveis aos nove portões existentes, e as duas são de
+// COSTURA — o tipo que a revisão capítulo a capítulo não vê e que só aparece
+// quando alguém lê o livro seguindo o fio.
+if (!EN) {
+  const capitulos = itens.filter((i) => /^\s*\d+\s*—/.test(i.titulo));
+  const publicados = new Set(capitulos.map((i) => slugDe(i.arquivo)));
+
+  for (const item of capitulos) {
+    const slug = slugDe(item.arquivo);
+    const md = readFileSync(resolve(RAIZ, item.arquivo), "utf8");
+
+    // (1) Link de capítulo PUBLICADO apontando para o mapa em vez de para o
+    //     capítulo. É legítimo apontar para o mapa quando a vaga ainda não foi
+    //     escrita — é assim que o livro declara o que falta. Vira defeito no
+    //     instante em que o capítulo passa a existir, e ninguém volta para
+    //     trocar o link. Foi o que aconteceu com 12→13 e 14→11: os dois alvos
+    //     saíram no MESMO lote que os apontadores.
+    //
+    //     `verifica-referencias.mjs` não pega: ele valida a PROSA ("o capítulo
+    //     13 existe no mapa?") e nunca o alvo do link.
+    for (const m of md.matchAll(/\[cap[íi]tulo\s+(\d+)\]\(\.\.\/mapa-do-handbook\.md\)/gi)) {
+      const alvo = [...publicados].find((s) => s.startsWith(m[1].padStart(2, "0") + "-"));
+      if (alvo)
+        falhas.push(`${slug}: aponta "capítulo ${m[1]}" para o mapa, mas ${alvo}.md está PUBLICADO — troque o link`);
+    }
+
+    // (2) Ficha de vídeo no capítulo que não está no índice da Videoteca.
+    //     A própria Videoteca declara ser "mantida à mão: quem adiciona um
+    //     vídeo atualiza os dois lugares" — e o lote 1 escreveu oito fichas e
+    //     registrou uma. Promessa de processo que ninguém mede envelhece.
+    for (const m of md.matchAll(/youtube\.com\/watch\?v=([A-Za-z0-9_-]{6,})/g))
+      if (!VIDEOTECA.includes(m[1]))
+        falhas.push(`${slug}: vídeo ${m[1]} não está no índice de livro/videoteca.md`);
   }
 }
 
