@@ -54,6 +54,10 @@ REGISTRO = [
      "descricao": "Leio o relatório de sensibilidade com você e separo as duas famílias de faixa — "
                   "a do lucro, que protege o plano, e a do estoque, que protege o preço. Digo "
                   "quando a resposta já está no relatório e quando é preciso resolver de novo."},
+    {"chave": "pontos_interiores", "rotulo": "Pontos interiores", "libera": 14, "tools": (),
+     "descricao": "Explico por que atravessar não contradiz o teorema do vértice, e ajudo a ler "
+                  "uma saída que NÃO é vértice — sem base, sem zeros exatos, sem preço-sombra. "
+                  "Ajudo a escolher entre Simplex e interior pela instância, não pela fama."},
     {"chave": "convexidade", "rotulo": "Convexidade", "libera": 38, "tools": (),
      "descricao": "Ajudo a decidir se um conjunto é convexo — pela estrutura, não por amostragem — "
                   "e a achar o contraexemplo quando não é. Cobro a pergunta que quase ninguém faz "

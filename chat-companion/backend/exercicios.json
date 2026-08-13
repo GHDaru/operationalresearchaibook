@@ -2240,5 +2240,104 @@
     ],
     "erro_provavel": "Aceitar o número porque o campo diz `Optimal`. Esse rótulo tem significados diferentes conforme o problema: em Programação Linear é **certificado global**, porque a convexidade garante; em otimização não convexa costuma significar apenas *\"a busca satisfez as condições de parada\"*. Nada no relatório distingue os dois casos, e a palavra é a mesma. O segundo erro é o oposto e igualmente caro: rejeitar o trabalho inteiro por não ser convexo. Uma solução sem certificado ainda pode ser excelente e ainda pode valer os 18% — o que ela não pode é ser apresentada como **a melhor**. A diferença entre \"a melhor\" e \"uma boa que encontramos\" não é semântica: é o que se promete ao conselho.",
     "resposta_guia": "Economia de escala significa custo unitário decrescente com o volume, o que torna a função de custo **côncava** — e minimizar uma função côncava é o caso em que a garantia não existe: ótimo local pode não ser global. As duas perguntas: (1) *o modelo é convexo?*; (2) *esse `Optimal` é certificado de otimalidade global ou condição de parada local?* Se o modelo for convexo e o certificado for global, o número é um limite garantido; se não, é uma solução encontrada, e nada além disso. \"O solver é de última geração e rodou até convergir\" **não** responde: convergência é propriedade da busca e não do problema, e nenhum solver cria uma garantia que o modelo não tem. Evidência barata, sem trocar de método: rodar de **dez pontos de partida diferentes** e reportar a dispersão dos resultados — se todos caírem perto de R$ 14,2 milhões, a confiança sobe muito; se variarem, você já sabe o tamanho do risco. Um limitante inferior por relaxação também serve. Status honesto: *\"Solução encontrada: R$ 14,2 milhões, satisfazendo as condições locais de otimalidade. O modelo não é convexo, portanto não há certificado de que seja a melhor solução existente.\"*"
+  },
+  {
+    "id": "cap14.exA",
+    "capitulo": 14,
+    "serie": "cap14",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "capacidade": "pontos_interiores",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "A contradição que não existe",
+    "enunciado": "Um colega leu o [capítulo 08](08-geometria.md) e o 14 no mesmo dia e trouxe a objeção:\n\n> *\"Ou o ótimo está num vértice, ou não está. Se está, um método que anda por dentro e termina fora de qualquer vértice está errado. Se não está, o capítulo 08 mentiu.\"*\n\nA trajetória medida pelo handbook na montadora, partindo do meio da região:\n\n```\n[[1.0, 1.0], [3.0302, 4.0349], [5.2775, 3.3162], [7.7995, 2.0599]] ... → [7.999996, 2.000002]\nvalor final: 1099.99982   ·   distância ao vértice (8,2): 4.472e-06\n```\n\n1. O teorema do capítulo 08 afirma exatamente **o quê**? Escreva-o com cuidado, e sublinhe a parte que o seu colega acrescentou sem perceber.\n2. Por que o ponto final **não** é $(8,2)$ exatamente? A resposta não é \"erro numérico\" — explique a natureza do método.\n3. Perto da fronteira, por que o gradiente sozinho não serve? O que o reescalonamento resolve?\n4. Se você apertar a tolerância, o que acontece com a distância de $4{,}5 \\times 10^{-6}$? Existe tolerância que a zere?\n5. Responda ao colega em duas frases.",
+    "criterios": [
+      "Enuncia o teorema com precisão — **existe** um ótimo num vértice — e identifica que o colega acrescentou \"logo o método precisa andar pelos vértices\", que não está no teorema",
+      "Explica que o método converge a um **limite** e por isso nunca o atinge: a aproximação é da natureza do método, não erro de implementação nem de ponto flutuante",
+      "Explica que perto da fronteira qualquer passo do tamanho útil sai da região, e que o reescalonamento afasta o ponto atual das paredes para que o passo possa ser grande onde há espaço e pequeno onde não há",
+      "Reconhece que apertar a tolerância **diminui** a distância sem nunca zerá-la — é assíntota, não meta",
+      "A resposta ao colega separa as duas afirmações: onde a resposta mora é uma coisa, por onde se caminha até ela é outra"
+    ],
+    "erro_provavel": "Responder que a diferença é \"erro de arredondamento do ponto flutuante\". É a resposta mais comum e está errada de um jeito que importa: mesmo com precisão infinita o método não chegaria a $(8,2)$, porque ele é **iterativo e converge a um limite** — cada iteração se aproxima da fronteira sem tocá-la, por construção. Confundir aproximação de natureza com erro de máquina leva à ação errada: aumentar a precisão numérica não resolve, e a única coisa que muda o resultado é a tolerância de parada, que decide **quão perto basta**.",
+    "resposta_guia": "O teorema do capítulo 08 afirma que **existe** um ótimo num vértice — e só isso. O seu colega acrescentou, sem perceber, \"logo o método precisa andar pelos vértices para encontrá-lo\", que é uma afirmação sobre o algoritmo e não está no teorema. O ponto final não é $(8,2)$ exatamente porque o método é iterativo e converge a um **limite**: cada passo se aproxima da fronteira sem tocá-la, e isso não é erro de ponto flutuante — aconteceria com precisão infinita. Perto da fronteira o gradiente sozinho não serve porque qualquer passo do tamanho útil sai da região; o reescalonamento transforma o espaço de modo que o ponto atual fique longe de todas as paredes, permitindo um passo grande onde há espaço e encolhendo-o onde não há. Apertar a tolerância diminui a distância de $4{,}5 \\times 10^{-6}$ e nunca a zera: é assíntota, não meta. Ao colega: *o teorema diz onde a resposta mora, não por onde se caminha até ela; e um método que se aproxima do vértice até a precisão que você pedir encontrou a resposta tanto quanto um que pousa nela.*",
+    "modelo": {
+      "rotulo": "montadora — o vértice de que o método interior se aproxima",
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        100,
+        150
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          10
+        ],
+        [
+          1,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          8,
+          2
+        ],
+        "valor": 1100
+      }
+    }
+  },
+  {
+    "id": "cap14.exB",
+    "capitulo": 14,
+    "serie": "cap14",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "pontos_interiores",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "O relatório que veio sem base",
+    "enunciado": "Uma analista roda um modelo de mistura com 40 mil variáveis num solver de mercado e traz a saída para você. Três coisas chamam atenção:\n\n- **nenhuma** variável vale exatamente zero — as \"zeradas\" aparecem como $3{,}7 \\times 10^{-9}$, $1{,}2 \\times 10^{-8}$ e assim por diante;\n- o relatório **não traz** preço-sombra nem faixas de sensibilidade;\n- o log menciona `barrier` e termina com `optimal`, sem falar em iterações de Simplex.\n\nA analista conclui que o solver \"está com defeito\" e quer refazer tudo em outra ferramenta.\n\n1. Que família de método foi usada? Qual das três observações é a mais decisiva para essa conclusão?\n2. Explique **cada uma** das três observações a partir da natureza do método.\n3. Ela precisa do preço-sombra para negociar com um fornecedor. O que você pede ao solver — e qual é o **custo** desse pedido?\n4. Com os valores $3{,}7 \\times 10^{-9}$, como você responde à pergunta \"quais ingredientes **não** entram na mistura?\" — e o que essa resposta exige de você que a saída do Simplex não exigia?\n5. \"O solver está com defeito\" é o diagnóstico certo? Se não, qual é?",
+    "criterios": [
+      "Identifica um **método de ponto interior** (barreira), e aponta que a ausência de zeros exatos é a observação mais decisiva — é assinatura da natureza do método, enquanto o log poderia ser ambíguo",
+      "Explica as três a partir da natureza: o método nunca toca a fronteira, logo nada zera; sem vértice não há **base**, e sem base não há leitura de preço-sombra nem de faixa pela $B^{-1}$; e `barrier` é o nome da família",
+      "Pede o ***crossover*** — a conversão da solução interior numa solução básica equivalente — e declara o custo: tempo adicional de processamento, que em problema grande não é desprezível",
+      "Para responder \"o que não entra\", reconhece que é preciso **fixar uma tolerância** e decidir por ela, o que é uma decisão de quem lê; a saída do Simplex dava zeros exatos e dispensava essa decisão",
+      "Recusa o diagnóstico: não há defeito nenhum — o método fez o que promete, e o que faltou foi saber que tipo de saída esperar"
+    ],
+    "erro_provavel": "Aceitar \"o solver está com defeito\" e trocar de ferramenta. É caro e não resolve: a outra ferramenta, se também usar barreira num problema desse tamanho, vai devolver exatamente a mesma coisa. O erro de fundo é ler a saída de um método interior com os olhos do Simplex — esperando base, zeros exatos e preço-sombra, que são subprodutos de terminar **num vértice**. Nada disso é prometido por um método que, por construção, não encosta na fronteira. O segundo erro é tratar $3{,}7 \\times 10^{-9}$ como \"praticamente zero\" sem declarar a tolerância: com 40 mil variáveis, onde você corta muda quais ingredientes entram na formulação, e essa escolha precisa estar escrita.",
+    "resposta_guia": "Foi um método de **ponto interior** (barreira), e a observação mais decisiva é a ausência de zeros exatos: o método nunca toca a fronteira, então nenhuma variável zera de fato. Daí saem as outras duas: sem vértice não há **base**, e sem base não há leitura direta de preço-sombra nem faixa de sensibilidade pela $B^{-1}$ — foi por isso que o relatório veio sem eles; e `barrier` é literalmente o nome da família. Para negociar com o fornecedor, peça ao solver a etapa de ***crossover***, que converte a solução interior numa solução básica equivalente e devolve base, preços e faixas. O custo é tempo adicional, e num problema de 40 mil variáveis ele não é desprezível. Para dizer quais ingredientes não entram, é preciso **fixar uma tolerância** — por exemplo, tratar como zero tudo abaixo de $10^{-6}$ — e essa é uma decisão de quem lê, que precisa ser declarada; a saída do Simplex dava zeros exatos e dispensava a decisão. \"O solver está com defeito\" é o diagnóstico errado: o método entregou o que promete, e o que faltou foi saber que tipo de saída esperar dele."
+  },
+  {
+    "id": "cap14.exC",
+    "capitulo": 14,
+    "serie": "cap14",
+    "variante": "C",
+    "tipo": "escolher",
+    "objetivo": "O3",
+    "capacidade": "pontos_interiores",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Simplex ou interior — pela instância, não pela fama",
+    "enunciado": "Quatro situações chegam na mesma semana. Para cada uma, escolha **Simplex** ou **ponto interior** e dê **o argumento decisivo** — um só, o que decide.\n\n| | A situação |\n|---|---|\n| **a** | Planejamento anual de uma rede logística: 800 mil variáveis, matriz muito esparsa, roda **uma vez** por ano |\n| **b** | Um modelo de programação **inteira** resolvido por *branch and bound*, com milhares de nós, cada um um problema linear quase igual ao anterior |\n| **c** | Um modelo de 30 variáveis cujo resultado vai a uma reunião de compras, que quer saber **quanto vale** cada recurso a mais |\n| **d** | Uma auditoria que exige o resultado **em fração exata**, para ser reproduzido à mão |\n\n5. Um fornecedor argumenta que o método dele é melhor \"porque é de 2019, e o Simplex é de 1947\". Responda em uma frase.",
+    "criterios": [
+      "**(a)** ponto interior, pelo argumento do **tamanho e esparsidade com execução única** — não há reotimização a aproveitar",
+      "**(b)** Simplex, pelo argumento da **reotimização barata**: o *branch and bound* reaproveita a base entre nós, e método interior recomeça",
+      "**(c)** Simplex (ou interior **com *crossover***), porque a reunião precisa de **preço-sombra**, que exige base",
+      "**(d)** Simplex, porque só ele opera em **aritmética exata**; método interior converge a um limite e devolve aproximação por natureza",
+      "Ao fornecedor, responde que idade não é critério — os dois convivem nos solvers de mercado porque respondem a necessidades diferentes — e pede a comparação com instância, *baseline* e máquina declarados"
+    ],
+    "erro_provavel": "Escolher pelo tamanho em todos os quatro casos: \"grande → interior, pequeno → Simplex\". O tamanho decide o item (a) e **não decide nenhum dos outros três**. Em (b) o que manda é a reotimização, e a instância pode ser enorme sem que isso mude a resposta; em (c) manda a necessidade de preço-sombra; em (d) manda a exatidão. Escolher método por uma característica só é o mesmo erro que o capítulo 77 ensina a recusar em artigo — tomar uma dimensão de comparação pela comparação inteira.",
+    "resposta_guia": "**(a)** Ponto interior: problema grande, esparso e resolvido uma única vez por ano — não há reotimização a aproveitar, e é exatamente o regime em que a família interior é a escolha usual do mercado. **(b)** Simplex, e o argumento é decisivo: o *branch and bound* resolve milhares de problemas quase idênticos em sequência, e o Simplex reaproveita a base do nó anterior para reotimizar em poucos pivôs, enquanto o método interior recomeça a cada nó. **(c)** Simplex — ou interior seguido de ***crossover*** —, porque a reunião de compras quer preço-sombra, que só existe a partir de uma **base**, e a solução interior não tem base. **(d)** Simplex, porque a auditoria exige resultado exato: o Simplex opera em frações e devolve o valor cravado; o método interior converge a um limite e entrega aproximação, por natureza e não por descuido. Ao fornecedor: *idade não é critério — os dois métodos convivem nos solvers de mercado porque respondem a necessidades diferentes; me mostre a comparação com instância, baseline e máquina declarados, e aí conversamos.*"
   }
 ]

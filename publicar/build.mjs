@@ -243,6 +243,7 @@ const COMPANION_CAPS = [
   { chave: "casos_especiais", rotulo: "Casos especiais e degenerescência", libera: 10 },
   { chave: "dualidade", rotulo: "Dualidade e preço-sombra", libera: 12 },
   { chave: "sensibilidade", rotulo: "Análise de sensibilidade", libera: 13 },
+  { chave: "pontos_interiores", rotulo: "Pontos interiores", libera: 14 },
   { chave: "convexidade", rotulo: "Convexidade", libera: 38 },
   { chave: "leitura_critica", rotulo: "Leitura crítica de artigo", libera: 77 },
 ];

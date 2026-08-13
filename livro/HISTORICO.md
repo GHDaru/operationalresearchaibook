@@ -983,3 +983,52 @@ próximas funções vale mais do que renomear esta.
 **Verificação:** nove portões verdes — `maturidade 🟡4 🔵0 ✅4`, `39 exercícios em 8 baterias`,
 `41 modelo(s) resolvido(s) em aritmética exata` —, `19 passed` no `po-zero` e `24 passed` no
 backend.
+
+### Edição 0.21 — 2026-08-13 · Capítulo 14: atravessar em vez de contornar
+
+Quinto capítulo do lote 1. Fecha a família de métodos da Parte II e resolve um incômodo que os
+capítulos 08 a 13 deixaram no ar: se o ótimo está numa quina, por que um método que **evita** as
+quinas é competitivo — e por que a resposta que ele entrega **não é uma quina**?
+
+**Entrou:** [capítulo 14](capitulos/14-pontos-interiores.md), em 🟡 **v0**, e a
+[etapa 07 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-07-pontos-interiores),
+com escalonamento afim.
+
+**A reconciliação com o capítulo 08**, que é o ponto conceitual: o teorema afirma que **existe** um
+ótimo num vértice. Ele **não** afirma que o método precisa andar pelos vértices para achá-lo — um
+é um fato sobre onde a resposta mora, o outro seria um fato sobre como chegar lá, e não está no
+teorema.
+
+**Ponto flutuante, declarado.** É a primeira etapa do handbook que **não pode** usar aritmética
+exata, e o motivo é de natureza: método interior é iterativo e converge a um **limite**. Isso vira
+conteúdo em vez de rodapé:
+
+```
+Simplex (fração exata):     ponto (8, 2)                 valor 1100        2 pivôs
+interior (ponto flutuante): ponto [7.999996, 2.000002]   valor 1099.99982  11 iterações
+distância ao vértice: 4.472e-06 · erro no valor: 1.800e-04
+```
+
+**O Simplex chega; este se aproxima.** A distância de $4{,}5 \times 10^{-6}$ não é defeito de
+implementação — apertar a tolerância a diminui, e zerá-la é impossível.
+
+**Onde os dois métodos discordam, e ambos acertam.** Na marcenaria do capítulo 10, cujo ótimo é um
+**segmento** entre $(4,0)$ e $(2,3)$, o Simplex devolve uma das quinas e o método interior devolve
+$(2{,}928;\ 1{,}608)$ — **no meio da face ótima**, valendo os mesmos 24. Há teste que verifica que
+o ponto está sobre o segmento e **estritamente entre as pontas**: parar colado numa ponta não teria
+lição a extrair.
+
+**O que o capítulo recusa afirmar.** Nenhuma comparação de desempenho do tipo "ponto interior ganha
+acima de $N$ variáveis" — seria exatamente a comparação sem instância, *baseline* e máquina que o
+[capítulo 77](capitulos/77-ler-artigo.md) ensina a recusar. A afirmação corrente de que o método do
+elipsoide "perdia na prática" entra como `⏳` **do campo**, não como resultado próprio.
+
+**Defeito encontrado e corrigido durante a construção**, do tipo que vale registrar: a primeira
+versão do critério de parada declarava `ilimitado` quando nenhuma componente da direção era
+negativa — raciocínio correto em teoria e errado na prática, porque é exatamente o que acontece
+**perto do ótimo**. O método convergia e a função dizia "ilimitado". O critério certo é o resíduo
+reescalado; detectar ilimitado não é trabalho desta etapa.
+
+**Verificação:** nove portões verdes — `maturidade 🟡5 🔵0 ✅4`, `42 exercícios em 9 baterias`,
+`42 modelo(s) resolvido(s) em aritmética exata` —, `26 passed` no `po-zero` e `24 passed` no
+backend.

@@ -63,9 +63,15 @@
           "teaser": "O que a resposta suporta antes de mudar — e quando você não precisa resolver de novo."
         },
         {
+          "arquivo": "livro/capitulos/14-pontos-interiores.md",
+          "titulo": "14 — Métodos de pontos interiores",
+          "maturidade": "v0",
+          "teaser": "Atravessar em vez de contornar — e por que a resposta que chega não é um vértice."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Três vagas declaradas",
-          "teaser": "Simplex revisado (11), pontos interiores (14) e modelagem aplicada (15). O 11 vem com medição própria; a lacuna entre o 10 e o 12 é declarada, não esquecida."
+          "titulo": "⬜ Duas vagas declaradas",
+          "teaser": "Simplex revisado (11) e modelagem aplicada em PL (15). O 11 vem com medição própria; a lacuna entre o 10 e o 12 é declarada, não esquecida."
         }
       ]
     },
