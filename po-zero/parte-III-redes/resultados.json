@@ -1,0 +1,212 @@
+{
+  "caminho_minimo": {
+    "malha": {
+      "distancias": {
+        "deposito": "0",
+        "norte": "3",
+        "sul": "2",
+        "leste": "8",
+        "oeste": "10",
+        "cliente": "11"
+      },
+      "caminho_ate_cliente": [
+        "deposito",
+        "sul",
+        "norte",
+        "leste",
+        "cliente"
+      ],
+      "dijkstra_e_bellman_concordam": true
+    },
+    "com_peso_negativo": {
+      "dijkstra": "6",
+      "bellman_ford": "4",
+      "caminho_que_dijkstra_devolve": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ]
+    },
+    "ciclo_negativo_detectado": true
+  },
+  "fluxo_maximo": {
+    "fluxo": "15",
+    "caminhos": [
+      {
+        "caminho": [
+          "fabrica",
+          "centro_norte",
+          "loja_a",
+          "mercado"
+        ],
+        "gargalo": "6"
+      },
+      {
+        "caminho": [
+          "fabrica",
+          "centro_norte",
+          "loja_b",
+          "mercado"
+        ],
+        "gargalo": "4"
+      },
+      {
+        "caminho": [
+          "fabrica",
+          "centro_sul",
+          "loja_c",
+          "mercado"
+        ],
+        "gargalo": "5"
+      }
+    ],
+    "corte": {
+      "lado_da_fonte": [
+        "centro_norte",
+        "centro_sul",
+        "fabrica",
+        "loja_b",
+        "loja_c"
+      ],
+      "arestas": [
+        [
+          "centro_norte",
+          "loja_a",
+          "6"
+        ],
+        [
+          "loja_b",
+          "mercado",
+          "4"
+        ],
+        [
+          "loja_c",
+          "mercado",
+          "5"
+        ]
+      ],
+      "capacidade": "15"
+    },
+    "bate": true
+  },
+  "transporte": {
+    "integral": {
+      "status": "Optimal",
+      "custo": 220.0,
+      "plano": {
+        "fabrica_1->loja_a": 15.0,
+        "fabrica_1->loja_b": 0.0,
+        "fabrica_1->loja_c": 5.0,
+        "fabrica_2->loja_a": 0.0,
+        "fabrica_2->loja_b": 25.0,
+        "fabrica_2->loja_c": 5.0
+      },
+      "todos_inteiros": true,
+      "fracionarios": {}
+    },
+    "estrutura_quebrada": {
+      "status": "Optimal",
+      "custo": 223.33333333333334,
+      "plano": {
+        "fabrica_1->loja_a": 15.0,
+        "fabrica_1->loja_b": 1.6666666666666667,
+        "fabrica_1->loja_c": 3.333333333333333,
+        "fabrica_2->loja_a": 0.0,
+        "fabrica_2->loja_b": 23.333333333333332,
+        "fabrica_2->loja_c": 6.666666666666667
+      },
+      "todos_inteiros": false,
+      "fracionarios": {
+        "fabrica_1->loja_b": 1.6666666666666667,
+        "fabrica_1->loja_c": 3.333333333333333,
+        "fabrica_2->loja_b": 23.333333333333332,
+        "fabrica_2->loja_c": 6.666666666666667
+      }
+    }
+  },
+  "cpm": {
+    "duracao": "18",
+    "cedo_inicio": {
+      "especificar": "0",
+      "backend": "5",
+      "frontend": "5",
+      "integrar": "15"
+    },
+    "folga": {
+      "especificar": "0",
+      "backend": "0",
+      "frontend": "3",
+      "integrar": "0"
+    },
+    "criticas": [
+      "backend",
+      "especificar",
+      "integrar"
+    ]
+  },
+  "pert": {
+    "formula": {
+      "medias": {
+        "especificar": "6",
+        "backend": "11",
+        "frontend": "8",
+        "integrar": "4"
+      },
+      "duracao_esperada": "21",
+      "criticas": [
+        "backend",
+        "especificar",
+        "integrar"
+      ],
+      "variancia_do_prazo": "9"
+    },
+    "simulacao": {
+      "amostras": 20000,
+      "semente": 20260813,
+      "projeto": {
+        "media": 24.47570614758423,
+        "mediana": 24.299298051766208,
+        "p90": 29.34952159544807
+      },
+      "so_o_caminho_declarado": {
+        "media": 23.98572263256504,
+        "mediana": 23.77080835902808,
+        "p90": 29.163050413884132
+      },
+      "merge_bias": 0.49,
+      "prob_de_estourar_a_estimativa_do_pert": 0.8229
+    },
+    "varredura_de_ramos": [
+      {
+        "ramos": 1,
+        "merge_bias": 0.0,
+        "prob_de_estourar": 0.765
+      },
+      {
+        "ramos": 2,
+        "merge_bias": 1.7139,
+        "prob_de_estourar": 0.8968
+      },
+      {
+        "ramos": 3,
+        "merge_bias": 2.5534,
+        "prob_de_estourar": 0.9489
+      },
+      {
+        "ramos": 5,
+        "merge_bias": 3.6448,
+        "prob_de_estourar": 0.9845
+      },
+      {
+        "ramos": 8,
+        "merge_bias": 4.4522,
+        "prob_de_estourar": 0.9964
+      }
+    ]
+  },
+  "versoes": {
+    "aritmetica": "fractions.Fraction (exata), exceto a simulação do PERT",
+    "semente": 20260813
+  }
+}
