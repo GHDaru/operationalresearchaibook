@@ -211,6 +211,20 @@ que não termina em vértice. O *crossover* existe justamente para desfazer isso
 padrão nos solvers de prateleira. **Desligá-lo em nome de desempenho é o gesto que quebra a
 garantia deste capítulo sem tocar em uma linha do modelo.**
 
+## Fundamentos científicos
+
+**HOFFMAN e KRUSKAL (1957)** é a fonte do resultado que este capítulo inteiro usa — o que liga
+unimodularidade total à integralidade dos vértices ([bibliografia](../bibliografia.md)). **O
+identificador foi conferido e o texto não foi aberto**, e é por isso que a tabela de Procedência
+acima mantém `⏳` nessa atribuição, mesmo agora que a referência existe. Confirmar um DOI não é
+confirmar um enunciado. **VEINOTT e DANTZIG (1968)** é a versão curta do mesmo resultado.
+
+**MEGIDDO (1991)** é a referência que este capítulo mais precisava, e a que explica a quinta
+entrada de *"quando não serve"*: a saída de um método de pontos interiores **não é uma base**, e
+recuperar uma base ótima é um problema à parte — que é o que o *crossover* faz. A medição desta
+Parte mostra a consequência prática: numa designação totalmente unimodular com empate no ótimo,
+desligar o *crossover* devolve `1/3` em toda variável, e o ponto é ótimo.
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** O custo 220 com todos os embarques inteiros; o custo 223,33 com a

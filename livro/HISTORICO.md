@@ -1876,3 +1876,62 @@ que o guia editorial existe para exigir que restatem o capítulo. Repetição al
 capítulo mais importante dela. Ganharam porta de entrada — o do 19 provoca de propósito o erro de
 somar só o que sai da fábrica; o do 20 escreve a equação de conservação de um nó e descobre, ao
 somar as cinco, por que oferta e demanda têm de fechar. A Parte III passa a ter **23 exercícios**.
+
+### Edição 0.42 — 2026-08-13 · A Parte III ganha literatura, e um portão novo
+
+**A Parte III era a única do handbook sem ancoragem em literatura.** Nenhum dos sete capítulos
+tinha a seção **Fundamentos científicos** que o esqueleto obrigatório exige, nem um link para a
+bibliografia, nem um identificador. Apontado pela revisão independente, e é violação de princípio,
+não questão de estilo.
+
+**A dívida foi paga: 30 referências novas, todas com identificador conferido.** As seções entraram
+nos sete capítulos, a bibliografia ganhou a seção da Parte III, e o Radar ganhou oito linhas — desta
+vez **na ordem certa**, junto com a bibliografia e não depois, ao contrário do que aconteceu na
+rodada 006 e está registrado no próprio Radar.
+
+**Todas são `✓ᵐ` e nenhuma é `✓`, e a diferença importa.** O ambiente desta rodada bloqueia o
+acesso às páginas das editoras. O que foi conferido, por identificador em Crossref, é autor,
+título, periódico e ano — **nenhum texto foi aberto**. Onde o conteúdo mudaria uma afirmação do
+livro, a afirmação **não foi feita**, e o selo `⏳` do capítulo permanece:
+
+- a origem do nome **"húngaro"** (capítulo 21) continua `⏳`, mesmo agora que existe a reimpressão
+  de 2004 em que, pelos registros, o próprio Kuhn explica a homenagem;
+- o enunciado de **Hoffman & Kruskal** (capítulo 20) continua `⏳`, mesmo sendo o resultado que
+  sustenta o capítulo inteiro. **Confirmar um DOI não é confirmar um teorema**;
+- **Klingel (1966)** entrou como bloqueante declarado: há indício de que a direção do viés que ele
+  relata não seja a que o capítulo 22 mede, e por isso o capítulo **não faz nenhuma afirmação
+  comparativa com a literatura**.
+
+**A referência de maior retorno da Parte é Megiddo (1991)**, e ela chegou por acaso feliz: trata de
+recuperar base ótima a partir de um ponto interior, que é exatamente o mecanismo do *crossover* —
+o mesmo que esta rodada mediu ao encontrar `1/3` numa designação totalmente unimodular. A literatura
+e a medição própria se encontraram no mesmo parágrafo.
+
+**Uma lição de método, e ela é sobre não aceitar o relatório de ninguém.** O levantamento foi feito
+por um agente em contexto próprio, que reportou **zero DOIs resolvidos** — todo acesso bloqueado — e
+marcou sete identificadores como "candidatos não conferidos". Reconferido por medição própria:
+**os 31 identificadores resolvem**, inclusive os sete. A diferença era de ferramenta, não de
+ambiente — `fetch` nativo leva 403 do proxy e `curl` passa, coisa que uma rodada anterior deste
+repositório já havia diagnosticado e registrado no próprio código. Sem a reconferência, a Parte III
+teria ficado sem literatura por um obstáculo que não existia. **Duas datas do relatório também
+estavam erradas** (2005 onde o registro diz 2004).
+
+**E entrou o décimo portão: `verifica-desempenho.mjs`.** O guia proíbe comparação de velocidade sem
+cronômetro — *"nem 'cerca de 10× mais rápido'"* — e numa única rodada o defeito apareceu três vezes,
+a terceira delas escrita **por quem tinha acabado de corrigir as duas primeiras**. É o que separa
+lapso de tentação de escrita, e tentação de escrita não se resolve com disciplina.
+
+O portão só ficou útil na quarta versão, e as três primeiras **falharam no teste que importa** —
+reintroduzir os defeitos documentados e exigir vermelho:
+
+1. aceitar a **renúncia** como autorização deixou os três passarem, porque os defeitos moravam ao
+   lado das renúncias que os corrigiram. Renúncia é o que se escreve **no lugar** da afirmação, não
+   ao lado dela — agora ela é falha própria;
+2. a janela de 900 caracteres deixou dois passarem: um "Medido nesta página: custo 9" a setecentos
+   caracteres autorizava "de minutos para horas". O escopo virou **a frase**;
+3. a palavra solta "medido" deixou um passar, por algo que nenhuma expressão regular resolve —
+   *"garantias que o modelo genérico não oferece, a principal delas **medida** no capítulo 20"*. O
+   portão passou a exigir o que a constituição já exige: **procedência é lugar**, um ponteiro que o
+   leitor possa abrir.
+
+Ele encontrou, de saída, dois defeitos fora da Parte III: o capítulo 07 e o gabarito de `cap17.exC`.

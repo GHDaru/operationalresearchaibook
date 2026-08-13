@@ -214,6 +214,28 @@ tarefas "paralelas" sozinha, elas não são paralelas — e nenhum caminho crít
 distribuição; a organização costuma querer um número. Entregar a média sem o percentil é o que
 produz o erro caro deste capítulo.
 
+## Fundamentos científicos
+
+**MALCOLM e colegas (1959)** e **KELLEY e WALKER (1959)** são as origens do PERT e do CPM, no
+mesmo ano e por caminhos independentes ([bibliografia](../bibliografia.md)).
+
+**MacCRIMMON e RYAVEC (1964)** é a referência mais importante desta Parte, porque faz a mesma
+pergunta que este capítulo mede: **quanto do desvio vem da fórmula e quanto vem do efeito de
+rede**. Sessenta anos separam as duas. Este handbook confirmou o identificador e **não abriu o
+texto**, e por isso **não afirma que os dois resultados concordam** — afirma apenas que a pergunta
+é a mesma, e que ela é antiga. **FULKERSON (1962)**, com a correção de **CLINGEN (1964)**, trata
+da mesma família de problemas.
+
+**VAN SLYKE (1963)** sustenta a escolha metodológica desta página: simular o projeto, em vez de
+somar médias ao longo de um caminho, é resposta de 1963 — não invenção deste handbook. O que aqui
+é próprio é a **isolação nas mesmas amostras**, que separa as duas causas.
+
+> **Uma leitura obrigatória antes de qualquer comparação.** **KLINGEN (1966)** trata de viés em
+> cálculo de prazo do PERT numa rede real, e há indício de que a **direção** do viés que ele
+> relata possa não ser a que este capítulo mede. O identificador está conferido e o texto não foi
+> aberto. Enquanto não for, **este capítulo não faz nenhuma afirmação comparativa com a
+> literatura** — e esta caixa existe para que a dívida não seja esquecida.
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** A duração 18 e as folgas, em aritmética exata; e os 21 dias da fórmula,

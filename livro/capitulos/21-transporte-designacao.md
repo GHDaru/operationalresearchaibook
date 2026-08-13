@@ -133,6 +133,22 @@ a folga significa** — uma tarefa fictícia designada é uma tarefa que ningué
 é de satisfação — que ninguém fique com a pior opção —, o objetivo é outro, e somar preferências
 esconde a insatisfação individual dentro de uma média boa.
 
+## Fundamentos científicos
+
+**KUHN (1955)** é a fonte do método húngaro ([bibliografia](../bibliografia.md)), e **KUHN
+(2004)** é a reimpressão com prefácio retrospectivo do próprio autor — pelos registros, é ali que
+ele explica por que chamou o método de húngaro. **Seria a fonte que fecha o `⏳` desta página**, e
+ela continua `⏳`: o identificador está conferido, o texto não foi aberto, e este handbook não
+transforma metadado em história. **FRANK (2004)** traz o lado húngaro da mesma questão.
+
+**MUNKRES (1957)** é a fonte que trata designação e transporte no mesmo trabalho, que é
+exatamente a unificação que esta página defende — com a diferença de que aqui a unificação é feita
+pelo modelo de fluxo, e não pelo método tabular.
+
+**O que continua sem fonte.** Os nomes dos métodos tabulares de partida — canto noroeste,
+aproximação de Vogel — **não** foram localizados em registro primário nesta rodada. O `⏳` da
+tabela de Procedência é honesto e permanece.
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** O custo 9, as três designações, e o fato de que todos os valores saem

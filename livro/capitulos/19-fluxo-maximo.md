@@ -147,6 +147,23 @@ duas coisas importam, o modelo é o do [capítulo 20](20-fluxo-custo-minimo.md).
 real está numa aprovação que ninguém modelou, o modelo vai apontar para o lugar errado com toda a
 precisão do mundo — e é a etapa 4 do [capítulo 02](02-ciclo-de-modelagem.md) que pega isso.
 
+## Fundamentos científicos
+
+**FORD e FULKERSON (1956)** e, de forma independente no mesmo ano, **ELIAS, FEINSTEIN e SHANNON
+(1956)** são as fontes do teorema que esta página **exibe e não demonstra**
+([bibliografia](../bibliografia.md)). A distinção é a razão de a seção existir: quando o capítulo
+diz *"aqui o corte aparece, com as três arestas nomeadas"*, ele está mostrando um caso — a prova
+está nestes artigos, e o handbook não a reproduz.
+
+**SCHRIJVER (2002)** documenta a origem, e ela reenquadra o capítulo: o problema nasceu num
+estudo militar sobre uma malha ferroviária, e a pergunta original era **onde cortar**, não onde
+investir. O corte mínimo não é subproduto do fluxo máximo — historicamente, era o objetivo.
+
+**EDMONDS e KARP (1972)** sustenta uma decisão que o texto acima deixa implícita: **a escolha do
+caminho aumentante importa**. Não é detalhe de implementação — é o que separa um procedimento
+que termina de um que pode não terminar. Este handbook **não cronometrou** nada disso e não
+publica comparação.
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** O fluxo máximo de 15, a capacidade do corte de 15, e as três arestas

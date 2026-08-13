@@ -183,6 +183,22 @@ intermediários que não estavam no conjunto, o problema é outro — **árvore 
 **NP**-difícil (*não determinístico polinomial*, [capítulo 05](05-complexidade.md)), ao contrário
 deste.
 
+## Fundamentos científicos
+
+**KRUSKAL (1956)** e **PRIM (1957)** são as duas fontes clássicas ([bibliografia](../bibliografia.md)),
+e **NEŠETŘIL, MILKOVÁ e NEŠETŘILOVÁ (2001)** é a que muda o que este capítulo pode afirmar: ela
+traduz e comenta dois trabalhos de **Borůvka, de 1926**, que antecedem os dois. É por isso que a
+página credita o *problema* sem declarar quem o resolveu primeiro — a atribuição corrente, que
+para em Kruskal e Prim, tem uma anterioridade documentada de trinta anos.
+
+**ROSENKRANTZ, STEARNS e LEWIS (1977)** trata dos limites de garantia das heurísticas para o
+caixeiro-viajante, que é o problema ao lado usado aqui como contraste. A comparação que este
+capítulo publica — guloso **32** contra ótimo **28** — é uma medição própria numa instância
+declarada, e **não** uma leitura desse artigo.
+
+> Os quatro identificadores foram conferidos; **nenhum texto foi aberto**. Ver o
+> [Radar](../../radar/RADAR.md).
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** O custo 17 da árvore, conferido por dois caminhos; o custo 32 do

@@ -180,6 +180,19 @@ dificuldade entre os dois é real.
 caminho é **parte** de um modelo maior, com restrições que não são de rede, embutir o caminho como
 PL evita ter de costurar dois métodos.
 
+## Fundamentos científicos
+
+**DIJKSTRA (1959)** e **BELLMAN (1958)** são as fontes dos dois métodos deste capítulo
+([bibliografia](../bibliografia.md)). O handbook confirmou os identificadores e **não abriu os
+textos** — razão pela qual a hipótese de peso não negativo continua sendo apresentada como o que
+o `po-zero` **mede**, e não como o que o artigo original enuncia.
+
+**JOHNSON (1977)** existe nesta lista por uma decisão prática que o capítulo deixaria de fora:
+entre *"Dijkstra não serve com peso negativo"* e *"então pague Bellman-Ford"* há um terceiro
+caminho — **reponderar o grafo** para eliminar os negativos e voltar a usar Dijkstra. Este
+capítulo **não ensina a técnica e não afirma o desempenho dela**; registra que a alternativa
+existe, para que o leitor não trate a escolha como binária.
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** As cinco distâncias da malha, a discordância entre 6 e 4 na instância

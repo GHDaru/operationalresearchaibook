@@ -440,6 +440,195 @@ aproximadamente 55 aulas gravadas (cerca de 30 horas) publicadas como material d
 política está na [Videoteca](videoteca.md).
 [Canal](https://www.youtube.com/@joaosarubbi)
 
+## Parte III — Redes e fluxos (fundamentos científicos dos capítulos 16 a 22)
+
+> **Todas as entradas desta seção são `✓ᵐ`** — autor, título, periódico e ano conferidos em
+> Crossref pelo identificador, nesta rodada. **Nenhuma foi aberta**: o ambiente desta sessão
+> bloqueia o acesso às páginas das editoras, e o que não foi lido não é afirmado. Onde o
+> conteúdo importaria para uma afirmação do livro, a afirmação **não foi feita** — e os casos
+> estão nomeados abaixo.
+
+### Grafos e redes: vocabulário e história (capítulo 16)
+
+✓ᵐ **SYLVESTER, J. J.** "Chemistry and Algebra". *Nature*, v. 17, p. 284, 1878.
+DOI [10.1038/017284a0](https://doi.org/10.1038/017284a0). — Metadados conferidos, conteúdo não
+lido. É a referência habitualmente apontada para o cunho de *graph* no sentido de **diagrama de
+ligações**, vindo da química. **O capítulo 16 continua marcando essa origem como `⏳`**, porque
+confirmar o identificador não é confirmar o que está escrito na página.
+
+✓ᵐ **SCHRIJVER, A.** "On the history of the transportation and maximum flow problems".
+*Mathematical Programming*, v. 91, p. 437–445, 2002.
+DOI [10.1007/s101070100259](https://doi.org/10.1007/s101070100259). — Metadados conferidos.
+É o levantamento histórico de referência desta Parte, e a ele o handbook deve a pista de que a
+origem do fluxo máximo é **militar e de interdição** — achar o gargalo para destruí-lo. Ver o
+capítulo 19.
+
+### Caminho mínimo (capítulo 17)
+
+✓ᵐ **DIJKSTRA, E. W.** "A note on two problems in connexion with graphs". *Numerische
+Mathematik*, v. 1, p. 269–271, 1959. DOI [10.1007/BF01386390](https://doi.org/10.1007/BF01386390).
+— Metadados conferidos, conteúdo não lido. **Decisão que ela sustenta:** o método do capítulo tem
+autoria e data rastreáveis; a hipótese de peso não negativo, que o handbook mede quebrando,
+continua sendo leitura editorial enquanto o texto não for aberto.
+
+✓ᵐ **BELLMAN, R.** "On a routing problem". *Quarterly of Applied Mathematics*, v. 16, p. 87–90,
+1958. DOI [10.1090/qam/102435](https://doi.org/10.1090/qam/102435). — Metadados conferidos.
+
+✓ᵐ **JOHNSON, D. B.** "Efficient Algorithms for Shortest Paths in Sparse Networks". *Journal of
+the ACM*, v. 24, n. 1, p. 1–13, 1977.
+DOI [10.1145/321992.321993](https://doi.org/10.1145/321992.321993). — Metadados conferidos.
+**Decisão que ela sustenta:** existe caminho entre "Dijkstra não serve com peso negativo" e
+"então use Bellman-Ford e pague a lentidão" — reponderar o grafo. O capítulo 17 **não** ensina a
+técnica e **não** afirma o desempenho dela; registra que a alternativa existe.
+
+### Árvore geradora mínima (capítulo 18)
+
+✓ᵐ **KRUSKAL, J. B.** "On the shortest spanning subtree of a graph and the traveling salesman
+problem". *Proceedings of the American Mathematical Society*, v. 7, p. 48–50, 1956.
+DOI [10.1090/S0002-9939-1956-0078686-7](https://doi.org/10.1090/S0002-9939-1956-0078686-7). —
+Metadados conferidos, conteúdo não lido.
+
+✓ᵐ **PRIM, R. C.** "Shortest Connection Networks And Some Generalizations". *Bell System
+Technical Journal*, v. 36, n. 6, p. 1389–1401, 1957.
+DOI [10.1002/j.1538-7305.1957.tb01515.x](https://doi.org/10.1002/j.1538-7305.1957.tb01515.x). —
+Metadados conferidos.
+
+✓ᵐ **NEŠETŘIL, J.; MILKOVÁ, E.; NEŠETŘILOVÁ, H.** "Otakar Borůvka on minimum spanning tree
+problem: translation of both the 1926 papers, comments, history". *Discrete Mathematics*, v. 233,
+p. 3–36, 2001.
+DOI [10.1016/S0012-365X(00)00224-7](https://doi.org/10.1016/S0012-365X(00)00224-7). —
+Metadados conferidos. **Decisão que ela sustenta:** a atribuição corrente do problema a Kruskal e
+Prim tem uma anterioridade de 1926, e é por isso que o capítulo 18 credita o problema **sem**
+declarar quem o resolveu primeiro.
+
+✓ᵐ **GRAHAM, R. L.; HELL, P.** "On the History of the Minimum Spanning Tree Problem". *IEEE
+Annals of the History of Computing*, v. 7, n. 1, p. 43–57, 1985.
+DOI [10.1109/MAHC.1985.10011](https://doi.org/10.1109/MAHC.1985.10011). — Metadados conferidos.
+
+### Fluxo máximo e corte mínimo (capítulo 19)
+
+✓ᵐ **FORD, L. R.; FULKERSON, D. R.** "Maximal Flow Through a Network". *Canadian Journal of
+Mathematics*, v. 8, p. 399–404, 1956.
+DOI [10.4153/CJM-1956-045-5](https://doi.org/10.4153/CJM-1956-045-5). — Metadados conferidos,
+conteúdo não lido. O capítulo 19 **exibe** a igualdade entre fluxo máximo e corte mínimo numa
+instância e diz, na própria página, que **não a demonstra**; a demonstração está aqui, e o
+handbook não a reproduz.
+
+✓ᵐ **ELIAS, P.; FEINSTEIN, A.; SHANNON, C. E.** "A note on the maximum flow through a network".
+*IEEE Transactions on Information Theory*, v. 2, n. 4, p. 117–119, 1956.
+DOI [10.1109/TIT.1956.1056816](https://doi.org/10.1109/TIT.1956.1056816). — Metadados conferidos.
+Descoberta independente, no mesmo ano.
+
+✓ᵐ **EDMONDS, J.; KARP, R. M.** "Theoretical Improvements in Algorithmic Efficiency for Network
+Flow Problems". *Journal of the ACM*, v. 19, n. 2, p. 248–264, 1972.
+DOI [10.1145/321694.321699](https://doi.org/10.1145/321694.321699). — Metadados conferidos.
+**Decisão que ela sustenta:** a escolha do caminho aumentante não é detalhe de implementação — é
+o que separa um procedimento que termina de um que pode não terminar. O capítulo 19 registra a
+existência dessa questão e **não** publica comparação de desempenho, que não mediu.
+
+### Integralidade e unimodularidade total (capítulo 20)
+
+✓ᵐ **HOFFMAN, A. J.; KRUSKAL, J. B.** "Integral Boundary Points of Convex Polyhedra", em *Linear
+Inequalities and Related Systems*, 1957.
+DOI [10.1515/9781400881987-014](https://doi.org/10.1515/9781400881987-014). — Metadados
+conferidos, conteúdo não lido. É a referência que o capítulo 20 marcava como `⏳` — o resultado
+que liga unimodularidade total à integralidade dos vértices. **O selo continua `⏳` no capítulo**,
+porque o handbook confirmou o identificador e não o enunciado.
+
+✓ᵐ **HOFFMAN, A. J.; KRUSKAL, J. B.** "Integral Boundary Points of Convex Polyhedra"
+(reimpressão), em *50 Years of Integer Programming 1958–2008*, 2009.
+DOI [10.1007/978-3-540-68279-0_3](https://doi.org/10.1007/978-3-540-68279-0_3). — Metadados
+conferidos. A reimpressão é a via mais acessível ao mesmo texto.
+
+✓ᵐ **VEINOTT, A. F.; DANTZIG, G. B.** "Integral Extreme Points". *SIAM Review*, v. 10, n. 3,
+p. 371–372, 1968. DOI [10.1137/1010063](https://doi.org/10.1137/1010063). — Metadados conferidos.
+
+✓ᵐ **MEGIDDO, N.** "On Finding Primal- and Dual-Optimal Bases". *ORSA Journal on Computing*,
+v. 3, n. 1, p. 63–65, 1991. DOI [10.1287/ijoc.3.1.63](https://doi.org/10.1287/ijoc.3.1.63). —
+Metadados conferidos. **É a referência mais útil desta seção**, e a que este handbook mediu por
+conta própria: a saída de um método de pontos interiores **não é uma base**, e recuperar uma base
+ótima é um problema à parte — que é o que o *crossover* faz. O capítulo 20 mede o caso em que
+desligá-lo devolve `1/3` numa designação totalmente unimodular.
+
+### Designação e o método húngaro (capítulo 21)
+
+✓ᵐ **KUHN, H. W.** "The Hungarian method for the assignment problem". *Naval Research Logistics
+Quarterly*, v. 2, n. 1–2, p. 83–97, 1955.
+DOI [10.1002/nav.3800020109](https://doi.org/10.1002/nav.3800020109). — Metadados conferidos,
+conteúdo não lido.
+
+✓ᵐ **KUHN, H. W.** "The Hungarian method for the assignment problem" (reimpressão com prefácio
+retrospectivo do autor). *Naval Research Logistics*, v. 52, n. 1, p. 7–21, 2004.
+DOI [10.1002/nav.20053](https://doi.org/10.1002/nav.20053). — Metadados conferidos. **É a fonte
+que fecharia o `⏳` do capítulo 21** sobre a origem do nome "húngaro" — pelos registros, o próprio
+Kuhn explica a homenagem. **Enquanto o texto não for aberto, o selo do capítulo continua `⏳`.**
+
+✓ᵐ **FRANK, A.** "On Kuhn's Hungarian Method — A tribute from Hungary". *Naval Research
+Logistics*, v. 52, n. 1, p. 2–5, 2004.
+DOI [10.1002/nav.20056](https://doi.org/10.1002/nav.20056). — Metadados conferidos.
+
+✓ᵐ **MUNKRES, J.** "Algorithms for the Assignment and Transportation Problems". *Journal of the
+Society for Industrial and Applied Mathematics*, v. 5, n. 1, p. 32–38, 1957.
+DOI [10.1137/0105003](https://doi.org/10.1137/0105003). — Metadados conferidos.
+
+### PERT, CPM e a crítica estatística (capítulo 22)
+
+✓ᵐ **MALCOLM, D. G.; ROSEBOOM, J. H.; CLARK, C. E.; FAZAR, W.** "Application of a Technique for
+Research and Development Program Evaluation". *Operations Research*, v. 7, n. 5, p. 646–669, 1959.
+DOI [10.1287/opre.7.5.646](https://doi.org/10.1287/opre.7.5.646). — Metadados conferidos,
+conteúdo não lido. A origem do PERT.
+
+✓ᵐ **KELLEY, J. E.; WALKER, M. R.** "Critical-path planning and scheduling", em *Papers presented
+at the December 1-3, 1959, Eastern Joint IRE-AIEE-ACM Computer Conference*, p. 160–173.
+DOI [10.1145/1460299.1460318](https://doi.org/10.1145/1460299.1460318). — Metadados conferidos,
+conteúdo não lido. A origem do CPM, no mesmo ano do PERT e por outro caminho.
+
+✓ᵐ **KELLEY, J. E.** "Critical-Path Planning and Scheduling: Mathematical Basis". *Operations
+Research*, v. 9, n. 3, p. 296–320, 1961.
+DOI [10.1287/opre.9.3.296](https://doi.org/10.1287/opre.9.3.296). — Metadados conferidos.
+
+✓ᵐ **MacCRIMMON, K. R.; RYAVEC, C. A.** "An Analytical Study of the PERT Assumptions".
+*Operations Research*, v. 12, n. 1, p. 16–37, 1964.
+DOI [10.1287/opre.12.1.16](https://doi.org/10.1287/opre.12.1.16). — Metadados conferidos,
+conteúdo não lido. **É a referência mais valiosa desta Parte**, porque o capítulo 22 mede por
+conta própria exatamente a separação que o título anuncia: quanto do desvio vem da fórmula
+$(o+4m+p)/6$ e quanto vem do efeito de rede. O handbook mediu **0,49 dia** para a segunda parcela.
+Enquanto o artigo não for aberto, **este handbook não afirma que os dois resultados concordam** —
+registra que a pergunta é a mesma, e que a resposta dele é anterior em sessenta anos.
+
+✓ᵐ **FULKERSON, D. R.** "Expected Critical Path Lengths in PERT Networks". *Operations Research*,
+v. 10, n. 6, p. 808–817, 1962.
+DOI [10.1287/opre.10.6.808](https://doi.org/10.1287/opre.10.6.808). — Metadados conferidos,
+conteúdo não lido.
+
+✓ᵐ **CLINGEN, C. T.** "Letter to the Editor — A Modification of Fulkerson's PERT Algorithm".
+*Operations Research*, v. 12, n. 4, p. 629–632, 1964.
+DOI [10.1287/opre.12.4.629](https://doi.org/10.1287/opre.12.4.629). — Metadados conferidos. A
+correção do anterior.
+
+✓ᵐ **VAN SLYKE, R. M.** "Letter to the Editor — Monte Carlo Methods and the PERT Problem".
+*Operations Research*, v. 11, n. 5, p. 839–860, 1963.
+DOI [10.1287/opre.11.5.839](https://doi.org/10.1287/opre.11.5.839). — Metadados conferidos.
+**Decisão que ela sustenta:** simular o projeto em vez de somar médias ao longo de um caminho é
+resposta antiga, não invenção deste handbook. O capítulo 22 faz exatamente isso, com semente
+declarada.
+
+⏳ **KLINGEL, A. R.** "Bias in Pert Project Completion Time Calculations for a Real Network".
+*Management Science*, v. 13, n. 4, p. B194–B201, 1966.
+DOI [10.1287/mnsc.13.4.B194](https://doi.org/10.1287/mnsc.13.4.B194). — **Identificador conferido;
+o conteúdo não foi lido, e há indício de que a direção do viés relatada por ele possa não ser a
+que este capítulo mede.** Fica registrada como **leitura obrigatória antes de qualquer afirmação
+comparativa** — e é por isso que o capítulo 22 não faz nenhuma.
+
+✓ᵐ **SCHONBERGER, R. J.** "Why Projects Are 'Always' Late: A Rationale Based on Manual Simulation
+of a PERT/CPM Network". *Interfaces*, v. 11, n. 5, p. 66–70, 1981.
+DOI [10.1287/inte.11.5.66](https://doi.org/10.1287/inte.11.5.66). — Metadados conferidos.
+
+✓ᵐ **TRIETSCH, D.; BAKER, K. R.** "PERT 21: Fitting PERT/CPM for use in the 21st century".
+*International Journal of Project Management*, v. 30, n. 4, p. 490–502, 2012.
+DOI [10.1016/j.ijproman.2011.09.004](https://doi.org/10.1016/j.ijproman.2011.09.004). —
+Metadados conferidos. A crítica contemporânea, e o ponteiro para o que substituiu o PERT clássico.
+
 ---
 
 ## Como esta lista cresce

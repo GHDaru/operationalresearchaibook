@@ -137,6 +137,22 @@ número: acrescentar **uma** restrição transversal ao transporte faz a integra
 desaparecer ([capítulo 20](20-fluxo-custo-minimo.md)). Modelar como rede um problema que **quase**
 é rede entrega as garantias erradas.
 
+## Fundamentos científicos
+
+**SCHRIJVER (2002)**, o levantamento histórico de referência desta Parte
+([bibliografia](../bibliografia.md)), é de onde vem a pista que muda a leitura do
+[capítulo 19](19-fluxo-maximo.md): o fluxo máximo não nasceu de logística, nasceu de
+**interdição** — achar o gargalo de uma malha ferroviária para destruí-lo. Quem lê a Parte com
+essa origem em mente entende por que o objeto central é o **corte**, e não o fluxo.
+
+**SYLVESTER (1878)** é a referência habitualmente apontada para o cunho de *graph* no sentido de
+diagrama de ligações. **O identificador foi conferido; a página não foi aberta**, e por isso a
+tabela de Procedência acima mantém `⏳` na origem do termo.
+
+> **O que esta seção não faz.** Nenhuma das duas foi lida — este handbook confirmou autor, título,
+> periódico e ano em Crossref, e nada além disso. Onde o conteúdo mudaria uma afirmação do livro,
+> a afirmação **não foi feita**. Ver o [Radar](../../radar/RADAR.md).
+
 ## Fundamentos e fontes
 
 **O que está medido aqui.** Nenhum número novo — este capítulo é de vocabulário. Os números que
