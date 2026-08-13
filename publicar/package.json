@@ -5,7 +5,7 @@
   "private": true,
   "description": "Motor de publicação do handbook de Pesquisa Operacional (Markdown -> HTML navegável + PDF).",
   "scripts": {
-    "build": "node verifica-espelho.mjs && node verifica-fontes.mjs && node verifica-referencias.mjs && node verifica-procedencia.mjs && node verifica-desempenho.mjs && node build.mjs && node verifica-capitulos.mjs && node verifica-exercicios.mjs && node verifica-otimos.mjs && node verifica-matematica.mjs",
+    "build": "node verifica-espelho.mjs && node verifica-fontes.mjs && node verifica-referencias.mjs && node verifica-procedencia.mjs && node verifica-desempenho.mjs && node verifica-amostragem.mjs && node build.mjs && node verifica-capitulos.mjs && node verifica-exercicios.mjs && node verifica-otimos.mjs && node verifica-matematica.mjs",
     "pdf": "node pdf.mjs",
     "verifica:ilha": "node verifica-ilha.mjs",
     "fontes": "node atualiza-fontes.mjs"

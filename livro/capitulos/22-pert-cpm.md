@@ -133,18 +133,25 @@ vezes**, com semente declarada:
 > compara duas medições feitas nos mesmos sorteios.
 
 > **Até onde estes dígitos carregam.** Os números acima vêm de **uma** semente, e simulação tem
-> ruído. Repetindo com seis sementes diferentes, a faixa medida é:
+> ruído. Repetindo com doze sementes, o **desvio-padrão entre elas**:
 >
-> | | Faixa entre sementes |
-> |---|---|
-> | Duração média | **24,43 a 24,51** |
-> | Probabilidade de estourar | **81,83% a 83,06%** |
-> | Viés do método | **0,475 a 0,509** |
+> | | Média entre sementes | Desvio-padrão |
+> |---|---|---|
+> | Duração média do projeto | **24,47** | **0,03** |
+> | Probabilidade de estourar | **82,03%** | **0,5 pp** |
+> | Viés do método | **0,498** | **0,013** |
 >
-> Ou seja: **o segundo dígito carrega e o terceiro não.** "Cerca de 24,5 dias" e "cerca de 82%" é o
-> que a medição sustenta; o `24,48` está publicado por ser exatamente reprodutível com a semente
-> declarada, não por ter três dígitos de precisão. O viés, sim, sobrevive às duas casas — e a seção
-> seguinte explica por quê.
+> Ou seja: **o segundo dígito carrega e o terceiro não.** *"Cerca de 24,5 dias"* e *"cerca de 82%"*
+> é o que a medição sustenta; o `24,48` está publicado por ser exatamente reprodutível com a semente
+> declarada, não por ter três dígitos de precisão. O viés, sim, sobrevive às duas casas.
+>
+> **Por que desvio-padrão e não "a faixa medida", que seria mais fácil de ler.** Mínimo e máximo são
+> **estatísticas de ordem**: elas crescem com o número de sementes e não convergem para nada — com
+> mais sementes, quase sempre aparece um valor fora da faixa anterior. Este handbook já tinha
+> aprendido isso na Parte I e **repetiu o erro aqui**: a primeira versão desta caixa publicava a
+> faixa de seis sementes, e uma revisão independente achou, com dez, um valor abaixo do mínimo
+> publicado. O desvio-padrão estima dispersão e estabiliza; a faixa, não. **Quem publica faixa de
+> uma amostra pequena está publicando o tamanho da amostra, não a incerteza.**
 
 **Duas causas diferentes produzem esse desvio, e só uma é defeito do método.** Misturá-las daria
 um número grande e sem significado, então elas foram separadas:

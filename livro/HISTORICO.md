@@ -2039,3 +2039,34 @@ não pegava, porque lá só existe um caminho possível.
 
 **Bookkeeping.** A revisão notou, e está certa: os capítulos 🔵 da Parte III são **seis** (17 a 22),
 não cinco. O 16 é 🟡.
+
+### Edição 0.45 — 2026-08-13 · O mesmo erro, de novo: faixa não é incerteza
+
+A revisão de medição, ao reconferir o merge, encontrou um defeito **novo** — introduzido pela
+correção da edição 0.43. A caixa "até onde estes dígitos carregam" publicava a **faixa entre seis
+sementes** (81,83% a 83,06%), e a revisão, com dez sementes, achou **81,70%** — abaixo do mínimo
+publicado. Conferido aqui com dezesseis: 81,31% a 83,06%. A faixa continua abrindo.
+
+**Mínimo e máximo são estatísticas de ordem.** Elas crescem com o número de amostras e não convergem
+para nada; publicar a faixa de uma amostra pequena é publicar **o tamanho da amostra**, não a
+incerteza.
+
+**E este handbook já sabia disso.** A `parte-I-fundamentos` carrega o comentário, escrito depois de
+a tabela de perturbação ter sido publicada com o máximo de 20 sementes e mudar ao passar para 200:
+*"mínimo/máximo NÃO são publicados — estatísticas de ordem"*. A regra estava escrita, em português,
+no arquivo ao lado — e a correção da edição 0.43 a violou mesmo assim.
+
+Vale registrar por que, porque a lição não é sobre estatística: **a regra estava em comentário de
+código, e comentário não é portão.** Nenhum teste, nenhum gate e nenhuma revisão automática impedia
+publicar min/max. As regras deste handbook que sobrevivem são as que viraram instrumento; as que
+ficaram em prosa reincidem — e esta reincidiu no intervalo de duas edições.
+
+**E a regra mudou de categoria: virou o décimo primeiro portão.** `verifica-amostragem.mjs` barra
+o parágrafo que fala de sementes ou amostras, publica uma faixa numérica e **não** traz desvio-padrão,
+erro-padrão ou intervalo de confiança por perto. Conferido nos dois sentidos: verde no corpus
+corrigido, e **vermelho quando a caixa da edição 0.43 é reintroduzida literalmente**.
+
+A caixa passa a publicar **desvio-padrão entre doze sementes**: duração média 24,47 ± 0,03,
+probabilidade de estouro 82,03% ± 0,5 pp, viés 0,498 ± 0,013. O desvio-padrão estima dispersão e
+estabiliza. O veredito não muda — **o segundo dígito carrega e o terceiro não** —, mas agora ele é
+sustentado por um número que não depende de quantas sementes alguém resolveu rodar.

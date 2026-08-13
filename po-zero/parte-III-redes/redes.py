@@ -1051,14 +1051,28 @@ def controle_com_ramo_dominante() -> dict:
             "amostras": s["amostras"]}
 
 
-def sensibilidade_a_semente(sementes: int = 6) -> dict:
+def sensibilidade_a_semente(sementes: int = 12) -> dict:
     """Quanto do último dígito publicado é sinal, e quanto é sorteio.
 
-    O capítulo 22 publica 24,48 · 82,3% · 0,49 de uma **única** semente. Estes
-    números têm três dígitos significativos, e nem todos os três carregam. Esta
-    varredura mede a faixa entre sementes para que a página possa dizer, com
-    número, até onde o leitor deve confiar.
+    O capítulo 22 publica 24,48 · 82,3% · 0,49 de uma **única** semente. Três
+    dígitos significativos, e nem os três carregam.
+
+    PUBLICA-SE DESVIO-PADRÃO, E NÃO MÍNIMO E MÁXIMO — e a regra foi aprendida
+    duas vezes neste handbook, o que é uma vez a mais do que devia.
+
+    Mínimo e máximo são **estatísticas de ordem**: crescem com o número de
+    sementes e não convergem para nada. A `parte-I-fundamentos` já registra isso
+    em comentário, depois de a tabela de perturbação ter sido publicada com o
+    máximo de 20 sementes e mudar ao passar para 200. A primeira versão desta
+    função repetiu o erro: publicou a faixa de **6** sementes como se fosse a
+    faixa, e uma revisão independente encontrou, com 10 sementes, um valor
+    **abaixo** do mínimo publicado. Com 16 a faixa abre de novo.
+
+    O desvio-padrão entre sementes não tem esse defeito: ele estima a dispersão
+    e estabiliza. É o número honesto para dizer até onde o dígito carrega.
     """
+    import statistics
+
     pf = pert_pela_formula(FAIXAS, PROJETO)
     medias, estouros, vieses = [], [], []
     for i in range(sementes):
@@ -1067,11 +1081,15 @@ def sensibilidade_a_semente(sementes: int = 6) -> dict:
         medias.append(s["projeto"]["media"])
         estouros.append(s["prob_de_estourar_a_estimativa_do_pert"])
         vieses.append(s["merge_bias"])
-    faixa = lambda xs, n: [round(min(xs), n), round(max(xs), n)]  # noqa: E731
+
+    def resumo(xs, n):
+        return {"media_entre_sementes": round(statistics.fmean(xs), n),
+                "desvio_padrao": round(statistics.stdev(xs), n)}
+
     return {"sementes": sementes, "amostras_por_semente": AMOSTRAS_VARREDURA_PERT,
-            "media_do_projeto": faixa(medias, 2),
-            "prob_de_estourar": faixa(estouros, 4),
-            "merge_bias": faixa(vieses, 3)}
+            "media_do_projeto": resumo(medias, 2),
+            "prob_de_estourar": resumo(estouros, 4),
+            "merge_bias": resumo(vieses, 3)}
 
 
 AQUI = Path(__file__).resolve().parent
