@@ -898,3 +898,46 @@ ensina a desligar portão.
 **Verificação:** nove portões verdes — `✓ registro de exercícios OK: 33 exercícios em 6 baterias`,
 `✓ template verificado [pt]: 7 capítulos … maturidade 🟡2 🔵0 ✅4` —, `8 passed` na etapa 05 e
 `24 passed` no backend.
+
+### Edição 0.19 — 2026-08-13 · Capítulo 13: sensibilidade, e o preço que não é um número
+
+Terceiro capítulo do lote 1, e o que paga a dívida que o capítulo 12 deixou por escrito: *"como
+usar a faixa é o capítulo 13"*.
+
+**Entrou:** [capítulo 13](capitulos/13-sensibilidade.md), em 🟡 **v0**, e a segunda metade da
+etapa 05 do `po-zero`.
+
+**O relatório de sensibilidade é de formato próprio**, por decisão registrada na
+[ADR 0014](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0014-relatorio-de-sensibilidade-e-a-faixa-medida.md)
+(D1). O relatório de um solver de mercado empilha **duas famílias de faixa com os mesmos rótulos** —
+uma diz até onde o **plano** aguenta, a outra até onde o **preço** vale — e é essa fusão visual que
+produz o erro caro. Aqui os dois blocos têm títulos que dizem o que cada faixa protege. Não há
+imitação de layout de fornecedor: o Princípio IV proíbe que um objetivo declarado dependa de
+produto licenciado.
+
+**O preço ambíguo deixou de ser advertência e virou demonstração.** O capítulo 10 disse que em
+vértice degenerado a leitura de preço-sombra fica ambígua e parou aí. Agora o handbook **exibe**:
+a montadora mais uma restrição que não muda nada (a bancada de teste, que comporta os 8 do Tipo 1
+que o plano já produz), a **mesma implementação**, e só a **ordem em que as restrições foram
+digitadas** mudando:
+
+| | CPUs | pentes | bancada |
+|---|---:|---:|---:|
+| ordem CPU, pente, bancada | 50 | 50 | 0 |
+| ordem bancada, pente, CPU | 0 | 75 | 25 |
+
+Os dois foram conferidos como **soluções viáveis do dual, de mesmo custo** — e o ponto médio
+também. O dual não tem um ótimo: tem um **segmento** de ótimos. Medindo direto, `z(9) = 1050`,
+`z(10) = 1100`, `z(11) = 1100`: perder uma CPU custa R$ 50 e ganhar uma CPU rende R$ 0. Não é que
+um relatório esteja errado — é a pergunta "qual é *o* preço" que está mal feita.
+
+**Achado do próprio teste, e ele virou uma frase no capítulo.** A faixa do lucro tem **três**
+regimes, e o do meio quase nunca é escrito: estritamente dentro, o plano é o mesmo e é único;
+**exatamente na fronteira**, ele continua ótimo mas **empata** com outro — em $c_1 = 75$, os planos
+$(8,2)$ e $(0,6)$ rendem os dois R$ 900 —; fora, deixa de ser ótimo. O teste tinha sido escrito
+exigindo igualdade de ponto na fronteira, e falhou. Estava errado o teste, e a correção rendeu
+conteúdo.
+
+**Verificação:** nove portões verdes — `✓ consistência de ótimo OK: 41 modelo(s) resolvido(s) em
+aritmética exata`, `✓ registro de exercícios OK: 36 exercícios em 7 baterias`, `maturidade 🟡3 🔵0
+✅4` —, `13 passed` na etapa 05 e `24 passed` no backend.

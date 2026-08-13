@@ -57,9 +57,15 @@
           "teaser": "Quanto vale uma unidade a mais do recurso que acabou — e por que o número tem prazo de validade."
         },
         {
+          "arquivo": "livro/capitulos/13-sensibilidade.md",
+          "titulo": "13 — Análise de sensibilidade e pós-otimização",
+          "maturidade": "v0",
+          "teaser": "O que a resposta suporta antes de mudar — e quando você não precisa resolver de novo."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Quatro vagas declaradas",
-          "teaser": "Simplex revisado (11), sensibilidade (13), pontos interiores (14) e modelagem aplicada (15). O 11 vem com medição própria; a lacuna entre o 10 e o 12 é declarada, não esquecida."
+          "titulo": "⬜ Três vagas declaradas",
+          "teaser": "Simplex revisado (11), pontos interiores (14) e modelagem aplicada (15). O 11 vem com medição própria; a lacuna entre o 10 e o 12 é declarada, não esquecida."
         }
       ]
     },

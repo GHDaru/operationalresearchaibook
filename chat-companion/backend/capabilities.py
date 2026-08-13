@@ -50,6 +50,10 @@ REGISTRO = [
      "descricao": "Escrevo o dual com você, confiro a unidade de cada variável dual e leio o "
                   "preço-sombra no quadro final. Cobro a faixa de validade antes de deixar "
                   "qualquer decisão de compra sair do preço."},
+    {"chave": "sensibilidade", "rotulo": "Análise de sensibilidade", "libera": 13, "tools": (),
+     "descricao": "Leio o relatório de sensibilidade com você e separo as duas famílias de faixa — "
+                  "a do lucro, que protege o plano, e a do estoque, que protege o preço. Digo "
+                  "quando a resposta já está no relatório e quando é preciso resolver de novo."},
     {"chave": "leitura_critica", "rotulo": "Leitura crítica de artigo", "libera": 77, "tools": (),
      "descricao": "Conduzo as três passadas num artigo que você trouxe e cobro a checklist de "
                   "comparação computacional — instâncias, baseline, critério de parada, máquina, "

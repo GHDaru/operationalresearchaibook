@@ -1721,5 +1721,458 @@
     ],
     "erro_provavel": "Rejeitar o método porque \"o artigo é de 200 clientes e eu tenho 3.000\", ou adotá-lo porque \"o artigo é bem feito\". Os dois erros têm a mesma raiz: tratar o artigo como veredito em vez de evidência. Um artigo bem feito é evidência **forte sobre o que ele mediu** — e o que ele mediu foi outro regime. A pergunta útil nunca é \"o artigo é bom?\", é **\"o que precisaria ser verdade para o resultado dele valer aqui?\"** — porque essa pergunta se transforma em teste, e o veredito não se transforma em nada.",
     "resposta_guia": "Três diferenças que podem inverter a conclusão: (1) **escala** — 3.000 pontos contra até 200, e o que importa não é o fator 15 e sim como o tempo do método cresce com o tamanho; (2) **orçamento de tempo** — o artigo gasta 35 minutos e você tem 20, então o método já perde antes de começar, a menos que interrompa com solução utilizável; (3) **características do problema** — janelas rígidas e frota heterogênea podem não estar nas instâncias públicas usadas, e um método que ganha sem elas pode degradar com elas. Para cada uma, o que precisaria ser verdade: crescimento próximo de linear na faixa que interessa; existência de versão que devolve solução boa dentro do limite; e evidência de desempenho em instâncias com as mesmas características. O teste barato existe e é o motivo de o código aberto importar: pegue uma amostra real de 200 a 300 pontos do **seu** dia, rode o método publicado e o que você usa hoje, e compare — com o critério fixado antes: *se o método publicado não for pelo menos 2% melhor no meu dado, na minha janela de tempo, eu não invisto*. Qualidade e aplicabilidade não se contradizem porque o artigo responde bem à pergunta **dele**, e a sua é outra. A informação que mudaria a resposta é a curva de tempo por tamanho de instância, ou resultados em instâncias com janela de tempo — não \"mais experimentos\" em geral."
+  },
+  {
+    "id": "cap13.exA",
+    "capitulo": 13,
+    "serie": "cap13",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "capacidade": "sensibilidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O relatório da padaria, linha por linha",
+    "enunciado": "A padaria do capítulo 12 rodou o modelo do turno:\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\le 100 \\ \\text{(horas de forno)},\\quad x_1 + x_2 \\le 80 \\ \\text{(kg de farinha)},\\quad x_1, x_2 \\ge 0$$\n\nE recebeu este relatório:\n\n```\nlucro do plano: 2600\n\nPRODUTOS — até onde o lucro unitário pode variar sem mudar O PLANO\nproduto        produzir   lucro   pode cair até   pode subir até\ntipo 1               20      40              30               60\ntipo 2               60      30              20               40\n\nRECURSOS — até onde o estoque pode variar com O PREÇO ainda valendo\nrecurso        estoque   usado   preço   pode cair até   pode subir até\nhoras de forno     100     100      10              80              160\nkg de farinha       80      80      20              50              100\n```\n\n1. Escreva, em uma frase cada, **o que a linha do tipo 1 autoriza** e **o que a linha das horas de forno autoriza**. A diferença entre as duas é o ponto do exercício.\n2. Um concorrente força um desconto de **10%** no tipo 1. O plano muda? Qual passa a ser o lucro do turno?\n3. A padeira consegue **10 horas de forno a mais**. Qual o novo lucro, e você precisou resolver alguma coisa?\n4. As duas restrições estão apertadas (`usado = estoque`) e os dois preços são positivos. Que resultado do capítulo 12 isso ilustra?\n5. O relatório diz que a farinha \"pode subir até 100\". Um fornecedor oferece **40 kg a mais** a R$ 12 o quilo. Você compra tudo? Quanto?",
+    "criterios": [
+      "Distingue as duas autorizações: a linha do produto garante que **o plano** (as quantidades) não muda; a linha do recurso garante que **o preço** continua valendo — e não confunde uma com a outra",
+      "Com desconto de 10%, o lucro do tipo 1 vai a 36, que está dentro de $[30, 60]$: o plano segue $(20, 60)$ e o lucro do turno passa a $36(20) + 30(60) = 2520$",
+      "Com 10 horas a mais (110, dentro de $[80, 160]$), o lucro sobe $10 \\times 10 = 100$, indo a 2700 — **sem resolver nada**",
+      "Reconhece as folgas complementares: recurso que não sobra pode ter preço positivo, e é exatamente o caso",
+      "Compra apenas **20 kg** — a faixa termina em 100 e o estoque é 80. Os 20 primeiros rendem R$ 20 cada contra R$ 12 de custo; os outros 20 estão fora da faixa e não há garantia nenhuma sobre eles"
+    ],
+    "erro_provavel": "Ler as duas famílias de faixa como se fossem a mesma. \"Pode subir até 60\" no tipo 1 e \"pode subir até 160\" nas horas de forno parecem a mesma promessa e não são: a primeira diz que **as quantidades produzidas** continuam as mesmas; a segunda diz que **a taxa de R$ 10 por hora** continua valendo. O segundo erro é no item 5: comprar os 40 kg porque \"o preço-sombra é 20 e o custo é 12\". A faixa termina em 100 kg de estoque, e a padaria já tem 80 — então só 20 kg estão cobertos pela garantia. Sobre os outros 20 o relatório não afirma nada, e a resposta honesta não é \"vale menos\", é **\"eu não sei, e para saber eu resolvo de novo\"**.",
+    "resposta_guia": "A linha do tipo 1 autoriza uma conclusão sobre o **plano**: enquanto o lucro unitário estiver entre 30 e 60, as quantidades produzidas continuam $(20, 60)$ e só o total muda. A linha das horas de forno autoriza uma conclusão sobre o **preço**: enquanto o estoque estiver entre 80 e 160 horas, cada hora a mais rende exatamente R$ 10. Com desconto de 10%, o lucro do tipo 1 cai para 36 — dentro da faixa —, o plano não muda e o turno passa a render $36(20) + 30(60) = 2520$. Com 10 horas de forno a mais o estoque vai a 110, dentro de $[80, 160]$: o lucro sobe $10 \\times 10 = 100$, para 2700, e nada precisou ser resolvido. O fato de nenhum recurso sobrar e ambos terem preço positivo ilustra as folgas complementares do capítulo 12. Sobre a farinha: a faixa vai até 100 e o estoque é 80, então apenas **20 kg** estão dentro da garantia — a R$ 20 de valor contra R$ 12 de custo, R$ 8 de ganho por quilo. Compre 20. Sobre os outros 20 o relatório não diz nada, e para decidir sobre eles seria preciso resolver de novo.",
+    "modelo": [
+      {
+        "rotulo": "relatório base",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          40,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            100
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            20,
+            60
+          ],
+          "valor": 2600
+        }
+      },
+      {
+        "rotulo": "com desconto de 10% no tipo 1",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          36,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            100
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            20,
+            60
+          ],
+          "valor": 2520
+        }
+      },
+      {
+        "rotulo": "com 10 horas de forno a mais",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          40,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            110
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            30,
+            50
+          ],
+          "valor": 2700
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap13.exB",
+    "capitulo": 13,
+    "serie": "cap13",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "sensibilidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Dois relatórios, dois preços, nenhum errado",
+    "enunciado": "A montadora acrescentou ao modelo a **bancada de teste**, que comporta 8 unidades do Tipo 1 por dia:\n\n$$\\max\\ 100x_1 + 150x_2 \\quad \\text{s.a.}\\quad x_1 + x_2 \\le 10,\\quad x_1 + 2x_2 \\le 12,\\quad x_1 \\le 8,\\quad x_1, x_2 \\ge 0$$\n\nDois analistas rodam o modelo. Os dois obtêm o plano $(8, 2)$ e o lucro R$ 1.100. Mas os relatórios de preço-sombra saem assim:\n\n| | CPUs | pentes | horas de bancada |\n|---|---:|---:|---:|\n| **Ana** | 50 | 50 | 0 |\n| **Bruno** | 0 | 75 | 25 |\n\nA diretoria pede que você diga quem errou.\n\n1. Confirme que $(8,2)$ é ótimo e que o lucro é 1.100. Quantas restrições estão apertadas nesse ponto?\n2. Verifique se **os dois** vetores de preços são soluções viáveis do dual e quanto cada um custa. O que isso estabelece?\n3. Calcule o lucro ótimo com **9** CPUs e com **11** CPUs. Quanto vale, então, uma CPU a mais? E uma CPU a menos?\n4. Responda à diretoria: **quem errou?** E o que você recomenda que ela faça com o número.\n5. A bancada nunca limita a produção. Que hipótese isso levanta sobre o modelo, e o que você investigaria?",
+    "criterios": [
+      "Confirma o ótimo $(8,2)$ com 1.100 e identifica que **três** restrições estão apertadas num ponto que, no plano, precisa de duas — o vértice é degenerado",
+      "Verifica que os dois vetores são duais viáveis e que **ambos custam 1.100**, concluindo que os dois conjuntos de preços são legítimos e que o dual tem mais de uma solução ótima",
+      "Mede as derivadas: $z(9) = 1050$ e $z(11) = 1100$, logo perder uma CPU custa **R$ 50** e ganhar uma CPU rende **R$ 0** — as derivadas pela esquerda e pela direita não coincidem",
+      "Responde que **ninguém errou** e que a pergunta \"qual é *o* preço\" é que está mal feita; recomenda perguntar dos dois lados em vez de negociar com um número só",
+      "Levanta a hipótese de **restrição redundante** e propõe investigar se a bancada precisa estar no modelo — sem ela o vértice deixa de ser degenerado e o preço volta a ser único"
+    ],
+    "erro_provavel": "Procurar o erro. A pergunta da diretoria — \"quem errou?\" — carrega a suposição de que existe um preço certo, e é essa suposição que está errada. Num vértice degenerado o problema dual não tem **um** ótimo: tem um segmento inteiro de soluções ótimas, e qualquer ponto dele é um conjunto de preços válido. Qual deles aparece no relatório depende de onde o método parou, o que por sua vez depende da ordem em que as restrições foram digitadas. O segundo erro, mais caro, é escolher um dos dois relatórios e negociar com ele: quem comprar CPU acreditando nos R$ 50 de Ana vai descobrir que a próxima CPU rende exatamente zero.",
+    "resposta_guia": "Em $(8,2)$ as três restrições estão apertadas: $8+2=10$, $8+4=12$ e $x_1=8$. No plano bastam duas para determinar um vértice, então o vértice é **degenerado**. Os dois vetores são duais viáveis — verificando as restrições do dual, $y_1+y_2+y_3 \\ge 100$ e $y_1+2y_2 \\ge 150$ valem nos dois casos — e ambos custam $10y_1 + 12y_2 + 8y_3 = 1100$. Isso estabelece que o dual tem mais de uma solução ótima; de fato tem um segmento inteiro, e o ponto médio $(25, 62{,}5, 12{,}5)$ também é válido. Medindo diretamente: com 9 CPUs o lucro é 1.050 e com 11 CPUs continua 1.100. Perder uma CPU custa R$ 50; ganhar uma CPU rende R$ 0. À diretoria: ninguém errou, e a pergunta é que está mal feita — não existe *o* preço da CPU neste ponto. O que é acionável são as duas respostas separadas: não perca CPU, porque custa 50; e não compre CPU, porque rende 0. Por fim, a bancada nunca limita, o que é a assinatura de **restrição redundante**: vale investigar se ela precisa estar no modelo, porque sem ela o vértice deixa de ser degenerado e o preço volta a ser único.",
+    "modelo": [
+      {
+        "rotulo": "com a bancada — o vértice degenerado",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ],
+          [
+            1,
+            0,
+            "<=",
+            8
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "com 9 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            9
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ],
+          [
+            1,
+            0,
+            "<=",
+            8
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            6,
+            3
+          ],
+          "valor": 1050
+        }
+      },
+      {
+        "rotulo": "com 11 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            11
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ],
+          [
+            1,
+            0,
+            "<=",
+            8
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap13.exC",
+    "capitulo": 13,
+    "serie": "cap13",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "sensibilidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Resolver de novo, ou a resposta já está aí?",
+    "enunciado": "A montadora, com o relatório do capítulo em mãos: plano $(8,2)$, lucro R$ 1.100; Tipo 1 rende 100 com faixa $[75, 150]$; Tipo 2 rende 150 com faixa $[100, 200]$; CPUs valem 50 com estoque na faixa $[6, 12]$; pentes valem 50 com estoque na faixa $[10, 20]$.\n\nQuatro mudanças chegam na mesma manhã. Para **cada uma**: diga se você precisa resolver o modelo de novo, **justifique pela faixa** e, quando não precisar, **dê a resposta**.\n\n| | A mudança |\n|---|---|\n| **a** | O Tipo 1 passa a render **R$ 80** |\n| **b** | Chegam **4 pentes** a mais, indo o estoque a 16 |\n| **c** | Chegam **5 CPUs** a mais, indo o estoque a 15 |\n| **d** | O Tipo 2 passa a consumir **3 pentes** em vez de 2 |\n\nDepois:\n\n5. Ordene as quatro pela **confiança** que você tem na resposta, da maior para a menor, e explique a ordem.",
+    "criterios": [
+      "**(a)** não resolve: 80 está dentro de $[75, 150]$, o plano segue $(8,2)$ e o lucro passa a $80(8) + 150(2) = 940$",
+      "**(b)** não resolve: 16 está dentro de $[10, 20]$, o lucro sobe $4 \\times 50 = 200$, indo a 1.300",
+      "**(c)** **resolve**: 15 está fora de $[6, 12]$ — e reconhece que extrapolar daria 1.350 quando o valor real é 1.200, superestimando o ganho em R$ 150",
+      "**(d)** **resolve**: mudou um coeficiente **da matriz**, e nenhuma faixa do relatório cobre isso; o novo plano é $(9,1)$ com lucro 1.050",
+      "A ordem de confiança separa o que é **garantido pela faixa** (a e b) do que exige execução (c e d), em vez de ordenar por \"parecer simples\""
+    ],
+    "erro_provavel": "Tratar o item (c) como se a faixa fosse uma sugestão: \"são só 3 unidades além do limite, o preço deve valer mais ou menos\". Não vale \"mais ou menos\": acima de 12 CPUs o gargalo passa a ser o pente, e a CPU seguinte rende **exatamente zero**. Extrapolar dá 1.350 e o valor real é 1.200 — R$ 150 de erro numa conta que parecia trivial. O item (d) engana por outro motivo: parece uma mudança pequena, de um número só, mas é o único dos quatro que mexe na **matriz**, e sobre a matriz o relatório de sensibilidade não afirma nada. Faixa de objetivo e faixa de lado direito não cobrem quanto cada produto consome.",
+    "resposta_guia": "**(a)** Não resolve. R$ 80 está dentro de $[75, 150]$, então o plano continua $(8, 2)$ e só o total muda: $80(8) + 150(2) = 940$. **(b)** Não resolve. O estoque de pentes vai a 16, dentro de $[10, 20]$, então o lucro sobe pela taxa: $4 \\times 50 = 200$, indo a R$ 1.300. **(c)** Resolve. O estoque de CPUs iria a 15, **fora** de $[6, 12]$. Extrapolando daria $1100 + 5 \\times 50 = 1350$; o valor real é R$ 1.200, com plano $(12, 0)$ — as 2 primeiras CPUs valem 50 e as outras 3 valem zero, porque o gargalo passou a ser o pente. **(d)** Resolve. Mudou um coeficiente da matriz, e o relatório não cobre a matriz: o novo plano é $(9, 1)$, com lucro R$ 1.050. Sobre a ordem de confiança: (a) e (b) vêm primeiro, porque a resposta é **garantida** pela faixa e não depende de eu ter rodado nada; (c) e (d) vêm depois porque exigiram execução, e uma execução pode ter sido feita sobre dado errado. O critério não é qual parece mais simples — é qual está coberto por uma garantia.",
+    "modelo": [
+      {
+        "rotulo": "base",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "a — Tipo 1 rende 80",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          80,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 940
+        }
+      },
+      {
+        "rotulo": "b — 16 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            16
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            4,
+            6
+          ],
+          "valor": 1300
+        }
+      },
+      {
+        "rotulo": "c — 15 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            15
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            12,
+            0
+          ],
+          "valor": 1200
+        }
+      },
+      {
+        "rotulo": "d — Tipo 2 consome 3 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            3,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            9,
+            1
+          ],
+          "valor": 1050
+        }
+      }
+    ]
   }
 ]
