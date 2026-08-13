@@ -1272,3 +1272,41 @@ medida e acusou "Karmarkar" num capítulo que trata de Karmarkar do início ao f
 por falso vermelho crônico. **Proximidade não decide se uma frase afirma**, e o resto continua
 sendo leitura humana. O ganho real é outro: o padrão tem nome, tem quatro ocorrências documentadas,
 e entra na instrução de toda revisão em contexto fresco.
+
+### Edição 0.28 — 2026-08-13 · Os cadernos entram, e entram sem poder derivar
+
+O autor acrescentou os **cadernos Colab** ao escopo da v0. Decisão de médio impacto pela régua da
+skill `longrun`: foi a comitê de três lentes, cada recomendação foi reconferida por medição
+própria, e o resultado está na
+[ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md).
+
+**A decisão central:** o caderno é **invólucro que importa o script**, nunca cópia. O `.py` é a
+fonte única; o caderno clona o repositório, importa o módulo e chama funções — e **`def` e `class`
+são proibidos nas células**. Uma cópia em caderno da função que publicou `13/2` ainda estaria
+exibindo o número errado hoje, com ar de autoridade.
+
+**A alternativa que parecia melhor foi testada e quebra.** Gerar o caderno a partir do `.py` por
+conversor falha em `NameError: name '__file__' is not defined` — os módulos resolvem caminho por
+`Path(__file__)`, que não existe num caderno. Consertar exigiria refatorar seis módulos, contra o
+pedido explícito de simplicidade.
+
+**Saída gravada no `.ipynb` é defeito, não conveniência.** Uma célula com saída salva é número
+publicado **fora de qualquer portão** — a classe de defeito das duas faixas erradas, ressuscitada
+num artefato que o build não olha. O caderno é commitado limpo, e o teste falha se não estiver.
+
+**O caderno faz o que a página não faz**, ou não vale existir: uma célula **"mexa aqui"** e **o
+erro rodado antes da correção**. No livro, o certo e o errado aparecem lado a lado e o leitor nunca
+chega a errar; no caderno ele roda o telefonema, se compromete com uma conclusão, e **só então** vê
+o prejuízo de R$ 350 aparecer. É o exercício `diagnosticar` encenado.
+
+**Sete testes por caderno**, sem Jupyter e sem rede: `.ipynb` é JSON, e o clone vira um atalho para
+a árvore de trabalho — então o caderno roda contra o código de **hoje**, não o publicado. O
+sétimo é o que eu ia esquecer: **caderno órfão falha**. Ele pegou este na primeira execução.
+
+**E o comitê achou um buraco maior que a decisão:** o CI **nunca rodou** os testes do `po-zero`. O
+filtro `paths:` não incluía o diretório e não havia passo que os executasse — as seis suítes que
+sustentam o selo 🔵 nunca tinham rodado lá. Consertado **antes** do primeiro caderno, porque
+acrescentar artefato novo a um pipeline que não cobre o antigo é multiplicar o buraco.
+
+**Dívida quitada de quebra:** o `po-zero/README.md` ainda dizia "uma etapa por capítulo de método",
+contradizendo a ADR 0013 D3, que mudou a unidade para a Parte.
