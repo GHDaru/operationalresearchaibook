@@ -719,3 +719,28 @@ teste. O mais grave era o portão ficar verde tendo verificado nada quando os í
 caíssem: o canário só exercitava o registro. O mais simples, e o mais constrangedor: o portão
 conferia o **texto** do link e não o **endereço** — trocar só o destino passava. E o número de
 cobertura publicado estava errado: são 12 de **31 obras**, 39%, não "cerca de 25".
+
+### Edição 0.15 — 2026-08-12 · As fórmulas nunca tinham sido renderizadas
+
+**Defeito encontrado pelo autor, na página publicada.** O motor não tinha renderizador de
+matemática **nenhum**. As fórmulas em `$...$` e `$$...$$` iam para o HTML como texto cru, e o
+leitor via, literalmente:
+
+```
+$$ \begin{cases} x_1 + x_2 = 10 \ x_1 + 2x_2 = 12 \end{cases} $$
+```
+
+Não era configuração errada: a capacidade **nunca existiu**. Medido antes de corrigir — 17 blocos
+e mais de 550 expressões em linha, em quatro capítulos no ar. O capítulo 09 era o mais atingido,
+por ser o que mais usa notação.
+
+**Entrou:** KaTeX no motor, com a folha de estilo e as fontes copiadas para `docs/`; e o portão
+`verifica-matematica.mjs`, encadeado no `npm run build`.
+
+**A lição, e ela vale além deste portão.** Os oito portões deste livro nasceram todos olhando
+para o que se extrai do **Markdown** — seções, links, exercícios, ótimos, fontes. Nenhum olhava
+para o **HTML gerado**, que é o artefato que chega ao leitor. Este é o primeiro. Foi preciso o
+autor abrir a página e apontar, o que é a definição de portão que faltava.
+
+**Verificação:** `✓ matemática OK: 1087 expressão(ões) renderizada(s) em 16 páginas, 0
+delimitador cru`, com o portão provado quebrando-o de propósito.

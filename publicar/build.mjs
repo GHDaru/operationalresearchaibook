@@ -23,6 +23,12 @@ import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 import MarkdownIt from "markdown-it";
 import anchor from "markdown-it-anchor";
+// Matemática. O motor viveu quatro capítulos SEM renderizador nenhum: as
+// fórmulas em `$...$` e `$$...$$` iam para o HTML como texto cru, e o leitor
+// via literalmente "$$ \begin{cases} ... \end{cases} $$" na página. Dezessete
+// blocos e mais de 550 expressões em linha, publicados assim. Não era
+// configuração errada — a capacidade NUNCA existiu, e nenhum portão olhava.
+import katex from "markdown-it-katex";
 import * as esbuild from "esbuild";
 import { gerarGrafo } from "./grafo.mjs";
 
@@ -254,7 +260,12 @@ function bateria(serie) {
 
 // linkify: false de propósito — num livro técnico, "AGENTS.md"/"app.py" no texto
 // não devem virar links. Links reais já são explícitos no Markdown.
-const md = new MarkdownIt({ html: true, linkify: false, typographer: false }).use(anchor, {
+const md = new MarkdownIt({ html: true, linkify: false, typographer: false }).use(katex, {
+  // Renderiza o que entende e marca em vermelho o que não entende, em vez de
+  // derrubar o build por uma chave desbalanceada. Quem reprova é o portão
+  // `verifica-matematica.mjs` — e ele olha o HTML, que é onde o leitor olha.
+  throwOnError: false,
+}).use(anchor, {
   permalink: anchor.permalink.ariaHidden({ symbol: "#", placement: "after" }),
   slugify: (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""),
 });
@@ -439,6 +450,7 @@ ${hreflangs(slug)}
 <link rel="icon" type="image/svg+xml" href="${A}favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="${A}favicon-32.png">
 <link rel="apple-touch-icon" href="${A}apple-touch-icon.png">
+<link rel="stylesheet" href="${A}katex.min.css">
 <link rel="stylesheet" href="${A}estilo.css">
 </head><body${ehIndex ? ' class="pagina-index"' : hero ? ' class="pagina-capitulo"' : ""} data-slug="${slug}" data-lang="${LANG}" data-titulo="${tituloPagina.replace(/"/g, "&quot;")}">
 <button id="alt-tema" aria-label="${T.temaAria}">◐</button>
@@ -533,6 +545,7 @@ ${hreflangs("index")}
 <link rel="icon" type="image/svg+xml" href="${A}favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="${A}favicon-32.png">
 <link rel="apple-touch-icon" href="${A}apple-touch-icon.png">
+<link rel="stylesheet" href="${A}katex.min.css">
 <link rel="stylesheet" href="${A}estilo.css">
 </head><body class="splash-body" data-lang="${LANG}">
 ${pillIdioma("index")}
@@ -590,6 +603,10 @@ mkdirSync(SAIDA, { recursive: true });
 
 if (!EN) {
   mkdirSync(resolve(SAIDA, "assets"), { recursive: true });
+  // O KaTeX precisa da folha de estilo E das fontes; sem as fontes a fórmula
+  // sai com métricas erradas, que é pior do que o texto cru.
+  cpSync(resolve(AQUI, "node_modules/katex/dist/katex.min.css"), resolve(SAIDA, "assets/katex.min.css"));
+  cpSync(resolve(AQUI, "node_modules/katex/dist/fonts"), resolve(SAIDA, "assets/fonts"), { recursive: true });
   cpSync(resolve(AQUI, "tema/estilo.css"), resolve(SAIDA, "assets/estilo.css"));
   cpSync(resolve(AQUI, "tema/app.js"), resolve(SAIDA, "assets/app.js"));
   cpSync(resolve(AQUI, "tema/capa.svg"), resolve(SAIDA, "assets/capa.svg"));
