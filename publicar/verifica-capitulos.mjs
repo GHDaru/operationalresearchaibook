@@ -15,6 +15,8 @@ const COM_PDF = process.env.SEM_PDF !== "1";
 const DOCS = resolve(RAIZ, EN ? "docs/en" : "docs");
 
 const sumario = JSON.parse(readFileSync(resolve(AQUI, EN ? "sumario.en.json" : "sumario.json"), "utf8"));
+const ARQ_EX = resolve(RAIZ, "livro/exercicios.json");
+const EXERCICIOS = existsSync(ARQ_EX) ? JSON.parse(readFileSync(ARQ_EX, "utf8")) : [];
 const itens = sumario.partes.flatMap((p) => p.itens.map((i) => ({ ...i, parte: p.nome }))).filter((i) => i.arquivo);
 const slugDe = (arquivo) => basename(arquivo).replace(/\.md$/, "").toLowerCase();
 
@@ -25,6 +27,16 @@ const MD_LIVRO = EN ? "operations-research.md" : "pesquisa-operacional.md";
 const PDF_LIVRO = EN ? "operations-research.pdf" : "pesquisa-operacional.pdf";
 
 const RE_ORIGEM = /^##\s+De onde isto veio/m;
+
+// OS DOIS PRINCÍPIOS NÃO-NEGOCIÁVEIS QUE NÃO TINHAM PORTÃO.
+//
+// Auditoria do comitê da v0, conferida por medição: o Princípio II ("quando não
+// serve" é obrigatório) e o Princípio I (mínimo de 3 exercícios e 1 vídeo por
+// capítulo) eram cumpridos pelos quatro capítulos publicados — por DISCIPLINA,
+// não por portão. Com 5 capítulos e atenção, passa. Com 72 em série, deriva:
+// é aritmética, não pessimismo. Entram antes do primeiro lote da v0.
+const RE_NAO_SERVE = /^##[^\n]*[Qq]uando (não|nao) serve/m;
+const RE_ASSISTA = /^##\s+Assista/m;
 
 // DUAS listas, com significados diferentes — e misturá-las seria disfarçar
 // escopo de dívida, que é o oposto do que estes portões existem para fazer.
@@ -88,6 +100,20 @@ for (const item of itens) {
       erro("sem a seção \"De onde isto veio\" — Princípio XII (ou declare a dívida em SEM_ORIGEM_DECLARADO)");
     if (!EN && RE_ORIGEM.test(md) && SEM_ORIGEM_DECLARADO.has(slug))
       erro("ganhou a seção de origem e continua na lista de dívida — tire-o de SEM_ORIGEM_DECLARADO");
+
+    // Princípio II, NÃO-NEGOCIÁVEL: todo método responde "quando não serve?".
+    if (!EN && !isentoDeOrigem(slug) && !RE_NAO_SERVE.test(md))
+      erro('sem a seção "Quando não serve" — Princípio II, não-negociável');
+
+    // Princípio I, NÃO-NEGOCIÁVEL: mínimo de 3 exercícios e 1 vídeo curado.
+    // O portão de exercícios já confere rubrica e rastreio; o que faltava era
+    // o PISO — ele exigia que a bateria existisse, não que tivesse 3 itens.
+    if (!EN && !isentoDeOrigem(slug)) {
+      if (!RE_ASSISTA.test(md)) erro('sem a seção "Assista" — Princípio I exige ≥1 vídeo curado');
+      const serie = (md.match(/data-bateria="([^"]+)"/) || [])[1];
+      const n = serie ? EXERCICIOS.filter((e) => e.id.startsWith(serie + ".")).length : 0;
+      if (n < 3) erro(`tem ${n} exercício(s) — Princípio I exige no mínimo 3`);
+    }
   } else {
     aparato++;
     if (html.includes('class="cap-hero"')) erro("página do aparato ganhou C01 indevidamente");
