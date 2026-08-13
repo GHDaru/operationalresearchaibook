@@ -54,10 +54,16 @@ orçamento não quer saber **qual é o plano**, quer saber **quanto vale afrouxa
 Um plano ótimo que não responde "e se eu conseguir mais uma tonelada de aço?" resolve metade do
 problema de quem paga a conta.
 
-Havia ainda uma pressão teórica. Na mesma época, a **teoria dos jogos** já tinha um resultado
-central — o *minimax*, publicado por von Neumann em 1928 — em que **dois problemas opostos têm o
-mesmo valor**: o que o maximizador garante é exatamente o que o minimizador não consegue impedir.
-A forma daquele resultado e a forma do que se procurava em Programação Linear são a mesma forma.
+Havia ainda uma pressão teórica. A **teoria dos jogos** já tinha, desde antes, um resultado com
+exatamente a mesma forma — o ***minimax***, em que **dois problemas opostos têm o mesmo valor**: o
+que o maximizador garante é precisamente o que o minimizador não consegue impedir. A forma daquele
+resultado e a forma do que se procurava em Programação Linear são a mesma forma, e é essa
+semelhança que orienta a busca.
+
+> ⏳ **Data e autoria em dívida.** A literatura atribui o *minimax* a von Neumann, em 1928. **Este
+> handbook não confirmou o identificador nesta rodada**, então a atribuição fica registrada como
+> corrente e o parágrafo acima se apoia na **forma** do resultado, que é o que importa aqui — não
+> na data nem no nome.
 
 ### O que se fazia antes
 
@@ -252,8 +258,8 @@ mesma base. Medido:
 
 | Recurso | Estoque hoje | Faixa em que o preço de R$ 50 vale |
 |---|---:|---|
-| CPUs | 10 | de **6,5** a **12** |
-| pentes de 16 GB | 12 | de **10** a **19,5** |
+| CPUs | 10 | de **6** a **12** |
+| pentes de 16 GB | 12 | de **10** a **20** |
 
 Leia a primeira linha com atenção, porque ela é a resposta ao telefonema: **acima de 12 CPUs, a
 CPU seguinte vale zero**. Não "vale um pouco menos" — vale **zero**, porque a partir dali o
@@ -274,8 +280,9 @@ preços   : {'CPUs': '50', 'pentes de memória de 16 GB': '50'}
 dual     : y = ['50', '50']  valor 1100  (2 pivôs)
 dualidade forte confere: True
 
-  CPUs: hoje 10 · faixa [13/2, 12]
-  pentes de memória de 16 GB: hoje 12 · faixa [10, 39/2]
+  CPUs: hoje 10 · faixa [6, 12]
+  pentes de memória de 16 GB: hoje 12 · faixa [10, 20]
+faixas conferidas por caminho independente: True
 ```
 
 Três coisas que o script faz de propósito:
@@ -406,7 +413,7 @@ terceiro resultado, as **folgas complementares**, diz que recurso que sobra tem 
 positivo só existe onde a restrição aperta — o que transforma "onde está o gargalo?" e "onde vale
 investir?" na mesma pergunta, e permite auditar um relatório sem refazer conta. O perigo mora na
 metade que raramente é publicada junto: o preço é **marginal e tem faixa de validade**. Na
-montadora, os R$ 50 por CPU valem entre 6,5 e 12 unidades de estoque; acima de 12, a CPU seguinte
+montadora, os R$ 50 por CPU valem entre 6 e 12 unidades de estoque; acima de 12, a CPU seguinte
 vale **zero**. Um comprador que lesse o número sem a faixa e adquirisse 10 CPUs a R$ 45 teria
 prejuízo de R$ 350 — com todas as contas certas. Daí a regra que fica: **nunca cite um preço-sombra
 sem citar a faixa junto**, e lembre que nada disto vale em programação inteira, onde a relaxação

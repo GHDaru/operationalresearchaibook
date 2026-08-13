@@ -102,6 +102,20 @@ def dual_explicito(lucros, restricoes) -> dict:
             "y": r["ponto"], "pivos": r["pivos"]}
 
 
+def _quadro_final(lucros, restricoes):
+    """O quadro final, com o índice de cada coluna de folga.
+
+    Serve às duas faixas. Vale só para o caso deste capítulo — todas as
+    restrições `<=`, folgas na base inicial — que é justamente quando as
+    colunas de folga do quadro final SÃO a inversa da base, $B^{-1}$.
+    """
+    r = resolver(lucros, restricoes)
+    assert r["status"] == "otimo", r["status"]
+    f = r["iteracoes"][-1]
+    col_folga = [f.colunas.index(f"f{i+1}") for i in range(len(restricoes))]
+    return f, col_folga
+
+
 def faixa_de_validade(lucros, restricoes, indice: int) -> dict:
     """Até onde o estoque do componente `indice` pode variar sem mudar a BASE.
 
@@ -110,40 +124,148 @@ def faixa_de_validade(lucros, restricoes, indice: int) -> dict:
     ensina a não cometer — e o capítulo 10 já avisou que em vértice degenerado a
     faixa fica ambígua.
 
-    Método: varre o lado direito por passos exatos e registra onde a BASE do
-    quadro final deixa de ser a mesma. Busca direta, não fórmula — o capítulo
-    ensina a ideia, e a etapa mostra a fronteira sem exigir álgebra de
-    sensibilidade que o leitor v0 ainda não tem.
+    ---------------------------------------------------------------------------
+    ESTA FUNÇÃO JÁ ESTEVE ERRADA, e o erro chegou a texto de capítulo.
+
+    A primeira versão varria o lado direito de meio em meio e reportava o último
+    valor em que a base do quadro final ainda era a mesma. O defeito é
+    estrutural, não de precisão: a varredura mede EM QUE BASE O SIMPLEX
+    ATERRISSA, e não PARA QUE LADO DIREITO A BASE CONTINUA ÓTIMA. Na fronteira
+    o vértice fica degenerado e o método pode aterrissar em outra base
+    equivalente — então a varredura lê "mudou" um passo antes da fronteira real
+    e **subestima sempre**. Publicou 13/2 onde o certo é 6, e 39/2 onde o certo
+    é 20. O teto 12 saiu certo por sorte de desempate, o que é pior: um método
+    que erra um lado e acerta o outro sem avisar não é medição.
+
+    O método correto é álgebra, e cabe no quadro que o leitor já tem. Com todas
+    as restrições `<=`, as colunas de folga do quadro final são $B^{-1}$. Somar
+    $\\Delta$ ao estoque $i$ desloca as básicas por $\\Delta$ vezes a coluna $i$
+    de $B^{-1}$, e a base continua viável enquanto todas seguirem $\\ge 0$:
+
+        x_B + Δ·(B⁻¹ e_i) ≥ 0
+
+    Isso dá a fronteira EXATA, em fração, sem passo e sem resolver de novo.
+    ---------------------------------------------------------------------------
     """
-    base0 = tuple(sorted(resolver(lucros, restricoes)["iteracoes"][-1].base))
+    f, col_folga = _quadro_final(lucros, restricoes)
     b0 = restricoes[indice].b
+    d = [linha[col_folga[indice]] for linha in f.corpo]   # coluna i de B⁻¹
+    xb = list(f.lado_direito)
 
-    def base_com(delta: F):
-        alt = [Restricao(list(r.coefs), r.sinal, r.b + (delta if i == indice else 0), r.rotulo)
-               for i, r in enumerate(restricoes)]
-        r = resolver(lucros, alt)
-        if r["status"] != "otimo":
-            return None
-        return tuple(sorted(r["iteracoes"][-1].base)), r["valor"]
-
-    passo = F(1, 2)
-    def limite(sentido: int):
-        d, ultimo = passo * sentido, F(0)
-        while abs(d) <= 40:
-            res = base_com(d)
-            if res is None or res[0] != base0:
-                return ultimo
-            ultimo = d
-            d += passo * sentido
-        return ultimo
+    inf, sup = None, None                                  # None = sem limite
+    for r, dr in enumerate(d):
+        if dr == 0:
+            continue
+        limite = -xb[r] / dr                               # Δ em que a básica r zera
+        if dr > 0:
+            inf = limite if inf is None else max(inf, limite)
+        else:
+            sup = limite if sup is None else min(sup, limite)
 
     return {
         "componente": restricoes[indice].rotulo,
         "estoque_atual": fmt(b0),
-        "pode_cair_ate": fmt(b0 + limite(-1)),
-        "pode_subir_ate": fmt(b0 + limite(+1)),
-        "base_de_referencia": list(base0),
+        "pode_cair_ate": fmt(b0 + inf) if inf is not None else "sem limite",
+        "pode_subir_ate": fmt(b0 + sup) if sup is not None else "sem limite",
+        "base_de_referencia": sorted(f.base),
     }
+
+
+def faixa_de_custo(lucros, restricoes, j: int, nome: str) -> dict:
+    """Quanto o lucro unitário do produto `j` pode variar sem mudar o PLANO.
+
+    A outra metade do relatório de sensibilidade, e a que responde à pergunta do
+    comercial: *"até onde eu posso baixar o preço deste produto antes de valer
+    a pena produzir outra coisa?"*.
+
+    Método, para uma variável BÁSICA na linha `r`: somar $\\delta$ ao seu lucro
+    desloca a linha $z$ em $\\delta \\cdot a_{rk}$ em cada coluna não básica `k`.
+    A otimalidade exige que todo custo reduzido siga $\\ge 0$:
+
+        (z_k - c_k) + δ·a_rk ≥ 0   para toda coluna k fora da base
+
+    Para uma variável FORA da base é uma desigualdade só — ela entra na base
+    quando o próprio custo reduzido dela zera.
+
+    É varredura da LINHA do quadro, não do modelo: nenhum problema é resolvido
+    de novo, e o resultado é exato.
+    """
+    f, _ = _quadro_final(lucros, restricoes)
+    col = f.colunas.index(nome)
+    c0 = lucros[j]
+
+    # `Iteracao.base` guarda NOMES de coluna, não índices — comparar índice com
+    # essa lista dá sempre falso, e a função inteira devolveria "fora da base"
+    # para todo mundo, em silêncio. Foi o que aconteceu na primeira execução.
+    inf, sup = None, None
+    if nome in f.base:
+        r = f.base.index(nome)
+        for k, coluna in enumerate(f.colunas):
+            if coluna in f.base:
+                continue
+            a = f.corpo[r][k]
+            if a == 0:
+                continue
+            limite = -f.linha_z[k].n / a
+            if a > 0:
+                inf = limite if inf is None else max(inf, limite)
+            else:
+                sup = limite if sup is None else min(sup, limite)
+    else:
+        sup = f.linha_z[col].n                             # sobe até o custo reduzido zerar
+
+    return {
+        "produto": nome,
+        "lucro_atual": fmt(c0),
+        "pode_cair_ate": fmt(c0 + inf) if inf is not None else "sem limite",
+        "pode_subir_ate": fmt(c0 + sup) if sup is not None else "sem limite",
+        "na_base": nome in f.base,
+    }
+
+
+def confere_faixa(lucros, restricoes, indice: int, faixa: dict) -> dict:
+    """A conferência INDEPENDENTE da faixa, e é ela que fecha o buraco.
+
+    A álgebra acima é uma derivação; se ela estiver errada, ela erra em silêncio,
+    do mesmo jeito que a varredura errava. Então a fronteira é conferida por um
+    caminho que não usa $B^{-1}$ nenhum: resolve-se o problema DE NOVO, com o
+    estoque posto exatamente na fronteira e um pouco além dela, e verifica-se se
+    o preço-sombra ainda prevê o valor ótimo.
+
+      - NA fronteira, o preço tem de acertar:  z(b) = z(b₀) + y_i·(b − b₀)
+      - ALÉM dela, o preço tem de ERRAR.
+
+    Se o preço acerta além da fronteira, a faixa está curta demais. Se erra na
+    fronteira, está longa demais. Os dois casos falham a etapa.
+    """
+    y = F(precos_sombra(lucros, restricoes)["precos"][restricoes[indice].rotulo])
+    z0 = F(resolver(lucros, restricoes)["valor"])
+    b0 = restricoes[indice].b
+
+    def z_em(b: F):
+        alt = [Restricao(list(r.coefs), r.sinal, b if i == indice else r.b, r.rotulo)
+               for i, r in enumerate(restricoes)]
+        r = resolver(lucros, alt)
+        return F(r["valor"]) if r["status"] == "otimo" else None
+
+    def preve(b: F) -> bool:
+        z = z_em(b)
+        return z is not None and z == z0 + y * (b - b0)
+
+    fora = F(1, 4)                                          # um passo pequeno além
+    saida = {"componente": restricoes[indice].rotulo}
+    for lado, chave in (("piso", "pode_cair_ate"), ("teto", "pode_subir_ate")):
+        if faixa[chave] == "sem limite":
+            saida[lado] = "sem limite"
+            continue
+        fronteira = F(faixa[chave])
+        alem = fronteira - fora if lado == "piso" else fronteira + fora
+        saida[lado] = {
+            "fronteira": fmt(fronteira),
+            "preco_acerta_na_fronteira": preve(fronteira),
+            "preco_erra_alem": not preve(alem),
+        }
+    return saida
 
 
 if __name__ == "__main__":
@@ -152,6 +274,19 @@ if __name__ == "__main__":
     primal = precos_sombra(lucros, restricoes)
     dual = dual_explicito(lucros, restricoes)
     faixas = [faixa_de_validade(lucros, restricoes, i) for i in range(len(restricoes))]
+    conferencias = [confere_faixa(lucros, restricoes, i, faixas[i]) for i in range(len(restricoes))]
+    produtos = [ficha["produtos"][p]["rotulo"] for p in ficha["produtos"]]
+    custos = [faixa_de_custo(lucros, restricoes, j, f"x{j+1}") for j in range(len(lucros))]
+    for c, rotulo in zip(custos, produtos):
+        c["rotulo"] = rotulo
+
+    # As faixas só entram no livro se as duas conferências fecharem: o preço tem
+    # de acertar NA fronteira e errar ALÉM dela. É a verificação que a versão
+    # por varredura não tinha — e que teria barrado os números errados.
+    faixas_conferem = all(
+        lado == "sem limite" or (lado["preco_acerta_na_fronteira"] and lado["preco_erra_alem"])
+        for c in conferencias for lado in (c["piso"], c["teto"])
+    )
 
     # A VERIFICAÇÃO QUE IMPORTA: dualidade forte. Os dois problemas, resolvidos
     # separadamente, têm de chegar ao mesmo valor. Se não chegarem, não é o
@@ -167,6 +302,9 @@ if __name__ == "__main__":
         "dual": dual,
         "dualidade_forte_confere": confere,
         "faixas_de_validade": faixas,
+        "faixas_conferidas": conferencias,
+        "faixas_conferem": faixas_conferem,
+        "faixas_de_custo": custos,
     }
     (AQUI / "resultados.json").write_text(
         json.dumps(saida, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -177,8 +315,18 @@ if __name__ == "__main__":
     print(f"dual     : y = {dual['y']}  valor {dual['valor_dual']}  ({dual['pivos']} pivôs)")
     print(f"dualidade forte confere: {confere}")
     print()
+    print("faixa do ESTOQUE — até onde o preço-sombra vale")
     for f in faixas:
         print(f"  {f['componente']}: hoje {f['estoque_atual']} · "
               f"faixa [{f['pode_cair_ate']}, {f['pode_subir_ate']}]")
+    print(f"faixas conferidas por caminho independente: {faixas_conferem}")
+    print()
+    print("faixa do LUCRO UNITÁRIO — até onde o plano continua o mesmo")
+    for c in custos:
+        print(f"  {c['rotulo']}: hoje {c['lucro_atual']} · "
+              f"faixa [{c['pode_cair_ate']}, {c['pode_subir_ate']}]")
+
     if not confere:
         raise SystemExit("✗ dualidade forte NÃO confere — o capítulo 12 não pode ser escrito")
+    if not faixas_conferem:
+        raise SystemExit("✗ alguma faixa NÃO confere pelo caminho independente — não publique o número")

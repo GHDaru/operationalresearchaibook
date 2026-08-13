@@ -809,3 +809,54 @@ e a leitura foi conferida contra um caso conhecido (o vídeo do capítulo 09, qu
 30 modelo(s) resolvido(s) em aritmética exata`. O portão de maturidade foi **provado quebrando**
 nos quatro modos que ele promete pegar, incluindo o falso verde que importa: o sumário passar a
 declarar um selo e a página continuar exibindo outro.
+
+### Edição 0.17 — 2026-08-13 · A faixa estava errada, e o portão que faltava
+
+Registro *append-only*: a edição 0.16 publicou o capítulo 12 com **duas faixas de validade
+erradas**. Esta edição as corrige e, mais importante, constrói o portão que teria impedido.
+
+**O que estava errado.** A faixa em que o preço-sombra vale saía de uma varredura do estoque de
+meio em meio. O defeito não é de precisão, é de definição: a varredura mede **em que base o
+Simplex aterrissa**, não **para que estoque a base continua ótima**. Na fronteira o vértice fica
+degenerado, o método aterrissa em outra base equivalente, e a varredura lê "mudou" um passo antes
+da hora.
+
+| Recurso | Publicado na 0.16 | Correto |
+|---|---|---|
+| CPUs | de 6,5 a 12 | **de 6 a 12** |
+| pentes de 16 GB | de 10 a 19,5 | **de 10 a 20** |
+
+O que torna o defeito pior do que dois números: **o teto 12 saiu certo, por sorte de desempate**.
+Um método que erra um lado e acerta o outro sem avisar não é medição.
+
+**O que mudou na medição.** A faixa passa a sair de **álgebra exata** sobre o quadro final — com
+todas as restrições `<=`, as colunas de folga são $B^{-1}$ — e é **conferida por um segundo
+caminho**, que põe o estoque na fronteira e um pouco além e exige que o preço acerte na fronteira e
+**erre** além dela. Faixa curta demais escapa de qualquer teste que só confira o valor certo.
+
+**O portão que nasceu disto.** Era a **segunda vez** que um número entrava no livro sem portão — a
+primeira foi o ótimo errado do `cap07.exC`, que produziu o `verifica-otimos.mjs`. Defeito de mesma
+classe pela segunda vez é defeito do pipeline: a etapa 05 ganhou uma suíte que **lê o capítulo
+publicado** e exige que cada número medido apareça no texto na forma exata — **e que as versões
+antigas não apareçam**, porque um teste que só confere o valor certo passa verde num capítulo que
+publica o certo e o errado em lugares diferentes.
+
+**Entrou junto:** a **faixa dos coeficientes do objetivo** (`[75, 150]` para o Tipo 1 e
+`[100, 200]` para o Tipo 2), que é a metade do relatório de sensibilidade que ainda não tinha
+artefato e que o capítulo 13 vai precisar.
+
+**Corrigido também:** o capítulo 12 afirmava em prosa que o *minimax* foi "publicado por von
+Neumann em 1928" enquanto a sua própria tabela de Procedência marcava a afirmação `⏳`. Corpo
+afirmando o que a tabela nega é o modo mais silencioso de um sistema de selos deixar de valer.
+
+**O exercício C do capítulo 12 foi reescrito** e ficou melhor: com a faixa certa terminando em 20,
+comprar 20 ou 24 pentes dá **o mesmo lucro** de R$ 1.500 — as 4 unidades finais valem exatamente
+zero e são custo puro. A faixa de validade aparece como dinheiro, que é o que o exercício existe
+para ensinar.
+
+**A decisão está registrada** na [ADR 0014](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0014-relatorio-de-sensibilidade-e-a-faixa-medida.md),
+com o comitê de três especialistas que a instruiu — e com o registro de que nenhuma recomendação
+foi aceita sem reconferência própria.
+
+**Verificação:** `8 passed` na etapa 05, nove portões verdes, `✓ consistência de ótimo OK: 30
+modelo(s) resolvido(s) em aritmética exata`.

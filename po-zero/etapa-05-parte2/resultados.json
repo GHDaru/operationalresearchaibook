@@ -26,7 +26,7 @@
     {
       "componente": "CPUs",
       "estoque_atual": "10",
-      "pode_cair_ate": "13/2",
+      "pode_cair_ate": "6",
       "pode_subir_ate": "12",
       "base_de_referencia": [
         "x1",
@@ -37,11 +37,58 @@
       "componente": "pentes de memória de 16 GB",
       "estoque_atual": "12",
       "pode_cair_ate": "10",
-      "pode_subir_ate": "39/2",
+      "pode_subir_ate": "20",
       "base_de_referencia": [
         "x1",
         "x2"
       ]
+    }
+  ],
+  "faixas_conferidas": [
+    {
+      "componente": "CPUs",
+      "piso": {
+        "fronteira": "6",
+        "preco_acerta_na_fronteira": true,
+        "preco_erra_alem": true
+      },
+      "teto": {
+        "fronteira": "12",
+        "preco_acerta_na_fronteira": true,
+        "preco_erra_alem": true
+      }
+    },
+    {
+      "componente": "pentes de memória de 16 GB",
+      "piso": {
+        "fronteira": "10",
+        "preco_acerta_na_fronteira": true,
+        "preco_erra_alem": true
+      },
+      "teto": {
+        "fronteira": "20",
+        "preco_acerta_na_fronteira": true,
+        "preco_erra_alem": true
+      }
+    }
+  ],
+  "faixas_conferem": true,
+  "faixas_de_custo": [
+    {
+      "produto": "x1",
+      "lucro_atual": "100",
+      "pode_cair_ate": "75",
+      "pode_subir_ate": "150",
+      "na_base": false,
+      "rotulo": "Tipo 1 (16 GB)"
+    },
+    {
+      "produto": "x2",
+      "lucro_atual": "150",
+      "pode_cair_ate": "100",
+      "pode_subir_ate": "200",
+      "na_base": false,
+      "rotulo": "Tipo 2 (32 GB)"
     }
   ]
 }

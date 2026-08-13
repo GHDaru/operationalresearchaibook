@@ -1545,15 +1545,16 @@
     "dificuldade": "dificil",
     "contexto": "livro",
     "titulo": "O contrato de doze meses",
-    "enunciado": "Mesma montadora, mesmo modelo, mesmo quadro final — o pente de 16 GB tem preço-sombra de **R$ 50**, e a faixa em que esse preço vale vai de **10 a 19,5** pentes de estoque (hoje são 12).\n\nO diretor comercial traz uma proposta e pede seu parecer por escrito:\n\n> *\"Fechamos um contrato de 12 meses: o fornecedor entrega **12 pentes a mais por mês**, a R$ 45 cada. O pente vale R$ 50 para nós, então são R$ 5 de margem por unidade, R$ 60 por mês, R$ 720 no ano. É dinheiro na mesa.\"*\n\n1. Com 24 pentes em estoque, qual é o plano ótimo e o lucro? Qual é, então, o **ganho mensal real** dessa entrega, contra o custo mensal?\n2. Qual seria a quantidade mensal que **maximiza** o resultado da compra, e quanto ela rende? *(Use a faixa: 19 pentes de estoque é o último valor inteiro dentro dela.)*\n3. O contrato é de **12 meses**. Liste **duas** características do modelo — estão na ficha da instância — que tornam esse prazo problemático, independentemente do preço.\n4. Escreva o parecer em até três frases: o que você aprova, o que recusa, e sob que condição.",
+    "enunciado": "Mesma montadora, mesmo modelo, mesmo quadro final — o pente de 16 GB tem preço-sombra de **R$ 50**, e a faixa em que esse preço vale vai de **10 a 20** pentes de estoque (hoje são 12).\n\nO diretor comercial traz uma proposta e pede seu parecer por escrito:\n\n> *\"Fechamos um contrato de 12 meses: o fornecedor entrega **12 pentes a mais por mês**, a R$ 45 cada. O pente vale R$ 50 para nós, então são R$ 5 de margem por unidade, R$ 60 por mês, R$ 720 no ano. É dinheiro na mesa.\"*\n\n1. Com 24 pentes em estoque, qual é o plano ótimo e o lucro? Qual é, então, o **ganho mensal real** dessa entrega, contra o custo mensal?\n2. Qual seria a quantidade mensal que **maximiza** o resultado da compra, e quanto ela rende? *(Use a faixa: ela termina em 20 pentes de estoque.)*\n3. Compare o lucro do item 2 com o do item 1. O que você descobre sobre as 4 unidades que separam as duas propostas?\n4. O contrato é de **12 meses**. Liste **duas** características do modelo — estão na ficha da instância — que tornam esse prazo problemático, independentemente do preço.\n5. Escreva o parecer em até três frases: o que você aprova, o que recusa, e sob que condição.",
     "criterios": [
       "Com 24 pentes, chega ao ótimo $(0, 10)$ com lucro R$ 1.500 — ganho real de R$ 400/mês contra custo de R$ 540/mês, ou seja, **prejuízo de R$ 140 por mês**",
-      "Identifica que a compra vantajosa é de **7 pentes** (estoque de 19, o último inteiro dentro da faixa): lucro R$ 1.450, ganho de R$ 350 por custo de R$ 315 — resultado de R$ 35/mês",
+      "Identifica que a compra vantajosa é de **8 pentes** (estoque de 20, o fim da faixa): lucro R$ 1.500, ganho de R$ 400 por custo de R$ 360 — resultado de R$ 40/mês",
+      "Percebe que as duas propostas chegam ao **mesmo lucro de R$ 1.500**: as 4 unidades extras do contrato valem **zero** e só acrescentam custo — é a faixa de validade aparecendo como dinheiro",
       "Aponta duas limitações do modelo que o prazo expõe: ele é de **um único período** e supõe que **tudo que se produz é vendido** (a demanda não é restrição) — logo nada nele autoriza compromisso de 12 meses",
-      "Escreve um parecer que **decide**: recusa o volume de 12, contrapropõe 7, e condiciona a renovação a reavaliar o preço-sombra a cada período"
+      "Escreve um parecer que **decide**: recusa o volume de 12, contrapropõe 8, e condiciona a renovação a reavaliar o preço-sombra a cada período"
     ],
-    "erro_provavel": "Aceitar a proposta porque a margem por unidade é positiva. A margem de R$ 5 supõe que **cada uma** das 12 unidades vale R$ 50 — e não vale: a faixa termina em 19,5 pentes de estoque, então as 7 primeiras valem 50 e as 5 seguintes valem muito menos, o que derruba o ganho de R$ 600 para R$ 400 e transforma a margem em prejuízo. O erro seguinte é mais sutil e é o que separa quem usa modelo de quem obedece a modelo: **preço-sombra é uma fotografia de um período**, e esta instância assume um único período com tudo vendido. Ele autoriza uma compra agora, dentro da faixa. Não autoriza um contrato de doze meses.",
-    "resposta_guia": "Com 24 pentes o ótimo é $(0, 10)$, lucro R$ 1.500. O ganho mensal real é 1500 − 1100 = R$ 400, contra um custo de 12 × R$ 45 = R$ 540: **prejuízo de R$ 140 por mês**, e não os R$ 60 de ganho anunciados. A quantidade que maximiza é 7 pentes por mês, levando o estoque a 19 — dentro da faixa: lucro R$ 1.450, ganho de R$ 350 contra custo de R$ 315, resultado de R$ 35 por mês. Quanto ao prazo, a ficha da instância declara duas hipóteses que o inviabilizam: o modelo é de **um único período**, e nele **tudo que se produz é vendido** (a demanda não entra como restrição). Um preço-sombra tirado daí é uma fotografia de um mês. Parecer: recuso o volume de 12 unidades, que dá prejuízo de R$ 140 mensais; contraproponho 7 unidades por mês, dentro da faixa de validade, com resultado de R$ 35; e condiciono qualquer renovação à reavaliação do preço-sombra a cada período, porque a faixa se desloca quando o estoque ou a demanda mudam.",
+    "erro_provavel": "Aceitar a proposta porque a margem por unidade é positiva. A margem de R$ 5 supõe que **cada uma** das 12 unidades vale R$ 50 — e não vale: a faixa termina em 20 pentes de estoque, então as 8 primeiras valem 50 e as 4 seguintes valem **exatamente zero**. O lucro com 20 pentes e com 24 pentes é o mesmo, R$ 1.500; as 4 unidades finais são custo puro, e sozinhas transformam um ganho de R$ 40 num prejuízo de R$ 140. O erro seguinte é mais sutil e é o que separa quem usa modelo de quem obedece a modelo: **preço-sombra é uma fotografia de um período**, e esta instância assume um único período com tudo vendido. Ele autoriza uma compra agora, dentro da faixa. Não autoriza um contrato de doze meses.",
+    "resposta_guia": "Com 24 pentes o ótimo é $(0, 10)$, lucro R$ 1.500. O ganho mensal real é 1500 − 1100 = R$ 400, contra um custo de 12 × R$ 45 = R$ 540: **prejuízo de R$ 140 por mês**, e não os R$ 60 de ganho anunciados. A quantidade que maximiza é 8 pentes por mês, levando o estoque a 20 — o fim da faixa: lucro R$ 1.500, ganho de R$ 400 contra custo de R$ 360, resultado de R$ 40 por mês. A comparação entre os dois itens é a lição: **o lucro é o mesmo nos dois casos**. Passando de 20 para 24 pentes, o plano não muda e o lucro não sobe — aquelas 4 unidades valem zero, e é só custo. Quanto ao prazo, a ficha da instância declara duas hipóteses que o inviabilizam: o modelo é de **um único período**, e nele **tudo que se produz é vendido** (a demanda não entra como restrição). Um preço-sombra tirado daí é uma fotografia de um mês. Parecer: recuso o volume de 12 unidades, que dá prejuízo de R$ 140 mensais; contraproponho 8 unidades por mês, o limite da faixa, com resultado de R$ 40; e condiciono qualquer renovação à reavaliação do preço-sombra a cada período, porque a faixa se desloca quando o estoque ou a demanda mudam.",
     "modelo": [
       {
         "rotulo": "hoje — 12 pentes",
@@ -1589,7 +1590,7 @@
         }
       },
       {
-        "rotulo": "no limite da faixa — 19 pentes",
+        "rotulo": "no fim da faixa — 20 pentes",
         "sentido": "max",
         "variaveis": [
           "x1",
@@ -1610,15 +1611,15 @@
             1,
             2,
             "<=",
-            19
+            20
           ]
         ],
         "otimo": {
           "ponto": [
-            1,
-            9
+            0,
+            10
           ],
-          "valor": 1450
+          "valor": 1500
         }
       },
       {
