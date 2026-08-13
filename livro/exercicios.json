@@ -3139,5 +3139,137 @@
     ],
     "erro_provavel": "Em **(c)**, achar que basta rodar Dijkstra e depois descartar os caminhos com mais de três pedágios. Não basta: o caminho ótimo **com** a restrição pode não aparecer em lugar nenhum na execução sem a restrição, porque Dijkstra fecha cada nó uma vez e guarda um único rótulo por nó — o caminho mais barato até um nó com dois pedágios pode ser diferente do mais barato até o mesmo nó com nenhum. A saída é ou modelar em PL, ou expandir o grafo para carregar a contagem no próprio nó, que é a mesma ideia dita de outro jeito.",
     "resposta_guia": "**(a) Dijkstra.** Critério: tempos de percurso são não negativos por natureza, então a hipótese vale, e a escala (200 mil arestas, resposta em milissegundos) exige o método que fecha nós. **(b) Bellman-Ford.** Critério: os logaritmos negativos das taxas produzem pesos de qualquer sinal, e a pergunta *\"existe arbitragem?\"* é literalmente *\"existe ciclo negativo?\"*. **(c) Programação Linear**, ou um grafo expandido em que cada nó vira quatro (o mesmo lugar, com 0, 1, 2 ou 3 pedágios já usados). Critério: a restrição é sobre a **contagem ao longo do caminho**, e não sobre a aresta. **(d) Bellman-Ford.** Critério: há peso negativo declarado; e vale rodar sabendo que a detecção de ciclo negativo é informação de negócio, não erro — um ciclo negativo aqui significaria um circuito de créditos que se paga sozinho, e isso é notícia. **(5)** Em (b) você procura um **ciclo negativo**, e Bellman-Ford o devolve como **veredito**: não existe caminho mínimo, existe caminho arbitrariamente barato. É o mesmo espírito do `Infeasible` do capítulo 10 — um método que diz *\"esta pergunta não tem resposta\"* vale mais do que um que devolve um número qualquer. **(6)** Porque Dijkstra guarda **um rótulo por nó** e fecha cada nó uma vez. Com a restrição de pedágios, o melhor caminho até um nó depende de quantos pedágios já foram gastos — são vários estados por lugar, e o método não tem onde guardá-los."
+  },
+  {
+    "capitulo": 18,
+    "serie": "cap18",
+    "capacidade": "arvore_geradora",
+    "contexto": "livro",
+    "id": "cap18.exA",
+    "variante": "A",
+    "tipo": "resolver",
+    "objetivo": "O1",
+    "dificuldade": "facil",
+    "titulo": "Kruskal à mão, com a justificativa de cada recusa",
+    "enunciado": "As dez ligações possíveis entre cinco cidades:\n\n| Ligação | Custo | Ligação | Custo |\n|---|---|---|---|\n| a–c | 3 | b–e | 6 |\n| c–e | 3 | d–e | 6 |\n| b–c | 5 | a–e | 7 |\n| c–d | 7 | a–b | 8 |\n| b–d | 8 | a–d | 12 |\n\n1. Rode Kruskal e liste, **na ordem**, cada ligação examinada, dizendo **aceita** ou **recusada** e por quê.\n2. Dê o custo total e o número de ligações escolhidas.\n3. As ligações `b–e` e `d–e` custam **o mesmo (6)**. Uma entra e a outra não. Explique.\n4. Quantas ligações uma solução conectada precisa ter, e por que nem uma a mais nem uma a menos?\n5. Se `a–c` (custo 3) fosse proibida por uma restrição ambiental, qual seria o novo custo?",
+    "criterios": [
+      "A ordem de exame é por custo crescente, e cada aceite/recusa vem com a justificativa do ciclo",
+      "Custo total **17**, com **quatro** ligações",
+      "Explica que `b–e` é recusada porque `b` e `e` **já estão conectados** pelo que foi aceito antes (via `c`), enquanto `d–e` liga `d`, que ainda estava isolado",
+      "Responde que são $n-1 = 4$: menos desconecta, mais fecha ciclo — e ciclo é gasto que não conecta ninguém novo",
+      "Recalcula sem `a–c`: a árvore passa a custar **19** (`c–e` 3, `b–c` 5, `d–e` 6, e `a–e` 7 para trazer `a`)"
+    ],
+    "erro_provavel": "Recusar `d–e` junto com `b–e` por achar que \"já usamos o nó `e`\". O critério de Kruskal **não é sobre nós já usados** — é sobre **fechar ciclo**. Um nó pode receber quantas ligações forem necessárias; o que não pode é a ligação nova conectar duas cidades que já estavam conectadas por outro caminho. Confundir as duas coisas produz uma árvore incompleta e desconectada, e o erro passa despercebido porque o procedimento continua rodando.",
+    "resposta_guia": "**(1)** Em ordem de custo: `a–c` (3) **aceita** — nada conectado ainda; `c–e` (3) **aceita** — `e` estava isolado; `b–c` (5) **aceita** — `b` estava isolado; `b–e` (6) **recusada** — `b` e `e` já estão conectados via `c`, e essa ligação fecharia ciclo; `d–e` (6) **aceita** — `d` estava isolado. Aqui o algoritmo para, porque já há quatro ligações. **(2)** Custo **17**, com **quatro** ligações. **(3)** As duas custam 6, e a diferença não é de preço: é de **efeito**. `b–e` liga duas cidades que o algoritmo já havia conectado — o gasto não compraria conexão nova. `d–e` traz `d`, que estava fora. **(4)** São $n - 1 = 4$. Com menos, alguma cidade fica desconectada; com mais, existe ciclo, e num ciclo há sempre uma ligação que pode sair sem desconectar ninguém — ou seja, gasto puro. **(5)** Sem `a–c`, aceita-se `c–e` (3), `b–c` (5), `d–e` (6) e é preciso trazer `a` pela mais barata que sobrou, `a–e` (7): total **19**. Repare que a perda é de 2, e não de 3 — o custo de proibir uma aresta não é o custo dela."
+  },
+  {
+    "capitulo": 18,
+    "serie": "cap18",
+    "capacidade": "arvore_geradora",
+    "contexto": "livro",
+    "id": "cap18.exB",
+    "variante": "B",
+    "tipo": "julgar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Por que aqui sim e ali não",
+    "enunciado": "Na **mesma** instância do exercício A, o mesmo gesto guloso — *vá sempre ao mais barato agora* — produz:\n\n| | Resultado |\n|---|---|\n| Árvore, por Kruskal | custo **17**, e é o **ótimo** (conferido por enumeração de todas as árvores geradoras) |\n| Roteiro, pelo vizinho mais próximo saindo de `a` | `a → c → e → b → d → a`, custo **32** |\n| Roteiro ótimo, por enumeração | `a → b → d → e → c → a`, custo **28** |\n\n1. Um colega conclui: *\"o guloso falhou no roteiro porque cinco cidades já dá muitas rotas\"*. Corrija.\n2. Explique, sem usar a palavra \"tamanho\", **por que** o guloso é ótimo num caso e não no outro.\n3. No roteiro guloso acima, aponte **a escolha específica** que compromete o futuro, e diga o que ela custa depois.\n4. Enuncie a condição geral que autoriza um atalho guloso, em uma frase.\n5. O guloso do roteiro perdeu 14,3%. Se você entregasse só o resultado guloso a um cliente, que informação você **não** teria para lhe dar?",
+    "criterios": [
+      "Corrige o colega: cinco cidades são **poucas**, e o guloso erra mesmo assim — a explicação não é de tamanho",
+      "Explica pela estrutura: na árvore existe um argumento local (a aresta mais barata de um corte pertence a alguma árvore ótima) que sustenta a conclusão global; no roteiro não existe",
+      "Aponta que ir de `a` para `c` (3) e depois `c → e` (3) é barato agora e deixa `d` para o fim, obrigando ao trecho caro de volta",
+      "A condição geral: **um atalho guloso é seguro quando uma escolha local nunca impede a solução ótima global**",
+      "Responde ao (5) que faltaria o **limitante** — sem ele não há como dizer quão longe do ótimo a resposta está, e é a lição do capítulo 05"
+    ],
+    "erro_provavel": "Explicar a diferença dizendo que \"no roteiro as decisões dependem umas das outras e na árvore não\". Isso não distingue nada: na árvore as decisões **também** dependem umas das outras — aceitar `a–c` muda quais ligações fecham ciclo depois. O que separa os dois casos é mais fino: na árvore, a decisão local **restringe** as próximas sem nunca **excluir** o ótimo; no roteiro, ela pode excluir. É a diferença entre limitar o caminho e fechar a porta.",
+    "resposta_guia": "**(1)** Cinco cidades dão 12 rotas distintas — é pouquíssimo, e a enumeração roda instantaneamente. O guloso erra **mesmo assim**, e portanto o tamanho não explica nada. **(2)** Na árvore existe um argumento **local** que sustenta uma conclusão **global**: a aresta mais barata que atravessa qualquer corte pertence a alguma árvore ótima, e por isso aceitá-la nunca fecha a porta do ótimo. No roteiro esse argumento não existe: ir agora à cidade mais próxima pode obrigar, mais tarde, a atravessar o mapa. **(3)** Saindo de `a`, o guloso vai a `c` (3) e depois a `e` (3) — as duas mais baratas disponíveis — e com isso empurra `d` para o fim do percurso. Quando só resta `d`, é preciso pagar `b → d` (8) e depois `d → a` (12), e é aí que os 32 se formam. O ótimo aceita começar mais caro (`a → b`, 8) para não ficar com `d` encalhado. **(4)** *Um atalho guloso é seguro quando uma escolha local nunca impede a solução ótima global.* **(5)** Faltaria o **limitante**: com o resultado guloso sozinho não há como dizer se ele está a 1% ou a 40% do melhor possível. Aqui sabemos que são 14,3% **porque enumeramos**; numa instância real isso não estaria disponível, e é por isso que o capítulo 05 insiste em rodar o exato com limite de tempo antes de desistir dele."
+  },
+  {
+    "capitulo": 18,
+    "serie": "cap18",
+    "capacidade": "arvore_geradora",
+    "contexto": "livro",
+    "id": "cap18.exC",
+    "variante": "C",
+    "tipo": "escolher",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Isto é uma árvore?",
+    "enunciado": "Quatro decisões de projeto de rede. Para cada uma: **é** árvore geradora mínima? Se não for, diga **o que é** e por que a árvore não responde.\n\n| | A decisão |\n|---|---|\n| **a** | Uma cooperativa vai levar energia a 40 propriedades rurais, ao menor custo de instalação |\n| **b** | Uma operadora quer ligar 8 centrais de modo que **a queda de qualquer trecho não desconecte ninguém** |\n| **c** | Uma rede de lojas vai ligar 12 unidades e o que dói é o **tempo de resposta** entre lojas depois de pronta |\n| **d** | Uma prefeitura quer ligar 15 bairros, **podendo** instalar postes em pontos intermediários que não são bairros |\n\n5. Duas das quatro exigem **programação inteira** e não têm método guloso ótimo. Quais, e o que as torna difíceis?",
+    "criterios": [
+      "**(a)** é árvore geradora mínima — custo de instalação, todos precisam ser ligados, sem redundância exigida",
+      "**(b)** **não é**: árvore tem caminho único e qualquer queda desconecta. É projeto de rede com **conectividade mínima 2**, e é programação inteira",
+      "**(c)** **não é**: a árvore minimiza o custo de **ligar**, e o critério aqui é de **operar**. A árvore mínima pode dar caminhos longos entre lojas",
+      "**(d)** **não é**: pontos intermediários fora do conjunto original caracterizam a **árvore de Steiner**, que é NP-difícil",
+      "Identifica **(b)** e **(d)** como as que exigem programação inteira, e nomeia o motivo de cada uma"
+    ],
+    "erro_provavel": "Classificar **(c)** como árvore geradora mínima porque \"também é ligar tudo ao menor custo\". A frase esconde a troca de objetivo: minimizar o **custo das ligações construídas** e minimizar o **tempo entre pares depois de pronto** são objetivos diferentes, e a solução ótima de um pode ser ruim para o outro. Uma árvore em linha reta — a mais barata de construir — é justamente a pior para tempo de resposta entre as pontas.",
+    "resposta_guia": "**(a) É** árvore geradora mínima: o custo é de instalação, todos os 40 pontos precisam ficar ligados, e não há exigência de redundância. Kruskal resolve, com prova. **(b) Não é.** Uma árvore tem caminho único entre dois pontos, então **toda** ligação é ponto único de falha. O requisito é conectividade mínima 2, que é um problema de projeto de rede em programação inteira — e não tem guloso ótimo. **(c) Não é.** A árvore mínima resolve *\"gastar pouco para ligar\"*; o critério declarado é *\"responder rápido depois de ligado\"*. Os dois discordam com frequência: a árvore mais barata costuma ser longa e fina, que é a pior forma para latência entre extremos. O problema é de projeto de rede com objetivo de operação. **(d) Não é.** Poder usar pontos que não estão no conjunto original é a definição da **árvore de Steiner** — e essa é NP-difícil, ao contrário da geradora mínima. É o exemplo mais nítido de que um enunciado quase igual pode cair do outro lado da fronteira do capítulo 04. **(5)** **(b)** e **(d)**. A (b) porque a exigência de redundância destrói a estrutura de árvore e obriga a variáveis binárias de escolha de ligação; a (d) porque a escolha de **quais** pontos intermediários usar é combinatória, e nenhum argumento de corte a sustenta."
+  },
+  {
+    "capitulo": 19,
+    "serie": "cap19",
+    "capacidade": "fluxo_maximo",
+    "contexto": "livro",
+    "id": "cap19.exA",
+    "variante": "A",
+    "tipo": "resolver",
+    "objetivo": "O1",
+    "dificuldade": "media",
+    "titulo": "O fluxo, e o corte que sai junto",
+    "enunciado": "A rede de distribuição do capítulo:\n\n```\nfabrica --10--> centro_norte      centro_norte --6--> loja_a\nfabrica --8---> centro_sul        centro_norte --6--> loja_b\n                                  centro_sul   --3--> loja_b\n                                  centro_sul   --7--> loja_c\nloja_a --6--> mercado             loja_b --4--> mercado\nloja_c --5--> mercado\n```\n\n1. Ache **três** caminhos aumentantes de `fabrica` a `mercado` e diga quanto cada um empurra.\n2. Qual é o fluxo máximo?\n3. Encontre o **corte mínimo**: liste as arestas que o compõem e some as capacidades.\n4. Os dois números do item 2 e do item 3 batem. Isso é coincidência desta rede? Justifique.\n5. A aresta `fabrica → centro_norte` tem capacidade 10. Quanto dela é de fato usada no ótimo? O que isso diz?",
+    "criterios": [
+      "Três caminhos aumentantes válidos, cada um com o gargalo correto (o mínimo das capacidades residuais ao longo dele)",
+      "Fluxo máximo = **15**",
+      "O corte é `centro_norte → loja_a` (6), `loja_b → mercado` (4) e `loja_c → mercado` (5), somando **15**",
+      "Responde que **não é coincidência**: a igualdade entre fluxo máximo e capacidade do corte mínimo vale sempre, e é o teorema que o capítulo exibe",
+      "Percebe que `fabrica → centro_norte` **sobra folga**, e conclui que ela não é gargalo — investir nela não aumentaria o escoamento"
+    ],
+    "erro_provavel": "Procurar o corte entre as arestas de **um mesmo nível** da rede — todas as saídas da fábrica, ou todas as entradas do mercado. O corte mínimo desta rede é misto: uma aresta de saída de centro e duas de entrada no mercado. Procurar corte \"em camadas\" é o hábito que faz a estimativa errar, e é exatamente por isso que somar as capacidades que saem da origem (10 + 8 = 18) dá um número maior do que o fluxo real (15).",
+    "resposta_guia": "**(1)** Por exemplo: `fabrica → centro_norte → loja_a → mercado` empurra **6** (limitado por `centro_norte → loja_a` e por `loja_a → mercado`, ambas 6); `fabrica → centro_sul → loja_c → mercado` empurra **5** (limitado por `loja_c → mercado`); `fabrica → centro_sul → loja_b → mercado` empurra **3** (limitado por `centro_sul → loja_b`). Somam 14; um quarto caminho por `centro_norte → loja_b → mercado` empurra mais **1**, porque `loja_b → mercado` tem 4 e já foram usados 3. **(2)** Fluxo máximo **15**. **(3)** O corte é `centro_norte → loja_a` (6), `loja_b → mercado` (4) e `loja_c → mercado` (5) — total **15**. **(4)** Não é coincidência: o fluxo máximo **sempre** iguala a capacidade do corte mínimo. Este capítulo não demonstra o teorema — ele o exibe nesta instância, com o corte nomeado, e a igualdade é conferida por teste no `po-zero`. **(5)** Das 10 unidades de `fabrica → centro_norte`, o ótimo usa 7 (6 para `loja_a` e 1 para `loja_b`). **Sobra folga**, e é por isso que essa aresta **não** está no corte: ampliá-la não escoaria uma unidade a mais."
+  },
+  {
+    "capitulo": 19,
+    "serie": "cap19",
+    "capacidade": "fluxo_maximo",
+    "contexto": "livro",
+    "id": "cap19.exB",
+    "variante": "B",
+    "tipo": "julgar",
+    "objetivo": "O2",
+    "dificuldade": "media",
+    "titulo": "Onde investir, e onde não adianta",
+    "enunciado": "A diretoria liberou verba para ampliar **uma** ligação da rede do exercício A, e três propostas chegaram:\n\n> **Proposta 1.** Ampliar `fabrica → centro_norte` de 10 para 20. *\"É a nossa principal artéria.\"*\n>\n> **Proposta 2.** Ampliar `loja_c → mercado` de 5 para 8. *\"É a menor capacidade de entrega que temos.\"*\n>\n> **Proposta 3.** Ampliar `centro_sul → loja_b` de 3 para 6. *\"É a menor capacidade da rede inteira.\"*\n\n1. Para cada proposta: o escoamento total aumenta? Em quanto?\n2. Uma das três justificativas está apoiada num raciocínio que **soa** correto e não é. Qual, e qual é o raciocínio?\n3. Suponha que a proposta boa seja executada. O que você faz **em seguida**, e por quê?\n4. Escreva a frase de uma linha que você diria à diretoria para explicar por que a artéria principal não é o gargalo.\n5. Existe um ponto em que continuar investindo na mesma aresta para de valer a pena. Como você o reconhece?",
+    "criterios": [
+      "**Proposta 1** não aumenta nada: a aresta não está no corte e já sobra folga",
+      "**Proposta 2** aumenta, porque `loja_c → mercado` **está** no corte — e aumenta menos do que os 3 pedidos, porque o corte se move",
+      "**Proposta 3** não aumenta o total: `centro_sul → loja_b` é a menor capacidade da rede e **não está no corte**",
+      "Identifica que o raciocínio falso é *\"a menor capacidade da rede é o gargalo\"* (proposta 3): gargalo é **conjunto que separa**, não aresta estreita",
+      "Responde ao (3) que é preciso **recalcular o corte**, porque ele se move — e ao (5) que o sinal é o corte deixar de conter aquela aresta"
+    ],
+    "erro_provavel": "Aceitar a proposta 3 por ela citar o menor número da rede. A capacidade mais baixa chama atenção e quase nunca é o gargalo: `centro_sul → loja_b` tem 3, mas `loja_b` também recebe de `centro_norte`, então a rede contorna essa aresta sem esforço. **Gargalo é um conjunto que separa a origem do destino** — e nenhuma aresta sozinha é gargalo só por ser estreita. Este é o erro que faz empresas investirem no lugar errado e não verem diferença nenhuma no resultado.",
+    "resposta_guia": "**(1)** **Proposta 1: não aumenta nada.** `fabrica → centro_norte` usa 7 das 10 disponíveis; sobra folga, ela não está no corte, e dobrá-la não escoa uma unidade a mais. **Proposta 2: aumenta**, porque `loja_c → mercado` está no corte — mas aumenta **menos** do que as 3 unidades acrescentadas, porque assim que ela deixa de apertar o corte se move para outro lugar. **Proposta 3: não aumenta o total.** A aresta é a mais estreita da rede e não pertence ao corte: `loja_b` também é abastecida por `centro_norte`, então o fluxo contorna. **(2)** A justificativa falsa é a da proposta 3 — *\"é a menor capacidade da rede\"*. O raciocínio soa correto porque confunde **aresta estreita** com **gargalo**, e gargalo é um conjunto de arestas que separa a origem do destino. A da proposta 1 também é fraca, mas por outro motivo: *\"artéria principal\"* é descrição de volume, não de restrição. **(3)** Recalcular o corte. Ele **se move** depois de qualquer investimento, e o próximo gargalo costuma estar em outro lugar da rede — é a versão em rede de elevar a restrição e voltar ao primeiro passo. **(4)** *\"A artéria já está com folga: o que segura o nosso escoamento é a saída para as lojas, e ampliar a entrada não muda a saída.\"* **(5)** Reconhece-se recalculando: quando o corte mínimo **deixa de conter** aquela aresta, investir nela parou de comprar escoamento."
+  },
+  {
+    "capitulo": 19,
+    "serie": "cap19",
+    "capacidade": "fluxo_maximo",
+    "contexto": "livro",
+    "id": "cap19.exC",
+    "variante": "C",
+    "tipo": "formular",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "Não parece fluxo, e é",
+    "enunciado": "Um hospital tem **7 enfermeiros** e **5 plantões** para cobrir no fim de semana. Cada enfermeiro é habilitado para alguns plantões, e cada plantão comporta **no máximo 2** pessoas. Ninguém faz mais de um plantão.\n\n1. Modele como fluxo máximo: diga o que é a **fonte**, o **sumidouro**, quais são os nós intermediários e qual a **capacidade** de cada tipo de aresta.\n2. O que o valor do fluxo máximo significa **em português**, para quem dirige o hospital?\n3. Se o fluxo máximo der 8, o que isso diz sobre a cobertura, sabendo que a lotação total desejada é 10?\n4. O corte mínimo desse modelo aponta para o quê, em termos de recursos humanos?\n5. Um gestor pergunta se não seria mais simples usar programação **inteira**, já que pessoa não se divide. O que você responde?",
+    "criterios": [
+      "Fonte → enfermeiros (capacidade **1** cada, porque ninguém faz mais de um plantão); enfermeiros → plantões (capacidade 1, só onde há habilitação); plantões → sumidouro (capacidade **2**, a lotação do plantão)",
+      "O fluxo máximo é o **número de posições de plantão que se consegue cobrir** com a equipe e as habilitações atuais",
+      "Com fluxo 8 e lotação desejada 10, **faltam 2 posições** — e a falta é estrutural, não de esforço: nenhuma escala cobre mais do que 8",
+      "O corte aponta **onde está a escassez**: se ele corta arestas de plantão→sumidouro, faltam pessoas habilitadas para aqueles plantões; se corta fonte→enfermeiro, o limite é o tamanho da equipe",
+      "Responde ao (5) que **não é preciso**: a estrutura de rede garante solução inteira sem declarar variável binária — é o que o capítulo 20 mede, e declarar binária pagaria um preço que a estrutura já dispensou"
+    ],
+    "erro_provavel": "Pôr capacidade 2 na aresta que sai da **fonte** para o enfermeiro, confundindo a lotação do plantão com a disponibilidade da pessoa. As duas capacidades vivem em pontas opostas do modelo, e trocá-las produz uma escala em que a mesma pessoa cobre dois plantões — o modelo roda, devolve um número maior, e a resposta é inexecutável. É o defeito do capítulo 03 na sua forma de rede: a peça está no lugar errado e nada avisa.",
+    "resposta_guia": "**(1)** **Fonte** → cada enfermeiro, capacidade **1** (ninguém faz mais de um plantão). Cada **enfermeiro** → os plantões para os quais é habilitado, capacidade 1. Cada **plantão** → **sumidouro**, capacidade **2** (a lotação). **(2)** O fluxo máximo é o **número de posições de plantão que a equipe atual consegue cobrir**, dadas as habilitações — em português: *\"quantos postos conseguimos preencher neste fim de semana\"*. **(3)** Fluxo 8 contra lotação desejada 10 significa que **duas posições ficam vazias, e nenhuma escala resolve isso** — é limite estrutural, não falta de organização. Insistir em remanejar não vai produzir a nona posição. **(4)** O corte aponta **de que lado está a escassez**. Se ele corta arestas plantão→sumidouro, o problema é falta de gente habilitada para aqueles plantões específicos — a solução é treinar, não contratar. Se corta fonte→enfermeiro, o limite é o **tamanho da equipe**, e aí é contratar mesmo. Essa distinção é a informação de gestão que o modelo entrega de graça. **(5)** Não é preciso. A matriz deste modelo é de rede, e a estrutura garante que a relaxação linear já devolve solução **inteira** — o capítulo 20 mede exatamente isso, e o capítulo 21 mostra o mesmo na designação, com saída 0/1 sem nenhuma variável binária declarada. Declarar binária aqui pagaria um preço de resolução que a estrutura tinha dispensado."
   }
 ]

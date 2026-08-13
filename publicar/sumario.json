@@ -129,9 +129,21 @@
           "teaser": "Com peso negativo, Dijkstra devolve uma resposta que contradiz a si mesma — e não avisa."
         },
         {
+          "arquivo": "livro/capitulos/18-arvore-geradora.md",
+          "titulo": "18 — Árvore geradora mínima e projeto de redes",
+          "maturidade": "medido",
+          "teaser": "O mesmo gesto guloso: ótimo na árvore, 14,3% pior no roteiro — e a diferença não é de tamanho."
+        },
+        {
+          "arquivo": "livro/capitulos/19-fluxo-maximo.md",
+          "titulo": "19 — Fluxo máximo e corte mínimo",
+          "maturidade": "medido",
+          "teaser": "O gargalo não é a aresta mais estreita — é um conjunto que separa. E investir fora dele não muda nada."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Cinco vagas declaradas",
-          "teaser": "Árvore geradora, fluxo máximo, fluxo de custo mínimo, transporte e designação, e planejamento de projetos."
+          "titulo": "⬜ Três vagas declaradas",
+          "teaser": "Fluxo de custo mínimo, transporte e designação, e planejamento de projetos."
         }
       ]
     },

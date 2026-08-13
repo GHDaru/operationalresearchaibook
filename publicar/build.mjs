@@ -245,6 +245,8 @@ const COMPANION_CAPS = [
   { chave: "ferramentas", rotulo: "Ferramentas de trabalho", libera: 6 },
   { chave: "redes", rotulo: "Grafos e redes", libera: 16 },
   { chave: "caminho_minimo", rotulo: "Caminho mínimo", libera: 17 },
+  { chave: "arvore_geradora", rotulo: "Árvore geradora mínima", libera: 18 },
+  { chave: "fluxo_maximo", rotulo: "Fluxo máximo e corte mínimo", libera: 19 },
   { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
   { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },

@@ -1697,3 +1697,37 @@ ensina:
 pegado depois:** o capítulo 16 afirmava "Euler mostrou, em 1736" no corpo enquanto a tabela marcava
 a atribuição como `⏳`. O hedge foi para a frase. É a diferença entre uma regra que alguém lembra e
 uma regra que a máquina cobra.
+
+### Edição 0.38 — 2026-08-13 · Capítulos 18 e 19: o mesmo gesto, e o gargalo que não é aresta
+
+**Entrou:** [18 — Árvore geradora mínima](capitulos/18-arvore-geradora.md) 🔵 e
+[19 — Fluxo máximo e corte mínimo](capitulos/19-fluxo-maximo.md) 🔵, com seis exercícios e dois
+vídeos.
+
+**O capítulo 18 existe por causa de uma pergunta que quase todo mundo faz errado:** *"se pegar
+sempre o mais barato agora funciona aqui, por que não funciona no roteiro?"* A resposta não é
+"porque o roteiro é maior" — e o capítulo mede a diferença **na mesma instância, com o mesmo
+gesto**: o guloso é ótimo na árvore (**17**, conferido por dois caminhos) e **14,3% pior** no
+roteiro (**32** contra **28**).
+
+> A diferença é estrutural: na árvore existe um argumento **local** — a aresta mais barata de
+> qualquer corte pertence a alguma árvore ótima — que sustenta a conclusão **global**. No roteiro
+> esse argumento não existe, e a decisão local **compromete o futuro**.
+
+**O capítulo 19 entrega o resultado mais bonito do campo, e ele é bonito por ser útil:** o quanto
+se escoa é **exatamente** a capacidade do corte mínimo. Medido: **15** e **15**, com o corte
+exibido — três arestas, e elas **não estão no mesmo nível da rede**.
+
+Daí saem três decisões que o método dá de graça: investir numa aresta **do** corte aumenta o
+fluxo; investir numa aresta **fora** dele não muda nada, por mais importante que ela pareça; e
+depois de investir é preciso **recalcular**, porque o corte se move.
+
+> **A confusão mais cara desta Parte é tratar aresta estreita como gargalo.** Na rede medida, a
+> aresta de menor capacidade (`centro_sul → loja_b`, com 3) **não** está no corte — o fluxo a
+> contorna. E a de maior capacidade também não está, porque sobra folga nela. O exercício B do
+> capítulo 19 é inteiro sobre isso, com três propostas de investimento das quais **duas não
+> aumentam nada**.
+
+**O que o capítulo 19 declara não fazer:** demonstrar o teorema. Ele o **exibe** numa instância,
+com o corte nomeado, e diz que é isso que está fazendo. Um livro que mede um caso e chama isso de
+demonstração estaria mentindo; um que cita o teorema e nunca mostra o corte estaria pedindo fé.

@@ -89,6 +89,8 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | 15 — Modelagem aplicada em PL | [Problema de Transporte — Modelagem usando Programação Linear](https://www.youtube.com/watch?v=NTHGKhCeJso) | [Prof. Rafael Lima](https://www.youtube.com/@prof.rafaellima4531) | 17min24s | **Definitivo** |
 | 16 — Grafos e redes: fundamentos | [Pesquisa Operacional II - Aula 25 - Introdução à Teoria dos Grafos](https://www.youtube.com/watch?v=pbDHIMFGgLk) | [UNIVESP](https://www.youtube.com/@univesptv) | 21min14s | **Definitivo** |
 | 17 — Caminho mínimo | [Aula 6.2: Algoritmo de Dijkstra (Caminho Mínimo)](https://www.youtube.com/watch?v=xirBe9Bu-Ik) | [Matemática Para Gente Grande](https://www.youtube.com/@prof_allanIFBA) | 13min45s | **Definitivo** |
+| 18 — Árvore geradora mínima e projeto de redes | [Árvore Geradora Mínima (MST) - Prim e Kruskal - LPC I 2021](https://www.youtube.com/watch?v=I9cc2NTBs60) | [PROTIVA UNESP](https://www.youtube.com/@protiva_unesp) | 34min06s | **Definitivo** |
+| 19 — Fluxo máximo e corte mínimo | [O Método Ford-Fulkerson: Encontrando o Fluxo Máximo Passo a Passo](https://www.youtube.com/watch?v=Uu-5EOQY9Zc) | [André Oliveira](https://www.youtube.com/@andrevadm) | 7min31s | **Definitivo** |
 | 38 — Convexidade | [Hiperplano, semi-espaço, poliedro, conjunto e envoltório convexo](https://www.youtube.com/watch?v=eDhsMJAcPz0) | [Pedro Munari](https://www.youtube.com/@munariflix) | 17min55s | **Definitivo** |
 | 77 — Como ler um artigo científico de PO | [Como ler um artigo científico? (Módulo 7/20)](https://www.youtube.com/watch?v=eadVmuwEuAI) | [Instituto de Computação — UFF](https://www.youtube.com/@InstitutodeComputa%C3%A7%C3%A3o-UFF) | 1h09min06s | **Definitivo** |
 

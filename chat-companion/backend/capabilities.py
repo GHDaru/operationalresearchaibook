@@ -73,6 +73,14 @@ REGISTRO = [
      "descricao": "Rodo Dijkstra com você passo a passo e cobro a hipótese que ele usa sem "
                   "declarar. Se houver peso negativo, aviso antes: o método devolve uma resposta "
                   "que contradiz a si mesma, sem erro nenhum."},
+    {"chave": "arvore_geradora", "rotulo": "Árvore geradora mínima", "libera": 18, "tools": (),
+     "descricao": "Construo a árvore com você e cobro a justificativa de cada recusa — o critério é "
+                  "fechar ciclo, não 'nó já usado'. E separo o caso em que o guloso é ótimo do caso "
+                  "em que ele não é, pela estrutura e nunca pelo tamanho da instância."},
+    {"chave": "fluxo_maximo", "rotulo": "Fluxo máximo e corte mínimo", "libera": 19, "tools": (),
+     "descricao": "Acho o corte mínimo com você e traduzo o resultado em decisão: onde investir, "
+                  "onde não adianta, e quando recalcular. Desfaço a confusão mais cara da Parte — "
+                  "aresta estreita não é gargalo; gargalo é conjunto que separa."},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

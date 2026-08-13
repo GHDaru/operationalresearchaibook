@@ -113,3 +113,119 @@ def test_o_capitulo_publica_o_veredito(texto17):
 
 def test_a_bateria_do_capitulo_17_existe(exercicios):
     assert len([e for e in exercicios if e.startswith("cap17.")]) >= 3
+
+
+# ===========================================================================
+# CAPÍTULO 18 — a árvore, e o mesmo gesto no problema ao lado
+# ===========================================================================
+
+from redes import (CIDADES, REDE, fluxo_maximo, kruskal, mst_por_enumeracao,  # noqa: E402
+                   tsp_exato, tsp_guloso)
+
+CAP18 = RAIZ / "livro/capitulos/18-arvore-geradora.md"
+CAP19 = RAIZ / "livro/capitulos/19-fluxo-maximo.md"
+
+
+@pytest.fixture(scope="module")
+def texto18():
+    return CAP18.read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def texto19():
+    return CAP19.read_text(encoding="utf-8")
+
+
+def test_a_arvore_minima_confere_por_dois_caminhos():
+    """Kruskal e a enumeração de TODAS as árvores geradoras chegam ao mesmo custo.
+
+    É a disciplina do capítulo 12 aplicada aqui: chegar ao mesmo número por dois
+    caminhos é o que separa medição de coincidência. Se algum dia divergirem, o
+    defeito está no guloso — e é exatamente isso que o capítulo 18 afirma que
+    não pode acontecer.
+    """
+    k, e = kruskal(CIDADES), mst_por_enumeracao(CIDADES)
+    assert k["custo"] == e["custo"] == "17"
+    assert len(k["arestas"]) == 4, "cinco cidades pedem exatamente n−1 = 4 ligações"
+
+
+def test_o_custo_da_arvore_esta_no_capitulo(texto18):
+    assert f"**Custo total: {kruskal(CIDADES)['custo']}.**" in texto18
+
+
+def test_o_guloso_perde_no_roteiro():
+    """A afirmação que o capítulo 18 existe para fazer — e que quase não se sustentou.
+
+    A primeira instância foi escolhida à mão e o guloso ACERTOU o roteiro nela.
+    Esta saiu de busca com semente declarada. Se alguém trocar a instância por
+    uma "mais limpa", este teste avisa que a tese caiu junto.
+    """
+    g, e = tsp_guloso(CIDADES, "a"), tsp_exato(CIDADES, "a")
+    assert F(g["custo"]) > F(e["custo"]), "o guloso parou de errar — o capítulo 18 perdeu a tese"
+    assert g["custo"] == "32" and e["custo"] == "28"
+
+
+def test_a_tabela_do_roteiro_esta_no_capitulo(texto18):
+    g, e = tsp_guloso(CIDADES, "a"), tsp_exato(CIDADES, "a")
+    assert f"`{' → '.join(g['rota'])}` | **{g['custo']}** |" in texto18
+    assert f"`{' → '.join(e['rota'])}` | **{e['custo']}** |" in texto18
+    perda = F(g["custo"]) / F(e["custo"]) - 1
+    pct = f"{float(perda) * 100:.1f}".replace(".", ",")
+    assert f"{pct}%" in texto18, f"a perda publicada não confere: medida {pct}%"
+
+
+def test_o_capitulo_18_registra_como_a_instancia_foi_obtida(texto18):
+    """Sem isto, a instância parece desenhada para dar o resultado que dá."""
+    assert "4.000" in texto18 and "semente" in texto18
+    assert "ele acertou" in texto18
+
+
+# ===========================================================================
+# CAPÍTULO 19 — a igualdade, exibida
+# ===========================================================================
+
+def test_o_fluxo_maximo_iguala_o_corte_minimo():
+    f = fluxo_maximo(REDE, "fabrica", "mercado")
+    assert f["bate"] is True
+    assert f["fluxo"] == f["corte"]["capacidade"] == "15"
+
+
+def test_o_corte_publicado_confere(texto19):
+    f = fluxo_maximo(REDE, "fabrica", "mercado")
+    assert len(f["corte"]["arestas"]) == 3
+    for u, v, c in f["corte"]["arestas"]:
+        assert f"| `{u} → {v}` | {c} |" in texto19, f"a aresta do corte {u}→{v} não confere"
+    assert f"| **Total** | **{f['corte']['capacidade']}** |" in texto19
+    assert f"**Fluxo máximo medido: {f['fluxo']}.**" in texto19
+
+
+def test_o_corte_nao_e_uma_camada_da_rede():
+    """A afirmação de gestão do capítulo: gargalo é conjunto, não etapa.
+
+    Se o corte medido virasse "todas as arestas que saem da fábrica" ou "todas
+    as que entram no mercado", a lição do capítulo cairia — e a tabela de
+    propostas do exercício B deixaria de fazer sentido.
+    """
+    f = fluxo_maximo(REDE, "fabrica", "mercado")
+    origens = {u for u, _, _ in f["corte"]["arestas"]}
+    destinos = {v for _, v, _ in f["corte"]["arestas"]}
+    assert len(origens) > 1, "o corte virou uma camada só de saída"
+    assert len(destinos) > 1, "o corte virou uma camada só de chegada"
+
+
+def test_a_aresta_de_maior_capacidade_nao_esta_no_corte(texto19):
+    """`fabrica → centro_norte` tem 10 e sobra folga — investir nela não muda nada."""
+    f = fluxo_maximo(REDE, "fabrica", "mercado")
+    no_corte = {(u, v) for u, v, _ in f["corte"]["arestas"]}
+    assert ("fabrica", "centro_norte") not in no_corte
+    assert "**Investir numa aresta fora do corte não muda nada.**" in texto19
+
+
+def test_o_capitulo_19_diz_que_exibe_e_nao_demonstra(texto19):
+    """A honestidade que separa medir um caso de provar um teorema."""
+    assert "não prova" in texto19 and "exibe" in texto19
+
+
+def test_as_baterias_de_18_e_19_existem(exercicios):
+    assert len([e for e in exercicios if e.startswith("cap18.")]) >= 3
+    assert len([e for e in exercicios if e.startswith("cap19.")]) >= 3

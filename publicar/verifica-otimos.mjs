@@ -259,6 +259,16 @@ const SEM_MODELO_DECLARADO = new Set([
   "cap17.exB", // a instância em que Dijkstra erra, também um grafo. Os dois
                // números que a rubrica afirma — 6 e 4 — são medidos na mesma
                // suíte, e o capítulo 17 os publica com teste que o lê.
+  "cap18.exB", // compara guloso e ótimo num grafo de CINCO cidades — dez arestas,
+               // não duas variáveis. Os quatro números (17, 32, 28, 14,3%) são
+               // medidos em po-zero/parte-III-redes, e o 17 é conferido por um
+               // segundo caminho: enumeração de todas as árvores geradoras.
+  "cap18.exC", // classifica quatro decisões de projeto de rede escritas em prosa.
+               // Não há modelo numérico; "ótimo" aparece na discussão de qual
+               // problema tem guloso ótimo e qual não tem.
+  "cap19.exA", // rede de fluxo com sete nós. O fluxo máximo (15) e a capacidade
+               // do corte (15) são medidos na mesma suíte, e o capítulo 19 os
+               // publica com teste que o lê.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");
