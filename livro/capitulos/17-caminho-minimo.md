@@ -147,8 +147,10 @@ A promessa desta Parte é **enxergar a rede** ([capítulo 16](16-grafos-e-redes.
 
 O primeiro é o mais útil e o menos óbvio. *"Quando trocar o caminhão?"* não tem cara de rede — mas
 uma política de troca **é** uma sequência de decisões ao longo do tempo, e toda sequência do ano 0
-ao ano 5 é um caminho. O mínimo desse grafo é a política mais barata, e sai em milissegundos de um
-problema que, enumerado, teria $2^5$ políticas.
+ao ano 5 é um caminho. O mínimo desse grafo é a política mais barata — e a tradução troca uma
+enumeração de políticas por um caminho mínimo num grafo de seis nós, que é o tipo de mudança de
+tamanho que o [capítulo 05](05-complexidade.md) trata. **Este handbook não cronometrou os dois**, e
+por isso não publica número.
 
 > **O terceiro merece um aviso, porque ele é a armadilha do capítulo.** Com **−log** da taxa,
 > multiplicar taxas vira somar pesos, e o caminho mínimo acha a melhor sequência de conversões. Só
