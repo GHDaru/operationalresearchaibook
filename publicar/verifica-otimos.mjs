@@ -216,6 +216,11 @@ const SEM_MODELO_DECLARADO = new Set([
                // po-zero/etapa-06-convexidade, com teste que lê esta rubrica.
   "cap38.exC", // cenário de consultoria sem modelo numérico; "ótimo" aparece só
                // na discussão do que a palavra `Optimal` significa num relatório.
+  "cap11.exE", // relatório hipotético de dois solvers num modelo de mistura que o
+               // exercício NÃO especifica — de propósito, porque o assunto é a
+               // inferência "mesmo valor, logo mesma solução", e não o modelo. Os
+               // números que ele cita (erro relativo, base igual) são conferidos
+               // em po-zero/etapa-05-parte2/test_revisado.py.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");

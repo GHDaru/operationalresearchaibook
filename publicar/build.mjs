@@ -241,6 +241,7 @@ const COMPANION_CAPS = [
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
   { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },
   { chave: "casos_especiais", rotulo: "Casos especiais e degenerescência", libera: 10 },
+  { chave: "simplex_revisado", rotulo: "Simplex revisado", libera: 11 },
   { chave: "dualidade", rotulo: "Dualidade e preço-sombra", libera: 12 },
   { chave: "sensibilidade", rotulo: "Análise de sensibilidade", libera: 13 },
   { chave: "pontos_interiores", rotulo: "Pontos interiores", libera: 14 },

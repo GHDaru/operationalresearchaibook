@@ -46,6 +46,10 @@ REGISTRO = [
      "descricao": "Ajudo a ler um veredito que não é um plano — inviável, ilimitado, mais de um "
                   "ótimo, vértice degenerado — e a decidir o que fazer com ele. Distingo defeito "
                   "de modelo de defeito de regra de pivoteamento."},
+    {"chave": "simplex_revisado", "rotulo": "Simplex revisado", "libera": 11, "tools": (),
+     "descricao": "Leio o Simplex em forma matricial com você — B, B⁻¹, custo reduzido como preço "
+                  "— e ajudo a distinguir estagnação de ciclagem e de lentidão. Cobro a escala dos "
+                  "seus dados antes de qualquer conversa sobre tolerância numérica."},
     {"chave": "dualidade", "rotulo": "Dualidade e preço-sombra", "libera": 12, "tools": (),
      "descricao": "Escrevo o dual com você, confiro a unidade de cada variável dual e leio o "
                   "preço-sombra no quadro final. Cobro a faixa de validade antes de deixar "

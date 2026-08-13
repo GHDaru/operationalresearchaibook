@@ -103,6 +103,8 @@ tamanho igual ao número de restrições.
 base. Negativo (num problema de maximizar, na convenção deste livro) significa que ainda há
 como melhorar; nenhum negativo é o critério de parada.
 
+**A leitura por preço**, que o [capítulo 11](capitulos/11-simplex-revisado.md) instala: o custo reduzido da coluna $j$ é $c_j - y^{\top}a_j$ — o que o produto **rende** menos o que ele **custa aos preços-sombra correntes**. Deixa de ser um resíduo de eliminações e passa a ter significado econômico: se sobra, vale a pena entrar no plano. Convenções de **sinal** variam entre implementações; confira a do seu relatório antes de interpretá-lo.
+
 **Pivoteamento.** Trocar uma variável da base por uma de fora, por eliminação de Gauss. No
 desenho, é andar por uma aresta até o vértice vizinho.
 

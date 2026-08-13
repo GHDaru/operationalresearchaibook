@@ -1069,3 +1069,50 @@ buraco está fechando.
 
 **Verificação:** nove portões verdes — `maturidade 🟡6 🔵0 ✅4`, `45 exercícios em 10 baterias` —,
 `32 passed` no `po-zero` e `24 passed` no backend.
+
+### Edição 0.23 — 2026-08-13 · Capítulo 11: a medição que contraria o folclore
+
+**Fecha a Parte II** e fecha o lote 1 da v0. É o único capítulo 🔵 **medido** do lote — todo número
+dele se regenera por experimento; falta a revisão independente para ✅.
+
+**Entrou:** [capítulo 11](capitulos/11-simplex-revisado.md) e a segunda metade da etapa 05, com o
+desenho da [ADR 0012](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0012-o-desenho-da-medicao-do-capitulo-11.md)
+marcado no código decisão por decisão (D1…D8).
+
+**O resultado contraria o que se costuma dizer, e entra assim.** A forma revisada ganha nas
+instâncias densas, com vantagem crescente em $n/m$ — **1,27× · 1,87× · 2,96×** — e **perde** em duas
+das três esparsas (**0,94×** e **0,75×**). A spec da rodada tinha se comprometido com isso antes de
+medir: *o livro não afirma ganho que o experimento não mostrar*.
+
+**E a explicação foi medida, não contada:** o **preenchimento**. Na "média esparsa" o quadro salta
+de 0,27 para 0,41 de densidade ao pivotear, fica caro de manter, e a revisada ganha; na "magra
+esparsa" ele quase não preenche (0,13 → 0,20), continua barato, e a revisada perde. A troca real é
+*manter tudo para poder ler* contra *não manter nada e recalcular*, e qual sai mais barato depende
+da instância.
+
+**Três garantias tornam o resultado inesperado acreditável**, e sem elas ele seria só suspeita de
+bug: concordância com a etapa 03 (publicada e **intocada**) como árbitro; **mesma trajetória de
+pivô** nas duas formas, provada em toda instância; e seis instâncias **congeladas antes** da
+primeira execução, com todas publicadas.
+
+**Dois resultados negativos, publicados como resultado.**
+
+1. **Nenhuma instância estagna** pelo limiar pré-declarado de 3 iterações consecutivas sem melhora
+   — nem a aleatória (veredito: *lentidão*), nem uma deliberadamente degenerada com cinco
+   restrições sobre o mesmo vértice. **O limiar não foi baixado** para o exemplo caber: baixá-lo
+   depois de ver o resultado é ajustar até ficar verde.
+2. **O ponto flutuante não mudou o veredito**: erro relativo de $1{,}1 \times 10^{-16}$, mesma base,
+   mesmas 30 iterações. E a lição está em **por que a base foi comparada separada do valor** — erro
+   pequeno no número não garante o mesmo plano.
+
+Os três negativos estão **asseverados em teste**. Se um dia a implementação mudar e a revisada
+passar a ganhar sempre, a suíte fica vermelha — o capítulo teria de ser reescrito, não
+silenciosamente corrigido.
+
+**Critérios da spec 008 medidos:** `wc -l` = **362** linhas contra o teto de 722 (A12); blocos de
+mecânica em **28,2%** das linhas contra o teto de 50% (A13); **cinco** exercícios, um por objetivo
+(A18); a caixa que fecha a ponte — *"solver nenhum faz isso"* — publicada (A16); e o verbete
+**custo reduzido** do glossário ganhou a leitura por preço, $c_j - y^{\top}a_j$ (A17).
+
+**Verificação:** nove portões verdes — `maturidade 🟡6 🔵1 ✅4`, `50 exercícios em 11 baterias` —,
+`40 passed` no `po-zero` e `24 passed` no backend.

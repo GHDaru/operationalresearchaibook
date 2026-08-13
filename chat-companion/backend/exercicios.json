@@ -2405,5 +2405,148 @@
     ],
     "erro_provavel": "Levar os R$ 9 milhões para a reunião porque \"foi o que o modelo deu\" e o status era `Optimal`. É o erro que fecha a Parte II, e ele resume o livro: `Optimal` é uma afirmação sobre **o problema que foi resolvido**, não sobre o problema que foi perguntado. Aqui o modelo resolveu com perfeição um problema em que se pode abrir meia estação, e esse problema não existe. O erro simétrico é descartar o 9 como inútil: ele é um **limitante inferior** legítimo e valioso — diz que nenhuma solução vai custar menos que isso, o que já permite recusar uma proposta de R$ 8 milhões sem fazer conta nenhuma.",
     "resposta_guia": "\"Abrir 1/2 estação\" não é executável, e a conta **não está errada**: o modelo relaxou para contínua uma variável que deveria ser binária e resolveu corretamente esse problema relaxado. A relação entre 9 e 10 é a de **limitante inferior**: como toda decisão binária também é viável no problema relaxado, o custo relaxado nunca supera o real — logo 9 ≤ 10 —, e neste caso o limite **não é atingível**. Na reunião: R$ 9 milhões não pode ser apresentado como orçamento, porque nenhuma decisão executável custa isso; R$ 10 milhões pode, porque corresponde a abrir as estações 2 e 3, uma escolha real e verificada. Arredondar para cima significa abrir as quatro, ao custo de 18 — quase o dobro do necessário —, e o caso ilustra por que arredondar não é estratégia: além de cara, ela não tem garantia geral nem de produzir solução viável. O que precisa mudar é a natureza da variável, que tem de ser binária; isso leva o problema para programação inteira, e o custo é real: em vez de resolver um problema linear, passa-se a depender de enumeração com poda, bem mais cara — em troca de uma resposta que se pode executar."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "media",
+    "titulo": "Custo reduzido como preço",
+    "enunciado": "No quadro final da montadora, a linha $z$ traz **50** sob as duas colunas de folga, e o plano é $(8,2)$ com lucro 1.100.\n\nO capítulo 09 chamou esses 50 de \"o que sobrou na linha $z$ depois das eliminações\". Este capítulo os chama de **preço**, e escreve o custo reduzido como $c_j - y^{\\top}a_j$.\n\n1. Identifique, na montadora, quem é $B$, quem é $c_B$ e quanto vale $y$.\n2. Um terceiro produto é proposto: consome **1 CPU e 1 pente**, e renderia **R$ 90**. Calcule o custo reduzido dele **sem** montar quadro nenhum. Ele entra no plano?\n3. Repita para um produto que consome **1 CPU e 2 pentes** e renderia **R$ 160**.\n4. Escreva, em uma frase de gerente, o que $c_j - y^{\\top}a_j$ significa.\n5. O capítulo diz que **solver nenhum calcula $B^{-1}$**. Se ninguém a calcula, o que significa o símbolo nas fórmulas acima?",
+    "criterios": [
+      "Identifica $B$ como a matriz das colunas básicas $x_1, x_2$, $c_B = (100, 150)$, e $y = (50, 50)$ — os preços que o quadro já exibia",
+      "Para o produto de 1 CPU e 1 pente: $90 - (50 + 50) = -10$. Custo reduzido negativo, **não entra** — ele consome R$ 100 de recurso para render 90",
+      "Para o de 1 CPU e 2 pentes: $160 - (50 + 100) = 10$. Positivo, **entraria** no plano e melhoraria o lucro",
+      "A frase de gerente diz algo como *\"o que o produto rende menos o que ele custa aos preços internos correntes\"* — e não \"o número que sobrou na conta\"",
+      "Explica que $B^{-1}$ é **notação**: guarda-se uma fatoração que permite resolver sistemas com $B$, e inverter de fato seria caro e numericamente ruim"
+    ],
+    "erro_provavel": "Calcular o custo reduzido dos produtos novos montando o quadro de novo. É a resposta certa pelo caminho que o capítulo existe para substituir — e ela não escala: com mil produtos candidatos, montar mil quadros é inviável, enquanto $c_j - y^{\\top}a_j$ é uma multiplicação por produto. O segundo erro é ler o custo reduzido negativo como \"o produto dá prejuízo\": ele **rende** R$ 90 e é lucrativo em si; o que ele não é, é lucrativo **em comparação com o que os mesmos recursos já rendem** — e essa comparação só existe porque os preços existem.",
+    "resposta_guia": "Na montadora, $B$ é a matriz com as colunas de $x_1$ e $x_2$ (as básicas no ótimo), $c_B = (100, 150)$ e $y = c_B^{\\top}B^{-1} = (50, 50)$ — exatamente os dois 50 que o quadro já mostrava sob as folgas. Para o produto que consome 1 CPU e 1 pente rendendo 90: $90 - (1 \\cdot 50 + 1 \\cdot 50) = -10$, negativo, então ele **não entra** — consome R$ 100 de recursos internos para render 90. Para o que consome 1 CPU e 2 pentes rendendo 160: $160 - (50 + 100) = 10$, positivo, e ele **entraria**, melhorando o plano. Em uma frase de gerente: *o custo reduzido é o que um produto rende menos o que ele custa aos preços internos que o meu próprio plano estabeleceu*. Sobre $B^{-1}$: o símbolo é notação. Nenhum solver inverte a matriz — guarda-se uma fatoração que permite **resolver sistemas** com $B$, o que é mais barato e numericamente muito melhor.",
+    "modelo": {
+      "rotulo": "montadora — a base de onde saem os preços",
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        100,
+        150
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          10
+        ],
+        [
+          1,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          8,
+          2
+        ],
+        "valor": 1100
+      }
+    }
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "dificil",
+    "titulo": "A promessa que o experimento não cumpriu",
+    "enunciado": "Um colega leu que \"a forma revisada é mais eficiente que o quadro\" e implementou as duas. Ele traz a medição do handbook e diz que deve haver bug:\n\n```\ninstância            m    n  dens A  quadro fim   iter  ops quadro  ops revis.  razão\nmédia densa          8   30    1.00        0.81     21        6100        3262   1.87\nmédia esparsa        8   30    0.27        0.41     17        1428        1065   1.34\nmagra densa         10  120    1.00        0.93     75      100990       34170   2.96\nmagra esparsa       10  120    0.13        0.20     32        1350        1809   0.75\n```\n\n1. Antes de procurar bug: que **três garantias** a medição precisa ter para que a última linha seja um resultado, e não um defeito? (Elas estão no capítulo.)\n2. Ordene as quatro linhas pela razão. Que variável explica a ordem — $m$, $n$, densidade de $A$, ou outra coisa?\n3. Compare `dens A` com `quadro fim` em cada linha. O que essa diferença mede, e como ela explica a última linha?\n4. Enuncie a troca entre as duas formas em uma frase que **não** dê vencedor universal.\n5. O colega quer \"consertar\" a forma revisada para ganhar sempre. O que você diz — e que mudança de implementação de fato mudaria o resultado?",
+    "criterios": [
+      "Nomeia as três garantias: concordância com um **árbitro independente**, **mesma trajetória de pivô** nas duas formas, e instâncias **congeladas antes** de olhar resultado",
+      "Percebe que nem $m$, nem $n$, nem a densidade de $A$ sozinhos explicam a ordem — o que explica é o **preenchimento**, a diferença entre a densidade inicial e a final do quadro",
+      "Lê o preenchimento corretamente: a 'média esparsa' salta de 0,27 para 0,41 e a revisada ganha; a 'magra esparsa' quase não preenche (0,13 → 0,20) e a revisada perde",
+      "Enuncia a troca sem vencedor: o quadro **mantém tudo para poder ler**, a revisada **não mantém nada e recalcula** — qual sai mais barato depende de quanto o quadro preenche",
+      "Aponta a mudança que importa: parar de guardar $B^{-1}$ **explícita** e usar a forma de produto da inversa (ou uma fatoração), que é o custo de $m^2$ por iteração que esta versão paga sem precisar"
+    ],
+    "erro_provavel": "Procurar o bug. É o reflexo natural quando um experimento contraria o que se esperava, e neste caso ele custa a lição inteira: as três garantias da medição — árbitro independente, trajetória de pivô idêntica, instâncias congeladas antes — existem justamente para que o resultado inesperado possa ser **acreditado**. Sem elas, qualquer número que desagrade vira suspeita de defeito, e qualquer número que agrade vira confirmação. O segundo erro é concluir \"então a forma revisada não presta\": ela ganha 2,96× na instância mais parecida com um problema real (muitas colunas), e o que a medição derruba não é o método — é a **generalização** de que ele ganha sempre.",
+    "resposta_guia": "As três garantias são: concordância com um árbitro independente (a etapa 03, publicada e intocada), **mesma trajetória de pivô** nas duas formas — sem isso as contagens mediriam caminhos diferentes e a comparação seria sobre a regra de pivoteamento — e instâncias congeladas **antes** da primeira execução, com todas publicadas. Ordenando pela razão: 2,96 · 1,87 · 1,34 · 0,75. Nem $m$, nem $n$, nem a densidade de $A$ explicam sozinhos; o que explica é o **preenchimento**, isto é, quanto o quadro deixa de ser esparso ao pivotear. A 'média esparsa' vai de 0,27 a 0,41 — quase o dobro de trabalho por iteração no fim — e ali a revisada ganha; a 'magra esparsa' vai de 0,13 a 0,20, quase não preenche, continua barata de manter, e ali a revisada perde. A troca, sem vencedor universal: *o quadro mantém tudo para poder ler; a forma revisada não mantém nada e recalcula o que precisa — e qual sai mais barato depende de quanto o quadro preenche*. Ao colega: não há o que consertar no experimento; o que mudaria o resultado é a implementação parar de guardar $B^{-1}$ explicitamente — é ela que paga $m^2$ por iteração independentemente da esparsidade, e é exatamente esse custo que a forma de produto da inversa foi inventada para evitar."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "De quem é a esparsidade",
+    "enunciado": "Um fornecedor de software apresenta o produto dele: *\"nosso solver é esparso — ele aproveita a estrutura do seu problema e por isso é mais rápido\"*.\n\n1. \"Nosso solver é esparso\" é uma frase bem formada? Se não, reescreva-a de modo que fique.\n2. De onde vem a esparsidade de um modelo de produção com 5.000 produtos e 800 componentes? Estime a densidade e justifique a estimativa.\n3. Duas empresas usam o mesmo solver, uma com modelo denso e outra com esparso. O solver \"é mais rápido\" para as duas?\n4. Que **pergunta** você faz ao fornecedor para transformar a propaganda em informação verificável?\n5. O capítulo afirma que o método \"não cria nem destrói\" a esparsidade, mas **decide se ela é aproveitada**. Dê um exemplo de cada metade dessa frase, a partir da medição do capítulo.",
+    "criterios": [
+      "Recusa a frase: esparsidade é propriedade da **matriz do modelo**, não do solver — a reescrita correta diz que o solver *aproveita* a esparsidade quando ela existe",
+      "Estima a densidade a partir do domínio: cada produto usa poucas dezenas dentre 800 componentes, então a densidade fica na casa de 1% a 3% — e justifica pela lista de materiais, não por chute",
+      "Responde que **não**: o mesmo solver não entrega o mesmo ganho nos dois casos, porque o ganho depende da estrutura do modelo de cada uma",
+      "Faz uma pergunta verificável — resultados em instâncias com a densidade **do meu** problema, ou a curva de tempo por densidade —, e não \"vocês têm benchmark?\"",
+      "Dá os dois exemplos a partir da medição: o método não cria esparsidade (a densidade de $A$ vem do modelo e é a mesma para as duas formas), e decide se ela é aproveitada (o quadro a **perde** ao preencher; a forma revisada trabalha sobre a coluna original, que continua esparsa)"
+    ],
+    "erro_provavel": "Aceitar a frase como abreviação inofensiva de \"nosso solver lida bem com problemas esparsos\". A abreviação transfere para o produto uma propriedade que é do **cliente**, e o efeito prático é impedir a única pergunta útil: *qual é a densidade do meu problema, e o que o solver de vocês faz nessa faixa?* Quem compra sem fazer essa pergunta descobre depois que o ganho anunciado existia, e existia para outra estrutura de dados que não a sua.",
+    "resposta_guia": "A frase não é bem formada: esparsidade é propriedade da **matriz de restrições do modelo**, e um solver não é esparso nem denso. A reescrita correta é *\"nosso solver aproveita a esparsidade quando ela existe\"*. Num modelo com 5.000 produtos e 800 componentes, a esparsidade vem da lista de materiais: cada produto consome poucas dezenas de componentes, digamos 10 a 25, então a densidade fica em torno de 1% a 3% — a estimativa sai do domínio, não de chute. O mesmo solver **não** é \"mais rápido\" para as duas empresas: o ganho depende da estrutura do modelo de cada uma. A pergunta que transforma propaganda em informação é *\"que resultados vocês têm em instâncias com densidade parecida com a minha, e como o tempo varia com a densidade?\"*. Quanto às duas metades: o método não cria nem destrói a esparsidade — a densidade de $A$ vem do modelo e é a mesma para as duas formas do capítulo; mas ele decide se ela é aproveitada — o quadro a **perde** ao pivotear, transformando zeros em não-zeros, enquanto a forma revisada calcula o custo reduzido sobre a coluna original, que permanece esparsa a execução inteira."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exD",
+    "variante": "D",
+    "tipo": "diagnosticar",
+    "objetivo": "O4",
+    "dificuldade": "dificil",
+    "titulo": "Quatrocentas iterações",
+    "enunciado": "Um modelo que costumava resolver em 40 iterações passou a levar 400. O time quer trocar de solver.\n\nAntes de trocar, você aplica o instrumento do capítulo. Ele registra, a cada iteração, o valor do objetivo e a base.\n\n1. Liste as **três** hipóteses possíveis e a medida que distingue cada uma das outras duas.\n2. O capítulo declara um limiar para \"estagnação\". Qual é, e por que **três** e não duas iterações?\n3. O instrumento reporta: nenhuma base repetida, 0 iterações sem melhora, 400 iterações. Qual é o veredito, e o que ele **descarta**?\n4. Nesse cenário, trocar de solver ajuda? E trocar a regra de pivoteamento?\n5. Este handbook **não conseguiu construir** uma instância que estagne pelo seu próprio limiar, nem sorteando nem empilhando cinco restrições sobre um mesmo vértice. Por que essa informação vale ser publicada, em vez de o limiar ser baixado até algum exemplo caber?",
+    "criterios": [
+      "Lista as três — **ciclagem** (uma base já visitada volta), **estagnação** (sequência sem melhora, sem repetição de base) e **lentidão** (muitas iterações, todas melhorando) — com a medida que separa cada uma: repetição de base, e melhora do objetivo entre iterações",
+      "Enuncia o limiar de **3 iterações consecutivas sem melhora** e justifica: um empate isolado é rotina em vértice degenerado, como o capítulo 10 mediu",
+      "Dá o veredito **lentidão**, e reconhece que ele descarta ciclagem e estagnação — o problema é de tamanho ou de caminho, não de o método travar",
+      "Responde que trocar de solver pode ajudar (implementações diferem) mas não é o diagnóstico; trocar a regra de pivoteamento **também** pode mudar o número de iterações, e nenhum dos dois tem relação com ciclagem, que foi descartada",
+      "Explica que publicar o negativo preserva o valor do limiar: baixá-lo depois de ver o resultado é ajustar até ficar verde, e um limiar escolhido para caber no exemplo não mede mais nada"
+    ],
+    "erro_provavel": "Diagnosticar \"o solver travou\" e trocar de ferramenta. É o mesmo reflexo do capítulo 10 e tem o mesmo antídoto: **o que é do modelo sobrevive à troca do método**. Com 400 iterações **todas melhorando**, não há travamento nenhum — há um caminho longo, que pode vir do tamanho do modelo, da regra de pivoteamento ou de uma mudança nos dados que ninguém registrou. O erro simétrico, mais sutil, é chamar de \"estagnação\" qualquer execução lenta: sem o limiar declarado, a palavra vira adjetivo, e adjetivos não distinguem fenômenos.",
+    "resposta_guia": "As três hipóteses são: **ciclagem**, que se detecta pela repetição de uma base já visitada; **estagnação**, uma sequência longa porém finita sem melhora do objetivo, sem repetição de base; e **lentidão**, muitas iterações com melhora em todas. As duas medidas que as separam são a repetição de base e a melhora do objetivo entre iterações consecutivas. O limiar declarado é de **3** iterações consecutivas sem melhora — três e não duas porque um empate isolado é rotina em vértice degenerado, como o capítulo 10 mediu, e uma régua de duas classificaria como estagnação o comportamento normal. Com nenhuma base repetida e nenhuma iteração sem melhora em 400, o veredito é **lentidão**, o que descarta tanto ciclagem quanto estagnação: o método não travou, ele está fazendo um caminho longo. Trocar de solver pode ajudar, porque implementações diferem, mas não é o diagnóstico; trocar a regra de pivoteamento também pode mudar o número de iterações — e nenhum dos dois tem a ver com ciclagem, que já foi descartada. Publicar o resultado negativo vale porque o limiar só significa alguma coisa enquanto for anterior ao resultado: baixá-lo até algum exemplo caber é ajustar até ficar verde, e um limiar escolhido para o exemplo deixa de medir."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exE",
+    "variante": "E",
+    "tipo": "julgar",
+    "objetivo": "O5",
+    "dificuldade": "dificil",
+    "titulo": "Diferença de 10⁻¹²",
+    "enunciado": "Dois solvers rodaram o mesmo modelo de mistura. O relatório diz:\n\n> *\"Ambos chegaram ao mesmo ótimo. A diferença no valor da função objetivo foi de $8 \\times 10^{-12}$, portanto desprezível.\"*\n\nA medição do handbook, na sua instância de teste, deu:\n\n```\nvalor exato: 965935/486   ·   valor em float: 1987.520576131687\nerro relativo: 1.144e-16  ·  mesma base ao final: True  ·  O VEREDITO MUDOU: False\n```\n\n1. A conclusão do relatório — \"portanto desprezível\" — está justificada pelo que ele mediu? O que falta?\n2. Por que a medição do handbook reporta a **base** separada do valor? O que uma diz que a outra não diz?\n3. Descreva um cenário concreto em que dois planos com o mesmo lucro até a décima casa são **decisões diferentes** para a empresa.\n4. O capítulo diz que a tolerância é \"decisão de modelagem\". Que informação do **modelo** você precisa para escolhê-la?\n5. O que acontece se a tolerância for apertada demais? E frouxa demais?",
+    "criterios": [
+      "Aponta que a conclusão não está justificada: o relatório comparou **valores** e concluiu sobre **soluções** — falta comparar as bases, ou os planos",
+      "Explica a separação: o valor diz quanto se ganha, a base diz **qual plano** produz esse ganho; duas bases diferentes com o mesmo valor são decisões diferentes",
+      "Dá um cenário concreto — por exemplo, dois planos de mesmo lucro que usam fornecedores, linhas ou turnos diferentes, com riscos e contratos distintos",
+      "Identifica a informação necessária: a **escala dos dados** do modelo — em que ordem de grandeza estão custos e coeficientes —, porque \"perto de zero\" só significa algo em relação a essa escala",
+      "Descreve os dois erros: apertada demais, o solver continua pivoteando por ruído numérico e pode não parar; frouxa demais, ele para antes do ótimo e **ninguém percebe**, porque o status continua dizendo `Optimal`"
+    ],
+    "erro_provavel": "Aceitar \"a diferença é desprezível, logo é a mesma solução\". A inferência troca uma afirmação sobre o **valor** por uma afirmação sobre a **solução**, e elas não são equivalentes: o capítulo 10 já tinha mostrado que um mesmo lucro pode ser produzido por planos diferentes — é o caso de múltiplos ótimos. Quando isso acontece, a escolha entre eles é feita pelo que o modelo não captura, e um relatório que só compara valores esconde exatamente a decisão que interessa. É também por isso que a medição do handbook compara a base: um erro na décima terceira casa que **não** muda a base é uma notícia muito melhor do que um erro pequeno que muda.",
+    "resposta_guia": "A conclusão não está justificada: o relatório mediu **valores** e concluiu sobre **soluções**. Falta comparar as bases — ou, em linguagem de negócio, os planos. É por isso que a medição do handbook reporta a base separada: o valor diz quanto se ganha, a base diz **qual plano** produz esse ganho, e dois planos diferentes podem render o mesmo lucro até a última casa que se olhou. Um cenário concreto: dois planos de mesma margem em que um concentra a compra num único fornecedor e o outro a divide entre dois — mesmo lucro, riscos de contrato completamente diferentes; ou dois planos que usam turnos diferentes, com implicações de escala de pessoal. Para escolher a tolerância é preciso saber a **escala dos dados do modelo**: se os custos estão na casa dos milhões, $10^{-9}$ é ruído; se estão na casa dos centavos, é diferença real — \"perto de zero\" só significa algo em relação à ordem de grandeza do problema. Apertada demais, a tolerância faz o solver continuar pivoteando por ruído numérico e possivelmente não parar; frouxa demais, ele para antes do ótimo e **ninguém percebe**, porque o status continua sendo `Optimal`."
   }
 ]
