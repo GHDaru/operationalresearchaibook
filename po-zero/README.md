@@ -1,6 +1,8 @@
 # po-zero — a construção prática
 
-> **Conteúdo revisado em 2026-08.** Uma etapa por capítulo de método. Roda em CPU, sem licença
+> **Conteúdo revisado em 2026-08.** Uma etapa por **Parte** do livro — a regra era por capítulo até 2026-08-12, quando a
+> [ADR 0013](../adr/0013-o-que-e-a-v0.md) (D3) a trocou: o que o Princípio IV exige é que
+> **resultado publicado tenha artefato que o regenere**, não uma pasta por capítulo. Roda em CPU, sem licença
 > paga.
 
 O handbook não afirma número que não saiba regenerar. O `po-zero` é onde essa regra vira

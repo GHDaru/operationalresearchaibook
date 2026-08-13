@@ -1308,5 +1308,11 @@ filtro `paths:` não incluía o diretório e não havia passo que os executasse 
 sustentam o selo 🔵 nunca tinham rodado lá. Consertado **antes** do primeiro caderno, porque
 acrescentar artefato novo a um pipeline que não cobre o antigo é multiplicar o buraco.
 
-**Dívida quitada de quebra:** o `po-zero/README.md` ainda dizia "uma etapa por capítulo de método",
-contradizendo a ADR 0013 D3, que mudou a unidade para a Parte.
+**Dívida quitada de quebra:** o `po-zero/README.md` ainda dizia "Uma etapa por capítulo de
+método", contradizendo a ADR 0013 D3, que mudou a unidade para a **Parte**.
+
+> **Nota de método, porque o episódio é instrutivo.** A primeira tentativa de corrigir usou a
+> frase que o parecer citou, em minúscula, e substituiu **zero** ocorrências — o texto real começa
+> com maiúscula. O `replace` silencioso teria passado despercebido se o script não imprimisse a
+> contagem, e esta edição já estaria publicando "dívida quitada" com a dívida intacta. **Toda
+> substituição deste repositório imprime quantas casou**, e é por isso.
