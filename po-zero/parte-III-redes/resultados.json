@@ -23,7 +23,6 @@
       "bellman_ford": "4",
       "caminho_que_dijkstra_devolve": [
         "A",
-        "C",
         "B",
         "D"
       ]

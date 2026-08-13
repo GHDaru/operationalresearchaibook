@@ -132,6 +132,20 @@ vezes**, com semente declarada:
 > mudaria os números desta página; o que **não** mudaria é a separação da seção seguinte, porque ela
 > compara duas medições feitas nos mesmos sorteios.
 
+> **Até onde estes dígitos carregam.** Os números acima vêm de **uma** semente, e simulação tem
+> ruído. Repetindo com seis sementes diferentes, a faixa medida é:
+>
+> | | Faixa entre sementes |
+> |---|---|
+> | Duração média | **24,43 a 24,51** |
+> | Probabilidade de estourar | **81,83% a 83,06%** |
+> | Viés do método | **0,475 a 0,509** |
+>
+> Ou seja: **o segundo dígito carrega e o terceiro não.** "Cerca de 24,5 dias" e "cerca de 82%" é o
+> que a medição sustenta; o `24,48` está publicado por ser exatamente reprodutível com a semente
+> declarada, não por ter três dígitos de precisão. O viés, sim, sobrevive às duas casas — e a seção
+> seguinte explica por quê.
+
 **Duas causas diferentes produzem esse desvio, e só uma é defeito do método.** Misturá-las daria
 um número grande e sem significado, então elas foram separadas:
 
@@ -182,8 +196,25 @@ Medido, com **controle**:
 | 8 | 4,45 | 99,6% |
 
 **A linha de um ramo tem de dar zero, e dá.** Sem paralelismo, a duração do projeto **é** a do
-caminho declarado — o viés não existe por construção. Dar exatamente zero é o que prova que a
-isolação está correta.
+caminho declarado — o viés não existe por construção.
+
+> **E é justamente por ser "por construção" que esse controle prova menos do que parece.** Com um
+> ramo só, a diferença pareada é zero **em toda amostra**, aconteça o que acontecer: esse controle
+> não tem como falhar, e um controle que não pode falhar não controla nada. Ele confirma que a
+> soma ao longo de uma cadeia está certa — útil, e bem menos do que "a isolação está correta".
+>
+> O controle que **pode** falhar é outro, e foi medido: dois ramos paralelos com médias muito
+> desiguais — um de 40 dias, outro de 15 — e **faixas que se sobrepõem**, de modo que o ramo curto
+> vença de vez em quando. Aí o viés tem de ser **positivo e pequeno**, e é: **0,0618**. Zero
+> indicaria que o segundo ramo não entrou na conta; um número grande indicaria erro no
+> experimento.
+>
+> **A primeira tentativa deste controle também não podia falhar**, e vale contar por quê: as faixas
+> escolhidas foram (30, 40, 55) e (2, 5, 9), que **não se cruzam**. O ramo curto nunca vencia, o
+> viés dava 0,0 por construção, e o controle escrito para substituir um controle tautológico era
+> tautológico exatamente pelo mesmo motivo. **Sobreposição de faixas é o que lhe dá dentes** — e
+> quem escreve controle precisa perguntar, antes de rodar, o que exatamente o faria dar diferente
+> de zero.
 
 E repare na coluna da direita na primeira linha: **mesmo sem nenhum paralelismo, a estimativa
 estoura em 76,5% das amostras.** Essa parte não é viés de convergência — é a fórmula da média não
@@ -194,7 +225,7 @@ descrever o que vai acontecer.
 > **[Abrir a Parte III no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)** · fonte em
 > [`po-zero/cadernos/parte-III.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)
 >
-> Lá dentro você **estima o viés antes de medi-lo** — e depois mexe no número de ramos paralelos, começando pelo controle de um ramo, que tem de dar exatamente zero. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
+> Lá dentro você **estima o viés antes de medi-lo** — e depois mexe no número de ramos paralelos, começando pelo controle de um ramo, que dá zero por construção. O caderno **não contém o algoritmo**: chama o código publicado, que o `pytest` já
 > verifica ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
 
 ## Quando não serve
@@ -279,7 +310,9 @@ simulação é a ordem que funciona.
 - **A fórmula do PERT publica 21 dias; o projeto leva 24,48 e estoura em 82,3% das amostras.**
 - **Duas causas produzem esse desvio, e só uma é do método.** Separadas nas mesmas amostras, o
   viés é **0,49**, não 3,5.
-- **O viés cresce com caminhos paralelos**, e o controle de um ramo dá exatamente zero — que é o
+- **O viés cresce com caminhos paralelos.** O controle de um ramo dá zero **por construção** e por
+  isso prova pouco; o controle que pode falhar — dois ramos desiguais com faixas que se cruzam —
+  dá **0,0618**, positivo e pequeno, que é o
   que prova a isolação.
 - **Mesmo sem paralelismo, a estimativa estoura em 76,5%** das amostras: média não é promessa.
 - **Com incerteza, o caminho crítico é aleatório.** Falar de "o" caminho crítico é simplificação.
@@ -311,8 +344,10 @@ que elas foram **separadas nas mesmas amostras** — medindo, para cada sorteio,
 projeto e a duração do caminho declarado crítico antes de sortear. O viés próprio do método é
 **0,49 dia**, e não os ~3,5 da comparação ingênua; o resto vem da distribuição amostrada não ter a
 mesma média que a fórmula supõe, o que é escolha de modelagem. O viés cresce com o número de
-caminhos paralelos — 1,71 com dois ramos, 4,45 com oito —, e o **controle** de um ramo só dá
-exatamente zero, que é o que prova a correção da isolação. Vale notar que, mesmo sem paralelismo
+caminhos paralelos — 1,71 com dois ramos, 4,45 com oito. O **controle** de um ramo só dá zero, mas
+dá zero *por construção* e por isso prova pouco; o controle que **pode** falhar — dois ramos
+desiguais com faixas que se sobrepõem — dá **0,0618**, positivo e pequeno, e é ele que sustenta a
+correção da isolação. Vale notar que, mesmo sem paralelismo
 nenhum, a estimativa estoura em 76,5% das amostras: **média não é promessa**. Por fim, o modelo não
 serve quando as durações são correlacionadas, quando a restrição real é de recurso e não de
 precedência — três tarefas "paralelas" feitas pela mesma pessoa não são paralelas —, e quando o que

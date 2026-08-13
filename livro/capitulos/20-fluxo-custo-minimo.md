@@ -155,6 +155,28 @@ rede. A propriedade não é do assunto; é da **forma das restrições**.
 > ser inteira, aí sim declare a variável como inteira — e assuma o custo, sabendo por que está
 > pagando.
 
+### Mas "transversal" não basta — e a diferença é o coeficiente
+
+A regra acima é um bom alerta e uma previsão ruim, e vale medir o próprio alerta. Três restrições
+**igualmente transversais**, na mesma instância:
+
+| A restrição acrescentada | Custo ótimo | Embarques fracionários |
+|---|---|---|
+| Nenhuma | **220** | **0** |
+| `2·(f1→loja_a) + 3·(f2→loja_b) ≤ 100` — o pátio | **223,33** | **4** |
+| `1·(f1→loja_a) + 1·(f2→loja_b) ≤ 35` | **230** | **0** |
+| `total da fabrica_1 ≤ 40% do total` | **220** | **0** |
+
+**As três atravessam a estrutura, e só uma quebra a integralidade.** O que separa a segunda linha
+da terceira não é a transversalidade: é o **coeficiente**. Somar arestas com peso 1 preserva a
+unimodularidade em muitos casos; pesar 2 e 3 destrói.
+
+> **A leitura correta, então, é esta:** ser transversal é **necessário** para perder a
+> integralidade, e **não é suficiente**. Você não tem como saber pelo formato da restrição — tem de
+> **olhar a saída**. E é por isso que a regra prática é "desconfie", e não "conclua": a desconfiança
+> manda você conferir, e conferir é barato. O caso da terceira linha é o mais perigoso dos três,
+> porque ele **funciona** — e funcionar por acaso é o que ensina a generalizar errado.
+
 > ### ▶ Rode você mesmo
 >
 > **[Abrir a Parte III no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-III.ipynb)** · fonte em
@@ -284,8 +306,9 @@ em cada nó sendo montada na tela.
 2. Um colega diz que o transporte "dá inteiro porque os custos são inteiros". Corrija, e diga do
    que a garantia de fato depende. *(O2)*
 3. Um modelo de distribuição começou de rede e alguém acrescentou *"o total enviado pela frota
-   terceirizada não pode passar de 40% do total"*. O que você espera que aconteça, e o que faz?
-   *(O3)*
+   terceirizada não pode passar de 40% do total"*. Essa restrição é de rede? E a integralidade
+   sobrevive a ela? **Cuidado: as duas perguntas têm respostas diferentes**, e a segunda só se
+   responde olhando a saída. *(O3)*
 
 ### Leitura executiva
 

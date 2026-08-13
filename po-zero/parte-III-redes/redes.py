@@ -461,6 +461,63 @@ def transporte_com_estrutura_quebrada() -> dict:
     }
 
 
+def transversal_nem_sempre_quebra() -> list[dict]:
+    """Ser transversal é **necessário e não suficiente** para perder a integralidade.
+
+    A regra prática do capítulo 20 — *"desconfie de toda restrição que soma
+    arestas de nós diferentes"* — está certa como alerta e é grosseira demais
+    como previsão. Medido nesta instância, três restrições igualmente
+    transversais dão resultados diferentes:
+
+      · coeficientes **2 e 3** (o pátio do capítulo)  → 4 embarques fracionários
+      · coeficientes **1 e 1**                        → tudo inteiro
+      · um percentual do total (40% de uma fábrica)   → tudo inteiro
+
+    O que separa as duas primeiras não é a transversalidade: é o **coeficiente**.
+    Somar arestas com peso 1 preserva a unimodularidade em muitos casos; pesar
+    2 e 3 destrói. Esta medição existe porque um exercício de Verificação do
+    capítulo 20 pedia ao leitor que previsse a quebra num caso — o dos 40% — em
+    que ela **não acontece**.
+    """
+    import pulp
+
+    origens, destinos = sorted(OFERTA), sorted(DEMANDA)
+
+    def resolve(nome: str, extra) -> dict:
+        p = pulp.LpProblem("transversal", pulp.LpMinimize)
+        x = {(o, d): pulp.LpVariable(f"x_{o}_{d}", lowBound=0)
+             for o in origens for d in destinos}
+        p += pulp.lpSum(float(CUSTO[(o, d)]) * x[(o, d)] for o in origens for d in destinos)
+        for o in origens:
+            p += pulp.lpSum(x[(o, d)] for d in destinos) <= float(OFERTA[o])
+        for d in destinos:
+            p += pulp.lpSum(x[(o, d)] for o in origens) >= float(DEMANDA[d])
+        if extra is not None:
+            extra(p, x)
+        status = pulp.LpStatus[p.solve(pulp.HiGHS(msg=False))]
+        assert status == "Optimal", f"{nome} deu {status}, e o experimento exige modelo viável"
+        valores = {k: v.value() for k, v in x.items()}
+        frac = [k for k, v in valores.items() if abs(v - round(v)) >= 1e-6]
+        return {"caso": nome, "status": status,
+                "custo": round(pulp.value(p.objective), 4),
+                "fracionarios": len(frac), "todos_inteiros": not frac}
+
+    def patio(p, x):
+        p += 2 * x[("fabrica_1", "loja_a")] + 3 * x[("fabrica_2", "loja_b")] <= 100
+
+    def coeficiente_um(p, x):
+        p += x[("fabrica_1", "loja_a")] + x[("fabrica_2", "loja_b")] <= 35
+
+    def percentual(p, x):
+        p += pulp.lpSum(x[("fabrica_1", d)] for d in destinos) <= \
+             0.4 * pulp.lpSum(x[(o, d)] for o in origens for d in destinos)
+
+    return [resolve("sem restrição transversal", None),
+            resolve("coeficientes 2 e 3 (o pátio)", patio),
+            resolve("coeficientes 1 e 1", coeficiente_um),
+            resolve("percentual do total (40%)", percentual)]
+
+
 # ---------------------------------------------------------------------------
 # 4. CPM E PERT — o caminho crítico, e o viés que o método publica
 # ---------------------------------------------------------------------------
@@ -935,6 +992,69 @@ def varredura_de_ramos() -> list[dict]:
         saida.append({"ramos": k, "merge_bias": s["merge_bias"],
                       "prob_de_estourar": s["prob_de_estourar_a_estimativa_do_pert"]})
     return saida
+
+
+def controle_com_ramo_dominante() -> dict:
+    """O controle que o de `k = 1` não é, e a revisão apontou com razão.
+
+    Com um ramo só, `rede_com_ramos(1)` constrói exatamente a cadeia que o
+    caminho declarado percorre, então a diferença pareada é **identicamente
+    zero em toda amostra**, por construção. Ele prova que `caminho_critico`
+    soma uma cadeia direito — coisa útil, e bem mais fraca do que "a isolação
+    está correta". Um controle que não pode falhar não controla nada.
+
+    Este aqui pode falhar. São **dois** ramos paralelos com médias muito
+    desiguais — um de 40 dias, outro de 15 — mas com **faixas que se
+    sobrepõem**: o curto vai até 45 e o longo começa em 30. O ramo longo decide
+    o `max` na maioria esmagadora das amostras, e o curto vence de vez em
+    quando, então o viés tem de ser **positivo e pequeno**. Viés grande
+    indicaria erro no experimento; viés exatamente zero indicaria que o segundo
+    ramo não está entrando na conta.
+
+    A primeira versão deste controle **também não podia falhar**, e o erro é
+    instrutivo o bastante para ficar registrado: as faixas eram (30, 40, 55) e
+    (2, 5, 9), que **não se cruzam** — o máximo do curto é 9 e o mínimo do longo
+    é 30. O ramo curto nunca vencia, o viés dava 0,0 por construção, e o
+    controle escrito para substituir um controle tautológico era tautológico
+    pelo mesmo motivo. Sobreposição de faixas é o que dá dentes a ele.
+    """
+    tarefas = {"especificar": (F(5), []),
+               "ramo_longo": (F(40), ["especificar"]),
+               "ramo_curto": (F(15), ["especificar"]),
+               "integrar": (F(3), ["ramo_longo", "ramo_curto"])}
+    faixas = {"especificar": (4, 5, 12),
+              "ramo_longo": (30, 40, 55),
+              "ramo_curto": (2, 8, 45),
+              "integrar": (2, 3, 10)}
+    declarado = ["especificar", "ramo_longo", "integrar"]
+    s = pert_por_simulacao(faixas, tarefas, declarado, AMOSTRAS_VARREDURA_PERT, SEMENTE)
+    return {"merge_bias": s["merge_bias"],
+            "positivo": s["merge_bias"] > 0,
+            "pequeno": s["merge_bias"] < 1,
+            "amostras": s["amostras"]}
+
+
+def sensibilidade_a_semente(sementes: int = 6) -> dict:
+    """Quanto do último dígito publicado é sinal, e quanto é sorteio.
+
+    O capítulo 22 publica 24,48 · 82,3% · 0,49 de uma **única** semente. Estes
+    números têm três dígitos significativos, e nem todos os três carregam. Esta
+    varredura mede a faixa entre sementes para que a página possa dizer, com
+    número, até onde o leitor deve confiar.
+    """
+    pf = pert_pela_formula(FAIXAS, PROJETO)
+    medias, estouros, vieses = [], [], []
+    for i in range(sementes):
+        s = pert_por_simulacao(FAIXAS, PROJETO, pf["criticas"],
+                               AMOSTRAS_VARREDURA_PERT, SEMENTE + i)
+        medias.append(s["projeto"]["media"])
+        estouros.append(s["prob_de_estourar_a_estimativa_do_pert"])
+        vieses.append(s["merge_bias"])
+    faixa = lambda xs, n: [round(min(xs), n), round(max(xs), n)]  # noqa: E731
+    return {"sementes": sementes, "amostras_por_semente": AMOSTRAS_VARREDURA_PERT,
+            "media_do_projeto": faixa(medias, 2),
+            "prob_de_estourar": faixa(estouros, 4),
+            "merge_bias": faixa(vieses, 3)}
 
 
 AQUI = Path(__file__).resolve().parent

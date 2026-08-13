@@ -762,3 +762,61 @@ def test_as_tabelas_do_capitulo_22_sao_a_instancia_medida(texto22):
         linha = rf"\|\s*`{tarefa}`\s*\|\s*{o}\s*\|\s*{m_}\s*\|\s*{p}\s*\|"
         assert re.search(linha, texto22), \
             f"as três estimativas de {tarefa} ({o}, {m_}, {p}) não conferem com o capítulo 22"
+
+
+# ===========================================================================
+# OS TRÊS REFINAMENTOS DA SEGUNDA REVISÃO
+# ===========================================================================
+
+from redes import (controle_com_ramo_dominante, sensibilidade_a_semente,  # noqa: E402
+                   transversal_nem_sempre_quebra)
+
+
+def test_ser_transversal_nao_basta_para_quebrar_a_integralidade(texto20):
+    """A regra prática do capítulo era boa como alerta e ruim como previsão.
+
+    Três restrições igualmente transversais, e só uma quebra. O que separa não
+    é a transversalidade: é o coeficiente. Este teste existe porque um
+    exercício de Verificação pedia ao leitor que previsse a quebra num caso —
+    o dos 40% — em que ela não acontece.
+    """
+    r = {c["caso"]: c for c in transversal_nem_sempre_quebra()}
+
+    assert r["coeficientes 2 e 3 (o pátio)"]["fracionarios"] == 4
+    assert r["coeficientes 1 e 1"]["todos_inteiros"] is True, \
+        "o coeficiente 1 passou a quebrar a integralidade — a tabela do capítulo 20 muda"
+    assert r["percentual do total (40%)"]["todos_inteiros"] is True, \
+        "o caso dos 40% passou a quebrar — o exercício 3 da Verificação volta a fazer sentido"
+
+    for caso in r.values():
+        custo = f"{caso['custo']:.2f}".rstrip("0").rstrip(".").replace(".", ",")
+        assert f"**{custo}**" in texto20, f"o custo de «{caso['caso']}» não confere: {custo}"
+    assert "é **necessário** para perder a" in texto20
+
+
+def test_o_controle_que_pode_falhar_da_positivo_e_pequeno(texto22):
+    """O controle honesto, e a razão de o de `k=1` não servir.
+
+    Com um ramo só a diferença pareada é zero em toda amostra, por construção —
+    não tem como falhar. Aqui os dois ramos têm faixas que **se sobrepõem**, e
+    é isso que dá dentes ao controle: o ramo curto vence de vez em quando.
+    """
+    c = controle_com_ramo_dominante()
+    assert c["positivo"] is True, \
+        "o controle voltou a dar zero — as faixas dos dois ramos pararam de se cruzar"
+    assert c["pequeno"] is True, "o viés do controle ficou grande demais para ser controle"
+    assert f"**{c['merge_bias']:.4f}".replace(".", ",")[:8] in texto22 or \
+           f"**{c['merge_bias']}**".replace(".", ",") in texto22, \
+        f"o viés do controle não está publicado: {c['merge_bias']}"
+
+
+def test_o_capitulo_22_declara_ate_onde_o_digito_carrega(texto22):
+    """Publicar 82,3% de uma semente só implica precisão que a simulação não tem."""
+    f = sensibilidade_a_semente()
+    lo, hi = f["media_do_projeto"]
+    assert f"**{lo:.2f} a {hi:.2f}**".replace(".", ",") in texto22, \
+        f"a faixa da média entre sementes não confere: {lo} a {hi}"
+    lo, hi = f["prob_de_estourar"]
+    assert f"**{lo * 100:.2f}% a {hi * 100:.2f}%**".replace(".", ",") in texto22, \
+        f"a faixa da probabilidade não confere: {lo} a {hi}"
+    assert "o segundo dígito carrega e o terceiro não" in texto22

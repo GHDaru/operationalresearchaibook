@@ -1935,3 +1935,79 @@ reintroduzir os defeitos documentados e exigir vermelho:
    leitor possa abrir.
 
 Ele encontrou, de saída, dois defeitos fora da Parte III: o capítulo 07 e o gabarito de `cap17.exC`.
+
+### Edição 0.43 — 2026-08-13 · A segunda revisão derruba duas afirmações centrais
+
+Revisão independente com **lente de medição** — campanha de mutação, implementações de referência,
+reprodução da busca declarada. Dois bloqueantes, e os dois do tipo pior: **afirmação conferível que
+não sobrevive à conferência**. Os dois reconferidos por medição própria antes de virar correção.
+
+**A contradição do Dijkstra era artefato da implementação.** O capítulo 17 afirmava que o método
+*"devolve uma resposta que contradiz a si mesma"* e que *"não há erro, não há aviso, não há exceção
+lançada"*. Medido na mesma instância:
+
+| | Distância | Caminho devolvido custa | |
+|---|---|---|---|
+| com a guarda do nó fechado | 6 | 6 | erra, **coerente** |
+| sem a guarda (a que estava no repositório) | 6 | 4 | **contradiz a si mesma** |
+| com fila de prioridade | 4 | 4 | **acerta**, por acidente |
+| `networkx` 3.6.1 | — | — | **levanta exceção** |
+
+A contradição vinha de um `if` que faltava: a relaxação escrevia em nó já fechado e corrompia a
+árvore de predecessores. E o "silêncio" era falso — biblioteca consagrada avisa.
+
+**O agravante é sobre teste, e é a lição da rodada.** O teste
+`test_a_saida_de_dijkstra_contradiz_a_si_mesma` existia para impedir que o contraexemplo morresse —
+e por isso **trancava o artefato**, obrigando o capítulo a descrever um defeito como propriedade do
+método. Um teste preserva um erro com o mesmo zelo com que preservaria um acerto: **o que ele
+garante é estabilidade, não verdade.** Está registrado no cabeçalho da suíte, para quem vier depois.
+
+A correção não enfraqueceu o capítulo. A lição publicada agora é melhor e é verdadeira: **três
+coisas chamadas "Dijkstra" dão três respostas** assim que a hipótese cai, e *"usei Dijkstra"* não
+descreve o que foi executado. A `networkx` entrou em `requirements.txt` — é a única dependência
+deste handbook que existe para **contradizer** o handbook.
+
+**A procedência da instância do roteiro era falsa.** O capítulo 18 dizia que a instância veio de
+*"uma busca sobre 4.000 grafos, tomando a de maior perda relativa"* — numa caixa que se gabava de
+honestidade. O código da busca **não existia**; só a prosa. Reconstruído e medido: a instância
+publicada é o **sorteio nº 3**, com perda de 14,3%, enquanto a de maior perda é o 1867, com 150%, e
+**848 das 4.000** perdem tanto quanto ou mais. A regra de seleção narrada nunca foi aplicada.
+
+Afirmação de procedência que é conferível e falha na conferência é **pior que número sem fonte** —
+porque convida à conferência e a decepciona.
+
+A busca agora existe, e trouxe o que o capítulo devia ao leitor: a **distribuição**. Mediana da
+perda **0%**; o guloso é **ótimo em 55,93%** das instâncias. Publicar só o caso em que ele perde
+14,3% distorcia — e a lição foi deslocada para onde é verdadeira: **o problema do guloso não é
+errar muito, é não ter como avisar**.
+
+**Duas asserções não conseguiam falhar.** O custo 223,33 tinha um `or "223,33"` literal, que passava
+mesmo se a medição mudasse; e os fracionários comparavam só o nome da rota, descartando o valor — é
+por isso que 1,67 · 3,33 · 23,33 · 6,67 estavam sem dono **apesar de parecerem cobertos**.
+
+**Os dados de entrada ganharam dono.** Todo teste conferia *resultado*; nenhum conferia a
+**definição** da instância — que é o que o leitor usa para refazer a conta à mão, e onde o defeito
+do diagrama do capítulo 19 nasceu. As seis instâncias passam a ser conferidas célula por célula.
+Campanha de mutação: **6 de 6 pegas**.
+
+**Três refinamentos que não bloqueavam e melhoram o livro.**
+
+*Ser transversal não basta.* Três restrições igualmente transversais: coeficientes 2 e 3 quebram a
+integralidade, coeficiente 1 não quebra, e um percentual do total não quebra. O que separa não é a
+transversalidade — é o **coeficiente**. Um exercício de Verificação pedia ao leitor que previsse a
+quebra justamente no caso em que ela não acontece.
+
+*Até onde o dígito carrega.* Entre seis sementes, a duração média varia de 24,43 a 24,51 e a
+probabilidade de estouro de 81,83% a 83,06%. **O segundo dígito carrega e o terceiro não** — e agora
+a página diz isso.
+
+*O controle que não podia falhar.* O controle de um ramo dá zero **por construção**, então prova
+menos do que o capítulo afirmava. Foi acrescentado um que pode falhar: dois ramos desiguais com
+faixas sobrepostas, viés **0,0618** — positivo e pequeno.
+
+E aqui a rodada repetiu o próprio defeito que estava corrigindo, o que vale mais registrado do que
+escondido: **a primeira versão desse novo controle também não podia falhar.** As faixas escolhidas
+foram (30, 40, 55) e (2, 5, 9) — que não se cruzam. O ramo curto nunca vencia, o viés dava 0,0 por
+construção, e o controle escrito para substituir um controle tautológico era tautológico pelo mesmo
+motivo. Só a medição pegou. **Quem escreve controle precisa perguntar, antes de rodar, o que
+exatamente o faria dar diferente de zero** — e essa pergunta agora está escrita no capítulo 22.
