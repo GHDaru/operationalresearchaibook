@@ -46,6 +46,10 @@ REGISTRO = [
      "descricao": "Ajudo a ler um veredito que não é um plano — inviável, ilimitado, mais de um "
                   "ótimo, vértice degenerado — e a decidir o que fazer com ele. Distingo defeito "
                   "de modelo de defeito de regra de pivoteamento."},
+    {"chave": "dualidade", "rotulo": "Dualidade e preço-sombra", "libera": 12, "tools": (),
+     "descricao": "Escrevo o dual com você, confiro a unidade de cada variável dual e leio o "
+                  "preço-sombra no quadro final. Cobro a faixa de validade antes de deixar "
+                  "qualquer decisão de compra sair do preço."},
     {"chave": "simplex", "rotulo": "Simplex de quadro", "libera": 9, "tools": (),
      "descricao": "Acompanho o quadro iteração a iteração: quem entra, quem sai pelo teste da "
                   "razão, e em que vértice cada quadro põe você. Confiro o seu pivoteamento — "

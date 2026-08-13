@@ -10,9 +10,17 @@ Publicar o mapa antes do conteúdo é decisão editorial, não descuido. Um hand
 
 | Selo | Significa |
 |---|---|
-| ✅ | Publicado |
+| ✅ | Publicado e **verificado** — medido, revisto em contexto fresco, portões provados quebrando |
+| 🔵 | Publicado e **medido** — todo número se regenera por experimento; sem revisão independente ainda |
+| 🟡 | Publicado em **v0** — esqueleto completo, exercícios e origem com procedência; ainda sem revisão independente |
 | 🚧 | Próxima rodada — já com escopo definido no [roadmap](../ROADMAP.md) |
 | ⬜ | Vaga declarada, ainda não escrita |
+
+Os três primeiros selos são a mesma escada que aparece no alto de cada capítulo, e ela é
+**verificada por máquina** ([ADR 0013](../adr/0013-o-que-e-a-v0.md), D2): o selo declarado no
+sumário tem de bater com o exibido na página, e o build falha se divergirem. Um capítulo em v0
+**não** recebe ✅ aqui — o mapa é promessa institucional, e ✅ mentiroso seria o pior artefato
+deste repositório.
 
 O fundamento do recorte — por que estas partes, nesta ordem — está no [estudo do corpo de conhecimento](../estudos/001-corpo-de-conhecimento-po.md).
 
@@ -61,7 +69,7 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 | ✅ | 09 — O método Simplex | O algoritmo por dentro: base, pivoteamento, critério de entrada e saída, e a partida artificial por *big-M*. |
 | ✅ | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
 | 🚧 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
-| ⬜ | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. |
+| 🟡 | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. **A faixa de validade do preço vem junto** — citá-lo sem ela é o erro caro da Parte II. |
 | ⬜ | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. **Recebe as regras de precificação** (*Dantzig*, *steepest edge*, *devex*), remetidas do capítulo 11 por decisão editorial de 2026-08-12. |
 | ⬜ | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
 | ⬜ | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |

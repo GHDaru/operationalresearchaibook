@@ -1353,5 +1353,307 @@
     ],
     "erro_provavel": "Aceitar \"resolvido\" porque o sintoma visível desapareceu. É o erro que o capítulo inteiro combate, e ele é confortável: alguém trocou uma peça, a travada acabou, todo mundo volta ao trabalho. Mas a troca de regra respondeu a uma pergunta e revelou outra — **por que este modelo é tão degenerado?** Os empates que sobraram apontam para restrições redundantes que ninguém removeu, e para preços-sombra que a próxima reunião vai ler como se fossem confiáveis.",
     "resposta_guia": "O teste separa as duas coisas: a travada sumiu quando a regra mudou, com o modelo intacto — era defeito do **método**. Os empates no teste da razão sobreviveram à troca — são do **modelo**, e indicam vértices degenerados, provavelmente por restrições redundantes. Por isso \"resolvido\" é prematuro: o que ficou tem consequências, entre elas preço-sombra ambíguo. Sobre padronizar a regra: a objeção é de custo, porque regras que garantem terminação costumam gastar mais iterações, e a proteção vale para um caso raro. Antes de decidir, peça medição — número de iterações sob as duas regras nas instâncias reais da empresa, e a confirmação de que a resposta não muda. O teste, em uma frase: **o que sobrevive à troca da peça é da especificação; o que some era da implementação.**"
+  },
+  {
+    "id": "cap12.exA",
+    "capitulo": 12,
+    "serie": "cap12",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "dualidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O dual da padaria, com unidade",
+    "enunciado": "Uma padaria produz dois tipos de pão. O modelo do turno é:\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\le 100,\\quad x_1 + x_2 \\le 80,\\quad x_1, x_2 \\ge 0$$\n\nA primeira restrição é **hora de forno** (100 horas no turno); a segunda é **farinha** (80 kg). Os lucros estão em reais por fornada.\n\n1. Escreva o **dual** deste modelo. Diga, para cada restrição dual, qual produto ela representa.\n2. Diga a **unidade** de $y_1$ e de $y_2$, e escreva em uma frase o que cada um significa para o dono da padaria.\n3. O ótimo do primal é $(20, 60)$. Qual é o valor ótimo do **dual**, e por que você sabe disso **sem resolvê-lo**?\n4. Resolvendo o dual, obtém-se $y_1 = 10$ e $y_2 = 20$. Confira a dualidade forte pelo objetivo dual.\n5. A padeira pode alugar mais uma hora de forno por R$ 14, ou comprar mais um quilo de farinha por R$ 14. **Qual das duas**, e por quê?",
+    "criterios": [
+      "Escreve o dual corretamente: $\\min\\ 100y_1 + 80y_2$ sujeito a $2y_1 + y_2 \\ge 40$ e $y_1 + y_2 \\ge 30$, com $y \\ge 0$ — e identifica que a primeira restrição dual é a do produto 1 e a segunda a do produto 2",
+      "Declara as unidades certas: $y_1$ em **reais por hora de forno** e $y_2$ em **reais por quilo de farinha**, e não como \"número do algoritmo\"",
+      "Responde ao item 3 pela **dualidade forte**: o valor ótimo dual é igual ao primal, $40(20) + 30(60) = 2600$, e isso se sabe sem resolver o dual",
+      "Confere pelo objetivo dual: $100(10) + 80(20) = 1000 + 1600 = 2600$",
+      "Escolhe a **farinha** e justifica pelo preço-sombra: o quilo vale R$ 20 na margem contra R$ 14 de custo (ganho de 6), enquanto a hora de forno vale R$ 10 contra R$ 14 (prejuízo de 4) — e menciona que a resposta só vale dentro da faixa"
+    ],
+    "erro_provavel": "Escrever o dual certo e parar aí, tratando $y_1$ e $y_2$ como números sem unidade. A unidade é o que torna o número acionável: enquanto $y_2$ for \"20\", não dá para compará-lo com nada; quando ele vira \"R$ 20 por quilo de farinha\", a comparação com o preço de R$ 14 do fornecedor é imediata e a decisão sai sozinha. O segundo erro comum é escolher o forno porque \"forno é o gargalo da padaria\" — intuição de chão de fábrica que aqui está errada: **os dois** recursos estão apertados, e quem decide é o preço, não a fama.",
+    "resposta_guia": "O dual é $\\min\\ 100y_1 + 80y_2$ sujeito a $2y_1 + y_2 \\ge 40$ (produto 1, que consome 2 horas e 1 kg) e $y_1 + y_2 \\ge 30$ (produto 2), com $y_1, y_2 \\ge 0$. As unidades: $y_1$ é reais por hora de forno e $y_2$ é reais por quilo de farinha — \"quanto o lucro do turno sobe se eu conseguir mais uma hora de forno\" e \"...mais um quilo de farinha\". O valor ótimo do dual é 2600, e isso se sabe **antes** de resolvê-lo pela dualidade forte: $40(20) + 30(60) = 2600$ no primal, logo o dual vale o mesmo. Conferindo com $y = (10, 20)$: $100(10) + 80(20) = 2600$ — confere. Na decisão: a farinha vale R$ 20 na margem e custa R$ 14, então cada quilo extra rende R$ 6; a hora de forno vale R$ 10 e custa R$ 14, então cada hora extra **perde** R$ 4. Compre farinha — e confira a faixa de validade antes de comprar muita.",
+    "modelo": [
+      {
+        "rotulo": "primal — a padaria",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          40,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            100
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            20,
+            60
+          ],
+          "valor": 2600
+        }
+      },
+      {
+        "rotulo": "dual — os precos dos recursos",
+        "sentido": "min",
+        "variaveis": [
+          "y1",
+          "y2"
+        ],
+        "objetivo": [
+          100,
+          80
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            ">=",
+            40
+          ],
+          [
+            1,
+            1,
+            ">=",
+            30
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            10,
+            20
+          ],
+          "valor": 2600
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap12.exB",
+    "capitulo": 12,
+    "serie": "cap12",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "dualidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "A compra que tinha todas as contas certas",
+    "enunciado": "Na montadora dos capítulos anteriores, o plano do mês é $(8, 2)$ com lucro de R$ 1.100. O modelo:\n\n$$\\max\\ 100x_1 + 150x_2 \\quad \\text{s.a.}\\quad x_1 + x_2 \\le 10 \\ \\text{(CPUs)},\\quad x_1 + 2x_2 \\le 12 \\ \\text{(pentes)},\\quad x_1, x_2 \\ge 0$$\n\nO quadro final traz **50** na linha $z$ sob as duas colunas de folga. Um analista escreve o seguinte parecer, aprova a compra, e ela é executada:\n\n> *\"O preço-sombra da CPU é R$ 50. O fornecedor oferece a R$ 45. Logo, ganhamos R$ 5 por CPU. Comprando o lote de 10 unidades, ganhamos R$ 50. Recomendo comprar.\"*\n\nNo fechamento do mês, o lucro não é o previsto.\n\n1. **Todas as contas do parecer estão certas?** Verifique uma a uma.\n2. Refaça o modelo com 20 CPUs em estoque. Qual é o novo plano ótimo e o novo lucro?\n3. Qual foi o **ganho real** da compra, e qual foi o **custo**? Qual o resultado?\n4. Nomeie, em uma frase, **o que faltou** no parecer — não o erro de conta, porque não há.\n5. Qual teria sido a compra correta, e por quê?",
+    "criterios": [
+      "Verifica e confirma que as contas do parecer estão **todas corretas** — o erro não é aritmético",
+      "Resolve o modelo com 20 CPUs e chega ao novo ótimo $(12, 0)$ com lucro R$ 1.200, reconhecendo que agora só os **pentes** limitam",
+      "Calcula o resultado real: ganho de R$ 100 (1200 − 1100) contra custo de R$ 450 (10 × 45) — **prejuízo de R$ 350**",
+      "Nomeia a causa: faltou a **faixa de validade** do preço-sombra, que ia até 12 CPUs; da 3ª unidade em diante a CPU vale zero",
+      "Conclui que a compra correta era de **2 CPUs** — ganho de R$ 100 por custo de R$ 90"
+    ],
+    "erro_provavel": "Procurar um erro de conta, não achar, e concluir que o parecer está certo e o problema foi \"outra coisa\" — mercado, execução, azar. É o modo mais caro de errar com preço-sombra, porque a verificação aritmética passa e dá **confiança**. O preço-sombra é marginal: ele vale para a **próxima** unidade, e só enquanto o plano continuar apoiado nas mesmas restrições. Ao empurrar o estoque de CPUs de 10 para 20, o gargalo mudou de lado — a partir de 12 CPUs quem limita é o pente, e cada CPU adicional passa a valer exatamente zero. Um preço-sombra citado sem a faixa não é um número incompleto: é uma armadilha.",
+    "resposta_guia": "As contas do parecer estão todas certas: o preço-sombra é 50, a oferta é 45, a diferença é 5, e 10 × 5 = 50. Não há erro aritmético. Com 20 CPUs em estoque, o modelo vira $x_1 + x_2 \\le 20$ e $x_1 + 2x_2 \\le 12$; o ótimo passa a ser $(12, 0)$ com lucro R$ 1.200, e o gargalo agora é só o pente. O ganho real da compra foi, portanto, R$ 100, e o custo foi 10 × R$ 45 = R$ 450 — **prejuízo de R$ 350**. O que faltou foi a faixa de validade: o preço de R$ 50 por CPU só valia até 12 unidades de estoque, então apenas as 2 primeiras CPUs compradas valiam 50 e as outras 8 valiam zero. A compra correta era de 2 unidades: ganho de R$ 100 por um custo de R$ 90.",
+    "modelo": [
+      {
+        "rotulo": "antes da compra — 10 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "depois da compra — 20 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            20
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            12,
+            0
+          ],
+          "valor": 1200
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap12.exC",
+    "capitulo": 12,
+    "serie": "cap12",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "dualidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "O contrato de doze meses",
+    "enunciado": "Mesma montadora, mesmo modelo, mesmo quadro final — o pente de 16 GB tem preço-sombra de **R$ 50**, e a faixa em que esse preço vale vai de **10 a 19,5** pentes de estoque (hoje são 12).\n\nO diretor comercial traz uma proposta e pede seu parecer por escrito:\n\n> *\"Fechamos um contrato de 12 meses: o fornecedor entrega **12 pentes a mais por mês**, a R$ 45 cada. O pente vale R$ 50 para nós, então são R$ 5 de margem por unidade, R$ 60 por mês, R$ 720 no ano. É dinheiro na mesa.\"*\n\n1. Com 24 pentes em estoque, qual é o plano ótimo e o lucro? Qual é, então, o **ganho mensal real** dessa entrega, contra o custo mensal?\n2. Qual seria a quantidade mensal que **maximiza** o resultado da compra, e quanto ela rende? *(Use a faixa: 19 pentes de estoque é o último valor inteiro dentro dela.)*\n3. O contrato é de **12 meses**. Liste **duas** características do modelo — estão na ficha da instância — que tornam esse prazo problemático, independentemente do preço.\n4. Escreva o parecer em até três frases: o que você aprova, o que recusa, e sob que condição.",
+    "criterios": [
+      "Com 24 pentes, chega ao ótimo $(0, 10)$ com lucro R$ 1.500 — ganho real de R$ 400/mês contra custo de R$ 540/mês, ou seja, **prejuízo de R$ 140 por mês**",
+      "Identifica que a compra vantajosa é de **7 pentes** (estoque de 19, o último inteiro dentro da faixa): lucro R$ 1.450, ganho de R$ 350 por custo de R$ 315 — resultado de R$ 35/mês",
+      "Aponta duas limitações do modelo que o prazo expõe: ele é de **um único período** e supõe que **tudo que se produz é vendido** (a demanda não é restrição) — logo nada nele autoriza compromisso de 12 meses",
+      "Escreve um parecer que **decide**: recusa o volume de 12, contrapropõe 7, e condiciona a renovação a reavaliar o preço-sombra a cada período"
+    ],
+    "erro_provavel": "Aceitar a proposta porque a margem por unidade é positiva. A margem de R$ 5 supõe que **cada uma** das 12 unidades vale R$ 50 — e não vale: a faixa termina em 19,5 pentes de estoque, então as 7 primeiras valem 50 e as 5 seguintes valem muito menos, o que derruba o ganho de R$ 600 para R$ 400 e transforma a margem em prejuízo. O erro seguinte é mais sutil e é o que separa quem usa modelo de quem obedece a modelo: **preço-sombra é uma fotografia de um período**, e esta instância assume um único período com tudo vendido. Ele autoriza uma compra agora, dentro da faixa. Não autoriza um contrato de doze meses.",
+    "resposta_guia": "Com 24 pentes o ótimo é $(0, 10)$, lucro R$ 1.500. O ganho mensal real é 1500 − 1100 = R$ 400, contra um custo de 12 × R$ 45 = R$ 540: **prejuízo de R$ 140 por mês**, e não os R$ 60 de ganho anunciados. A quantidade que maximiza é 7 pentes por mês, levando o estoque a 19 — dentro da faixa: lucro R$ 1.450, ganho de R$ 350 contra custo de R$ 315, resultado de R$ 35 por mês. Quanto ao prazo, a ficha da instância declara duas hipóteses que o inviabilizam: o modelo é de **um único período**, e nele **tudo que se produz é vendido** (a demanda não entra como restrição). Um preço-sombra tirado daí é uma fotografia de um mês. Parecer: recuso o volume de 12 unidades, que dá prejuízo de R$ 140 mensais; contraproponho 7 unidades por mês, dentro da faixa de validade, com resultado de R$ 35; e condiciono qualquer renovação à reavaliação do preço-sombra a cada período, porque a faixa se desloca quando o estoque ou a demanda mudam.",
+    "modelo": [
+      {
+        "rotulo": "hoje — 12 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "no limite da faixa — 19 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            19
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            1,
+            9
+          ],
+          "valor": 1450
+        }
+      },
+      {
+        "rotulo": "com o contrato — 24 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            24
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            0,
+            10
+          ],
+          "valor": 1500
+        }
+      }
+    ]
   }
 ]

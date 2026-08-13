@@ -51,9 +51,15 @@
           "teaser": "Quando o solver não devolve um plano — e o que cada veredito diz sobre o seu modelo."
         },
         {
+          "arquivo": "livro/capitulos/12-dualidade.md",
+          "titulo": "12 — Dualidade",
+          "maturidade": "v0",
+          "teaser": "Quanto vale uma unidade a mais do recurso que acabou — e por que o número tem prazo de validade."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Cinco vagas declaradas",
-          "teaser": "Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
+          "titulo": "⬜ Quatro vagas declaradas",
+          "teaser": "Simplex revisado (11), sensibilidade (13), pontos interiores (14) e modelagem aplicada (15). O 11 vem com medição própria; a lacuna entre o 10 e o 12 é declarada, não esquecida."
         }
       ]
     },

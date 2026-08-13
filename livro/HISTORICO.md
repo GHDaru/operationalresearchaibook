@@ -766,3 +766,46 @@ Corrigido em três camadas:
 delimitador cru`, com o portão provado quebrando-o de propósito **duas vezes** (delimitador cru e
 folha de estilo de outra versão), e a página conferida **em navegador**: fonte `KaTeX_Main`
 carregada, 0 erro de console, 0 requisição falha.
+
+### Edição 0.16 — 2026-08-13 · Capítulo 12: dualidade, e o selo de maturidade
+
+Primeiro capítulo do **lote 1 da v0** ([spec 009](https://github.com/GHDaru/operationalresearchaibook/blob/main/specs/009-lote1-parte2/spec.md)),
+e a estreia da escada de maturidade decidida na [ADR 0013](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0013-o-que-e-a-v0.md).
+
+**Entrou:**
+
+- **[Capítulo 12 — Dualidade](capitulos/12-dualidade.md)**, em 🟡 **v0**. O problema irmão, os dois
+  teoremas, as folgas complementares e a leitura do preço-sombra no quadro que o leitor já sabe
+  montar. Três objetivos, três exercícios, um para um.
+- **[Etapa 05 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-05-parte2)** —
+  uma etapa por **Parte**, não por capítulo (ADR 0013, D3). Ela ancora o capítulo 12 e já ancora
+  o 13.
+- **Selo de maturidade** 🟡 v0 / 🔵 medido / ✅ verificado, no alto de cada capítulo e no
+  [mapa](mapa-do-handbook.md), **verificado por máquina**.
+- **Capacidade `dualidade`** no tutor, liberada no capítulo 12, com o espelho de exibição em
+  sincronia.
+
+**A verificação que sustenta o capítulo, e por que ela é chata de propósito.** Ler o preço-sombra
+no quadro do primal é conveniente e **circular**: usa o mesmo cálculo para produzir e para
+conferir. A etapa 05 monta o **dual como problema separado** e o resolve do zero. Os dois caminhos
+chegam a **R$ 1.100**, e o script **encerra com erro** se não chegarem — o capítulo não pode ser
+escrito com o experimento vermelho.
+
+**O número que o capítulo existe para impedir.** Um preço-sombra citado sem a **faixa de
+validade** custa, na instância do livro, **R$ 350 de prejuízo** numa compra em que *nenhuma conta
+está errada*. É o erro caro da Parte II, e agora está medido, não advertido.
+
+**O que este capítulo NÃO afirma.** A cena mais contada da área — von Neumann apontando a
+dualidade a Dantzig em 1947 — foi procurada por identificador e **não localizada**. Fica `⏳`, dita
+como atribuição corrente e não como história. A origem do nome "dual" neste campo fica `❌`.
+Nenhuma das duas foi preenchida com invenção.
+
+**Quitado:** o último `⏳` de vídeo do handbook. A duração do vídeo do capítulo 10 é **19min04s** —
+e a leitura foi conferida contra um caso conhecido (o vídeo do capítulo 09, que devolve os mesmos
+18min48s já registrados por outra via) antes de ser aceita.
+
+**Verificação:** nove portões verdes — `✓ template verificado [pt]: 6 capítulos … maturidade 🟡1
+🔵0 ✅4`, `✓ registro de exercícios OK: 30 exercícios em 5 baterias`, `✓ consistência de ótimo OK:
+30 modelo(s) resolvido(s) em aritmética exata`. O portão de maturidade foi **provado quebrando**
+nos quatro modos que ele promete pegar, incluindo o falso verde que importa: o sumário passar a
+declarar um selo e a página continuar exibindo outro.
