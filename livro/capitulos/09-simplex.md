@@ -28,8 +28,9 @@ vértice** — então bastaria listar todos os vértices e escolher o melhor. É
 [etapa 02 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-02-metodo-grafico)
 faz: cruza as restrições duas a duas e tria.
 
-Essa saída morre depressa, e dá para ver exatamente onde. Um modelo em forma padrão com $n$
-variáveis e $m$ restrições tem $\binom{n+m}{m}$ bases a examinar:
+Essa saída morre depressa, e dá para ver exatamente onde. Um modelo com $n$ variáveis de decisão
+e $m$ restrições `≤` ganha $m$ folgas na forma padrão — ou seja, $n+m$ colunas — e uma base é uma
+escolha de $m$ delas. São $\binom{n+m}{m}$ bases a examinar:
 
 | Variáveis | Restrições | Bases a enumerar |
 |---:|---:|---:|
@@ -57,8 +58,8 @@ repete, com outras roupas, no problema que você vai encontrar.
 
 ### O aperto: como se planeja uma organização gigantesca
 
-Em **junho de 1947** — um mês antes de a Força Aérea dos Estados Unidos sequer existir como ramo
-separado das forças armadas — ela montou uma força-tarefa para um problema que a estava
+Em **junho de 1947** — um mês antes do *National Security Act*, a lei que criaria a Força Aérea
+dos Estados Unidos como ramo separado — ela montou uma força-tarefa para um problema que a estava
 sufocando: **planejar a si mesma**. Treinamento, suprimento, deslocamento de pessoal, tudo
 encadeado, em escala continental, com recursos que acabavam.
 
@@ -94,21 +95,26 @@ nasceu dessa parede, no mesmo ano.
 
 **"Programação linear" foi batizada por outra pessoa.** A expressão de Dantzig era
 *"programming in a linear structure"* — programar, no sentido militar de planejar, dentro de uma
-estrutura linear. Quem propôs a forma curta foi o economista **T. J. Koopmans**, numa visita que
+estrutura linear. Quem propôs a forma curta foi o economista **T. C. Koopmans**, numa visita que
 Dantzig fez à RAND Corporation em **1948** para discutir suas ideias. Pegou, e nunca mais saiu.
 
-**"Simplex" tampouco descreve nada de simples.** A sugestão veio de **T. S. Motzkin**, numa conversa: as
-colunas da base mais a coluna que entra formam, no espaço, um objeto geométrico chamado
-**simplex** — o triângulo generalizado para qualquer dimensão. Cada iteração pode ser vista como
-a passagem de um simplex para outro, vizinho. Dantzig gostou e o nome pegou.
+**"Simplex" tampouco descreve nada de simples.** A literatura didática atribui a sugestão do nome
+a **T. S. Motzkin**, numa conversa, com a explicação geométrica de que as colunas da base mais a
+coluna que entra formariam um **simplex** — o triângulo generalizado para qualquer dimensão.
 
-Vale saber, e vale desconfiar: o método não manipula simplexes em lugar nenhum do procedimento.
-O nome é um apelido geométrico saído de uma conversa, não uma descrição do algoritmo.
+> ⏳ **Atribuição corrente, não confirmada em fonte primária.** A cena, o interlocutor e a
+> explicação geométrica circulam juntos na literatura de ensino, e **este handbook não os
+> confirmou**: a fonte que fecharia isso segue inacessível (ver a tabela de procedência abaixo).
+> O parágrafo acima relata o que se conta; ele não afirma que aconteceu assim.
 
-Repare no padrão: **as duas metades do nome do campo vieram de conversa de corredor**, e nenhuma
-das duas foi escolhida pelo autor do método. É mais comum na matemática aplicada do que os livros
-deixam transparecer — e é uma boa razão para não deduzir o que um método faz a partir de como ele
-se chama.
+O que **não** depende de atribuição nenhuma, e é a parte que interessa: **o método não manipula
+simplexes em lugar nenhum do procedimento**. Isso se verifica lendo o algoritmo do capítulo — o
+nome, venha de onde vier, não descreve o que ele faz.
+
+E daí sai a lição que sobrevive à dívida: **não deduza o que um método faz a partir de como ele se
+chama**. Aqui as duas metades do nome do campo têm origem contada em conversa e nenhuma foi
+escolhida pelo autor do método — se as duas histórias forem verdadeiras, é um caso exemplar; se
+não forem, o algoritmo continua não tendo simplex nenhum dentro.
 
 ### E o *big-M*, de onde saiu?
 
@@ -151,10 +157,10 @@ fonte, e exige separar o que está documentado do que é interpretação. Então
 
 | Afirmação | Estado |
 |---|---|
-| Força-tarefa criada em junho de 1947, um mês antes de a Força Aérea virar ramo separado; nomeada depois Projeto SCOOP; Dantzig como matemático-chefe; enunciado e Simplex no mesmo ano | ✓ **fonte aberta e conferida** |
+| Força-tarefa criada em junho de 1947, um mês antes do *National Security Act* (26/07/1947), que criou a Força Aérea como ramo separado — efetivada em 18/09/1947; nomeada depois Projeto SCOOP; Dantzig como matemático-chefe; enunciado e Simplex no mesmo ano | ✓ **fonte aberta e conferida** |
 | *Programming* como termo militar para planos ou cronogramas de treinamento, suprimento logístico ou deslocamento de pessoal | ✓ **fonte aberta e conferida** |
-| "Programação linear" proposto por T. J. Koopmans na RAND, 1948; a expressão de Dantzig era *programming in a linear structure* | ✓ mesma fonte |
-| A. Charnes, *Optimality and Degeneracy in Linear Programming*, Econometrica 20(2), 1952 | ✓ **metadados conferidos** — mas o **conteúdo não foi lido**, então a atribuição do *big-M* a esse artigo segue como corrente, não confirmada |
+| "Programação linear" proposto por T. C. Koopmans na RAND, 1948; a expressão de Dantzig era *programming in a linear structure* | ✓ mesma fonte |
+| A. Charnes, *Optimality and Degeneracy in Linear Programming*, Econometrica 20(2), 1952 | ✓ᵐ **metadados conferidos, conteúdo não lido** — a atribuição do *big-M* a esse artigo segue corrente, não confirmada |
 | O nome *simplex* sugerido por T. S. Motzkin | ⏳ **atribuição corrente**, não confirmada em fonte primária |
 | **Por que a letra M** | ❌ **não encontrei fonte.** A leitura óbvia é *muito grande*, mas leitura óbvia não é documento, e este livro não preenche lacuna com suposição de cara de fato |
 | A leitura de que a virada foi *separar o possível do preferível*, e o padrão "afrouxe e cobre" | 📖 **interpretação deste livro**, não afirmação histórica |
@@ -392,9 +398,16 @@ do Simplex é reversível: se a direção escolhida deixa de compensar, a variá
 da base numa iteração seguinte.
 
 > **A garantia não vem da regra de entrada.** Vem da convexidade da região e do critério de
-> parada: enquanto houver custo reduzido negativo, existe vértice melhor; quando não houver, não
-> existe. Trocar a regra de Dantzig por outra muda **quantas** iterações o método gasta — nunca
-> **onde** ele termina.
+> parada: enquanto houver custo reduzido negativo, ainda há **direção de melhora** — e, num
+> vértice **não degenerado**, isso significa que existe vértice melhor. Trocar a regra de Dantzig
+> por outra muda **quantas** iterações o método gasta e **nunca muda o valor ótimo**.
+>
+> **Duas qualificações, e as duas foram medidas — não afirmadas.** (a) Em vértice **degenerado** o
+> custo reduzido negativo pode não render melhora alguma: é o que permite a ciclagem que o
+> [capítulo 10](10-casos-especiais.md) exibe com período 6, sem sair do ponto. (b) Trocar a regra
+> **pode mudar qual plano você recebe** quando existe mais de um ótimo — aquele capítulo mede o
+> caso: mesmo veredito, mesmo valor, **plano diferente**. O que a regra nunca muda é *quanto*
+> vale; o *onde* ela pode mudar.
 
 > 📌 **Dívida quitada, em 2026-08-13.** Esta página usou a convexidade **a crédito**: afirmou
 > que ela sustenta a garantia e não a definiu nem a demonstrou. O
@@ -519,6 +532,13 @@ O que ela mede:
 O terceiro caso é o que dá valor aos outros dois. Concordar com o solver não é chegar ao mesmo
 ponto: é **dar o mesmo veredito**. Um Simplex que devolvesse um número bonito para um modelo sem
 solução seria pior do que um que não rodasse.
+
+> **Uma convenção que este capítulo usa sem ter dito, e que o exercício H cobra.** Tudo aqui
+> **maximiza**. Um problema de minimizar se resolve com a mesma máquina, maximizando o negativo do
+> objetivo — $\min\ c^{\top}x$ é $\max\ (-c)^{\top}x$, com o sinal do valor invertido de volta no
+> fim. É o que a [etapa 08](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-08-modelagem)
+> faz para resolver mistura, transporte e cobertura sem método novo. **A dívida fica declarada:**
+> o tratamento próprio de minimização — inclusive o que muda no *big-M* — não está neste capítulo.
 
 ## Quando não serve
 

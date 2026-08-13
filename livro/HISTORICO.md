@@ -1167,3 +1167,44 @@ cai para 🔵. Importa duplamente porque o teto do portão de razão é `3 × �
 
 **Verificação:** nove portões verdes com os dois novos incluídos, `40 passed` no `po-zero`,
 `24 passed` no backend.
+
+### Edição 0.25 — 2026-08-13 · O capítulo 09 perde o ✅, e o que a revisão achou junto
+
+A revisão em contexto fresco que faltava ao capítulo 09 foi feita — e **rebaixou o selo para 🔵**.
+O capítulo é genuinamente medido: todo número publicado sai da etapa 03, reproduz com o mesmo
+`md5` e concorda com o HiGHS por **veredito**, não só por ponto. O que ele não tinha era a revisão
+que o ✅ promete, e ela achou defeitos em conteúdo **publicado**.
+
+**Duas afirmações que o próprio livro desmente com medição.** A caixa da garantia dizia que trocar
+a regra de pivoteamento *"muda quantas iterações o método gasta — nunca **onde** ele termina"*, e o
+[capítulo 10](capitulos/10-casos-especiais.md) mede o contrário: com múltiplos ótimos, Dantzig para
+num plano e Bland em outro. Dizia também que *"enquanto houver custo reduzido negativo, existe
+vértice melhor"* — falso sob degenerescência, e se fosse verdade a ciclagem de período 6 que o
+capítulo 10 exibe não poderia existir. **Corrigido**: a garantia agora afirma o que sobrevive — o
+**valor** ótimo não muda — e as duas qualificações apontam para onde foram medidas.
+
+**Uma fórmula errada na primeira tabela do capítulo.** *"Um modelo em forma padrão com $n$
+variáveis e $m$ restrições tem $\binom{n+m}{m}$ bases"* — em forma padrão com $n$ variáveis são
+$\binom{n}{m}$. O enunciado agora diz o que o script calcula e o que o exercício A já cobrava
+corretamente: $n$ variáveis de decisão **mais** $m$ folgas.
+
+**A terceira reincidência do mesmo defeito.** O corpo afirmava como fato a cena de Motzkin
+batizando o método, enquanto a tabela de procedência do mesmo capítulo marcava `⏳`. É o defeito
+que apareceu no 12, voltou no 14 e agora aparece no 09 — em conteúdo publicado há mais tempo.
+Corrigido, e com a lição preservada de um jeito que **não depende da atribuição**: o método não
+manipula simplex nenhum, e isso se verifica lendo o algoritmo.
+
+**Dois erros menores de história, em afirmações seladas `✓`:** o economista é **T. C.** Koopmans, e
+a inicial errada veio da própria fonte consultada, propagada sem conferência; e a frase *"um mês
+antes de a Força Aérea existir"* estava mais forte do que a fonte, que ancora o mês ao *National
+Security Act* de 26/07/1947 — a Força Aérea só existe como ramo em 18/09. **A fonte estava `✓` e a
+paráfrase excedia o que ela cobria**, o que é um modo de errar que o selo não pega.
+
+**Dívida declarada, junto:** o capítulo maximiza do início ao fim e nunca instalava a convenção de
+minimização — que o exercício H cobrava. A convenção entrou; o tratamento próprio de minimização,
+inclusive o que muda no *big-M*, fica declarado como dívida.
+
+**Efeito no freio, e ele é o ponto.** O handbook fica em **🟡7 · 🔵2 · ✅3**, e o teto do portão de
+razão cai de 12 para **9**. Restam **duas** vagas 🟡 antes de o build ficar vermelho — o lote da
+Parte I, planejado com seis capítulos, **não cabe mais**. É exatamente o que a ADR 0013 D2 queria
+que acontecesse: um ✅ que não se sustentava estava afrouxando o freio com dado próprio.

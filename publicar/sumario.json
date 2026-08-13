@@ -47,7 +47,7 @@
         {
           "arquivo": "livro/capitulos/09-simplex.md",
           "titulo": "09 — O método Simplex",
-          "maturidade": "verificado",
+          "maturidade": "medido",
           "teaser": "Como percorrer vértices sem enxergá-los — e por que parar no primeiro topo é seguro."
         },
         {

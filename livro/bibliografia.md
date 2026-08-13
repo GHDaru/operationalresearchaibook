@@ -244,7 +244,7 @@ matemático-chefe.
 ✓ **MacTutor History of Mathematics — George Dantzig.** University of St Andrews. — Sustenta o
 sentido militar de *programming* ("planos ou cronogramas para treinamento, suprimento logístico ou
 deslocamento de pessoal"), a expressão original de Dantzig (*programming in a linear structure*) e
-o batismo do termo "linear programming" por **T. J. Koopmans**, na RAND, em 1948. Cita
+o batismo do termo "linear programming" por **T. C. Koopmans**, na RAND, em 1948. Cita
 diretamente *Linear Programming and Extensions* (Dantzig, 1963).
 [Página](https://mathshistory.st-andrews.ac.uk/Biographies/Dantzig_George/)
 

@@ -66,7 +66,7 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 |---|---|---|
 | ✅ | 07 — Formulação de modelos lineares | Traduzir o problema em variáveis, objetivo e restrições. O capítulo mais praticado do livro. |
 | ✅ | 08 — A geometria da Programação Linear | Semiespaços, região viável e por que nunca é preciso procurar o ótimo fora das quinas. |
-| ✅ | 09 — O método Simplex | O algoritmo por dentro: base, pivoteamento, critério de entrada e saída, e a partida artificial por *big-M*. |
+| 🔵 | 09 — O método Simplex | O algoritmo por dentro: base, pivoteamento, critério de entrada e saída, e a partida artificial por *big-M*. |
 | ✅ | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
 | 🔵 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
 | 🟡 | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. **A faixa de validade do preço vem junto** — citá-lo sem ela é o erro caro da Parte II. |
