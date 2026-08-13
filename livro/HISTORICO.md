@@ -1515,3 +1515,23 @@ compara com o Crossref e barraria a outra escolha.
 mudam se o solver mudar, e o teste fica vermelho quando isso acontecer. É o comportamento certo —
 o capítulo publica dígitos e diz a versão ao lado. O PuLP 3.3 já marca `PULP_CBC_CMD` como
 descontinuado, com remoção anunciada para a 4.0: quando chegar, o teste avisa antes do leitor.
+
+### Edição 0.34 — 2026-08-13 · O caderno da Parte I
+
+**Entrou:** [`po-zero/cadernos/parte-I.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-I.ipynb),
+o segundo caderno do handbook, sob as mesmas sete regras da ADR 0016 — invólucro que importa o
+código publicado, sem `def`, sem saída gravada, sem magia do IPython, com célula "mexa aqui", com
+erro rodado antes da correção, exibindo a fonte de uma função, e **executado de verdade** pelo
+`pytest` contra o código de hoje.
+
+**O erro que o leitor roda antes de ver o certo** é o melhor desta Parte. O caderno pergunta:
+*"o cubo com $n=6$ custa 63 pivôs; perturbando a matriz em 1%, quantos sobram?"* O palpite quase
+universal é "bem menos" — e a célula seguinte mostra **63**. No livro, o resultado aparece pronto
+numa tabela e o leitor nunca chega a errar; no caderno ele se compromete com uma resposta e vê o
+próprio palpite não acontecer.
+
+**O caderno declara o que não tem.** Os capítulos 01 a 04 não aparecem, porque não produzem número
+próprio — e dizer isso na primeira célula é mais honesto do que inventar código para eles.
+
+Com isto, **a Parte I fecha inteira**: seis capítulos, dezoito exercícios, seis vídeos, duas
+etapas de medição e um caderno.

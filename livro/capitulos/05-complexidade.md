@@ -167,6 +167,17 @@ distância entre as duas colunas **é o capítulo inteiro**.
 > classificação de pior caso não se deduz o custo da sua instância**. Para saber o custo da sua,
 > rode a sua.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte I no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-I.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-I.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-I.ipynb)
+>
+> O caderno **não contém o algoritmo**: ele busca o código publicado e chama as mesmas funções que
+> o `pytest` do repositório verifica — não há segunda cópia para envelhecer
+> ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+> Lá dentro você **dá o seu palpite sobre a perturbação antes de ver o resultado**, e depois muda
+> o tamanho da instância aleatória para ver a distância abrir.
+
 ## Os três usos errados, e o que pôr no lugar
 
 | O uso errado | Por que é errado | O que pôr no lugar |

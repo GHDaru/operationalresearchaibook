@@ -147,6 +147,16 @@ seu solver disse `Infeasible`, trocar de solver não vai resolver — o problema
 [capítulo 10](10-casos-especiais.md) que trata dele. Muita hora se perde trocando de ferramenta
 diante de um veredito que é sobre o modelo.
 
+> ### ▶ Rode você mesmo
+>
+> **[Abrir a Parte I no Google Colab](https://colab.research.google.com/github/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-I.ipynb)** · fonte em
+> [`po-zero/cadernos/parte-I.ipynb`](https://github.com/GHDaru/operationalresearchaibook/blob/main/po-zero/cadernos/parte-I.ipynb)
+>
+> As três tabelas desta seção saem de duas células do caderno — inclusive a do empate, em que você
+> vê o Simplex exato e os dois solvers devolverem planos diferentes com o mesmo valor. O caderno
+> **não contém o algoritmo**: chama o código publicado, que o `pytest` já verifica
+> ([ADR 0016](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0016-cadernos-colab-sem-deriva.md)).
+
 ## Modelo e dados, na prática
 
 A regra é curta e paga cedo:
