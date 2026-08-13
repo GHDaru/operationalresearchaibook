@@ -28,6 +28,16 @@ const PDF_LIVRO = EN ? "operations-research.pdf" : "pesquisa-operacional.pdf";
 
 const RE_ORIGEM = /^##\s+De onde isto veio/m;
 
+// Selo de maturidade (ADR 0013, D2). A escada e os emojis são os mesmos de
+// `build.mjs` — aqui só o que se VERIFICA, para o portão não depender de o
+// gerador ter acertado.
+const MATURIDADES = { v0: "🟡", medido: "🔵", verificado: "✅" };
+// D2 fecha com um sinal de apodrecimento: "mais de 3 🟡 por ✅ obriga a próxima
+// rodada a ser de promoção". Isso é uma promessa de processo, e promessa de
+// processo que ninguém mede envelhece — então ela vira aritmética aqui.
+const MAX_V0_POR_VERIFICADO = 3;
+const contagem = { v0: 0, medido: 0, verificado: 0 };
+
 // OS DOIS PRINCÍPIOS NÃO-NEGOCIÁVEIS QUE NÃO TINHAM PORTÃO.
 //
 // Auditoria do comitê da v0, conferida por medição: o Princípio II ("quando não
@@ -86,6 +96,27 @@ for (const item of itens) {
     if (!html.includes(`href="md/${slug}.md"`)) erro("link de download .md ausente");
     if (COM_PDF && !html.includes(`href="pdf/${slug}.pdf"`)) erro("link de download .pdf ausente");
     if (!existsSync(resolve(DOCS, "md", `${slug}.md`))) erro("md/*.md não copiado");
+
+    // Selo de maturidade (ADR 0013, D2): declarado no sumário e VISÍVEL na
+    // página. Um selo que existe só no JSON não serve ao leitor, que é para
+    // quem ele foi criado.
+    //
+    // Capítulo que não é de método fica de fora: a escada mede quanto se pode
+    // confiar nos NÚMEROS e nas afirmações de método da página, e a abertura do
+    // livro não faz nenhuma das duas coisas. Exigir selo dela obrigaria a
+    // escolher entre um ✅ que não significa nada e um 🟡 que assusta sem
+    // motivo. A lista de dívida (SEM_ORIGEM_DECLARADO) NÃO isenta — capítulo de
+    // método em dívida precisa de selo mais do que os outros.
+    if (!EN && !NAO_E_CAPITULO_DE_METODO.has(slug)) {
+      const emoji = MATURIDADES[item.maturidade];
+      if (!emoji) erro(`maturidade "${item.maturidade ?? "(ausente)"}" — declare uma de ${Object.keys(MATURIDADES).join(" | ")} no sumario.json`);
+      else {
+        contagem[item.maturidade]++;
+        if (!html.includes('class="cap-maturidade"')) erro("selo de maturidade não publicado na página");
+        else if (!new RegExp(`class="cap-maturidade"[^>]*>${emoji}`).test(html))
+          erro(`o sumário declara ${item.maturidade} e a página exibe outro selo`);
+      }
+    }
     if (existsSync(resolve(DOCS, "pdf")) && !existsSync(resolve(DOCS, "pdf", `${slug}.pdf`))) erro("pdf/*.pdf ausente");
 
     // Princípio XII — nenhum método cai do céu (constituição 1.1.0, ADR 0006).
@@ -133,6 +164,15 @@ for (const item of itens) {
     if (emDia && !html.includes("sinc-ok")) erro("tradução em dia sem selo sinc-ok");
     if (!emDia && !html.includes("sinc-atras")) erro("tradução atrasada sem selo sinc-atras");
   }
+}
+
+// A razão que a ADR 0013 promete vigiar. Ela só faz sentido depois de existir
+// pelo menos um capítulo ✅ — antes disso, o handbook inteiro é v0 por definição
+// e a divisão não mede nada.
+if (!EN && contagem.verificado) {
+  const teto = MAX_V0_POR_VERIFICADO * contagem.verificado;
+  if (contagem.v0 > teto)
+    falhas.push(`maturidade: ${contagem.v0} capítulo(s) 🟡 para ${contagem.verificado} ✅ — o teto é ${teto} (ADR 0013, D2). A próxima rodada tem de ser de PROMOÇÃO, não de capítulo novo`);
 }
 
 // Knowledge Graph (spec 057) — só na passada PT (o EN remapeia o mesmo grafo).
@@ -185,4 +225,5 @@ if (falhas.length) {
   falhas.forEach((f) => console.error("   " + f));
   process.exit(1);
 }
-console.log(`✓ template verificado [${EN ? "en" : "pt"}]: ${capitulos} capítulos com C01/N02 + ${aparato} páginas de aparato OK`);
+const selos = EN ? "" : ` · maturidade 🟡${contagem.v0} 🔵${contagem.medido} ✅${contagem.verificado}`;
+console.log(`✓ template verificado [${EN ? "en" : "pt"}]: ${capitulos} capítulos com C01/N02 + ${aparato} páginas de aparato OK${selos}`);

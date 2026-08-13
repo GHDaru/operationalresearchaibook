@@ -210,6 +210,25 @@ const T = EN
       outroIdiomaTitulo: "Read in English",
     };
 
+// Selo de maturidade do capítulo (ADR 0013, D2).
+//
+// O leitor precisa saber, ANTES de investir a leitura, em que estado o capítulo
+// está. Um handbook que cresce por lote tem, por construção, capítulos em
+// estados diferentes ao mesmo tempo — e disfarçar isso seria a versão editorial
+// do falso verde que os portões deste repositório existem para impedir.
+//
+// A escada é cumulativa: 🔵 é 🟡 mais experimento que regenera cada número; ✅ é
+// 🔵 mais revisão em contexto fresco. O selo é declarado no `sumario.json` e
+// verificado por `verifica-capitulos.mjs` — não é adjetivo de prosa.
+const MATURIDADE = {
+  v0: { emoji: "🟡", rotulo: "v0",
+        explica: "Esqueleto completo: 3 objetivos, 3 exercícios, \"quando não serve\" e origem com procedência. Ainda sem número medido próprio." },
+  medido: { emoji: "🔵", rotulo: "medido",
+            explica: "Todo número deste capítulo se regenera rodando um experimento do po-zero. Ainda sem revisão independente." },
+  verificado: { emoji: "✅", rotulo: "verificado",
+                explica: "Medido, revisto em contexto fresco por quem não escreveu, e com os portões provados quebrando." },
+};
+
 // Chat-companion (feature 017): URL do backend + espelho leve do registro de
 // capacidades (fonte-de-verdade do gating é o backend; aqui é só exibição).
 const COMPANION_BACKEND = sumario.companion_backend || "";
@@ -681,7 +700,9 @@ for (let k = 0; k < itens.length; k++) {
   const { num, texto } = dividirTitulo(item.titulo);
   if (num) {
     const { cap, rev } = extrairDatas(bruto);
+    const mat = MATURIDADE[item.maturidade];
     const chips = [
+      mat ? `<span class="cap-maturidade" title="${mat.explica}">${mat.emoji} ${mat.rotulo}</span>` : "",
       cap ? `<span title="${T.seloVivo}">🕒 ${T.estadoArte} ${cap}</span>` : "",
       rev ? `<span>${T.revisao} ${rev}</span>` : "",
       `<span>📖 ~${tempoDeLeitura(bruto)} ${T.minLeitura}</span>`,
