@@ -1394,3 +1394,36 @@ a página nasceu — que é exatamente quando um link desses costuma passar desp
 **A dívida declarada:** o aperto histórico que produziu a forma comum de escrever modelos entra
 `⏳`. A narrativa é estrutural e verificável no que existe hoje; **o que falta é a citação primária
 que a date e a atribua**, e enquanto ela faltar a linha não muda de estado.
+
+### Edição 0.31 — 2026-08-13 · Capítulo 04: a classe decide o que você pode prometer
+
+**Entrou:** o [capítulo 04 — Classificação de problemas e escolha de método](capitulos/04-classificacao-e-escolha.md),
+🟡 v0, com três exercícios, vídeo curado e a capacidade `classificacao` (libera 4) no tutor.
+
+**O recorte.** Uma tabela de classes é a parte do assunto que se decora e não se usa. Este
+capítulo troca o eixo da tabela: cada travessia é apresentada pela **garantia que ela destrói**, e
+não pela técnica que ela exige.
+
+> Sair do linear elimina a certeza de que o ótimo está numa quina. Exigir integralidade invalida o
+> teorema do vértice. Admitir incerteza faz desaparecer *"a"* solução ótima. E sair da convexidade
+> reduz `Optimal` a *"não achei nada melhor por aqui"* — a distância entre **22 e 30** que o
+> capítulo 38 mediu.
+
+**O capítulo fecha numa decisão de três, e não numa taxonomia:** o ótimo provado, o ótimo com
+*gap* declarado, e "a melhor que encontrei". A do meio é a mais subestimada, e o exercício C
+insiste nela: um *gap* de 1,8% é **teto**, não estimativa — o ganho real de continuar pode ser
+zero, porque a solução em mãos pode já ser a ótima e faltar apenas a prova.
+
+**Duas fontes novas, e as duas entram `✓ᵐ`.** Gomory (1958) e Land & Doig (1960) tiveram autor,
+veículo, ano e página conferidos no Crossref; **o conteúdo não foi lido**. A atribuição do
+*branch-and-bound* e a do método dos cortes ficam declaradas como **correntes** — na bibliografia
+e no corpo do capítulo. O que é `✓` **lido** é o outro fio: o sentido militar de *programming*, a
+expressão original de Dantzig e o batismo por Koopmans em 1948, todos do MacTutor.
+
+> **O parser da bibliografia tinha um defeito, e foi o sobrenome Doig que o revelou.** A entrada de
+> **LAND, A. H.; DOIG, A. G.** falhava com *"ano não extraível"* — com o ano no lugar de sempre. O
+> extrator procurava o ano antes do link de DOI cortando o texto na primeira ocorrência das três
+> letras `DOI`, e elas aparecem **dentro do sobrenome DOIG**. A correção não foi reescrever a
+> entrada para agradar o portão: foi o portão parar de confundir nome próprio com marcador de
+> campo. Um parser que falha por causa de um sobrenome falharia de novo, em silêncio, na próxima
+> bibliografia.

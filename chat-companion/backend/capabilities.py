@@ -49,6 +49,11 @@ REGISTRO = [
                   "parâmetros — pela pergunta que resolve a maioria dos erros: isto é algo que "
                   "alguém decide, ou algo que alguém mede? E aplico o teste da unidade, que pega "
                   "o erro que o solver não pega."},
+    {"chave": "classificacao", "rotulo": "Classificação e escolha de método", "libera": 4, "tools": (),
+     "descricao": "Classifico com você um problema nos quatro eixos — linear, inteiro, incerto, "
+                  "convexo — e digo qual garantia cada travessia destrói. Antes de discutir "
+                  "método, cobro a pergunta que decide tudo: o que você vai poder prometer sobre "
+                  "esta resposta?"},
     {"chave": "formulacao", "rotulo": "Formulação de modelos", "libera": 7, "tools": (),
      "descricao": "Conduzo a formulação de um problema seu pelas quatro perguntas — o que se escolhe, "
                   "qual a única medida, o que limita, o que é dado — e confiro as unidades com você."},

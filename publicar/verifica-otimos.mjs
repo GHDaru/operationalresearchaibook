@@ -233,6 +233,16 @@ const SEM_MODELO_DECLARADO = new Set([
                // po-zero/etapa-01-formulacao/test_anatomia.py, que resolve o
                // modelo pelo Simplex da etapa 03 e ainda confere que a rubrica
                // continua dizendo o que foi medido.
+  "cap04.exB", // não há modelo: são quatro TRAVESSIAS de eixo descritas em prosa
+               // ("o modelo ganhou uma restrição de integralidade"), e a rubrica
+               // fala de "ótimo" para dizer qual GARANTIA cada travessia destrói.
+               // Não afirma valor nenhum, e não poderia — nenhum dos quatro casos
+               // traz números.
+  "cap04.exC", // três relatórios hipotéticos (PL em 3s, inteiro com gap de 1,8%,
+               // heurística de roteirização). A rubrica discute o que a palavra
+               // "ótimo" autoriza prometer em cada um; os únicos números são o
+               // gap e os tempos, que são DADOS do enunciado, não resultados de
+               // um modelo que este portão pudesse resolver.
 ]);
 for (const e of exercicios) {
   const rubrica = [e.resposta_guia || "", ...(e.criterios || [])].join(" ");

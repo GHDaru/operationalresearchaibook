@@ -86,6 +86,18 @@
       "verificado_em": "2026-08-13"
     },
     {
+      "doi": "10.1090/s0002-9904-1958-10224-4",
+      "estado": "resolvido",
+      "prefixo": "10.1090",
+      "registrante": "American Mathematical Society (AMS)",
+      "titulo": "Outline of an algorithm for integer solutions to linear programs",
+      "primeiro_autor": "Gomory",
+      "ano": 1958,
+      "container": "Bulletin of the American Mathematical Society",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
       "doi": "10.1145/1273445.1273458",
       "estado": "resolvido",
       "prefixo": "10.1145",
@@ -101,7 +113,7 @@
       "doi": "10.1145/87252.88081",
       "estado": "resolvido",
       "prefixo": "10.1145",
-      "registrante": "Association for Computing Machinery (ACM)",
+      "registrante": null,
       "titulo": "Origins of the simplex method",
       "primeiro_autor": "Dantzig",
       "ano": 1990,
@@ -225,6 +237,18 @@
       "titulo": "Optimality and Degeneracy in Linear Programming",
       "primeiro_autor": "Charnes",
       "ano": 1952,
+      "container": "Econometrica",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.2307/1910129",
+      "estado": "resolvido",
+      "prefixo": "10.2307",
+      "registrante": "JSTOR",
+      "titulo": "An Automatic Method of Solving Discrete Programming Problems",
+      "primeiro_autor": "Land",
+      "ano": 1960,
       "container": "Econometrica",
       "fonte": "crossref",
       "verificado_em": "2026-08-13"

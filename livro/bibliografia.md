@@ -337,6 +337,28 @@ reais.
 2974, 1953. — Referência **anterior** a Beale, creditada na fonte de 1955 acima. A data do
 exemplo (1951 ou 1953) diverge entre levantamentos e **não foi resolvida**.
 
+### As travessias de classe (capítulo 04)
+
+O capítulo 04 conta que a classificação nasceu **para trás**, a partir dos métodos: acrescentar
+integralidade a um modelo linear exigiu maquinaria nova. Estas são as duas entradas que a
+literatura didática cita como marco dessa travessia — e as duas entram `✓ᵐ`.
+
+✓ᵐ **GOMORY, Ralph E.** "Outline of an algorithm for integer solutions to linear programs".
+*Bulletin of the American Mathematical Society*, v. 64, n. 5, p. 275–278, 1958.
+DOI [10.1090/s0002-9904-1958-10224-4](https://doi.org/10.1090/s0002-9904-1958-10224-4). —
+Metadados conferidos no Crossref; **o texto não foi lido**. É a referência a que se atribui o
+método dos cortes.
+
+✓ᵐ **LAND, A. H.; DOIG, A. G.** "An Automatic Method of Solving Discrete Programming Problems".
+*Econometrica*, v. 28, n. 3, p. 497, 1960.
+DOI [10.2307/1910129](https://doi.org/10.2307/1910129). — Metadados conferidos no Crossref; **o
+texto não foi lido**. É a referência a que se atribui o *branch-and-bound*.
+
+⏳ **A atribuição do *branch-and-bound* a Land & Doig e a do método dos cortes a Gomory.** — São
+**atribuições correntes**, repetidas em livro-texto e em levantamento histórico. Este handbook
+confirmou que os artigos existem, com autor, veículo, ano e página; **não** confirmou o conteúdo,
+e o capítulo 04 declara isso ao leitor.
+
 ### Formulação (fundamentos científicos do capítulo 07)
 
 ✓ᵐ **BIXBY, R. E.** "Solving Real-World Linear Programs: A Decade and More of Progress".

@@ -35,9 +35,15 @@
           "teaser": "Quatro peças, e a assimetria que organiza tudo: três delas, quando erradas, devolvem `Optimal`."
         },
         {
+          "arquivo": "livro/capitulos/04-classificacao-e-escolha.md",
+          "titulo": "04 — Classificação de problemas e escolha de método",
+          "maturidade": "v0",
+          "teaser": "A classe decide o que você pode prometer — e cada travessia de eixo destrói uma garantia específica."
+        },
+        {
           "externo": "mapa-do-handbook.html",
-          "titulo": "⬜ Três vagas declaradas",
-          "teaser": "Escolha de método, complexidade e ferramentas. Escritas depois da Programação Linear, de propósito."
+          "titulo": "⬜ Duas vagas declaradas",
+          "teaser": "Complexidade computacional e ferramentas de trabalho. Escritas depois da Programação Linear, de propósito."
         }
       ]
     },

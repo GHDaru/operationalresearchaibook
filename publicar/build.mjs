@@ -240,6 +240,7 @@ const COMPANION_CAPS = [
   { chave: "o_que_e_po", rotulo: "O que é (e o que não é) PO", libera: 1 },
   { chave: "ciclo_modelagem", rotulo: "O ciclo de modelagem", libera: 2 },
   { chave: "anatomia_modelo", rotulo: "Anatomia de um modelo", libera: 3 },
+  { chave: "classificacao", rotulo: "Classificação e escolha de método", libera: 4 },
   { chave: "formulacao", rotulo: "Formulação de modelos", libera: 7 },
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
   { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },
