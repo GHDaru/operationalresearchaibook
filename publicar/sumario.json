@@ -65,25 +65,25 @@
         {
           "arquivo": "livro/capitulos/12-dualidade.md",
           "titulo": "12 — Dualidade",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Quanto vale uma unidade a mais do recurso que acabou — e por que o número tem prazo de validade."
         },
         {
           "arquivo": "livro/capitulos/13-sensibilidade.md",
           "titulo": "13 — Análise de sensibilidade e pós-otimização",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "O que a resposta suporta antes de mudar — e quando você não precisa resolver de novo."
         },
         {
           "arquivo": "livro/capitulos/14-pontos-interiores.md",
           "titulo": "14 — Métodos de pontos interiores",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Atravessar em vez de contornar — e por que a resposta que chega não é um vértice."
         },
         {
           "arquivo": "livro/capitulos/15-modelagem-aplicada.md",
           "titulo": "15 — Modelagem aplicada em Programação Linear",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Os quatro padrões que cobrem a maior parte do campo — e o que acontece quando se escolhe o errado."
         }
       ]
@@ -94,7 +94,7 @@
         {
           "arquivo": "livro/capitulos/38-convexidade.md",
           "titulo": "38 — Convexidade",
-          "maturidade": "v0",
+          "maturidade": "medido",
           "teaser": "Antecipado para pagar a dívida do capítulo 09: a propriedade que autoriza parar no primeiro topo."
         }
       ]

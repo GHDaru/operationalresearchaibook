@@ -69,10 +69,10 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 | 🔵 | 09 — O método Simplex | O algoritmo por dentro: base, pivoteamento, critério de entrada e saída, e a partida artificial por *big-M*. |
 | ✅ | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
 | 🔵 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
-| 🟡 | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. **A faixa de validade do preço vem junto** — citá-lo sem ela é o erro caro da Parte II. |
-| 🟡 | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. **Recebe as regras de precificação** (*Dantzig*, *steepest edge*, *devex*), remetidas do capítulo 11 por decisão editorial de 2026-08-12. |
-| 🟡 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
-| 🟡 | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
+| 🔵 | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. **A faixa de validade do preço vem junto** — citá-lo sem ela é o erro caro da Parte II. |
+| 🔵 | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. **Recebe as regras de precificação** (*Dantzig*, *steepest edge*, *devex*), remetidas do capítulo 11 por decisão editorial de 2026-08-12. |
+| 🔵 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
+| 🔵 | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
 
 ## Parte III — Otimização em Redes e Fluxos
 
@@ -117,7 +117,7 @@ Módulo inteiro, e não um capítulo: é o que a indústria usa quando o exato n
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| 🟡 | 38 — Convexidade | A propriedade que decide se o problema é tratável. |
+| 🔵 | 38 — Convexidade | A propriedade que decide se o problema é tratável. |
 | ⬜ | 39 — Otimização irrestrita | Gradiente, Newton, quase-Newton e critérios de parada. |
 | ⬜ | 40 — Otimização com restrições | Multiplicadores de Lagrange, condições KKT, dualidade não linear. |
 | ⬜ | 41 — Programação quadrática, cônica e semidefinida | As classes que ainda são resolvidas com garantia. |

@@ -1208,3 +1208,35 @@ inclusive o que muda no *big-M*, fica declarado como dívida.
 razão cai de 12 para **9**. Restam **duas** vagas 🟡 antes de o build ficar vermelho — o lote da
 Parte I, planejado com seis capítulos, **não cabe mais**. É exatamente o que a ADR 0013 D2 queria
 que acontecesse: um ✅ que não se sustentava estava afrouxando o freio com dado próprio.
+
+### Edição 0.26 — 2026-08-13 · O selo passa a exigir evidência, e cinco capítulos sobem
+
+A revisão do capítulo 09 mostrou o que acontece quando um selo não tem evidência atrás: ele
+afrouxa o freio com dado próprio. A resposta não foi rebaixar aquele capítulo e seguir — foi tirar
+do humano a decisão sobre o selo, do mesmo jeito que o `verifica-otimos.mjs` tirou do humano a
+conferência de aritmética.
+
+**O que o portão passou a exigir.** A ADR 0013 D2 define 🔵 como *"🟡 mais experimento no `po-zero`
+que regenera cada número"*. A evidência mais forte que este repositório sabe produzir disso é o
+**teste que lê o arquivo do capítulo** — o vínculo criado na rodada 009, depois de duas faixas
+erradas terem sido publicadas. Ele quebra quando a medição muda e o texto não, **e vice-versa**.
+
+Agora: capítulo declarado 🔵 ou ✅ **sem** teste que o leia falha o build; e capítulo declarado 🟡
+**com** teste que o leia também falha, porque o selo está abaixo do que a evidência sustenta.
+
+**Cinco capítulos subiram, e quem decidiu foi o portão.** Ao instalar a regra, o build acusou
+`12-dualidade`, `13-sensibilidade`, `14-pontos-interiores`, `15-modelagem-aplicada` e
+`38-convexidade` como declarados 🟡 tendo evidência de 🔵. Não houve auto-avaliação: a lista saiu da
+medição.
+
+**Dívida declarada, retroativa de propósito.** Os capítulos 07 a 10 foram medidos **antes** de o
+vínculo automático existir — têm `experimento.py`, `resultados.json` e reprodutibilidade por `md5`
+conferida à mão. Fingir que o vínculo existe seria mentir; rebaixá-los por uma prática que não
+existia quando foram escritos apagaria medição real. Entram em `SEM_VINCULO_AUTOMATICO`, em código,
+e **cada entrada é trabalho pendente, não isenção permanente** — o portão avisa quando uma delas
+for quitada e alguém esquecer de tirá-la da lista.
+
+**Estado:** 🟡2 · 🔵7 · ✅3. O teto do portão de razão é 9 e há 2 capítulos em 🟡 — o lote da Parte I
+volta a caber, com folga de cinco vagas.
+
+**Provado quebrando** nos dois sentidos antes de entrar.
