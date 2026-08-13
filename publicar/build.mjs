@@ -21,6 +21,7 @@ import { dirname, resolve, basename } from "node:path";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
+import { createRequire } from "node:module";
 import MarkdownIt from "markdown-it";
 import anchor from "markdown-it-anchor";
 // Matemática. O motor viveu quatro capítulos SEM renderizador nenhum: as
@@ -28,7 +29,26 @@ import anchor from "markdown-it-anchor";
 // via literalmente "$$ \begin{cases} ... \end{cases} $$" na página. Dezessete
 // blocos e mais de 550 expressões em linha, publicados assim. Não era
 // configuração errada — a capacidade NUNCA existiu, e nenhum portão olhava.
-import katex from "markdown-it-katex";
+//
+// SEGUNDA ARMADILHA, e ela custou uma publicação: a primeira correção usou o
+// `markdown-it-katex`, de 2017, que carrega um KaTeX 0.6.0 ANINHADO no próprio
+// node_modules. O CSS era copiado do KaTeX do topo (0.18). Resultado: HTML de
+// 2016 servido com folha de estilo de 2024 — os índices caíam abaixo da linha
+// e o alinhamento colapsava, porque o sistema de `vlist`/`strut` mudou entre
+// as versões. A fórmula RENDERIZAVA, e renderizava errado, que é pior do que
+// não renderizar: parece conteúdo.
+//
+// Duas defesas, e a segunda é a que importa:
+//   1. plugin mantido (`@vscode/markdown-it-katex`), com um KaTeX só;
+//   2. o CSS é resolvido DO MESMO MÓDULO que renderiza (`createRequire`), e
+//      não de um caminho fixo. Assim renderizador e folha de estilo não podem
+//      divergir por instalação.
+import katexPlugin from "@vscode/markdown-it-katex";
+// Interop CJS/ESM: este pacote chega com o `default` embrulhado duas vezes
+// (`{ default: { default: fn } }`). Desembrulhar de forma defensiva evita o
+// `TypeError: plugin.apply is not a function`, que é o erro que aparece quando
+// se passa o objeto em vez da função.
+const katex = katexPlugin?.default ?? katexPlugin;
 import * as esbuild from "esbuild";
 import { gerarGrafo } from "./grafo.mjs";
 
@@ -603,10 +623,12 @@ mkdirSync(SAIDA, { recursive: true });
 
 if (!EN) {
   mkdirSync(resolve(SAIDA, "assets"), { recursive: true });
-  // O KaTeX precisa da folha de estilo E das fontes; sem as fontes a fórmula
-  // sai com métricas erradas, que é pior do que o texto cru.
-  cpSync(resolve(AQUI, "node_modules/katex/dist/katex.min.css"), resolve(SAIDA, "assets/katex.min.css"));
-  cpSync(resolve(AQUI, "node_modules/katex/dist/fonts"), resolve(SAIDA, "assets/fonts"), { recursive: true });
+  // O CSS vem do MESMO katex que o plugin usa — resolvido, não hardcoded.
+  // Sem isso, uma instalação que aninhe outra versão volta a servir HTML de
+  // uma versão com a folha de estilo de outra, e a fórmula sai deformada.
+  const DIST_KATEX = dirname(createRequire(import.meta.url).resolve("katex"));
+  cpSync(resolve(DIST_KATEX, "katex.min.css"), resolve(SAIDA, "assets/katex.min.css"));
+  cpSync(resolve(DIST_KATEX, "fonts"), resolve(SAIDA, "assets/fonts"), { recursive: true });
   cpSync(resolve(AQUI, "tema/estilo.css"), resolve(SAIDA, "assets/estilo.css"));
   cpSync(resolve(AQUI, "tema/app.js"), resolve(SAIDA, "assets/app.js"));
   cpSync(resolve(AQUI, "tema/capa.svg"), resolve(SAIDA, "assets/capa.svg"));

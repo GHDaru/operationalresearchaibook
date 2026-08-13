@@ -68,6 +68,44 @@ for (const ativo of ["assets/katex.min.css", "assets/fonts"]) {
     falhas.push(`${ativo} não foi copiado para docs/ — a fórmula sai com métricas erradas`);
 }
 
+// ACOPLAMENTO ENTRE RENDERIZADOR E FOLHA DE ESTILO — a verificação que faltava,
+// e cuja ausência deixou este portão passar VERDE sobre uma página quebrada.
+//
+// A primeira versão conferia que o arquivo CSS existe. Existia. O que não
+// existia era correspondência: o `markdown-it-katex` carregava um KaTeX 0.6.0
+// aninhado, e o CSS vinha do KaTeX 0.18 do topo. Marcação de uma versão,
+// estilo de outra: os índices caíam abaixo da linha e o alinhamento colapsava.
+// A fórmula renderizava, e renderizava ERRADO — que é pior do que não
+// renderizar, porque parece conteúdo.
+//
+// Agora o portão exige que toda classe estrutural que o renderizador EMITE
+// esteja DEFINIDA na folha de estilo publicada. É o teste que pega divergência
+// de versão sem precisar comparar números de versão.
+if (existsSync(resolve(DOCS, "assets/katex.min.css"))) {
+  const css = readFileSync(resolve(DOCS, "assets/katex.min.css"), "utf8");
+  // SÓ classes que o KaTeX de fato ESTILIZA. `mord`, `mrel` e `mbin` aparecem
+  // no HTML e não têm regra nenhuma — são semânticas, herdadas do TeX. Incluí-las
+  // gerava falso vermelho, e falso vermelho crônico é o que ensina a desligar o
+  // portão. Verificado classe a classe contra a folha publicada.
+  const ESTRUTURAIS = ["katex-html", "vlist-t", "vlist", "strut", "base", "sizing"];
+  const htmlTudo = readdirSync(DOCS).filter((f) => f.endsWith(".html"))
+    .map((f) => readFileSync(resolve(DOCS, f), "utf8")).join("");
+  for (const c of ESTRUTURAIS) {
+    const emitida = new RegExp(`class="[^"]*\\b${c}\\b`).test(htmlTudo);
+    const definida = css.includes(`.${c}`);
+    if (emitida && !definida)
+      falhas.push(`o renderizador emite a classe "${c}" e a folha de estilo publicada não a define — ` +
+                  `marcação de uma versão do KaTeX com estilo de outra`);
+  }
+  // As fontes são referenciadas pelo CSS em caminho relativo; se o diretório
+  // veio de outra versão, os nomes não batem e o navegador cai no fallback.
+  const pedidas = [...css.matchAll(/url\(fonts\/([^)]+?)\.woff2\)/g)].map((m) => m[1]);
+  const presentes = new Set(existsSync(resolve(DOCS, "assets/fonts")) ? readdirSync(resolve(DOCS, "assets/fonts")) : []);
+  const faltando = [...new Set(pedidas)].filter((f) => !presentes.has(`${f}.woff2`));
+  if (faltando.length)
+    falhas.push(`a folha de estilo pede ${faltando.length} fonte(s) que não estão em docs/assets/fonts: ${faltando.slice(0, 3).join(", ")}`);
+}
+
 if (falhas.length) {
   console.error(`✗ matemática: ${falhas.length} falha(s)`);
   falhas.forEach((f) => console.error("   " + f));

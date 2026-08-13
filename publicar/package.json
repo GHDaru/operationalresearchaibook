@@ -11,11 +11,11 @@
     "fontes": "node atualiza-fontes.mjs"
   },
   "dependencies": {
+    "@vscode/markdown-it-katex": "^1.1.2",
     "esbuild": "^0.28.1",
-    "katex": "^0.18.4",
+    "katex": "^0.16.47",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
-    "markdown-it-katex": "^2.0.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

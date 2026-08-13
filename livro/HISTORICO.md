@@ -742,5 +742,27 @@ para o que se extrai do **Markdown** — seções, links, exercícios, ótimos, 
 para o **HTML gerado**, que é o artefato que chega ao leitor. Este é o primeiro. Foi preciso o
 autor abrir a página e apontar, o que é a definição de portão que faltava.
 
-**Verificação:** `✓ matemática OK: 1087 expressão(ões) renderizada(s) em 16 páginas, 0
-delimitador cru`, com o portão provado quebrando-o de propósito.
+**E uma segunda armadilha, encontrada porque o autor olhou a página de novo.** A primeira
+correção usou o `markdown-it-katex`, de 2017, que carrega um **KaTeX 0.6.0 aninhado** no próprio
+`node_modules`. A folha de estilo era copiada do KaTeX do topo, **0.18**. Marcação de 2016 servida
+com estilo de 2024: os índices caíam abaixo da linha e o alinhamento colapsava. A fórmula
+**renderizava, e renderizava errado** — pior do que não renderizar, porque parece conteúdo.
+
+E o portão passou **verde** sobre isso, porque conferia que o arquivo CSS *existe*, não que ele
+*corresponde* a quem renderizou.
+
+Corrigido em três camadas:
+
+1. plugin mantido (`@vscode/markdown-it-katex`), com **um KaTeX só** no projeto;
+2. a folha de estilo é resolvida **do mesmo módulo que renderiza**, não de caminho fixo;
+3. o portão passou a exigir que **toda classe estrutural emitida pelo renderizador esteja
+   definida na folha publicada** — teste que pega divergência de versão sem comparar números.
+
+> Nota de método: a primeira lista de classes do portão incluía `mord`, que o KaTeX emite e
+> **não estiliza**. Falso vermelho. Cada classe foi conferida contra a folha antes de entrar —
+> falso vermelho crônico é o que ensina a desligar portão.
+
+**Verificação:** `✓ matemática OK: 1124 expressão(ões) renderizada(s) em 16 páginas, 0
+delimitador cru`, com o portão provado quebrando-o de propósito **duas vezes** (delimitador cru e
+folha de estilo de outra versão), e a página conferida **em navegador**: fonte `KaTeX_Main`
+carregada, 0 erro de console, 0 requisição falha.
