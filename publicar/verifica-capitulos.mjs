@@ -15,6 +15,8 @@ const COM_PDF = process.env.SEM_PDF !== "1";
 const DOCS = resolve(RAIZ, EN ? "docs/en" : "docs");
 
 const sumario = JSON.parse(readFileSync(resolve(AQUI, EN ? "sumario.en.json" : "sumario.json"), "utf8"));
+const ARQ_EX = resolve(RAIZ, "livro/exercicios.json");
+const EXERCICIOS = existsSync(ARQ_EX) ? JSON.parse(readFileSync(ARQ_EX, "utf8")) : [];
 const itens = sumario.partes.flatMap((p) => p.itens.map((i) => ({ ...i, parte: p.nome }))).filter((i) => i.arquivo);
 const slugDe = (arquivo) => basename(arquivo).replace(/\.md$/, "").toLowerCase();
 
@@ -25,6 +27,30 @@ const MD_LIVRO = EN ? "operations-research.md" : "pesquisa-operacional.md";
 const PDF_LIVRO = EN ? "operations-research.pdf" : "pesquisa-operacional.pdf";
 
 const RE_ORIGEM = /^##\s+De onde isto veio/m;
+
+// O índice da Videoteca, lido uma vez — os dois portões de costura o consultam.
+const VIDEOTECA = existsSync(resolve(RAIZ, "livro/videoteca.md"))
+  ? readFileSync(resolve(RAIZ, "livro/videoteca.md"), "utf8") : "";
+
+// Selo de maturidade (ADR 0013, D2). A escada e os emojis são os mesmos de
+// `build.mjs` — aqui só o que se VERIFICA, para o portão não depender de o
+// gerador ter acertado.
+const MATURIDADES = { v0: "🟡", medido: "🔵", verificado: "✅" };
+// D2 fecha com um sinal de apodrecimento: "mais de 3 🟡 por ✅ obriga a próxima
+// rodada a ser de promoção". Isso é uma promessa de processo, e promessa de
+// processo que ninguém mede envelhece — então ela vira aritmética aqui.
+const MAX_V0_POR_VERIFICADO = 3;
+const contagem = { v0: 0, medido: 0, verificado: 0 };
+
+// OS DOIS PRINCÍPIOS NÃO-NEGOCIÁVEIS QUE NÃO TINHAM PORTÃO.
+//
+// Auditoria do comitê da v0, conferida por medição: o Princípio II ("quando não
+// serve" é obrigatório) e o Princípio I (mínimo de 3 exercícios e 1 vídeo por
+// capítulo) eram cumpridos pelos quatro capítulos publicados — por DISCIPLINA,
+// não por portão. Com 5 capítulos e atenção, passa. Com 72 em série, deriva:
+// é aritmética, não pessimismo. Entram antes do primeiro lote da v0.
+const RE_NAO_SERVE = /^##[^\n]*[Qq]uando (não|nao) serve/m;
+const RE_ASSISTA = /^##\s+Assista/m;
 
 // DUAS listas, com significados diferentes — e misturá-las seria disfarçar
 // escopo de dívida, que é o oposto do que estes portões existem para fazer.
@@ -74,6 +100,27 @@ for (const item of itens) {
     if (!html.includes(`href="md/${slug}.md"`)) erro("link de download .md ausente");
     if (COM_PDF && !html.includes(`href="pdf/${slug}.pdf"`)) erro("link de download .pdf ausente");
     if (!existsSync(resolve(DOCS, "md", `${slug}.md`))) erro("md/*.md não copiado");
+
+    // Selo de maturidade (ADR 0013, D2): declarado no sumário e VISÍVEL na
+    // página. Um selo que existe só no JSON não serve ao leitor, que é para
+    // quem ele foi criado.
+    //
+    // Capítulo que não é de método fica de fora: a escada mede quanto se pode
+    // confiar nos NÚMEROS e nas afirmações de método da página, e a abertura do
+    // livro não faz nenhuma das duas coisas. Exigir selo dela obrigaria a
+    // escolher entre um ✅ que não significa nada e um 🟡 que assusta sem
+    // motivo. A lista de dívida (SEM_ORIGEM_DECLARADO) NÃO isenta — capítulo de
+    // método em dívida precisa de selo mais do que os outros.
+    if (!EN && !NAO_E_CAPITULO_DE_METODO.has(slug)) {
+      const emoji = MATURIDADES[item.maturidade];
+      if (!emoji) erro(`maturidade "${item.maturidade ?? "(ausente)"}" — declare uma de ${Object.keys(MATURIDADES).join(" | ")} no sumario.json`);
+      else {
+        contagem[item.maturidade]++;
+        if (!html.includes('class="cap-maturidade"')) erro("selo de maturidade não publicado na página");
+        else if (!new RegExp(`class="cap-maturidade"[^>]*>${emoji}`).test(html))
+          erro(`o sumário declara ${item.maturidade} e a página exibe outro selo`);
+      }
+    }
     if (existsSync(resolve(DOCS, "pdf")) && !existsSync(resolve(DOCS, "pdf", `${slug}.pdf`))) erro("pdf/*.pdf ausente");
 
     // Princípio XII — nenhum método cai do céu (constituição 1.1.0, ADR 0006).
@@ -88,6 +135,20 @@ for (const item of itens) {
       erro("sem a seção \"De onde isto veio\" — Princípio XII (ou declare a dívida em SEM_ORIGEM_DECLARADO)");
     if (!EN && RE_ORIGEM.test(md) && SEM_ORIGEM_DECLARADO.has(slug))
       erro("ganhou a seção de origem e continua na lista de dívida — tire-o de SEM_ORIGEM_DECLARADO");
+
+    // Princípio II, NÃO-NEGOCIÁVEL: todo método responde "quando não serve?".
+    if (!EN && !isentoDeOrigem(slug) && !RE_NAO_SERVE.test(md))
+      erro('sem a seção "Quando não serve" — Princípio II, não-negociável');
+
+    // Princípio I, NÃO-NEGOCIÁVEL: mínimo de 3 exercícios e 1 vídeo curado.
+    // O portão de exercícios já confere rubrica e rastreio; o que faltava era
+    // o PISO — ele exigia que a bateria existisse, não que tivesse 3 itens.
+    if (!EN && !isentoDeOrigem(slug)) {
+      if (!RE_ASSISTA.test(md)) erro('sem a seção "Assista" — Princípio I exige ≥1 vídeo curado');
+      const serie = (md.match(/data-bateria="([^"]+)"/) || [])[1];
+      const n = serie ? EXERCICIOS.filter((e) => e.id.startsWith(serie + ".")).length : 0;
+      if (n < 3) erro(`tem ${n} exercício(s) — Princípio I exige no mínimo 3`);
+    }
   } else {
     aparato++;
     if (html.includes('class="cap-hero"')) erro("página do aparato ganhou C01 indevidamente");
@@ -107,6 +168,54 @@ for (const item of itens) {
     if (emDia && !html.includes("sinc-ok")) erro("tradução em dia sem selo sinc-ok");
     if (!emDia && !html.includes("sinc-atras")) erro("tradução atrasada sem selo sinc-atras");
   }
+}
+
+// ---------------------------------------------------------------------------
+// DOIS PORTÕES QUE NASCERAM DA REVISÃO EM CONTEXTO FRESCO DO LOTE 1.
+//
+// As duas falhas eram invisíveis aos nove portões existentes, e as duas são de
+// COSTURA — o tipo que a revisão capítulo a capítulo não vê e que só aparece
+// quando alguém lê o livro seguindo o fio.
+if (!EN) {
+  const capitulos = itens.filter((i) => /^\s*\d+\s*—/.test(i.titulo));
+  const publicados = new Set(capitulos.map((i) => slugDe(i.arquivo)));
+
+  for (const item of capitulos) {
+    const slug = slugDe(item.arquivo);
+    const md = readFileSync(resolve(RAIZ, item.arquivo), "utf8");
+
+    // (1) Link de capítulo PUBLICADO apontando para o mapa em vez de para o
+    //     capítulo. É legítimo apontar para o mapa quando a vaga ainda não foi
+    //     escrita — é assim que o livro declara o que falta. Vira defeito no
+    //     instante em que o capítulo passa a existir, e ninguém volta para
+    //     trocar o link. Foi o que aconteceu com 12→13 e 14→11: os dois alvos
+    //     saíram no MESMO lote que os apontadores.
+    //
+    //     `verifica-referencias.mjs` não pega: ele valida a PROSA ("o capítulo
+    //     13 existe no mapa?") e nunca o alvo do link.
+    for (const m of md.matchAll(/\[cap[íi]tulo\s+(\d+)\]\(\.\.\/mapa-do-handbook\.md\)/gi)) {
+      const alvo = [...publicados].find((s) => s.startsWith(m[1].padStart(2, "0") + "-"));
+      if (alvo)
+        falhas.push(`${slug}: aponta "capítulo ${m[1]}" para o mapa, mas ${alvo}.md está PUBLICADO — troque o link`);
+    }
+
+    // (2) Ficha de vídeo no capítulo que não está no índice da Videoteca.
+    //     A própria Videoteca declara ser "mantida à mão: quem adiciona um
+    //     vídeo atualiza os dois lugares" — e o lote 1 escreveu oito fichas e
+    //     registrou uma. Promessa de processo que ninguém mede envelhece.
+    for (const m of md.matchAll(/youtube\.com\/watch\?v=([A-Za-z0-9_-]{6,})/g))
+      if (!VIDEOTECA.includes(m[1]))
+        falhas.push(`${slug}: vídeo ${m[1]} não está no índice de livro/videoteca.md`);
+  }
+}
+
+// A razão que a ADR 0013 promete vigiar. Ela só faz sentido depois de existir
+// pelo menos um capítulo ✅ — antes disso, o handbook inteiro é v0 por definição
+// e a divisão não mede nada.
+if (!EN && contagem.verificado) {
+  const teto = MAX_V0_POR_VERIFICADO * contagem.verificado;
+  if (contagem.v0 > teto)
+    falhas.push(`maturidade: ${contagem.v0} capítulo(s) 🟡 para ${contagem.verificado} ✅ — o teto é ${teto} (ADR 0013, D2). A próxima rodada tem de ser de PROMOÇÃO, não de capítulo novo`);
 }
 
 // Knowledge Graph (spec 057) — só na passada PT (o EN remapeia o mesmo grafo).
@@ -159,4 +268,5 @@ if (falhas.length) {
   falhas.forEach((f) => console.error("   " + f));
   process.exit(1);
 }
-console.log(`✓ template verificado [${EN ? "en" : "pt"}]: ${capitulos} capítulos com C01/N02 + ${aparato} páginas de aparato OK`);
+const selos = EN ? "" : ` · maturidade 🟡${contagem.v0} 🔵${contagem.medido} ✅${contagem.verificado}`;
+console.log(`✓ template verificado [${EN ? "en" : "pt"}]: ${capitulos} capítulos com C01/N02 + ${aparato} páginas de aparato OK${selos}`);

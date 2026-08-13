@@ -53,7 +53,12 @@ const RE_ENTRADA = new RegExp(
 //
 // Numa rodada que existe para impedir identificador inventado, o identificador
 // que o leitor de fato USA é o do link. Apontado pela revisão independente.
-const RE_DOI = /DOI\s*\[([^\]]+)\]\(\s*https?:\/\/(?:dx\.)?doi\.org\/([^)\s]+)\s*\)/;
+// O sufixo do DOI PODE conter parênteses — `10.1016/0041-5553(80)90061-0` é
+// real, e é o artigo de Khachiyan. Um `[^)]+` ingênuo corta no primeiro
+// parêntese e acusa divergência entre rótulo e endereço que NÃO existe. O alvo
+// aceita um nível de parênteses balanceados: cobre o formato da Elsevier e não
+// engole o `)` que fecha o link do Markdown.
+const RE_DOI = /DOI\s*\[([^\]]+)\]\(\s*https?:\/\/(?:dx\.)?doi\.org\/((?:[^()\s]|\([^()\s]*\))+)\s*\)/;
 
 // Título: ordem explícita, nunca alternância única.
 //
@@ -62,7 +67,15 @@ const RE_DOI = /DOI\s*\[([^\]]+)\]\(\s*https?:\/\/(?:dx\.)?doi\.org\/([^)\s]+)\s
 // Problem"`, o terceiro ramo encontra casamento no SEGUNDO asterisco do
 // negrito, e o motor de regex escolhe pela POSIÇÃO antes de escolher pelo ramo.
 // Doze títulos viraram doze nomes de autor na primeira calibração desta rodada.
-const EXTRATORES_TITULO = [/"([^"]{8,})"/, /\*\*\*([^*]{8,})\*\*\*/];
+// O terceiro extrator é para LIVRO: obras como *Convex Analysis* trazem o
+// título em itálico simples, sem aspas, com o autor antes em negrito. Os
+// arredores `(?<!\*)` e `(?!\*)` garantem que não se casa o interior de um
+// `**negrito**` — que foi exatamente o defeito da primeira calibração.
+const EXTRATORES_TITULO = [
+  /"([^"]{8,})"/,                                // "Título do artigo"
+  /\*\*\*([^*]{8,})\*\*\*/,                      // ***Título*** — sem autor
+  /(?<!\*)\*(?!\*)([^*]{8,}?)(?<!\*)\*(?!\*)/,   // *Título do livro*
+];
 
 // Ano: o ÚLTIMO ano de quatro dígitos que aparece ANTES do marcador "DOI [".
 // Depois do marcador vem a prosa da entrada, que costuma citar outras datas.

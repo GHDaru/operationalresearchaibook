@@ -766,3 +766,404 @@ Corrigido em três camadas:
 delimitador cru`, com o portão provado quebrando-o de propósito **duas vezes** (delimitador cru e
 folha de estilo de outra versão), e a página conferida **em navegador**: fonte `KaTeX_Main`
 carregada, 0 erro de console, 0 requisição falha.
+
+### Edição 0.16 — 2026-08-13 · Capítulo 12: dualidade, e o selo de maturidade
+
+Primeiro capítulo do **lote 1 da v0** ([spec 009](https://github.com/GHDaru/operationalresearchaibook/blob/main/specs/009-lote1-parte2/spec.md)),
+e a estreia da escada de maturidade decidida na [ADR 0013](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0013-o-que-e-a-v0.md).
+
+**Entrou:**
+
+- **[Capítulo 12 — Dualidade](capitulos/12-dualidade.md)**, em 🟡 **v0**. O problema irmão, os dois
+  teoremas, as folgas complementares e a leitura do preço-sombra no quadro que o leitor já sabe
+  montar. Três objetivos, três exercícios, um para um.
+- **[Etapa 05 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-05-parte2)** —
+  uma etapa por **Parte**, não por capítulo (ADR 0013, D3). Ela ancora o capítulo 12 e já ancora
+  o 13.
+- **Selo de maturidade** 🟡 v0 / 🔵 medido / ✅ verificado, no alto de cada capítulo e no
+  [mapa](mapa-do-handbook.md), **verificado por máquina**.
+- **Capacidade `dualidade`** no tutor, liberada no capítulo 12, com o espelho de exibição em
+  sincronia.
+
+**A verificação que sustenta o capítulo, e por que ela é chata de propósito.** Ler o preço-sombra
+no quadro do primal é conveniente e **circular**: usa o mesmo cálculo para produzir e para
+conferir. A etapa 05 monta o **dual como problema separado** e o resolve do zero. Os dois caminhos
+chegam a **R$ 1.100**, e o script **encerra com erro** se não chegarem — o capítulo não pode ser
+escrito com o experimento vermelho.
+
+**O número que o capítulo existe para impedir.** Um preço-sombra citado sem a **faixa de
+validade** custa, na instância do livro, **R$ 350 de prejuízo** numa compra em que *nenhuma conta
+está errada*. É o erro caro da Parte II, e agora está medido, não advertido.
+
+**O que este capítulo NÃO afirma.** A cena mais contada da área — von Neumann apontando a
+dualidade a Dantzig em 1947 — foi procurada por identificador e **não localizada**. Fica `⏳`, dita
+como atribuição corrente e não como história. A origem do nome "dual" neste campo fica `❌`.
+Nenhuma das duas foi preenchida com invenção.
+
+**Quitado:** o último `⏳` de vídeo do handbook. A duração do vídeo do capítulo 10 é **19min04s** —
+e a leitura foi conferida contra um caso conhecido (o vídeo do capítulo 09, que devolve os mesmos
+18min48s já registrados por outra via) antes de ser aceita.
+
+**Verificação:** nove portões verdes — `✓ template verificado [pt]: 6 capítulos … maturidade 🟡1
+🔵0 ✅4`, `✓ registro de exercícios OK: 30 exercícios em 5 baterias`, `✓ consistência de ótimo OK:
+30 modelo(s) resolvido(s) em aritmética exata`. O portão de maturidade foi **provado quebrando**
+nos quatro modos que ele promete pegar, incluindo o falso verde que importa: o sumário passar a
+declarar um selo e a página continuar exibindo outro.
+
+### Edição 0.17 — 2026-08-13 · A faixa estava errada, e o portão que faltava
+
+Registro *append-only*: a edição 0.16 publicou o capítulo 12 com **duas faixas de validade
+erradas**. Esta edição as corrige e, mais importante, constrói o portão que teria impedido.
+
+**O que estava errado.** A faixa em que o preço-sombra vale saía de uma varredura do estoque de
+meio em meio. O defeito não é de precisão, é de definição: a varredura mede **em que base o
+Simplex aterrissa**, não **para que estoque a base continua ótima**. Na fronteira o vértice fica
+degenerado, o método aterrissa em outra base equivalente, e a varredura lê "mudou" um passo antes
+da hora.
+
+| Recurso | Publicado na 0.16 | Correto |
+|---|---|---|
+| CPUs | de 6,5 a 12 | **de 6 a 12** |
+| pentes de 16 GB | de 10 a 19,5 | **de 10 a 20** |
+
+O que torna o defeito pior do que dois números: **o teto 12 saiu certo, por sorte de desempate**.
+Um método que erra um lado e acerta o outro sem avisar não é medição.
+
+**O que mudou na medição.** A faixa passa a sair de **álgebra exata** sobre o quadro final — com
+todas as restrições `<=`, as colunas de folga são $B^{-1}$ — e é **conferida por um segundo
+caminho**, que põe o estoque na fronteira e um pouco além e exige que o preço acerte na fronteira e
+**erre** além dela. Faixa curta demais escapa de qualquer teste que só confira o valor certo.
+
+**O portão que nasceu disto.** Era a **segunda vez** que um número entrava no livro sem portão — a
+primeira foi o ótimo errado do `cap07.exC`, que produziu o `verifica-otimos.mjs`. Defeito de mesma
+classe pela segunda vez é defeito do pipeline: a etapa 05 ganhou uma suíte que **lê o capítulo
+publicado** e exige que cada número medido apareça no texto na forma exata — **e que as versões
+antigas não apareçam**, porque um teste que só confere o valor certo passa verde num capítulo que
+publica o certo e o errado em lugares diferentes.
+
+**Entrou junto:** a **faixa dos coeficientes do objetivo** (`[75, 150]` para o Tipo 1 e
+`[100, 200]` para o Tipo 2), que é a metade do relatório de sensibilidade que ainda não tinha
+artefato e que o capítulo 13 vai precisar.
+
+**Corrigido também:** o capítulo 12 afirmava em prosa que o *minimax* foi "publicado por von
+Neumann em 1928" enquanto a sua própria tabela de Procedência marcava a afirmação `⏳`. Corpo
+afirmando o que a tabela nega é o modo mais silencioso de um sistema de selos deixar de valer.
+
+**O exercício C do capítulo 12 foi reescrito** e ficou melhor: com a faixa certa terminando em 20,
+comprar 20 ou 24 pentes dá **o mesmo lucro** de R$ 1.500 — as 4 unidades finais valem exatamente
+zero e são custo puro. A faixa de validade aparece como dinheiro, que é o que o exercício existe
+para ensinar.
+
+**A decisão está registrada** na [ADR 0014](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0014-relatorio-de-sensibilidade-e-a-faixa-medida.md),
+com o comitê de três especialistas que a instruiu — e com o registro de que nenhuma recomendação
+foi aceita sem reconferência própria.
+
+**Verificação:** `8 passed` na etapa 05, nove portões verdes, `✓ consistência de ótimo OK: 30
+modelo(s) resolvido(s) em aritmética exata`.
+
+### Edição 0.18 — 2026-08-13 · Capítulo 77: como ler um artigo, antecipado de propósito
+
+Segundo capítulo do lote 1, e o único fora da Parte II. **A antecipação é a decisão**: o capítulo
+77 é barato de escrever, não tem método a medir, e dá a todo o resto do livro o direito de
+**citar em vez de explicar**. Enquanto ele não existisse, cada capítulo que dissesse "as fontes
+lidas mostram que X" estaria pedindo confiança; agora está apontando para um protocolo que o
+leitor pode aplicar à mesma fonte.
+
+**Entrou:** [capítulo 77](capitulos/77-ler-artigo.md), em 🟡 **v0**. Três passadas de custo
+crescente com critério explícito de desistência, e — o que o torna de Pesquisa Operacional e não
+um guia genérico — a **checklist da comparação computacional**: instâncias, *baseline* com versão,
+critério de parada, máquina, semente e número de execuções, forma de medir qualidade,
+disponibilidade de código e dados.
+
+**Este capítulo não publica número nenhum**, e isso é declarado no corpo. Ele é protocolo.
+
+**O que ele não afirma, e é o ponto mais delicado.** A ideia de organizar a leitura em passadas é
+creditada a Keshav (2007), com selo `✓ᵐ`: **o identificador foi conferido e o texto não foi
+aberto** — nenhuma via de acesso aberto o devolveu. Consequência assumida no desenho: o protocolo
+publicado é **autoral**, escrito para artigos de PO, e o capítulo diz isso em vez de atribuir a
+Keshav detalhes que não leu. A dívida fecha quando alguém com acesso institucional conferir o que
+é dele e o que é adaptação — e o resultado pode ser **encolher** a seção.
+
+**Cláusula de expiração**, porque o capítulo está na camada de fronteira: as três passadas não
+expiram por conta própria; a checklist de comparação computacional e a afirmação sobre variação de
+desempenho entre versões de solver são reverificadas **até 2028-08**.
+
+**Portão ajustado, com medição antes.** O portão de consistência de ótimo usava a régua `[óo]tim`,
+que num livro sobre **otimização** é falso vermelho esperando a hora: "código otimizado" disparava
+o portão num exercício sem modelo. A régua foi estreitada para o substantivo (`ótimo/ótima/
+ótimos/ótimas`). Medido sobre o registro inteiro **antes** de trocar: exatamente **um** exercício
+sai da vigilância — o falso positivo — e nenhum outro é solto. Falso vermelho crônico é o que
+ensina a desligar portão.
+
+**Verificação:** nove portões verdes — `✓ registro de exercícios OK: 33 exercícios em 6 baterias`,
+`✓ template verificado [pt]: 7 capítulos … maturidade 🟡2 🔵0 ✅4` —, `8 passed` na etapa 05 e
+`24 passed` no backend.
+
+### Edição 0.19 — 2026-08-13 · Capítulo 13: sensibilidade, e o preço que não é um número
+
+Terceiro capítulo do lote 1, e o que paga a dívida que o capítulo 12 deixou por escrito: *"como
+usar a faixa é o capítulo 13"*.
+
+**Entrou:** [capítulo 13](capitulos/13-sensibilidade.md), em 🟡 **v0**, e a segunda metade da
+etapa 05 do `po-zero`.
+
+**O relatório de sensibilidade é de formato próprio**, por decisão registrada na
+[ADR 0014](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0014-relatorio-de-sensibilidade-e-a-faixa-medida.md)
+(D1). O relatório de um solver de mercado empilha **duas famílias de faixa com os mesmos rótulos** —
+uma diz até onde o **plano** aguenta, a outra até onde o **preço** vale — e é essa fusão visual que
+produz o erro caro. Aqui os dois blocos têm títulos que dizem o que cada faixa protege. Não há
+imitação de layout de fornecedor: o Princípio IV proíbe que um objetivo declarado dependa de
+produto licenciado.
+
+**O preço ambíguo deixou de ser advertência e virou demonstração.** O capítulo 10 disse que em
+vértice degenerado a leitura de preço-sombra fica ambígua e parou aí. Agora o handbook **exibe**:
+a montadora mais uma restrição que não muda nada (a bancada de teste, que comporta os 8 do Tipo 1
+que o plano já produz), a **mesma implementação**, e só a **ordem em que as restrições foram
+digitadas** mudando:
+
+| | CPUs | pentes | bancada |
+|---|---:|---:|---:|
+| ordem CPU, pente, bancada | 50 | 50 | 0 |
+| ordem bancada, pente, CPU | 0 | 75 | 25 |
+
+Os dois foram conferidos como **soluções viáveis do dual, de mesmo custo** — e o ponto médio
+também. O dual não tem um ótimo: tem um **segmento** de ótimos. Medindo direto, `z(9) = 1050`,
+`z(10) = 1100`, `z(11) = 1100`: perder uma CPU custa R$ 50 e ganhar uma CPU rende R$ 0. Não é que
+um relatório esteja errado — é a pergunta "qual é *o* preço" que está mal feita.
+
+**Achado do próprio teste, e ele virou uma frase no capítulo.** A faixa do lucro tem **três**
+regimes, e o do meio quase nunca é escrito: estritamente dentro, o plano é o mesmo e é único;
+**exatamente na fronteira**, ele continua ótimo mas **empata** com outro — em $c_1 = 75$, os planos
+$(8,2)$ e $(0,6)$ rendem os dois R$ 900 —; fora, deixa de ser ótimo. O teste tinha sido escrito
+exigindo igualdade de ponto na fronteira, e falhou. Estava errado o teste, e a correção rendeu
+conteúdo.
+
+**Verificação:** nove portões verdes — `✓ consistência de ótimo OK: 41 modelo(s) resolvido(s) em
+aritmética exata`, `✓ registro de exercícios OK: 36 exercícios em 7 baterias`, `maturidade 🟡3 🔵0
+✅4` —, `13 passed` na etapa 05 e `24 passed` no backend.
+
+### Edição 0.20 — 2026-08-13 · Capítulo 38: convexidade, e a dívida do capítulo 09 paga
+
+Quarto capítulo do lote 1, antecipado da Parte VI por dois motivos declarados: o
+[capítulo 09](capitulos/09-simplex.md) usou a convexidade **a crédito** ao afirmar que "parar no
+primeiro topo é seguro", e ~40 capítulos do mapa vão poder **apontar** para cá em vez de
+reexplicar.
+
+**Entrou:** [capítulo 38](capitulos/38-convexidade.md), em 🟡 **v0** e curto por desenho, mais a
+[etapa 06 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-06-convexidade).
+
+**A assimetria do teste, medida.** O teste do ponto médio percorreu **12.561** pares na região da
+montadora sem achar contraexemplo — e isso **não prova** convexidade, porque nenhuma amostragem
+prova. Na região com "fornecedor A **ou** B", **15** pares bastaram para provar a **não**
+convexidade, porque um contraexemplo é uma prova completa. O capítulo publica os dois vereditos
+com palavras diferentes de propósito.
+
+**O ótimo local, exibido em vez de advertido.** Mesma região não convexa, mesmo objetivo, duas
+partidas: a busca local para em $(2,8)$ com margem **22** e em $(10,0)$ com margem **30**. A busca
+é honesta — só aceita vizinho viável e melhor —, e em $(2,8)$ **nenhum vizinho é melhor**. Não
+houve erro, nem aviso, nem bandeira: o que estava errado era supor que aquilo bastava.
+
+**A não convexidade entrou pela porta da frente.** A regra que a produz é banal e está escrita em
+português: *compre pelo menos 6 de A **ou** pelo menos 8 de B*. Todo "ou" é uma união de regiões, e
+união de convexos quase nunca é convexa.
+
+**Um portão declarou o que não alcança.** O portão de consistência de ótimo enumera vértices de
+interseções de semiespaços — é, por construção, uma máquina de conjuntos **convexos**. Um exercício
+sobre região não convexa é exatamente o que ele não consegue conferir. Os três exercícios do
+capítulo 38 entraram na lista de isenção **com justificativa**, e a isenção **aponta para onde a
+conferência acontece**; um teste da etapa 06 verifica que a isenção e o apontamento continuam lá.
+Nenhum número do handbook fica sem dono.
+
+**Armadilha de idioma, consertada na configuração.** O padrão do pytest coleta como teste qualquer
+função cujo nome comece com `test` — **sem** o sublinhado. Num repositório em português isso
+significa que `teste_do_ponto_medio` era coletada e falhava com "fixture não encontrada": falso
+vermelho vindo do nome, não do código. Exigir o sublinhado resolve a classe inteira, e proteger as
+próximas funções vale mais do que renomear esta.
+
+**Verificação:** nove portões verdes — `maturidade 🟡4 🔵0 ✅4`, `39 exercícios em 8 baterias`,
+`41 modelo(s) resolvido(s) em aritmética exata` —, `19 passed` no `po-zero` e `24 passed` no
+backend.
+
+### Edição 0.21 — 2026-08-13 · Capítulo 14: atravessar em vez de contornar
+
+Quinto capítulo do lote 1. Fecha a família de métodos da Parte II e resolve um incômodo que os
+capítulos 08 a 13 deixaram no ar: se o ótimo está numa quina, por que um método que **evita** as
+quinas é competitivo — e por que a resposta que ele entrega **não é uma quina**?
+
+**Entrou:** [capítulo 14](capitulos/14-pontos-interiores.md), em 🟡 **v0**, e a
+[etapa 07 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-07-pontos-interiores),
+com escalonamento afim.
+
+**A reconciliação com o capítulo 08**, que é o ponto conceitual: o teorema afirma que **existe** um
+ótimo num vértice. Ele **não** afirma que o método precisa andar pelos vértices para achá-lo — um
+é um fato sobre onde a resposta mora, o outro seria um fato sobre como chegar lá, e não está no
+teorema.
+
+**Ponto flutuante, declarado.** É a primeira etapa do handbook que **não pode** usar aritmética
+exata, e o motivo é de natureza: método interior é iterativo e converge a um **limite**. Isso vira
+conteúdo em vez de rodapé:
+
+```
+Simplex (fração exata):     ponto (8, 2)                 valor 1100        2 pivôs
+interior (ponto flutuante): ponto [7.999996, 2.000002]   valor 1099.99982  11 iterações
+distância ao vértice: 4.472e-06 · erro no valor: 1.800e-04
+```
+
+**O Simplex chega; este se aproxima.** A distância de $4{,}5 \times 10^{-6}$ não é defeito de
+implementação — apertar a tolerância a diminui, e zerá-la é impossível.
+
+**Onde os dois métodos discordam, e ambos acertam.** Na marcenaria do capítulo 10, cujo ótimo é um
+**segmento** entre $(4,0)$ e $(2,3)$, o Simplex devolve uma das quinas e o método interior devolve
+$(2{,}928;\ 1{,}608)$ — **no meio da face ótima**, valendo os mesmos 24. Há teste que verifica que
+o ponto está sobre o segmento e **estritamente entre as pontas**: parar colado numa ponta não teria
+lição a extrair.
+
+**O que o capítulo recusa afirmar.** Nenhuma comparação de desempenho do tipo "ponto interior ganha
+acima de $N$ variáveis" — seria exatamente a comparação sem instância, *baseline* e máquina que o
+[capítulo 77](capitulos/77-ler-artigo.md) ensina a recusar. A afirmação corrente de que o método do
+elipsoide "perdia na prática" entra como `⏳` **do campo**, não como resultado próprio.
+
+**Defeito encontrado e corrigido durante a construção**, do tipo que vale registrar: a primeira
+versão do critério de parada declarava `ilimitado` quando nenhuma componente da direção era
+negativa — raciocínio correto em teoria e errado na prática, porque é exatamente o que acontece
+**perto do ótimo**. O método convergia e a função dizia "ilimitado". O critério certo é o resíduo
+reescalado; detectar ilimitado não é trabalho desta etapa.
+
+**Verificação:** nove portões verdes — `maturidade 🟡5 🔵0 ✅4`, `42 exercícios em 9 baterias`,
+`42 modelo(s) resolvido(s) em aritmética exata` —, `26 passed` no `po-zero` e `24 passed` no
+backend.
+
+### Edição 0.22 — 2026-08-13 · Capítulo 15: os quatro padrões, e o erro que não avisa
+
+Último capítulo 🟡 do lote 1, e o que **fecha a Parte II** — resta o capítulo 11, que tem spec e
+medição próprias.
+
+**Entrou:** [capítulo 15](capitulos/15-modelagem-aplicada.md), em 🟡 **v0**, e a
+[etapa 08 do `po-zero`](https://github.com/GHDaru/operationalresearchaibook/tree/main/po-zero/etapa-08-modelagem),
+que resolve mistura, transporte e cobertura com o **mesmo Simplex da etapa 03** — sem uma linha de
+método novo, porque a tese do capítulo é que o repertório é de **formulação**. Há teste que
+verifica isso: se a etapa passar a importar solver externo, ele quebra.
+
+**O erro mais silencioso do livro.** Todos os anteriores tinham sintoma — `Infeasible` avisa,
+`Unbounded` avisa, ciclagem trava, preço fora da faixa dá prejuízo. **Padrão errado não avisa
+nada.** Medido: a mesma situação de distribuição custa **R$ 365** modelada como transporte e
+**R$ 403,33** modelada como mix de produção com custo médio de frete — `Optimal` nos dois.
+
+E o dano maior não é a diferença de 10,5%: o modelo errado tem **duas variáveis**, uma por fábrica,
+e portanto **não diz quanto vai para cada centro**. A informação não está imprecisa — ela não
+existe. A perda aconteceu na escolha da variável de decisão, e o custo médio foi consequência, não
+causa.
+
+**A porta de entrada da programação inteira, medida.** A cobertura relaxada para contínua devolve
+`['1/2','1/2','1/2','1/2']` ao custo **9**; a decisão executável mais barata, obtida por
+**enumeração dos 16 subconjuntos**, é abrir as estações 2 e 3 ao custo **10**. A relaxação é um
+limitante inferior que **não se alcança**, e o buraco de 1 é exatamente o que a Parte de
+programação inteira existe para fechar.
+
+**Um alcance de portão, declarado em vez de descoberto depois.** O `verifica-otimos.mjs` não pegou
+os números deste capítulo, e não por estarem certos: ele só resolve modelos de **duas** variáveis
+(o transporte tem seis) e só inspeciona rubricas que contenham a palavra "ótimo" (as deste capítulo
+afirmam custos sem usá-la). Isso não é defeito — é o alcance dele. O controle compensatório é o
+teste da etapa 08, que confere o capítulo **e** a rubrica, e que declara no próprio cabeçalho qual
+buraco está fechando.
+
+**Verificação:** nove portões verdes — `maturidade 🟡6 🔵0 ✅4`, `45 exercícios em 10 baterias` —,
+`32 passed` no `po-zero` e `24 passed` no backend.
+
+### Edição 0.23 — 2026-08-13 · Capítulo 11: a medição que contraria o folclore
+
+**Fecha a Parte II** e fecha o lote 1 da v0. É o único capítulo 🔵 **medido** do lote — todo número
+dele se regenera por experimento; falta a revisão independente para ✅.
+
+**Entrou:** [capítulo 11](capitulos/11-simplex-revisado.md) e a segunda metade da etapa 05, com o
+desenho da [ADR 0012](https://github.com/GHDaru/operationalresearchaibook/blob/main/adr/0012-o-desenho-da-medicao-do-capitulo-11.md)
+marcado no código decisão por decisão (D1…D8).
+
+**O resultado contraria o que se costuma dizer, e entra assim.** A forma revisada ganha nas
+instâncias densas, com vantagem crescente em $n/m$ — **1,27× · 1,87× · 2,96×** — e **perde** em duas
+das três esparsas (**0,94×** e **0,75×**). A spec da rodada tinha se comprometido com isso antes de
+medir: *o livro não afirma ganho que o experimento não mostrar*.
+
+**E a explicação foi medida, não contada:** o **preenchimento**. Na "média esparsa" o quadro salta
+de 0,27 para 0,41 de densidade ao pivotear, fica caro de manter, e a revisada ganha; na "magra
+esparsa" ele quase não preenche (0,13 → 0,20), continua barato, e a revisada perde. A troca real é
+*manter tudo para poder ler* contra *não manter nada e recalcular*, e qual sai mais barato depende
+da instância.
+
+**Três garantias tornam o resultado inesperado acreditável**, e sem elas ele seria só suspeita de
+bug: concordância com a etapa 03 (publicada e **intocada**) como árbitro; **mesma trajetória de
+pivô** nas duas formas, provada em toda instância; e seis instâncias **congeladas antes** da
+primeira execução, com todas publicadas.
+
+**Dois resultados negativos, publicados como resultado.**
+
+1. **Nenhuma instância estagna** pelo limiar pré-declarado de 3 iterações consecutivas sem melhora
+   — nem a aleatória (veredito: *lentidão*), nem uma deliberadamente degenerada com cinco
+   restrições sobre o mesmo vértice. **O limiar não foi baixado** para o exemplo caber: baixá-lo
+   depois de ver o resultado é ajustar até ficar verde.
+2. **O ponto flutuante não mudou o veredito**: erro relativo de $1{,}1 \times 10^{-16}$, mesma base,
+   mesmas 30 iterações. E a lição está em **por que a base foi comparada separada do valor** — erro
+   pequeno no número não garante o mesmo plano.
+
+Os três negativos estão **asseverados em teste**. Se um dia a implementação mudar e a revisada
+passar a ganhar sempre, a suíte fica vermelha — o capítulo teria de ser reescrito, não
+silenciosamente corrigido.
+
+**Critérios da spec 008 medidos:** `wc -l` = **362** linhas contra o teto de 722 (A12); blocos de
+mecânica em **28,2%** das linhas contra o teto de 50% (A13); **cinco** exercícios, um por objetivo
+(A18); a caixa que fecha a ponte — *"solver nenhum faz isso"* — publicada (A16); e o verbete
+**custo reduzido** do glossário ganhou a leitura por preço, $c_j - y^{\top}a_j$ (A17).
+
+**Verificação:** nove portões verdes — `maturidade 🟡6 🔵1 ✅4`, `50 exercícios em 11 baterias` —,
+`40 passed` no `po-zero` e `24 passed` no backend.
+
+### Edição 0.24 — 2026-08-13 · A revisão do lote reprovou, e o que ela pegou
+
+A revisão em contexto fresco do lote 1 — feita por quem não escreveu nada dele, lendo **seguindo o
+fio** e não capítulo a capítulo — **reprovou**. Não pelo conteúdo: as sete medições se regeneram
+exatamente como publicadas. Reprovou a **costura**, e num padrão que vale registrar.
+
+**O defeito que voltou dentro do mesmo lote.** A edição 0.17 corrigiu, no capítulo 12, o corpo
+afirmando o que a tabela de Procedência marcava `⏳` — e escreveu que *"corpo afirmando o que a
+tabela nega é o modo mais silencioso de um sistema de selos deixar de valer"*. O capítulo 14, do
+mesmo lote, fazia exatamente isso três vezes: afirmava que o método do elipsoide "perdia feio", que
+Karmarkar "mudou o mercado" e que a família interior "é a escolha usual do mercado" — tudo com a
+Procedência marcando `⏳` ou sem linha nenhuma. **Corrigido**: as três viraram atribuição explícita,
+e a tabela de viradas ganhou uma coluna `⏳` que separa o que foi medido do que se repete.
+
+**Junto, uma data ganhou honestidade.** O capítulo ensinava "1979" cinco vezes para Khachiyan,
+enquanto o único identificador conferido é o da publicação de **1980**. O capítulo agora publica as
+duas e **não reconcilia** — diz o que tem conferido e marca o resto.
+
+**O capítulo 11 exagerava o próprio resultado negativo.** Escrevia *"nas esparsas ela perde, ou
+quase: 0,94×, 1,34× e 0,75×"* — e 1,34× é **vitória**, a segunda maior de todas. Num capítulo cujo
+argumento é "não suavizamos resultado negativo", inflar um negativo é a mesma falha espelhada.
+Corrigido para **duas das três**, com a régua certa dita em seguida: não existe regra por
+esparsidade, a régua é o **preenchimento**.
+
+**Três elos do fio não existiam.** O 12 mandava o leitor ao **mapa** para o capítulo 13, publicado
+no mesmo lote; o 14 dizia que o 11 "**fará** caber em memória", no futuro, sobre o capítulo mais
+maduro do lote; e o 38 pagava a dívida de convexidade do 09 sem que o 09 soubesse — o leitor que
+segue a ordem nunca era avisado. Os três foram ligados.
+
+**O README da etapa 05 ainda publicava as faixas erradas.** A correção da edição 0.17 tocou o
+script, o capítulo, os resultados e os testes — e não o README, que é a primeira tela de quem segue
+o link dos capítulos 12 e 13. Corrigido, com o defeito registrado nele.
+
+**Oito fichas de vídeo, uma registrada.** A Videoteca declara ser mantida à mão, *"quem adiciona um
+vídeo atualiza os dois lugares"* — e o lote registrou uma das oito. As sete faltantes entraram, com
+o registro de **por qual via** título, autoria e duração foram lidos.
+
+**Dois portões novos, porque as duas falhas eram invisíveis aos nove existentes.** Um barra
+capítulo publicado que aponte para o mapa quando o capítulo-alvo **já existe** — legítimo enquanto
+a vaga é vaga, defeito no instante em que ela é preenchida, e ninguém volta para trocar o link. O
+outro exige que toda ficha `## Assista` esteja no índice da Videoteca. **Os dois foram provados
+quebrando** antes de entrar.
+
+**Fica para o autor**, porque não é trabalho de agente: a revisão apontou que o ✅ do capítulo 09
+não tem registro da revisão em contexto fresco que a ADR 0013 usa para definir o selo — o
+`specs/004-cap09-simplex/verificacao.md` marca `⏳ pendente`. Ou o 09 recebe a revisão, ou o selo
+cai para 🔵. Importa duplamente porque o teto do portão de razão é `3 × ✅`.
+
+**Verificação:** nove portões verdes com os dois novos incluídos, `40 passed` no `po-zero`,
+`24 passed` no backend.

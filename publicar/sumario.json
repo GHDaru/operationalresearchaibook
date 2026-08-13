@@ -29,27 +29,83 @@
         {
           "arquivo": "livro/capitulos/07-formulacao.md",
           "titulo": "07 — Formulação de modelos lineares",
+          "maturidade": "verificado",
           "teaser": "A parte do trabalho que nenhum solver faz por você: escolher qual pergunta o modelo responde."
         },
         {
           "arquivo": "livro/capitulos/08-geometria.md",
           "titulo": "08 — A geometria da Programação Linear",
+          "maturidade": "verificado",
           "teaser": "Onde a resposta deixa de ser um número que veio de fora e vira um lugar que dá para apontar."
         },
         {
           "arquivo": "livro/capitulos/09-simplex.md",
           "titulo": "09 — O método Simplex",
+          "maturidade": "verificado",
           "teaser": "Como percorrer vértices sem enxergá-los — e por que parar no primeiro topo é seguro."
         },
         {
           "arquivo": "livro/capitulos/10-casos-especiais.md",
           "titulo": "10 — Casos especiais e degenerescência",
+          "maturidade": "verificado",
           "teaser": "Quando o solver não devolve um plano — e o que cada veredito diz sobre o seu modelo."
         },
         {
+          "arquivo": "livro/capitulos/11-simplex-revisado.md",
+          "titulo": "11 — Simplex revisado e implementação eficiente",
+          "maturidade": "medido",
+          "teaser": "Manter tudo para poder ler, ou não manter nada e recalcular — e a medição que contraria o folclore."
+        },
+        {
+          "arquivo": "livro/capitulos/12-dualidade.md",
+          "titulo": "12 — Dualidade",
+          "maturidade": "v0",
+          "teaser": "Quanto vale uma unidade a mais do recurso que acabou — e por que o número tem prazo de validade."
+        },
+        {
+          "arquivo": "livro/capitulos/13-sensibilidade.md",
+          "titulo": "13 — Análise de sensibilidade e pós-otimização",
+          "maturidade": "v0",
+          "teaser": "O que a resposta suporta antes de mudar — e quando você não precisa resolver de novo."
+        },
+        {
+          "arquivo": "livro/capitulos/14-pontos-interiores.md",
+          "titulo": "14 — Métodos de pontos interiores",
+          "maturidade": "v0",
+          "teaser": "Atravessar em vez de contornar — e por que a resposta que chega não é um vértice."
+        },
+        {
+          "arquivo": "livro/capitulos/15-modelagem-aplicada.md",
+          "titulo": "15 — Modelagem aplicada em Programação Linear",
+          "maturidade": "v0",
+          "teaser": "Os quatro padrões que cobrem a maior parte do campo — e o que acontece quando se escolhe o errado."
+        }
+      ]
+    },
+    {
+      "nome": "Parte VI — Otimização Não Linear",
+      "itens": [
+        {
+          "arquivo": "livro/capitulos/38-convexidade.md",
+          "titulo": "38 — Convexidade",
+          "maturidade": "v0",
+          "teaser": "Antecipado para pagar a dívida do capítulo 09: a propriedade que autoriza parar no primeiro topo."
+        }
+      ]
+    },
+    {
+      "nome": "Parte XI — Fronteira",
+      "itens": [
+        {
           "externo": "mapa-do-handbook.html",
           "titulo": "⬜ Cinco vagas declaradas",
-          "teaser": "Simplex revisado, dualidade, sensibilidade, pontos interiores e modelagem aplicada."
+          "teaser": "Aprendizado de máquina para otimização, predict-then-optimize, solvers aprendidos, modelos de linguagem como modeladores e otimização responsável. Camada de vida curta: todo capítulo aqui declara cláusula de expiração."
+        },
+        {
+          "arquivo": "livro/capitulos/77-ler-artigo.md",
+          "titulo": "77 — Como ler um artigo científico de PO",
+          "maturidade": "v0",
+          "teaser": "Antecipado de propósito: é o capítulo que dá ao resto do livro o direito de citar em vez de explicar."
         }
       ]
     },

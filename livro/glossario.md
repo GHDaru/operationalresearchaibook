@@ -103,6 +103,8 @@ tamanho igual ao número de restrições.
 base. Negativo (num problema de maximizar, na convenção deste livro) significa que ainda há
 como melhorar; nenhum negativo é o critério de parada.
 
+**A leitura por preço**, que o [capítulo 11](capitulos/11-simplex-revisado.md) instala: o custo reduzido da coluna $j$ é $c_j - y^{\top}a_j$ — o que o produto **rende** menos o que ele **custa aos preços-sombra correntes**. Deixa de ser um resíduo de eliminações e passa a ter significado econômico: se sobra, vale a pena entrar no plano. Convenções de **sinal** variam entre implementações; confira a do seu relatório antes de interpretá-lo.
+
 **Pivoteamento.** Trocar uma variável da base por uma de fora, por eliminação de Gauss. No
 desenho, é andar por uma aresta até o vértice vizinho.
 
@@ -122,6 +124,29 @@ exemplos que a exibem.
 
 ***Stalling*** (estagnação). Uma sequência **longa, porém finita**, de iterações sem melhora do
 objetivo. É o problema prático comum — ao contrário da ciclagem, que é o problema de livro-texto.
+
+**Dual (problema dual).** O problema irmão que todo modelo de Programação Linear carrega: uma
+variável para cada restrição do original, o sentido invertido (o dual de um `max` é um `min`) e a
+matriz transposta. Onde o primal escolhe **quantidades**, o dual escolhe **preços** para os
+recursos. Resolver um é resolver o outro.
+
+**Preço-sombra (variável dual).** Quanto o valor ótimo muda se a restrição afrouxar em uma
+unidade — em reais por CPU, por hora, por tonelada. **É um preço, e tem unidade.** Duas
+qualificações que não se separam dele: é **marginal** (vale para a próxima unidade) e tem **faixa
+de validade** (a partir de certo ponto, o gargalo muda e o preço deixa de valer, em geral caindo a
+zero). Citar preço-sombra sem a faixa é a armadilha cara da Parte II.
+
+**Dualidade fraca.** Qualquer solução viável do dual dá um valor não melhor do que qualquer
+solução viável do primal. Serve como **certificado**: um dual viável que empata com um primal
+viável prova que os dois são ótimos, sem procurar mais.
+
+**Dualidade forte.** Se o primal tem ótimo finito, o dual também tem e os **valores ótimos são
+iguais**. É o teorema que autoriza ler os preços no quadro do primal em vez de resolver outro
+problema.
+
+**Folgas complementares.** No ótimo, para cada restrição: ou a folga é zero (o recurso acabou), ou
+o preço-sombra é zero (ele não vale nada na margem) — nunca os dois positivos. Vira teste de
+sanidade: sobra de recurso **com** preço positivo é relatório errado.
 
 **Regra de pivoteamento.** O critério que decide quem entra e quem sai da base. A de **Dantzig**
 escolhe o custo reduzido mais negativo e é rápida; a de **Bland** escolhe por menor índice na

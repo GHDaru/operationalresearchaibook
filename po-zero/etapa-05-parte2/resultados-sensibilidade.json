@@ -1,0 +1,117 @@
+{
+  "relatorio": {
+    "valor": "1100",
+    "variaveis": [
+      {
+        "produto": "Tipo 1 (16 GB)",
+        "produzir": "8",
+        "lucro_unitario": "100",
+        "lucro_pode_cair_ate": "75",
+        "lucro_pode_subir_ate": "150",
+        "autoriza": "dentro desta faixa, o PLANO não muda — só o lucro total"
+      },
+      {
+        "produto": "Tipo 2 (32 GB)",
+        "produzir": "2",
+        "lucro_unitario": "150",
+        "lucro_pode_cair_ate": "100",
+        "lucro_pode_subir_ate": "200",
+        "autoriza": "dentro desta faixa, o PLANO não muda — só o lucro total"
+      }
+    ],
+    "restricoes": [
+      {
+        "recurso": "CPUs",
+        "estoque": "10",
+        "usado": "10",
+        "preco_sombra": "50",
+        "estoque_pode_cair_ate": "6",
+        "estoque_pode_subir_ate": "12",
+        "autoriza": "dentro desta faixa, o PREÇO vale — fora dela, não"
+      },
+      {
+        "recurso": "pentes de memória de 16 GB",
+        "estoque": "12",
+        "usado": "12",
+        "preco_sombra": "50",
+        "estoque_pode_cair_ate": "10",
+        "estoque_pode_subir_ate": "20",
+        "autoriza": "dentro desta faixa, o PREÇO vale — fora dela, não"
+      }
+    ]
+  },
+  "leituras": {
+    "CPU, pente, bancada": {
+      "ponto": [
+        "8",
+        "2"
+      ],
+      "valor": "1100",
+      "base": [
+        "f3",
+        "x1",
+        "x2"
+      ],
+      "precos": {
+        "CPUs": "50",
+        "pentes de memória de 16 GB": "50",
+        "horas de bancada": "0"
+      }
+    },
+    "bancada, pente, CPU": {
+      "ponto": [
+        "8",
+        "2"
+      ],
+      "valor": "1100",
+      "base": [
+        "f3",
+        "x1",
+        "x2"
+      ],
+      "precos": {
+        "horas de bancada": "25",
+        "pentes de memória de 16 GB": "75",
+        "CPUs": "0"
+      }
+    }
+  },
+  "duais_conferidos": [
+    {
+      "y": [
+        "50",
+        "50",
+        "0"
+      ],
+      "viavel": true,
+      "custo": "1100"
+    },
+    {
+      "y": [
+        "0",
+        "75",
+        "25"
+      ],
+      "viavel": true,
+      "custo": "1100"
+    },
+    {
+      "y": [
+        "25",
+        "125/2",
+        "25/2"
+      ],
+      "viavel": true,
+      "custo": "1100"
+    }
+  ],
+  "derivadas_cpu": {
+    "recurso": "CPUs",
+    "z_menos_um": "1050",
+    "z": "1100",
+    "z_mais_um": "1100",
+    "derivada_pela_esquerda": "50",
+    "derivada_pela_direita": "0",
+    "coincidem": false
+  }
+}

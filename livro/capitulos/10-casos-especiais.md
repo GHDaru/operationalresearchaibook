@@ -417,15 +417,16 @@ Em três deles a resposta certa contraria o reflexo: o veredito parece uma coisa
 
 ## Assista
 
-**[Pesquisa Operacional I — Aula 11: Algoritmo Simplex, casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ)** · [UNIVESP](https://www.youtube.com/@univesptv) · duração ⏳
+**[Pesquisa Operacional I — Aula 11: Algoritmo Simplex, casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ)** · [UNIVESP](https://www.youtube.com/@univesptv) · 19min04s
 
 **O que ele resolve:** este capítulo trata os casos especiais como **conduta** — o que fazer com
 cada veredito. O vídeo faz o percurso complementar, mostrando os quadros de cada caso sendo
 montados. Vale como segunda passada sobre a mecânica que aqui foi deslocada para o código.
 
-> ⏳ **Ficha parcialmente conferida.** Título, endereço e autoria foram verificados na fonte; a
-> **duração não** — a página do vídeo não devolveu o campo em nenhuma das tentativas. É o único
-> vídeo do handbook nesse estado; ver a [Videoteca](../videoteca.md).
+> ✓ **Ficha conferida.** Título, endereço, autoria e duração foram verificados na fonte. A
+> duração era o último `⏳` de vídeo do handbook, e fechou em 2026-08-13 — ver a
+> [Videoteca](../videoteca.md), que registra por qual via e contra que caso conhecido a leitura
+> foi conferida.
 
 ## Síntese — o que levar
 

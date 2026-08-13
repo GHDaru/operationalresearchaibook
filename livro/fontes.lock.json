@@ -23,7 +23,7 @@
       "ano": 1955,
       "container": "Naval Research Logistics Quarterly",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1007/BF01589114",
@@ -35,7 +35,7 @@
       "ano": 1989,
       "container": "Mathematical Programming",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1007/bf01917108",
@@ -47,7 +47,19 @@
       "ano": 1982,
       "container": "Zeitschrift für Operations Research",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1007/bf02579150",
+      "estado": "resolvido",
+      "prefixo": "10.1007",
+      "registrante": "Springer Science and Business Media LLC",
+      "titulo": "A new polynomial-time algorithm for linear programming",
+      "primeiro_autor": "Karmarkar",
+      "ano": 1984,
+      "container": "Combinatorica",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1007/s10107-003-0488-1",
@@ -59,7 +71,31 @@
       "ano": 2004,
       "container": "Mathematical Programming",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1016/0041-5553(80)90061-0",
+      "estado": "resolvido",
+      "prefixo": "10.1016",
+      "registrante": "Elsevier BV",
+      "titulo": "Polynomial algorithms in linear programming",
+      "primeiro_autor": "Khachiyan",
+      "ano": 1980,
+      "container": "USSR Computational Mathematics and Mathematical Physics",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1145/1273445.1273458",
+      "estado": "resolvido",
+      "prefixo": "10.1145",
+      "registrante": "Association for Computing Machinery (ACM)",
+      "titulo": "How to read a paper",
+      "primeiro_autor": "Keshav",
+      "ano": 2007,
+      "container": "ACM SIGCOMM Computer Communication Review",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1145/87252.88081",
@@ -71,7 +107,7 @@
       "ano": 1990,
       "container": "A history of scientific computing",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1145/990308.990310",
@@ -83,7 +119,7 @@
       "ano": 2004,
       "container": "Journal of the ACM",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1287/inte.20.4.43",
@@ -95,7 +131,7 @@
       "ano": 1990,
       "container": "Interfaces",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1287/moor.2.2.103",
@@ -107,7 +143,7 @@
       "ano": 1977,
       "container": "Mathematics of Operations Research",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1287/opre.49.1.1.11187",
@@ -119,7 +155,7 @@
       "ano": 2001,
       "container": "Operations Research",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.1287/opre.50.1.3.17780",
@@ -131,7 +167,43 @@
       "ano": 2002,
       "container": "Operations Research",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1515/9781400873173",
+      "estado": "resolvido",
+      "prefixo": "10.1515",
+      "registrante": "Walter de Gruyter GmbH",
+      "titulo": "Convex Analysis",
+      "primeiro_autor": "Rockafellar",
+      "ano": 1970,
+      "container": null,
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.1515/9781400881727-008",
+      "estado": "resolvido",
+      "prefixo": "10.1515",
+      "registrante": "Walter de Gruyter GmbH",
+      "titulo": "7. ON SYMMETRIC GAMES",
+      "primeiro_autor": "Gale",
+      "ano": 1951,
+      "container": "Contributions to the Theory of Games (AM-24), Volume I",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.21236/ad0614576",
+      "estado": "resolvido",
+      "prefixo": "10.21236",
+      "registrante": "Defense Technical Information Center (DTIC)",
+      "titulo": "UPDATING THE PRODUCT FORM OF THE INVERSE FOR THE REVISED SIMPLEX METHOD",
+      "primeiro_autor": "Dantzig",
+      "ano": 1964,
+      "container": null,
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.2307/1231810",
@@ -143,7 +215,7 @@
       "ano": 1945,
       "container": "Journal of Farm Economics",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
     },
     {
       "doi": "10.2307/1907845",
@@ -155,7 +227,19 @@
       "ano": 1952,
       "container": "Econometrica",
       "fonte": "crossref",
-      "verificado_em": "2026-08-12"
+      "verificado_em": "2026-08-13"
+    },
+    {
+      "doi": "10.2307/2001993",
+      "estado": "resolvido",
+      "prefixo": "10.2307",
+      "registrante": "JSTOR",
+      "titulo": "The Product Form for the Inverse in the Simplex Method",
+      "primeiro_autor": "Dantzig",
+      "ano": 1954,
+      "container": "Mathematical Tables and Other Aids to Computation",
+      "fonte": "crossref",
+      "verificado_em": "2026-08-13"
     }
   ]
 }

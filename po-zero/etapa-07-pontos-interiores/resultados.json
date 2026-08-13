@@ -1,0 +1,112 @@
+{
+  "tolerancia": 1e-09,
+  "passo": 0.9,
+  "montadora": {
+    "instancia": "montadora — ótimo único",
+    "iteracoes": 11,
+    "parada": "nenhuma direção limitante — convergiu numericamente",
+    "residuo": 0.000138500926,
+    "ponto": [
+      7.999996,
+      2.000002
+    ],
+    "valor": 1099.99982,
+    "chegou_em_vertice": false,
+    "trajetoria": [
+      [
+        1.0,
+        1.0
+      ],
+      [
+        3.0302,
+        4.0349
+      ],
+      [
+        5.2775,
+        3.3162
+      ],
+      [
+        7.7995,
+        2.0599
+      ],
+      [
+        8.0106,
+        1.9754
+      ],
+      [
+        7.985,
+        2.0056
+      ],
+      [
+        8.0006,
+        1.9985
+      ],
+      [
+        7.999,
+        2.0004
+      ],
+      [
+        8.0,
+        1.9999
+      ],
+      [
+        7.9999,
+        2.0
+      ],
+      [
+        8.0,
+        2.0
+      ],
+      [
+        8.0,
+        2.0
+      ]
+    ],
+    "algum_intermediario_e_vertice": false
+  },
+  "marcenaria": {
+    "instancia": "marcenaria — segmento de ótimos",
+    "iteracoes": 6,
+    "parada": "nenhuma direção limitante — convergiu numericamente",
+    "residuo": 1.4e-05,
+    "ponto": [
+      2.928002,
+      1.607993
+    ],
+    "valor": 23.999986,
+    "chegou_em_vertice": false,
+    "trajetoria": [
+      [
+        1.0,
+        1.0
+      ],
+      [
+        2.4949,
+        1.9076
+      ],
+      [
+        2.881,
+        1.6436
+      ],
+      [
+        2.9233,
+        1.6116
+      ],
+      [
+        2.9275,
+        1.6083
+      ],
+      [
+        2.928,
+        1.608
+      ],
+      [
+        2.928,
+        1.608
+      ]
+    ],
+    "algum_intermediario_e_vertice": false
+  },
+  "distancia_ao_vertice": 4.472135954631672e-06,
+  "erro_no_valor": 0.00018000000000029104
+}

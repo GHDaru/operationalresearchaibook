@@ -74,7 +74,15 @@ política acima, com crédito e link. Sem autorização explícita, a incorpora�
 | 07 — Formulação de modelos lineares | [Aula 1 — Programação Linear: introdução](https://www.youtube.com/watch?v=Pi_ZnVd-96Q) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 18min04s | **Definitivo** |
 | 08 — A geometria da Programação Linear | [Aula 2 — Programação Linear: método gráfico](https://www.youtube.com/watch?v=0QwcirNrU3E) | [André Brochi](https://www.youtube.com/@matematicaeestatistica) | 24min20s | **Definitivo** |
 | 09 — O método Simplex | [Pesquisa Operacional I — Aula 7: Algoritmo Simplex](https://www.youtube.com/watch?v=qf1mAyDv61E) | [UNIVESP](https://www.youtube.com/@univesptv) | 18min48s | **Definitivo** |
-| 10 — Casos especiais e degenerescência | [Pesquisa Operacional I — Aula 11: casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ) | [UNIVESP](https://www.youtube.com/@univesptv) | ⏳ | Provisório |
+| 10 — Casos especiais e degenerescência | [Pesquisa Operacional I — Aula 11: casos especiais](https://www.youtube.com/watch?v=GNrCFpBLqfQ) | [UNIVESP](https://www.youtube.com/@univesptv) | 19min04s | **Definitivo** |
+| 11 — Simplex revisado e implementação eficiente | [Notação Matricial, Base, Solução Geral e Solução Básica](https://www.youtube.com/watch?v=bQUkXmjppK4) | [Pedro Munari](https://www.youtube.com/@munariflix) | 35min18s | **Definitivo** |
+| 12 — Dualidade | [Interpretação Econômica, Dualidade, Dual, Programação Linear](https://www.youtube.com/watch?v=HYKllgOuMzA) | [Pedro Munari](https://www.youtube.com/@munariflix) | 12min44s | **Definitivo** |
+| 13 — Análise de sensibilidade | [Análise de Sensibilidade: Teoria](https://www.youtube.com/watch?v=uaTbCLa-U60) | [Pedro Munari](https://www.youtube.com/@munariflix) | 27min42s | **Definitivo** |
+| 13 — Análise de sensibilidade (complementar) | [Análise de Sensibilidade: Exercício](https://www.youtube.com/watch?v=LdyUG-Ds4sY) | [Pedro Munari](https://www.youtube.com/@munariflix) | 33min46s | **Definitivo** |
+| 14 — Métodos de pontos interiores | [Métodos de Pontos Interiores: Ideia e um pouco de história](https://www.youtube.com/watch?v=5F0MoJMuVhI) | [Pedro Munari](https://www.youtube.com/@munariflix) | 9min17s | **Definitivo** |
+| 15 — Modelagem aplicada em PL | [Problema de Transporte — Modelagem usando Programação Linear](https://www.youtube.com/watch?v=NTHGKhCeJso) | [Prof. Rafael Lima](https://www.youtube.com/@prof.rafaellima4531) | 17min24s | **Definitivo** |
+| 38 — Convexidade | [Hiperplano, semi-espaço, poliedro, conjunto e envoltório convexo](https://www.youtube.com/watch?v=eDhsMJAcPz0) | [Pedro Munari](https://www.youtube.com/@munariflix) | 17min55s | **Definitivo** |
+| 77 — Como ler um artigo científico de PO | [Como ler um artigo científico? (Módulo 7/20)](https://www.youtube.com/watch?v=eadVmuwEuAI) | [Instituto de Computação — UFF](https://www.youtube.com/@InstitutodeComputa%C3%A7%C3%A3o-UFF) | 1h09min06s | **Definitivo** |
 
 ### A dívida dos `⏳`, quitada em 2026-08-09
 
@@ -91,16 +99,31 @@ Duas coisas que a conferência resolveu, e vale registrar as duas:
    atribuição da série a um curso público aparecia em resultado de busca e não estava confirmada.
    **Estava certa** — é da UNIVESP, publicado em 10 de agosto de 2016.
 
-### O vídeo do capítulo 10, e o campo que não saiu
+### O `⏳` do capítulo 10, quitado em 2026-08-13
 
-A ficha do capítulo 10 é a única **provisória** do handbook, e por um motivo estreito: título,
-endereço e **autoria** foram conferidos na fonte, mas a **duração não**. A página do vídeo não
-devolveu o campo em nenhuma das tentativas — nem por requisição direta, nem por navegador.
+A ficha do capítulo 10 foi a única **provisória** do handbook, e por um motivo estreito: título,
+endereço e autoria estavam conferidos, e só a **duração** não saía — a página do vídeo não
+devolvia o campo em nenhuma das tentativas.
 
-Registrar isso importa porque a diferença com as outras três fichas é de **um campo**, não de
-natureza. O `⏳` está no lugar exato, e não contamina o resto da ficha.
+**Fechou:** a duração é **19min04s**. A leitura veio pelo índice de resultados do próprio YouTube,
+que devolve o campo mesmo quando a página do vídeo recusa a requisição.
 
-**Como fecha:** basta alguém abrir o vídeo e ler a duração.
+E a leitura foi **conferida contra um caso conhecido** antes de ser aceita, que é o que separa uma
+medição de um palpite: pela mesma via, o vídeo do capítulo 09 devolve **18min48s** — exatamente o
+valor que já constava na tabela acima, conferido em outra ocasião e por outro caminho. Uma fonte
+nova que reproduz um valor já verificado é uma fonte que se pode usar para o valor que falta.
+
+**O handbook fica sem nenhuma ficha provisória.** É um estado que vale defender: nova entrada
+`⏳` é sempre aceitável — o que não é aceitável é ela ficar.
+
+### As oito fichas do lote 1 da v0, e por qual via
+
+As fichas dos capítulos 11 a 15, 38 e 77 entraram em 2026-08-13, e a via importa — foi o que o
+caso do capítulo 10 estabeleceu. **Título e autoria** vieram do *oEmbed* do próprio YouTube, que
+devolve os campos canônicos e rejeita identificador inexistente com `400`. **Duração** veio do
+índice de resultados, pela mesma via conferida contra caso conhecido no `⏳` acima.
+
+O que **não** foi feito, e por isso continua na linha de baixo: ninguém assistiu.
 
 ### O que continua sendo leitura humana
 
@@ -116,8 +139,7 @@ o metadado. Nenhum portão a verifica, e nenhuma leitura de ficha a substitui.
 ### Sobre a fonte autorizada
 
 O caminho preferido continua sendo o do canal do
-[João Sarubbi](https://www.youtube.com/@joaosarubbi), cujo uso está autorizado pelo autor. As três
-fichas atuais entram pela régua de **demais fontes**: link, crédito visível e player de origem,
+[João Sarubbi](https://www.youtube.com/@joaosarubbi), cujo uso está autorizado pelo autor. As fichas atuais entram, na sua maioria, pela régua de **demais fontes**: link, crédito visível e player de origem,
 sem cópia nem re-upload. Se o canal autorizado cobrir os mesmos assuntos, a substituição é
 preferível — não por qualidade presumida, mas porque autorização explícita vale mais do que uso
 legítimo por link.

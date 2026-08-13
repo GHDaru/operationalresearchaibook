@@ -1,8 +1,10 @@
 # chat-companion — o backend (harness-zero ao vivo)
 
-O **companion** é o assistente do livro vivo *Engenharia de Harness*: aparece desde a capa, ajuda o leitor e mostra, a cada capítulo, **quais capacidades tem naquele momento**. Este diretório é o **backend** — um serviço FastAPI que **é o harness-zero rodando em produção** (reusa `LLMPort` e o loop de tool-calling). O **widget** (front-end no site) é uma feature à parte.
+O **companion** é o assistente do **handbook vivo de Pesquisa Operacional (PO)**: aparece desde a capa, ajuda o leitor e mostra, a cada capítulo, **quais capacidades tem naquele momento**. Este diretório é o **backend** — um serviço FastAPI que **é o `po-zero` conversável**: reusa a porta de modelo (`LLMPort`) e o laço de chamada de ferramentas. O **widget** (front-end no site) é uma feature à parte.
 
-> Feita pelo ciclo oficial do spec-kit: `specs/016-chat-companion-backend/`.
+> Herdado do motor do livro *Engenharia de Harness* (mesmo autor, licença MIT), via o livro
+> *Teoria das Restrições* — ver [ADR 0001](../adr/0001-reuso-motor-livro-vivo.md). Este README
+> descrevia o livro de origem até 2026-08-12.
 
 ## Arquitetura em uma imagem
 
@@ -35,8 +37,8 @@ Backend FastAPI (Railway)            ← este diretório (backend/)
 Exemplo de `POST /chat`:
 
 ```json
-{ "session_id": "anon-9f3c…", "message": "O que é um loop de agente?",
-  "chapter": 2, "mode": "progressivo", "byok_key": null }
+{ "session_id": "anon-9f3c…", "message": "O que é uma variável de folga?",
+  "chapter": 7, "mode": "progressivo", "byok_key": null }
 ```
 
 Resposta: `{ "reply": "...", "trace": ["🔧 hora(...)"], "mode": "...",

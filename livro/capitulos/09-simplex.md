@@ -396,6 +396,12 @@ da base numa iteração seguinte.
 > existe. Trocar a regra de Dantzig por outra muda **quantas** iterações o método gasta — nunca
 > **onde** ele termina.
 
+> 📌 **Dívida quitada, em 2026-08-13.** Esta página usou a convexidade **a crédito**: afirmou
+> que ela sustenta a garantia e não a definiu nem a demonstrou. O
+> [capítulo 38](38-convexidade.md) foi antecipado da Parte VI para pagar isso — ele mostra por
+> que, num conjunto convexo com objetivo linear, ótimo local é ótimo global, e **mede** o que
+> acontece quando a convexidade some: mesma região, mesmo objetivo, duas partidas, 22 e 30.
+
 ## Quando a origem não serve — o *big-M*
 
 Tudo até aqui dependeu de uma sorte que não se repete sempre: a origem era viável. Não produzir

@@ -46,6 +46,35 @@ REGISTRO = [
      "descricao": "Ajudo a ler um veredito que não é um plano — inviável, ilimitado, mais de um "
                   "ótimo, vértice degenerado — e a decidir o que fazer com ele. Distingo defeito "
                   "de modelo de defeito de regra de pivoteamento."},
+    {"chave": "simplex_revisado", "rotulo": "Simplex revisado", "libera": 11, "tools": (),
+     "descricao": "Leio o Simplex em forma matricial com você — B, B⁻¹, custo reduzido como preço "
+                  "— e ajudo a distinguir estagnação de ciclagem e de lentidão. Cobro a escala dos "
+                  "seus dados antes de qualquer conversa sobre tolerância numérica."},
+    {"chave": "dualidade", "rotulo": "Dualidade e preço-sombra", "libera": 12, "tools": (),
+     "descricao": "Escrevo o dual com você, confiro a unidade de cada variável dual e leio o "
+                  "preço-sombra no quadro final. Cobro a faixa de validade antes de deixar "
+                  "qualquer decisão de compra sair do preço."},
+    {"chave": "sensibilidade", "rotulo": "Análise de sensibilidade", "libera": 13, "tools": (),
+     "descricao": "Leio o relatório de sensibilidade com você e separo as duas famílias de faixa — "
+                  "a do lucro, que protege o plano, e a do estoque, que protege o preço. Digo "
+                  "quando a resposta já está no relatório e quando é preciso resolver de novo."},
+    {"chave": "pontos_interiores", "rotulo": "Pontos interiores", "libera": 14, "tools": (),
+     "descricao": "Explico por que atravessar não contradiz o teorema do vértice, e ajudo a ler "
+                  "uma saída que NÃO é vértice — sem base, sem zeros exatos, sem preço-sombra. "
+                  "Ajudo a escolher entre Simplex e interior pela instância, não pela fama."},
+    {"chave": "modelagem_aplicada", "rotulo": "Padrões de modelagem", "libera": 15, "tools": (),
+     "descricao": "Ajudo a reconhecer o padrão de um enunciado — mix, mistura, transporte, "
+                  "cobertura — começando pela única pergunta que importa: o que exatamente se "
+                  "escolhe? E cobro se o modelo responde à pergunta que foi feita."},
+    {"chave": "convexidade", "rotulo": "Convexidade", "libera": 38, "tools": (),
+     "descricao": "Ajudo a decidir se um conjunto é convexo — pela estrutura, não por amostragem — "
+                  "e a achar o contraexemplo quando não é. Cobro a pergunta que quase ninguém faz "
+                  "diante de um relatório: o modelo é convexo?"},
+    {"chave": "leitura_critica", "rotulo": "Leitura crítica de artigo", "libera": 77, "tools": (),
+     "descricao": "Conduzo as três passadas num artigo que você trouxe e cobro a checklist de "
+                  "comparação computacional — instâncias, baseline, critério de parada, máquina, "
+                  "semente, versão de solver. Não digo se o artigo é bom: ajudo você a dizer o "
+                  "que ele sustenta."},
     {"chave": "simplex", "rotulo": "Simplex de quadro", "libera": 9, "tools": (),
      "descricao": "Acompanho o quadro iteração a iteração: quem entra, quem sai pelo teste da "
                   "razão, e em que vértice cada quadro põe você. Confiro o seu pivoteamento — "

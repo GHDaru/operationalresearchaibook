@@ -10,9 +10,17 @@ Publicar o mapa antes do conteúdo é decisão editorial, não descuido. Um hand
 
 | Selo | Significa |
 |---|---|
-| ✅ | Publicado |
+| ✅ | Publicado e **verificado** — medido, revisto em contexto fresco, portões provados quebrando |
+| 🔵 | Publicado e **medido** — todo número se regenera por experimento; sem revisão independente ainda |
+| 🟡 | Publicado em **v0** — esqueleto completo, exercícios e origem com procedência; ainda sem revisão independente |
 | 🚧 | Próxima rodada — já com escopo definido no [roadmap](../ROADMAP.md) |
 | ⬜ | Vaga declarada, ainda não escrita |
+
+Os três primeiros selos são a mesma escada que aparece no alto de cada capítulo, e ela é
+**verificada por máquina** ([ADR 0013](../adr/0013-o-que-e-a-v0.md), D2): o selo declarado no
+sumário tem de bater com o exibido na página, e o build falha se divergirem. Um capítulo em v0
+**não** recebe ✅ aqui — o mapa é promessa institucional, e ✅ mentiroso seria o pior artefato
+deste repositório.
 
 O fundamento do recorte — por que estas partes, nesta ordem — está no [estudo do corpo de conhecimento](../estudos/001-corpo-de-conhecimento-po.md).
 
@@ -60,11 +68,11 @@ rodada de método. É aqui que o aluno aprende a modelar de verdade, e é a base
 | ✅ | 08 — A geometria da Programação Linear | Semiespaços, região viável e por que nunca é preciso procurar o ótimo fora das quinas. |
 | ✅ | 09 — O método Simplex | O algoritmo por dentro: base, pivoteamento, critério de entrada e saída, e a partida artificial por *big-M*. |
 | ✅ | 10 — Casos especiais e degenerescência | Ilimitado, inviável, múltiplos ótimos, ciclagem — e o que cada um diz sobre o **modelo**. |
-| 🚧 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
-| ⬜ | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. |
-| ⬜ | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. **Recebe as regras de precificação** (*Dantzig*, *steepest edge*, *devex*), remetidas do capítulo 11 por decisão editorial de 2026-08-12. |
-| ⬜ | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
-| ⬜ | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
+| 🔵 | 11 — Simplex revisado e implementação eficiente | Forma matricial, fatoração e por que o solver real não faz o que o quadro faz. |
+| 🟡 | 12 — Dualidade | O modelo espelho, o teorema forte e a leitura econômica dos preços-sombra. **A faixa de validade do preço vem junto** — citá-lo sem ela é o erro caro da Parte II. |
+| 🟡 | 13 — Análise de sensibilidade e pós-otimização | O que a resposta suporta antes de mudar. A parte que o gestor de fato usa. **Recebe as regras de precificação** (*Dantzig*, *steepest edge*, *devex*), remetidas do capítulo 11 por decisão editorial de 2026-08-12. |
+| 🟡 | 14 — Métodos de pontos interiores | A alternativa que domina os problemas grandes, e quando ela ganha do Simplex. |
+| 🟡 | 15 — Modelagem aplicada em PL | Mix de produção, mistura, corte, escalonamento, multiperíodo — o repertório de padrões. |
 
 ## Parte III — Otimização em Redes e Fluxos
 
@@ -109,7 +117,7 @@ Módulo inteiro, e não um capítulo: é o que a indústria usa quando o exato n
 
 | | Capítulo | Do que trata |
 |---|---|---|
-| ⬜ | 38 — Convexidade | A propriedade que decide se o problema é tratável. |
+| 🟡 | 38 — Convexidade | A propriedade que decide se o problema é tratável. |
 | ⬜ | 39 — Otimização irrestrita | Gradiente, Newton, quase-Newton e critérios de parada. |
 | ⬜ | 40 — Otimização com restrições | Multiplicadores de Lagrange, condições KKT, dualidade não linear. |
 | ⬜ | 41 — Programação quadrática, cônica e semidefinida | As classes que ainda são resolvidas com garantia. |
@@ -179,7 +187,7 @@ Camada de vida curta. **Todo capítulo aqui declara cláusula de expiração**: 
 | ⬜ | 74 — Otimização neural e solvers aprendidos | O que já entrega valor e o que ainda é promessa. |
 | ⬜ | 75 — Modelos de linguagem como modeladores | Da descrição em texto ao modelo executável: o que funciona, o que quebra, como verificar. |
 | ⬜ | 76 — Otimização responsável | Equidade, transparência e o que acontece com quem o modelo otimiza contra. |
-| ⬜ | 77 — Como ler um artigo científico de PO | Protocolo de leitura crítica: instância, *baseline*, teste estatístico, reprodutibilidade. |
+| 🟡 | 77 — Como ler um artigo científico de PO | Protocolo de leitura crítica: instância, *baseline*, critério de parada, máquina, semente, versão de solver. **Antecipado de propósito** — é o capítulo que dá ao resto do livro o direito de citar em vez de explicar. |
 
 ## Aparato
 

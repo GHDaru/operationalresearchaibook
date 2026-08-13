@@ -68,6 +68,9 @@ h2[data-callout="callout-apendice"] { border-color: var(--apend); }
 .cap-meta .cap-dl { border: 1px solid var(--line); border-radius: 999px; padding: .15rem .6rem;
   text-decoration: none; color: var(--muted); font-weight: 600; }
 .cap-meta .cap-dl:hover { border-color: var(--prat); color: var(--prat); }
+/* Selo de maturidade (ADR 0013, D2): primeiro chip da fileira, e o único com
+   peso — é o que decide se o leitor confia no capítulo antes de investir nele. */
+.cap-meta .cap-maturidade { font-weight: 700; cursor: help; }
 @media (max-width: 640px) { .cap-num { font-size: 5rem; top: -18px; } .cap-hero h1 { font-size: 1.7rem; } }
 
 /* C08 LeituraExecutiva — V1 "painel âmbar" (o h3 vira o rótulo do painel). */

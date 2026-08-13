@@ -164,6 +164,54 @@ máquina para otimização combinatória. Útil como ponto de partida, **não** 
 verificada de afirmação individual.
 [GitHub](https://github.com/Thinklab-SJTU/awesome-ml4co)
 
+## Parte II — Simplex revisado, dualidade e pontos interiores
+
+> Levantadas na sessão de história da Parte II ([estudo 004](../estudos/004-historia-parte-II.md)),
+> em lote e **antes** de qualquer capítulo, como manda o [ADR 0013](../adr/0013-o-que-e-a-v0.md), D4.
+> Todas passaram por **duas camadas**: metadados no Crossref e **existência no registro**
+> (*Handle System*). Nenhuma teve o conteúdo aberto — por isso todas são `✓ᵐ`, e o que elas ainda
+> **não** sustentam está dito no estudo.
+
+✓ᵐ **DANTZIG, George B.; ORCHARD-HAYS, William.** "The product form for the inverse in the simplex
+method". *Mathematical Tables and Other Aids to Computation*, 1954.
+DOI [10.2307/2001993](https://doi.org/10.2307/2001993). — **Fonte primária do capítulo 11.** Fecha
+uma dívida do plano 008, que reservava a seção histórica sem fonte candidata. O conteúdo não foi
+lido: se o artigo não sustentar o aperto de memória de máquina como motivo, **a tese cai**.
+
+✓ᵐ **DANTZIG, G. B.; HARVEY, R. P.; McKNIGHT, R. D.** "Updating the product form of the inverse for
+the revised simplex method", 1964.
+DOI [10.21236/ad0614576](https://doi.org/10.21236/ad0614576). — A origem do verbo **refatorar**, que
+o capítulo 09 publicou como promessa ao 11.
+
+✓ᵐ **GALE, D.; KUHN, H. W.; TUCKER, A. W.** "On symmetric games", 1951.
+DOI [10.1515/9781400881727-008](https://doi.org/10.1515/9781400881727-008). — O trio canônico da
+dualidade em Programação Linear.
+
+✓ᵐ **KHACHIYAN, L. G.** "Polynomial algorithms in linear programming". *USSR Computational
+Mathematics and Mathematical Physics*, 1980.
+DOI [10.1016/0041-5553(80)90061-0](https://doi.org/10.1016/0041-5553(80)90061-0). — O método do
+elipsoide: a primeira prova de que Programação Linear é polinomial.
+
+✓ᵐ **KARMARKAR, N.** "A new polynomial-time algorithm for linear programming". *Combinatorica*,
+1984. DOI [10.1007/bf02579150](https://doi.org/10.1007/bf02579150). — O que tornou pontos
+interiores **praticável**, não só polinomial.
+
+✓ᵐ **ROCKAFELLAR, R. T.** *Convex Analysis*. Princeton University Press, 1970.
+DOI [10.1515/9781400873173](https://doi.org/10.1515/9781400873173). — Referência canônica de
+convexidade. **Ponteiro, não fonte de afirmação.**
+
+✓ᵐ **KESHAV, S.** "How to read a paper". *ACM SIGCOMM Computer Communication Review*, 2007.
+DOI [10.1145/1273445.1273458](https://doi.org/10.1145/1273445.1273458). — O método das três
+passadas, para o capítulo 77. É de redes, e o capítulo declara isso.
+
+⏳ **A cena de von Neumann e a dualidade.** — Atribuição corrente: em 1947, von Neumann teria
+apontado a Dantzig que Programação Linear e jogos de soma zero são o mesmo objeto. **Buscada e não
+localizada** por identificador. O capítulo 12 **não afirma** a cena.
+
+❌ **A origem da análise de sensibilidade em Programação Linear.** — Procurada, não encontrada: as
+buscas devolvem pós-otimalidade em programação **inteira**, que é outro assunto. O capítulo 13
+nasce com "De onde isto veio — em dívida".
+
 ## História dos métodos (Princípio XII)
 
 O [Princípio XII](../.specify/memory/constitution.md) exige que todo capítulo de método conte de

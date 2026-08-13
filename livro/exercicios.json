@@ -1353,5 +1353,1200 @@
     ],
     "erro_provavel": "Aceitar \"resolvido\" porque o sintoma visível desapareceu. É o erro que o capítulo inteiro combate, e ele é confortável: alguém trocou uma peça, a travada acabou, todo mundo volta ao trabalho. Mas a troca de regra respondeu a uma pergunta e revelou outra — **por que este modelo é tão degenerado?** Os empates que sobraram apontam para restrições redundantes que ninguém removeu, e para preços-sombra que a próxima reunião vai ler como se fossem confiáveis.",
     "resposta_guia": "O teste separa as duas coisas: a travada sumiu quando a regra mudou, com o modelo intacto — era defeito do **método**. Os empates no teste da razão sobreviveram à troca — são do **modelo**, e indicam vértices degenerados, provavelmente por restrições redundantes. Por isso \"resolvido\" é prematuro: o que ficou tem consequências, entre elas preço-sombra ambíguo. Sobre padronizar a regra: a objeção é de custo, porque regras que garantem terminação costumam gastar mais iterações, e a proteção vale para um caso raro. Antes de decidir, peça medição — número de iterações sob as duas regras nas instâncias reais da empresa, e a confirmação de que a resposta não muda. O teste, em uma frase: **o que sobrevive à troca da peça é da especificação; o que some era da implementação.**"
+  },
+  {
+    "id": "cap12.exA",
+    "capitulo": 12,
+    "serie": "cap12",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "dualidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O dual da padaria, com unidade",
+    "enunciado": "Uma padaria produz dois tipos de pão. O modelo do turno é:\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\le 100,\\quad x_1 + x_2 \\le 80,\\quad x_1, x_2 \\ge 0$$\n\nA primeira restrição é **hora de forno** (100 horas no turno); a segunda é **farinha** (80 kg). Os lucros estão em reais por fornada.\n\n1. Escreva o **dual** deste modelo. Diga, para cada restrição dual, qual produto ela representa.\n2. Diga a **unidade** de $y_1$ e de $y_2$, e escreva em uma frase o que cada um significa para o dono da padaria.\n3. O ótimo do primal é $(20, 60)$. Qual é o valor ótimo do **dual**, e por que você sabe disso **sem resolvê-lo**?\n4. Resolvendo o dual, obtém-se $y_1 = 10$ e $y_2 = 20$. Confira a dualidade forte pelo objetivo dual.\n5. A padeira pode alugar mais uma hora de forno por R$ 14, ou comprar mais um quilo de farinha por R$ 14. **Qual das duas**, e por quê?",
+    "criterios": [
+      "Escreve o dual corretamente: $\\min\\ 100y_1 + 80y_2$ sujeito a $2y_1 + y_2 \\ge 40$ e $y_1 + y_2 \\ge 30$, com $y \\ge 0$ — e identifica que a primeira restrição dual é a do produto 1 e a segunda a do produto 2",
+      "Declara as unidades certas: $y_1$ em **reais por hora de forno** e $y_2$ em **reais por quilo de farinha**, e não como \"número do algoritmo\"",
+      "Responde ao item 3 pela **dualidade forte**: o valor ótimo dual é igual ao primal, $40(20) + 30(60) = 2600$, e isso se sabe sem resolver o dual",
+      "Confere pelo objetivo dual: $100(10) + 80(20) = 1000 + 1600 = 2600$",
+      "Escolhe a **farinha** e justifica pelo preço-sombra: o quilo vale R$ 20 na margem contra R$ 14 de custo (ganho de 6), enquanto a hora de forno vale R$ 10 contra R$ 14 (prejuízo de 4) — e menciona que a resposta só vale dentro da faixa"
+    ],
+    "erro_provavel": "Escrever o dual certo e parar aí, tratando $y_1$ e $y_2$ como números sem unidade. A unidade é o que torna o número acionável: enquanto $y_2$ for \"20\", não dá para compará-lo com nada; quando ele vira \"R$ 20 por quilo de farinha\", a comparação com o preço de R$ 14 do fornecedor é imediata e a decisão sai sozinha. O segundo erro comum é escolher o forno porque \"forno é o gargalo da padaria\" — intuição de chão de fábrica que aqui está errada: **os dois** recursos estão apertados, e quem decide é o preço, não a fama.",
+    "resposta_guia": "O dual é $\\min\\ 100y_1 + 80y_2$ sujeito a $2y_1 + y_2 \\ge 40$ (produto 1, que consome 2 horas e 1 kg) e $y_1 + y_2 \\ge 30$ (produto 2), com $y_1, y_2 \\ge 0$. As unidades: $y_1$ é reais por hora de forno e $y_2$ é reais por quilo de farinha — \"quanto o lucro do turno sobe se eu conseguir mais uma hora de forno\" e \"...mais um quilo de farinha\". O valor ótimo do dual é 2600, e isso se sabe **antes** de resolvê-lo pela dualidade forte: $40(20) + 30(60) = 2600$ no primal, logo o dual vale o mesmo. Conferindo com $y = (10, 20)$: $100(10) + 80(20) = 2600$ — confere. Na decisão: a farinha vale R$ 20 na margem e custa R$ 14, então cada quilo extra rende R$ 6; a hora de forno vale R$ 10 e custa R$ 14, então cada hora extra **perde** R$ 4. Compre farinha — e confira a faixa de validade antes de comprar muita.",
+    "modelo": [
+      {
+        "rotulo": "primal — a padaria",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          40,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            100
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            20,
+            60
+          ],
+          "valor": 2600
+        }
+      },
+      {
+        "rotulo": "dual — os precos dos recursos",
+        "sentido": "min",
+        "variaveis": [
+          "y1",
+          "y2"
+        ],
+        "objetivo": [
+          100,
+          80
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            ">=",
+            40
+          ],
+          [
+            1,
+            1,
+            ">=",
+            30
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            10,
+            20
+          ],
+          "valor": 2600
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap12.exB",
+    "capitulo": 12,
+    "serie": "cap12",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "dualidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "A compra que tinha todas as contas certas",
+    "enunciado": "Na montadora dos capítulos anteriores, o plano do mês é $(8, 2)$ com lucro de R$ 1.100. O modelo:\n\n$$\\max\\ 100x_1 + 150x_2 \\quad \\text{s.a.}\\quad x_1 + x_2 \\le 10 \\ \\text{(CPUs)},\\quad x_1 + 2x_2 \\le 12 \\ \\text{(pentes)},\\quad x_1, x_2 \\ge 0$$\n\nO quadro final traz **50** na linha $z$ sob as duas colunas de folga. Um analista escreve o seguinte parecer, aprova a compra, e ela é executada:\n\n> *\"O preço-sombra da CPU é R$ 50. O fornecedor oferece a R$ 45. Logo, ganhamos R$ 5 por CPU. Comprando o lote de 10 unidades, ganhamos R$ 50. Recomendo comprar.\"*\n\nNo fechamento do mês, o lucro não é o previsto.\n\n1. **Todas as contas do parecer estão certas?** Verifique uma a uma.\n2. Refaça o modelo com 20 CPUs em estoque. Qual é o novo plano ótimo e o novo lucro?\n3. Qual foi o **ganho real** da compra, e qual foi o **custo**? Qual o resultado?\n4. Nomeie, em uma frase, **o que faltou** no parecer — não o erro de conta, porque não há.\n5. Qual teria sido a compra correta, e por quê?",
+    "criterios": [
+      "Verifica e confirma que as contas do parecer estão **todas corretas** — o erro não é aritmético",
+      "Resolve o modelo com 20 CPUs e chega ao novo ótimo $(12, 0)$ com lucro R$ 1.200, reconhecendo que agora só os **pentes** limitam",
+      "Calcula o resultado real: ganho de R$ 100 (1200 − 1100) contra custo de R$ 450 (10 × 45) — **prejuízo de R$ 350**",
+      "Nomeia a causa: faltou a **faixa de validade** do preço-sombra, que ia até 12 CPUs; da 3ª unidade em diante a CPU vale zero",
+      "Conclui que a compra correta era de **2 CPUs** — ganho de R$ 100 por custo de R$ 90"
+    ],
+    "erro_provavel": "Procurar um erro de conta, não achar, e concluir que o parecer está certo e o problema foi \"outra coisa\" — mercado, execução, azar. É o modo mais caro de errar com preço-sombra, porque a verificação aritmética passa e dá **confiança**. O preço-sombra é marginal: ele vale para a **próxima** unidade, e só enquanto o plano continuar apoiado nas mesmas restrições. Ao empurrar o estoque de CPUs de 10 para 20, o gargalo mudou de lado — a partir de 12 CPUs quem limita é o pente, e cada CPU adicional passa a valer exatamente zero. Um preço-sombra citado sem a faixa não é um número incompleto: é uma armadilha.",
+    "resposta_guia": "As contas do parecer estão todas certas: o preço-sombra é 50, a oferta é 45, a diferença é 5, e 10 × 5 = 50. Não há erro aritmético. Com 20 CPUs em estoque, o modelo vira $x_1 + x_2 \\le 20$ e $x_1 + 2x_2 \\le 12$; o ótimo passa a ser $(12, 0)$ com lucro R$ 1.200, e o gargalo agora é só o pente. O ganho real da compra foi, portanto, R$ 100, e o custo foi 10 × R$ 45 = R$ 450 — **prejuízo de R$ 350**. O que faltou foi a faixa de validade: o preço de R$ 50 por CPU só valia até 12 unidades de estoque, então apenas as 2 primeiras CPUs compradas valiam 50 e as outras 8 valiam zero. A compra correta era de 2 unidades: ganho de R$ 100 por um custo de R$ 90.",
+    "modelo": [
+      {
+        "rotulo": "antes da compra — 10 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "depois da compra — 20 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            20
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            12,
+            0
+          ],
+          "valor": 1200
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap12.exC",
+    "capitulo": 12,
+    "serie": "cap12",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "dualidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "O contrato de doze meses",
+    "enunciado": "Mesma montadora, mesmo modelo, mesmo quadro final — o pente de 16 GB tem preço-sombra de **R$ 50**, e a faixa em que esse preço vale vai de **10 a 20** pentes de estoque (hoje são 12).\n\nO diretor comercial traz uma proposta e pede seu parecer por escrito:\n\n> *\"Fechamos um contrato de 12 meses: o fornecedor entrega **12 pentes a mais por mês**, a R$ 45 cada. O pente vale R$ 50 para nós, então são R$ 5 de margem por unidade, R$ 60 por mês, R$ 720 no ano. É dinheiro na mesa.\"*\n\n1. Com 24 pentes em estoque, qual é o plano ótimo e o lucro? Qual é, então, o **ganho mensal real** dessa entrega, contra o custo mensal?\n2. Qual seria a quantidade mensal que **maximiza** o resultado da compra, e quanto ela rende? *(Use a faixa: ela termina em 20 pentes de estoque.)*\n3. Compare o lucro do item 2 com o do item 1. O que você descobre sobre as 4 unidades que separam as duas propostas?\n4. O contrato é de **12 meses**. Liste **duas** características do modelo — estão na ficha da instância — que tornam esse prazo problemático, independentemente do preço.\n5. Escreva o parecer em até três frases: o que você aprova, o que recusa, e sob que condição.",
+    "criterios": [
+      "Com 24 pentes, chega ao ótimo $(0, 10)$ com lucro R$ 1.500 — ganho real de R$ 400/mês contra custo de R$ 540/mês, ou seja, **prejuízo de R$ 140 por mês**",
+      "Identifica que a compra vantajosa é de **8 pentes** (estoque de 20, o fim da faixa): lucro R$ 1.500, ganho de R$ 400 por custo de R$ 360 — resultado de R$ 40/mês",
+      "Percebe que as duas propostas chegam ao **mesmo lucro de R$ 1.500**: as 4 unidades extras do contrato valem **zero** e só acrescentam custo — é a faixa de validade aparecendo como dinheiro",
+      "Aponta duas limitações do modelo que o prazo expõe: ele é de **um único período** e supõe que **tudo que se produz é vendido** (a demanda não é restrição) — logo nada nele autoriza compromisso de 12 meses",
+      "Escreve um parecer que **decide**: recusa o volume de 12, contrapropõe 8, e condiciona a renovação a reavaliar o preço-sombra a cada período"
+    ],
+    "erro_provavel": "Aceitar a proposta porque a margem por unidade é positiva. A margem de R$ 5 supõe que **cada uma** das 12 unidades vale R$ 50 — e não vale: a faixa termina em 20 pentes de estoque, então as 8 primeiras valem 50 e as 4 seguintes valem **exatamente zero**. O lucro com 20 pentes e com 24 pentes é o mesmo, R$ 1.500; as 4 unidades finais são custo puro, e sozinhas transformam um ganho de R$ 40 num prejuízo de R$ 140. O erro seguinte é mais sutil e é o que separa quem usa modelo de quem obedece a modelo: **preço-sombra é uma fotografia de um período**, e esta instância assume um único período com tudo vendido. Ele autoriza uma compra agora, dentro da faixa. Não autoriza um contrato de doze meses.",
+    "resposta_guia": "Com 24 pentes o ótimo é $(0, 10)$, lucro R$ 1.500. O ganho mensal real é 1500 − 1100 = R$ 400, contra um custo de 12 × R$ 45 = R$ 540: **prejuízo de R$ 140 por mês**, e não os R$ 60 de ganho anunciados. A quantidade que maximiza é 8 pentes por mês, levando o estoque a 20 — o fim da faixa: lucro R$ 1.500, ganho de R$ 400 contra custo de R$ 360, resultado de R$ 40 por mês. A comparação entre os dois itens é a lição: **o lucro é o mesmo nos dois casos**. Passando de 20 para 24 pentes, o plano não muda e o lucro não sobe — aquelas 4 unidades valem zero, e é só custo. Quanto ao prazo, a ficha da instância declara duas hipóteses que o inviabilizam: o modelo é de **um único período**, e nele **tudo que se produz é vendido** (a demanda não entra como restrição). Um preço-sombra tirado daí é uma fotografia de um mês. Parecer: recuso o volume de 12 unidades, que dá prejuízo de R$ 140 mensais; contraproponho 8 unidades por mês, o limite da faixa, com resultado de R$ 40; e condiciono qualquer renovação à reavaliação do preço-sombra a cada período, porque a faixa se desloca quando o estoque ou a demanda mudam.",
+    "modelo": [
+      {
+        "rotulo": "hoje — 12 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "no fim da faixa — 20 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            20
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            0,
+            10
+          ],
+          "valor": 1500
+        }
+      },
+      {
+        "rotulo": "com o contrato — 24 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            24
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            0,
+            10
+          ],
+          "valor": 1500
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap77.exA",
+    "capitulo": 77,
+    "serie": "cap77",
+    "variante": "A",
+    "tipo": "aplicar",
+    "objetivo": "O1",
+    "capacidade": "leitura_critica",
+    "dificuldade": "media",
+    "contexto": "leitor",
+    "titulo": "As três passadas, num artigo que você escolhe",
+    "enunciado": "Escolha **um artigo de Pesquisa Operacional (PO)** que seja do seu interesse real — do seu trabalho, do seu tema de pesquisa, ou um que alguém te recomendou. Precisa ser um artigo com **experimento computacional**.\n\nAplique o protocolo e **registre o processo**, não só o resultado:\n\n1. **Passada 1, cronometrada em 5 minutos.** Responda as cinco perguntas da tabela do capítulo. Diga honestamente quais você **não** conseguiu responder — e se a culpa foi sua ou do artigo.\n2. Você seguiria para a passada 2? **Justifique a decisão**, seja ela qual for. Parar é uma resposta legítima e é metade do que o protocolo ensina.\n3. Se seguiu: aplique a passada 2 e descreva o experimento **sem olhar o artigo**. Onde a sua descrição ficou vaga, volte e veja se a vagueza é sua ou do texto.\n4. Escreva **uma frase** que o artigo sustenta e **uma frase** que ele não sustenta, mas que alguém poderia extrair do resumo.\n5. Quanto tempo você gastou no total? Compare com o que teria gasto lendo do começo ao fim.",
+    "criterios": [
+      "Registra o **processo** e não só a conclusão: o que respondeu em cada passada, o que não conseguiu responder, e a decisão de seguir ou parar com justificativa",
+      "Distingue, ao apontar uma lacuna, se ela é do **artigo** (mal descrito) ou do **leitor** (falta de repertório) — são diagnósticos diferentes e levam a ações diferentes",
+      "A descrição do experimento no item 3 é feita **de memória** e depois conferida, e não copiada do artigo",
+      "A frase que o artigo **não** sustenta é plausível — captura uma leitura que alguém de fato faria do resumo, e não um exagero óbvio",
+      "Compara o custo do protocolo com o custo da leitura linear, com número, ainda que aproximado"
+    ],
+    "erro_provavel": "Pular direto para a passada 2 porque \"cinco minutos é pouco\" e o artigo \"claramente\" interessa. A passada 1 não existe para economizar tempo em artigo bom — existe para produzir uma **decisão explícita**, e é a explicitação que vale. Quem pula a passada 1 nunca desiste de um artigo: continua lendo por inércia, porque já começou, e descobre no fim que não era aquilo. O segundo erro comum é responder as cinco perguntas com o que você já sabia do tema, em vez do que o artigo diz — o que transforma a triagem numa conversa consigo mesmo."
+  },
+  {
+    "id": "cap77.exB",
+    "capitulo": 77,
+    "serie": "cap77",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "leitura_critica",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Os 63% que o artigo não sustenta",
+    "enunciado": "> ⚠️ **O trecho abaixo é fictício**, escrito para este exercício. Não é de artigo nenhum, não deve ser citado, e qualquer semelhança com um resumo real é porque o formato é comum.\n\nDo resumo:\n\n> *\"Avaliamos o método proposto em 40 instâncias e obtivemos **redução média de 63% no tempo de solução** em relação ao método clássico, com soluções de qualidade equivalente ou superior.\"*\n\nDa seção de experimentos computacionais, tudo o que ela informa:\n\n- as 40 instâncias foram **geradas pelos autores**, com tamanhos entre 50 e 300 clientes;\n- o \"método clássico\" foi **implementado pelos próprios autores**, em Python;\n- o método proposto tem um parâmetro $\\alpha$ **ajustado empiricamente**;\n- cada método foi executado **uma vez** por instância.\n\nNão há menção a tempo limite, máquina, número de *threads*, semente, nem a como \"qualidade equivalente ou superior\" foi medida.\n\n1. Percorra a checklist do capítulo e liste **o que falta**.\n2. Das ausências, qual é a **mais grave**? Justifique — não pela quantidade de informação perdida, mas pelo que ela permite que aconteça.\n3. O parâmetro $\\alpha$ foi ajustado \"empiricamente\". Ajustado **em quê**? Por que essa pergunta importa mais do que parece?\n4. Qual é a afirmação **mais forte** que este artigo autoriza? Escreva-a.\n5. Você tem cinco minutos com os autores. Que **três perguntas** faz?",
+    "criterios": [
+      "Lista as ausências pela checklist: máquina, tempo limite, semente e número de execuções, critério de qualidade, versão de qualquer software, disponibilidade de código e dados",
+      "Identifica como mais grave o ***baseline* reimplementado pelos próprios autores**, e justifica pelo que isso permite: comparar código otimizado contra a própria implementação do método rival, sem que ninguém possa conferir",
+      "Percebe que \"$\\alpha$ ajustado empiricamente\" provavelmente significa ajustado **no mesmo conjunto** em que o método é avaliado — e que isso mede o ajuste, não o método",
+      "A afirmação mais forte é modesta e correta: em 40 instâncias geradas pelos autores, o método proposto foi mais rápido que **uma implementação dos autores** de um método clássico, numa execução por instância — e nada além disso",
+      "As três perguntas atacam o que muda a conclusão (instâncias públicas, *baseline* de referência com versão, separação entre ajuste e avaliação), e não detalhes cosméticos"
+    ],
+    "erro_provavel": "Concluir que o artigo é ruim ou desonesto. Ele pode ser um bom artigo — a maioria dos experimentos publicados tem lacunas, e nenhuma das quatro informações acima prova má-fé. O que a checklist estabelece não é culpa, é **alcance**: com o que está descrito, o resultado vale para aquelas 40 instâncias, contra aquela implementação, naquela execução única. O erro de leitura que custa caro é o inverso do que parece — não é acreditar demais no artigo, é **transportar** a conclusão dele para o seu problema sem notar que o alcance não chega até lá. Um artigo com lacunas ainda ensina; o que ele não faz é decidir por você.",
+    "resposta_guia": "Faltam: máquina (processador, memória, *threads*), tempo limite ou critério de parada, semente e número de execuções, o critério de \"qualidade equivalente ou superior\", versões de software, e disponibilidade de código e instâncias. A ausência mais grave é o *baseline* **reimplementado pelos autores**: quem implementa o método rival tem todo incentivo — mesmo sem má-fé — a otimizar melhor o próprio, e ninguém de fora consegue conferir, porque nem o código nem as instâncias estão disponíveis. Um *baseline* de referência com versão declarada (um solver conhecido, ou a implementação original dos autores do método clássico) mudaria a força do artigo inteiro. Sobre $\\alpha$: \"ajustado empiricamente\" quase sempre quer dizer ajustado **no mesmo conjunto de instâncias** em que o método é depois avaliado — e nesse caso a comparação mede o ajuste ao conjunto, não a qualidade do método, porque o rival não recebeu o mesmo tratamento. A afirmação mais forte que o artigo autoriza é: *em 40 instâncias geradas pelos próprios autores, com 50 a 300 clientes, o método proposto foi em média mais rápido que uma implementação dos autores de um método clássico, em uma execução por instância, com um parâmetro ajustado empiricamente*. Três perguntas: (1) as instâncias e o código estão disponíveis? (2) o $\\alpha$ foi ajustado em instâncias **separadas** das de avaliação? (3) contra que implementação de referência, e em que versão, vocês compararam?"
+  },
+  {
+    "id": "cap77.exC",
+    "capitulo": 77,
+    "serie": "cap77",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "leitura_critica",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Serve para o seu problema?",
+    "enunciado": "Você é responsável pelo roteamento de entregas de uma distribuidora. O problema real: **3.000 pontos de entrega por dia**, janelas de horário rígidas, frota heterogênea, e o plano precisa sair **em até 20 minutos** para não atrasar a expedição.\n\nUm artigo bem feito — instâncias públicas, *baseline* nomeado com versão, dez execuções por instância, código aberto — relata que o método proposto encontra soluções **4% melhores** que o estado da arte em instâncias de **até 200 clientes**, com tempo médio de **35 minutos** por instância.\n\nUm colega propõe adotar o método.\n\n1. Liste **três** diferenças entre o cenário do artigo e o seu que podem inverter a conclusão.\n2. Para cada uma, diga **o que precisaria ser verdade** para que ela não invertesse.\n3. Existe um teste barato que você pode fazer **antes** de investir em implementação? Descreva-o, com o critério de decisão definido **antes** de rodar.\n4. O artigo é bem feito e mesmo assim pode não servir para você. Explique, em uma frase, por que essas duas coisas não se contradizem.\n5. Que informação, se estivesse no artigo, mudaria a sua resposta?",
+    "criterios": [
+      "Aponta pelo menos três diferenças materiais: **escala** (200 contra 3.000 pontos), **orçamento de tempo** (35 minutos contra 20), e características do problema ausentes das instâncias do artigo (janelas rígidas, frota heterogênea)",
+      "Trata a escala como questão de **como o método cresce**, e não como \"é maior\": 15× mais pontos costuma custar muito mais que 15× mais tempo",
+      "Propõe um teste barato e concreto — rodar o código aberto do artigo numa amostra da instância real — e **fixa o critério de decisão antes de rodar**",
+      "Explica que qualidade metodológica e aplicabilidade são coisas diferentes: o artigo responde bem à pergunta que ele fez, e a sua pergunta é outra",
+      "Nomeia a informação que mudaria a resposta — curva de tempo por tamanho de instância, ou resultados em instâncias com janela de tempo — em vez de pedir genericamente \"mais experimentos\""
+    ],
+    "erro_provavel": "Rejeitar o método porque \"o artigo é de 200 clientes e eu tenho 3.000\", ou adotá-lo porque \"o artigo é bem feito\". Os dois erros têm a mesma raiz: tratar o artigo como veredito em vez de evidência. Um artigo bem feito é evidência **forte sobre o que ele mediu** — e o que ele mediu foi outro regime. A pergunta útil nunca é \"o artigo é bom?\", é **\"o que precisaria ser verdade para o resultado dele valer aqui?\"** — porque essa pergunta se transforma em teste, e o veredito não se transforma em nada.",
+    "resposta_guia": "Três diferenças que podem inverter a conclusão: (1) **escala** — 3.000 pontos contra até 200, e o que importa não é o fator 15 e sim como o tempo do método cresce com o tamanho; (2) **orçamento de tempo** — o artigo gasta 35 minutos e você tem 20, então o método já perde antes de começar, a menos que interrompa com solução utilizável; (3) **características do problema** — janelas rígidas e frota heterogênea podem não estar nas instâncias públicas usadas, e um método que ganha sem elas pode degradar com elas. Para cada uma, o que precisaria ser verdade: crescimento próximo de linear na faixa que interessa; existência de versão que devolve solução boa dentro do limite; e evidência de desempenho em instâncias com as mesmas características. O teste barato existe e é o motivo de o código aberto importar: pegue uma amostra real de 200 a 300 pontos do **seu** dia, rode o método publicado e o que você usa hoje, e compare — com o critério fixado antes: *se o método publicado não for pelo menos 2% melhor no meu dado, na minha janela de tempo, eu não invisto*. Qualidade e aplicabilidade não se contradizem porque o artigo responde bem à pergunta **dele**, e a sua é outra. A informação que mudaria a resposta é a curva de tempo por tamanho de instância, ou resultados em instâncias com janela de tempo — não \"mais experimentos\" em geral."
+  },
+  {
+    "id": "cap13.exA",
+    "capitulo": 13,
+    "serie": "cap13",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "capacidade": "sensibilidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O relatório da padaria, linha por linha",
+    "enunciado": "A padaria do capítulo 12 rodou o modelo do turno:\n\n$$\\max\\ 40x_1 + 30x_2 \\quad \\text{s.a.}\\quad 2x_1 + x_2 \\le 100 \\ \\text{(horas de forno)},\\quad x_1 + x_2 \\le 80 \\ \\text{(kg de farinha)},\\quad x_1, x_2 \\ge 0$$\n\nE recebeu este relatório:\n\n```\nlucro do plano: 2600\n\nPRODUTOS — até onde o lucro unitário pode variar sem mudar O PLANO\nproduto        produzir   lucro   pode cair até   pode subir até\ntipo 1               20      40              30               60\ntipo 2               60      30              20               40\n\nRECURSOS — até onde o estoque pode variar com O PREÇO ainda valendo\nrecurso        estoque   usado   preço   pode cair até   pode subir até\nhoras de forno     100     100      10              80              160\nkg de farinha       80      80      20              50              100\n```\n\n1. Escreva, em uma frase cada, **o que a linha do tipo 1 autoriza** e **o que a linha das horas de forno autoriza**. A diferença entre as duas é o ponto do exercício.\n2. Um concorrente força um desconto de **10%** no tipo 1. O plano muda? Qual passa a ser o lucro do turno?\n3. A padeira consegue **10 horas de forno a mais**. Qual o novo lucro, e você precisou resolver alguma coisa?\n4. As duas restrições estão apertadas (`usado = estoque`) e os dois preços são positivos. Que resultado do capítulo 12 isso ilustra?\n5. O relatório diz que a farinha \"pode subir até 100\". Um fornecedor oferece **40 kg a mais** a R$ 12 o quilo. Você compra tudo? Quanto?",
+    "criterios": [
+      "Distingue as duas autorizações: a linha do produto garante que **o plano** (as quantidades) não muda; a linha do recurso garante que **o preço** continua valendo — e não confunde uma com a outra",
+      "Com desconto de 10%, o lucro do tipo 1 vai a 36, que está dentro de $[30, 60]$: o plano segue $(20, 60)$ e o lucro do turno passa a $36(20) + 30(60) = 2520$",
+      "Com 10 horas a mais (110, dentro de $[80, 160]$), o lucro sobe $10 \\times 10 = 100$, indo a 2700 — **sem resolver nada**",
+      "Reconhece as folgas complementares: recurso que não sobra pode ter preço positivo, e é exatamente o caso",
+      "Compra apenas **20 kg** — a faixa termina em 100 e o estoque é 80. Os 20 primeiros rendem R$ 20 cada contra R$ 12 de custo; os outros 20 estão fora da faixa e não há garantia nenhuma sobre eles"
+    ],
+    "erro_provavel": "Ler as duas famílias de faixa como se fossem a mesma. \"Pode subir até 60\" no tipo 1 e \"pode subir até 160\" nas horas de forno parecem a mesma promessa e não são: a primeira diz que **as quantidades produzidas** continuam as mesmas; a segunda diz que **a taxa de R$ 10 por hora** continua valendo. O segundo erro é no item 5: comprar os 40 kg porque \"o preço-sombra é 20 e o custo é 12\". A faixa termina em 100 kg de estoque, e a padaria já tem 80 — então só 20 kg estão cobertos pela garantia. Sobre os outros 20 o relatório não afirma nada, e a resposta honesta não é \"vale menos\", é **\"eu não sei, e para saber eu resolvo de novo\"**.",
+    "resposta_guia": "A linha do tipo 1 autoriza uma conclusão sobre o **plano**: enquanto o lucro unitário estiver entre 30 e 60, as quantidades produzidas continuam $(20, 60)$ e só o total muda. A linha das horas de forno autoriza uma conclusão sobre o **preço**: enquanto o estoque estiver entre 80 e 160 horas, cada hora a mais rende exatamente R$ 10. Com desconto de 10%, o lucro do tipo 1 cai para 36 — dentro da faixa —, o plano não muda e o turno passa a render $36(20) + 30(60) = 2520$. Com 10 horas de forno a mais o estoque vai a 110, dentro de $[80, 160]$: o lucro sobe $10 \\times 10 = 100$, para 2700, e nada precisou ser resolvido. O fato de nenhum recurso sobrar e ambos terem preço positivo ilustra as folgas complementares do capítulo 12. Sobre a farinha: a faixa vai até 100 e o estoque é 80, então apenas **20 kg** estão dentro da garantia — a R$ 20 de valor contra R$ 12 de custo, R$ 8 de ganho por quilo. Compre 20. Sobre os outros 20 o relatório não diz nada, e para decidir sobre eles seria preciso resolver de novo.",
+    "modelo": [
+      {
+        "rotulo": "relatório base",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          40,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            100
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            20,
+            60
+          ],
+          "valor": 2600
+        }
+      },
+      {
+        "rotulo": "com desconto de 10% no tipo 1",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          36,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            100
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            20,
+            60
+          ],
+          "valor": 2520
+        }
+      },
+      {
+        "rotulo": "com 10 horas de forno a mais",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          40,
+          30
+        ],
+        "restricoes": [
+          [
+            2,
+            1,
+            "<=",
+            110
+          ],
+          [
+            1,
+            1,
+            "<=",
+            80
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            30,
+            50
+          ],
+          "valor": 2700
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap13.exB",
+    "capitulo": 13,
+    "serie": "cap13",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "sensibilidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "Dois relatórios, dois preços, nenhum errado",
+    "enunciado": "A montadora acrescentou ao modelo a **bancada de teste**, que comporta 8 unidades do Tipo 1 por dia:\n\n$$\\max\\ 100x_1 + 150x_2 \\quad \\text{s.a.}\\quad x_1 + x_2 \\le 10,\\quad x_1 + 2x_2 \\le 12,\\quad x_1 \\le 8,\\quad x_1, x_2 \\ge 0$$\n\nDois analistas rodam o modelo. Os dois obtêm o plano $(8, 2)$ e o lucro R$ 1.100. Mas os relatórios de preço-sombra saem assim:\n\n| | CPUs | pentes | horas de bancada |\n|---|---:|---:|---:|\n| **Ana** | 50 | 50 | 0 |\n| **Bruno** | 0 | 75 | 25 |\n\nA diretoria pede que você diga quem errou.\n\n1. Confirme que $(8,2)$ é ótimo e que o lucro é 1.100. Quantas restrições estão apertadas nesse ponto?\n2. Verifique se **os dois** vetores de preços são soluções viáveis do dual e quanto cada um custa. O que isso estabelece?\n3. Calcule o lucro ótimo com **9** CPUs e com **11** CPUs. Quanto vale, então, uma CPU a mais? E uma CPU a menos?\n4. Responda à diretoria: **quem errou?** E o que você recomenda que ela faça com o número.\n5. A bancada nunca limita a produção. Que hipótese isso levanta sobre o modelo, e o que você investigaria?",
+    "criterios": [
+      "Confirma o ótimo $(8,2)$ com 1.100 e identifica que **três** restrições estão apertadas num ponto que, no plano, precisa de duas — o vértice é degenerado",
+      "Verifica que os dois vetores são duais viáveis e que **ambos custam 1.100**, concluindo que os dois conjuntos de preços são legítimos e que o dual tem mais de uma solução ótima",
+      "Mede as derivadas: $z(9) = 1050$ e $z(11) = 1100$, logo perder uma CPU custa **R$ 50** e ganhar uma CPU rende **R$ 0** — as derivadas pela esquerda e pela direita não coincidem",
+      "Responde que **ninguém errou** e que a pergunta \"qual é *o* preço\" é que está mal feita; recomenda perguntar dos dois lados em vez de negociar com um número só",
+      "Levanta a hipótese de **restrição redundante** e propõe investigar se a bancada precisa estar no modelo — sem ela o vértice deixa de ser degenerado e o preço volta a ser único"
+    ],
+    "erro_provavel": "Procurar o erro. A pergunta da diretoria — \"quem errou?\" — carrega a suposição de que existe um preço certo, e é essa suposição que está errada. Num vértice degenerado o problema dual não tem **um** ótimo: tem um segmento inteiro de soluções ótimas, e qualquer ponto dele é um conjunto de preços válido. Qual deles aparece no relatório depende de onde o método parou, o que por sua vez depende da ordem em que as restrições foram digitadas. O segundo erro, mais caro, é escolher um dos dois relatórios e negociar com ele: quem comprar CPU acreditando nos R$ 50 de Ana vai descobrir que a próxima CPU rende exatamente zero.",
+    "resposta_guia": "Em $(8,2)$ as três restrições estão apertadas: $8+2=10$, $8+4=12$ e $x_1=8$. No plano bastam duas para determinar um vértice, então o vértice é **degenerado**. Os dois vetores são duais viáveis — verificando as restrições do dual, $y_1+y_2+y_3 \\ge 100$ e $y_1+2y_2 \\ge 150$ valem nos dois casos — e ambos custam $10y_1 + 12y_2 + 8y_3 = 1100$. Isso estabelece que o dual tem mais de uma solução ótima; de fato tem um segmento inteiro, e o ponto médio $(25, 62{,}5, 12{,}5)$ também é válido. Medindo diretamente: com 9 CPUs o lucro é 1.050 e com 11 CPUs continua 1.100. Perder uma CPU custa R$ 50; ganhar uma CPU rende R$ 0. À diretoria: ninguém errou, e a pergunta é que está mal feita — não existe *o* preço da CPU neste ponto. O que é acionável são as duas respostas separadas: não perca CPU, porque custa 50; e não compre CPU, porque rende 0. Por fim, a bancada nunca limita, o que é a assinatura de **restrição redundante**: vale investigar se ela precisa estar no modelo, porque sem ela o vértice deixa de ser degenerado e o preço volta a ser único.",
+    "modelo": [
+      {
+        "rotulo": "com a bancada — o vértice degenerado",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ],
+          [
+            1,
+            0,
+            "<=",
+            8
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "com 9 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            9
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ],
+          [
+            1,
+            0,
+            "<=",
+            8
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            6,
+            3
+          ],
+          "valor": 1050
+        }
+      },
+      {
+        "rotulo": "com 11 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            11
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ],
+          [
+            1,
+            0,
+            "<=",
+            8
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap13.exC",
+    "capitulo": 13,
+    "serie": "cap13",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "sensibilidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Resolver de novo, ou a resposta já está aí?",
+    "enunciado": "A montadora, com o relatório do capítulo em mãos: plano $(8,2)$, lucro R$ 1.100; Tipo 1 rende 100 com faixa $[75, 150]$; Tipo 2 rende 150 com faixa $[100, 200]$; CPUs valem 50 com estoque na faixa $[6, 12]$; pentes valem 50 com estoque na faixa $[10, 20]$.\n\nQuatro mudanças chegam na mesma manhã. Para **cada uma**: diga se você precisa resolver o modelo de novo, **justifique pela faixa** e, quando não precisar, **dê a resposta**.\n\n| | A mudança |\n|---|---|\n| **a** | O Tipo 1 passa a render **R$ 80** |\n| **b** | Chegam **4 pentes** a mais, indo o estoque a 16 |\n| **c** | Chegam **5 CPUs** a mais, indo o estoque a 15 |\n| **d** | O Tipo 2 passa a consumir **3 pentes** em vez de 2 |\n\nDepois:\n\n5. Ordene as quatro pela **confiança** que você tem na resposta, da maior para a menor, e explique a ordem.",
+    "criterios": [
+      "**(a)** não resolve: 80 está dentro de $[75, 150]$, o plano segue $(8,2)$ e o lucro passa a $80(8) + 150(2) = 940$",
+      "**(b)** não resolve: 16 está dentro de $[10, 20]$, o lucro sobe $4 \\times 50 = 200$, indo a 1.300",
+      "**(c)** **resolve**: 15 está fora de $[6, 12]$ — e reconhece que extrapolar daria 1.350 quando o valor real é 1.200, superestimando o ganho em R$ 150",
+      "**(d)** **resolve**: mudou um coeficiente **da matriz**, e nenhuma faixa do relatório cobre isso; o novo plano é $(9,1)$ com lucro 1.050",
+      "A ordem de confiança separa o que é **garantido pela faixa** (a e b) do que exige execução (c e d), em vez de ordenar por \"parecer simples\""
+    ],
+    "erro_provavel": "Tratar o item (c) como se a faixa fosse uma sugestão: \"são só 3 unidades além do limite, o preço deve valer mais ou menos\". Não vale \"mais ou menos\": acima de 12 CPUs o gargalo passa a ser o pente, e a CPU seguinte rende **exatamente zero**. Extrapolar dá 1.350 e o valor real é 1.200 — R$ 150 de erro numa conta que parecia trivial. O item (d) engana por outro motivo: parece uma mudança pequena, de um número só, mas é o único dos quatro que mexe na **matriz**, e sobre a matriz o relatório de sensibilidade não afirma nada. Faixa de objetivo e faixa de lado direito não cobrem quanto cada produto consome.",
+    "resposta_guia": "**(a)** Não resolve. R$ 80 está dentro de $[75, 150]$, então o plano continua $(8, 2)$ e só o total muda: $80(8) + 150(2) = 940$. **(b)** Não resolve. O estoque de pentes vai a 16, dentro de $[10, 20]$, então o lucro sobe pela taxa: $4 \\times 50 = 200$, indo a R$ 1.300. **(c)** Resolve. O estoque de CPUs iria a 15, **fora** de $[6, 12]$. Extrapolando daria $1100 + 5 \\times 50 = 1350$; o valor real é R$ 1.200, com plano $(12, 0)$ — as 2 primeiras CPUs valem 50 e as outras 3 valem zero, porque o gargalo passou a ser o pente. **(d)** Resolve. Mudou um coeficiente da matriz, e o relatório não cobre a matriz: o novo plano é $(9, 1)$, com lucro R$ 1.050. Sobre a ordem de confiança: (a) e (b) vêm primeiro, porque a resposta é **garantida** pela faixa e não depende de eu ter rodado nada; (c) e (d) vêm depois porque exigiram execução, e uma execução pode ter sido feita sobre dado errado. O critério não é qual parece mais simples — é qual está coberto por uma garantia.",
+    "modelo": [
+      {
+        "rotulo": "base",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 1100
+        }
+      },
+      {
+        "rotulo": "a — Tipo 1 rende 80",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          80,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            8,
+            2
+          ],
+          "valor": 940
+        }
+      },
+      {
+        "rotulo": "b — 16 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            2,
+            "<=",
+            16
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            4,
+            6
+          ],
+          "valor": 1300
+        }
+      },
+      {
+        "rotulo": "c — 15 CPUs",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            15
+          ],
+          [
+            1,
+            2,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            12,
+            0
+          ],
+          "valor": 1200
+        }
+      },
+      {
+        "rotulo": "d — Tipo 2 consome 3 pentes",
+        "sentido": "max",
+        "variaveis": [
+          "x1",
+          "x2"
+        ],
+        "objetivo": [
+          100,
+          150
+        ],
+        "restricoes": [
+          [
+            1,
+            1,
+            "<=",
+            10
+          ],
+          [
+            1,
+            3,
+            "<=",
+            12
+          ]
+        ],
+        "otimo": {
+          "ponto": [
+            9,
+            1
+          ],
+          "valor": 1050
+        }
+      }
+    ]
+  },
+  {
+    "id": "cap38.exA",
+    "capitulo": 38,
+    "serie": "cap38",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "convexidade",
+    "dificuldade": "facil",
+    "contexto": "livro",
+    "titulo": "Convexo ou não — e prove",
+    "enunciado": "Para cada conjunto abaixo, decida se é convexo. Quando **não** for, dê um **contraexemplo explícito**: dois pontos do conjunto cujo ponto médio esteja fora. Quando for, justifique **pela estrutura**, não por amostragem.\n\n| | O conjunto |\n|---|---|\n| **a** | $\\{(x_1,x_2) : x_1 + x_2 \\le 10,\\ x_1 \\ge 0,\\ x_2 \\ge 0\\}$ |\n| **b** | $\\{(x_1,x_2) : x_1 \\ge 6 \\ \\textbf{ou} \\ x_2 \\ge 8,\\ x_1 + x_2 \\le 10,\\ x \\ge 0\\}$ |\n| **c** | $\\{x \\in \\mathbb{R} : x \\text{ é inteiro},\\ 0 \\le x \\le 10\\}$ |\n| **d** | A interseção de (a) com $\\{x_1 + 2x_2 \\le 12\\}$ |\n\n5. Um colega diz: *\"testei mil pares no conjunto (b) e o meio sempre caiu dentro, então ele é convexo\"*. O que há de errado com esse raciocínio — e o que há de errado com a conclusão? São coisas diferentes.",
+    "criterios": [
+      "**(a)** convexo, justificado pela estrutura: interseção de semiespaços, e interseção de convexos é convexa — não por amostragem",
+      "**(b)** não convexo, com contraexemplo explícito — por exemplo $(0,8)$ e $(6,0)$, ambos no conjunto, cujo meio $(3,4)$ não satisfaz nem $x_1 \\ge 6$ nem $x_2 \\ge 8$",
+      "**(c)** não convexo, com contraexemplo: 0 e 1 pertencem, e o meio $0{,}5$ não é inteiro — reconhece que **todo conjunto de pontos isolados** falha o teste",
+      "**(d)** convexo: interseção de dois convexos, e é exatamente a região da montadora dos capítulos anteriores",
+      "No item 5, separa os dois defeitos: o **raciocínio** é inválido porque amostragem nunca prova convexidade, e a **conclusão** é falsa porque existe contraexemplo — um teste que não encontra não é a mesma coisa que um teste que refuta"
+    ],
+    "erro_provavel": "Justificar (a) e (d) dizendo \"desenhei e é convexo\" ou \"testei vários pares\". A resposta certa por um caminho errado é o que este exercício quer pegar: a convexidade de um poliedro **não** vem de inspeção nem de amostragem, vem de ser interseção de semiespaços. Quem justifica por inspeção acerta em duas variáveis e perde a garantia exatamente onde ela importa, que é em vinte. E, no item 5, a armadilha é responder só uma das duas metades: dizer \"a conclusão está errada\" sem notar que o **método** estaria errado mesmo que a conclusão fosse verdadeira por acaso.",
+    "resposta_guia": "**(a)** É convexo, e a justificativa é estrutural: cada restrição $\\le$ define um semiespaço, semiespaço é convexo, e interseção de convexos é convexa. **(b)** Não é convexo. Contraexemplo: $(0,8)$ está no conjunto (satisfaz $x_2 \\ge 8$) e $(6,0)$ também (satisfaz $x_1 \\ge 6$), mas o meio $(3,4)$ não satisfaz nenhuma das duas — está fora. O \"ou\" produziu uma união de regiões, e união de convexos quase nunca é convexa. **(c)** Não é convexo: 0 e 1 estão no conjunto e o meio, $0{,}5$, não é inteiro. Qualquer conjunto de pontos isolados falha pelo mesmo motivo, e é por isso que programação inteira perde a garantia de que ótimo local é global. **(d)** É convexo — interseção de dois convexos —, e é a região da montadora dos capítulos 07 a 13. Sobre o item 5: o raciocínio é inválido porque nenhuma amostragem prova convexidade; a assimetria do teste só funciona para **refutar**. E, além de inválido, o raciocínio chegou a uma conclusão **falsa**, já que o contraexemplo existe e foi exibido acima. São duas críticas separadas, e a primeira valeria mesmo que a segunda não valesse."
+  },
+  {
+    "id": "cap38.exB",
+    "capitulo": 38,
+    "serie": "cap38",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "convexidade",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "A heurística que parou no morro errado",
+    "enunciado": "Uma distribuidora fechou contrato com dois fornecedores. A regra: *para ter o desconto, é preciso comprar **pelo menos 6 unidades de A** **ou** **pelo menos 8 de B**.* O caminhão comporta 10 unidades no total. A margem é R$ 3 por unidade de A e R$ 2 por unidade de B.\n\nA equipe implementou uma busca local honesta: partindo de uma solução viável, ela olha os vizinhos, vai para o melhor **viável** que **melhora** a margem, e para quando ninguém em volta melhora.\n\nRodaram duas vezes, com pontos de partida diferentes, e obtiveram:\n\n| Partida | Parou em | Margem |\n|---|---|---|\n| $(0, 8)$ | $(2, 8)$ | 22 |\n| $(6, 0)$ | $(10, 0)$ | 30 |\n\nA equipe reporta que \"a heurística é instável\" e propõe trocar de algoritmo.\n\n1. Verifique: em $(2,8)$, existe algum vizinho viável melhor? A busca errou?\n2. Se a busca não errou, **o que produziu** os dois resultados diferentes? Nomeie a propriedade e diga qual trecho do enunciado a destruiu.\n3. Escreva o conjunto viável e **prove** que ele não é convexo.\n4. \"A heurística é instável\" é o diagnóstico certo? Se não, qual é — e por que a diferença muda o que se faz a seguir?\n5. Proponha **uma** mudança de formulação que devolva a garantia. O que ela custa?",
+    "criterios": [
+      "Verifica que em $(2,8)$ **nenhum** vizinho viável é melhor — é um ótimo local legítimo, e a busca não errou",
+      "Nomeia a **não convexidade** como causa e aponta o **\"ou\"** da regra do desconto como o que a produziu",
+      "Prova a não convexidade com contraexemplo: $(0,8)$ e $(6,0)$ estão na região e o meio $(3,4)$ não está",
+      "Recusa \"a heurística é instável\": o defeito é do **modelo**, não do algoritmo — e a diferença importa porque trocar de algoritmo não resolveria, já que qualquer busca local teria o mesmo problema",
+      "Propõe reformular com variável **binária** (programação inteira) para representar o \"ou\", e reconhece o custo: o problema deixa de ser resolvível por método de região convexa e passa a exigir enumeração com poda"
+    ],
+    "erro_provavel": "Aceitar o diagnóstico da equipe. \"A heurística é instável\" transfere a culpa para o algoritmo e leva à ação errada — trocar de busca local por outra busca local, que vai ter exatamente o mesmo comportamento, porque o problema não está na busca. O teste do capítulo 10 se aplica aqui e dá o veredito: **o que é do modelo sobrevive à troca do método**. Troque a heurística e as duas paradas continuam existindo; mude a formulação e elas somem. O segundo erro é mais sutil: concluir que o resultado 30 é \"o certo\" e o 22 é \"o errado\". Os dois estão certos como ótimos locais; o que faltava era garantia de que um deles fosse global.",
+    "resposta_guia": "Em $(2,8)$ nenhum vizinho viável melhora: subir em $x_1$ ou $x_2$ estoura o limite de 10, e descer para a região sem o desconto sai da área viável. A busca não errou — $(2,8)$ é um ótimo local legítimo. O que produziu os dois resultados foi a **não convexidade** da região viável, e ela veio do **\"ou\"** na regra do desconto: a região é a união de $\\{x_1 \\ge 6\\}$ com $\\{x_2 \\ge 8\\}$, dentro do triângulo $x_1 + x_2 \\le 10$. A prova é o contraexemplo: $(0,8)$ e $(6,0)$ pertencem, e o meio $(3,4)$ não satisfaz nenhuma das duas condições. Logo, \"a heurística é instável\" é o diagnóstico errado — o defeito é do **modelo**, e o teste do capítulo 10 confirma: o que é do modelo sobrevive à troca do método, e trocar de heurística deixaria os dois ótimos locais exatamente onde estão. A reformulação que devolve a garantia é modelar o \"ou\" com uma variável **binária** ($y = 1$ se compra de A, $y = 0$ se de B, com as restrições ativadas por $y$), o que transforma o problema em programação inteira. O custo é real: perde-se a garantia barata da região convexa e passa-se a depender de enumeração com poda, que é mais cara — mas entrega **certificado de otimalidade**, que a busca local não entrega."
+  },
+  {
+    "id": "cap38.exC",
+    "capitulo": 38,
+    "serie": "cap38",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "convexidade",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "O que \"Optimal\" está dizendo",
+    "enunciado": "Chega à sua mesa um relatório de um consultor. O modelo é de dimensionamento de uma rede de distribuição, com custos que envolvem **economias de escala** — quanto maior o volume por centro, menor o custo unitário. O relatório traz:\n\n> *Status: **Optimal**. Custo total anual: R$ 14,2 milhões. Redução de 18% sobre a operação atual.*\n\nO consultor recomenda executar.\n\n1. A frase \"economias de escala\" diz algo sobre a **forma** da função de custo. O quê, e por que isso importa aqui?\n2. Que **duas** perguntas você faz antes de aceitar o número — e o que cada resposta possível muda?\n3. O consultor responde: *\"o solver é de última geração e rodou até convergir\"*. Isso responde às suas perguntas?\n4. Suponha que o modelo **não** seja convexo e que o consultor tenha rodado uma vez. Que evidência barata você pediria para aumentar a confiança no resultado — sem exigir que ele troque de método?\n5. Reescreva o *status* do relatório em uma frase que seja **verdadeira** no pior caso.",
+    "criterios": [
+      "Reconhece que economia de escala significa **custo unitário decrescente** com o volume, o que produz uma função de custo **côncava** — e que minimizar função côncava não tem a garantia de que ótimo local é global",
+      "As duas perguntas atacam o que decide: *o modelo é convexo?* e *o \"Optimal\" é certificado global ou parada local?* — e a resposta a cada uma muda se o número é um limite garantido ou um ponto encontrado",
+      "Reconhece que \"solver de última geração\" e \"rodou até convergir\" **não respondem**: convergência é propriedade da busca, não do problema, e nenhum solver cria garantia que o modelo não tem",
+      "Pede evidência barata e concreta: **múltiplas partidas** (dez execuções de pontos iniciais diferentes) e a dispersão dos resultados, ou um **limitante inferior** de uma relaxação — sem exigir troca de método",
+      "Reescreve o status de forma honesta, no espírito de \"encontramos uma solução de R$ 14,2 milhões que satisfaz as condições locais; não há certificado de que seja a melhor\""
+    ],
+    "erro_provavel": "Aceitar o número porque o campo diz `Optimal`. Esse rótulo tem significados diferentes conforme o problema: em Programação Linear é **certificado global**, porque a convexidade garante; em otimização não convexa costuma significar apenas *\"a busca satisfez as condições de parada\"*. Nada no relatório distingue os dois casos, e a palavra é a mesma. O segundo erro é o oposto e igualmente caro: rejeitar o trabalho inteiro por não ser convexo. Uma solução sem certificado ainda pode ser excelente e ainda pode valer os 18% — o que ela não pode é ser apresentada como **a melhor**. A diferença entre \"a melhor\" e \"uma boa que encontramos\" não é semântica: é o que se promete ao conselho.",
+    "resposta_guia": "Economia de escala significa custo unitário decrescente com o volume, o que torna a função de custo **côncava** — e minimizar uma função côncava é o caso em que a garantia não existe: ótimo local pode não ser global. As duas perguntas: (1) *o modelo é convexo?*; (2) *esse `Optimal` é certificado de otimalidade global ou condição de parada local?* Se o modelo for convexo e o certificado for global, o número é um limite garantido; se não, é uma solução encontrada, e nada além disso. \"O solver é de última geração e rodou até convergir\" **não** responde: convergência é propriedade da busca e não do problema, e nenhum solver cria uma garantia que o modelo não tem. Evidência barata, sem trocar de método: rodar de **dez pontos de partida diferentes** e reportar a dispersão dos resultados — se todos caírem perto de R$ 14,2 milhões, a confiança sobe muito; se variarem, você já sabe o tamanho do risco. Um limitante inferior por relaxação também serve. Status honesto: *\"Solução encontrada: R$ 14,2 milhões, satisfazendo as condições locais de otimalidade. O modelo não é convexo, portanto não há certificado de que seja a melhor solução existente.\"*"
+  },
+  {
+    "id": "cap14.exA",
+    "capitulo": 14,
+    "serie": "cap14",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "capacidade": "pontos_interiores",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "A contradição que não existe",
+    "enunciado": "Um colega leu o [capítulo 08](08-geometria.md) e o 14 no mesmo dia e trouxe a objeção:\n\n> *\"Ou o ótimo está num vértice, ou não está. Se está, um método que anda por dentro e termina fora de qualquer vértice está errado. Se não está, o capítulo 08 mentiu.\"*\n\nA trajetória medida pelo handbook na montadora, partindo do meio da região:\n\n```\n[[1.0, 1.0], [3.0302, 4.0349], [5.2775, 3.3162], [7.7995, 2.0599]] ... → [7.999996, 2.000002]\nvalor final: 1099.99982   ·   distância ao vértice (8,2): 4.472e-06\n```\n\n1. O teorema do capítulo 08 afirma exatamente **o quê**? Escreva-o com cuidado, e sublinhe a parte que o seu colega acrescentou sem perceber.\n2. Por que o ponto final **não** é $(8,2)$ exatamente? A resposta não é \"erro numérico\" — explique a natureza do método.\n3. Perto da fronteira, por que o gradiente sozinho não serve? O que o reescalonamento resolve?\n4. Se você apertar a tolerância, o que acontece com a distância de $4{,}5 \\times 10^{-6}$? Existe tolerância que a zere?\n5. Responda ao colega em duas frases.",
+    "criterios": [
+      "Enuncia o teorema com precisão — **existe** um ótimo num vértice — e identifica que o colega acrescentou \"logo o método precisa andar pelos vértices\", que não está no teorema",
+      "Explica que o método converge a um **limite** e por isso nunca o atinge: a aproximação é da natureza do método, não erro de implementação nem de ponto flutuante",
+      "Explica que perto da fronteira qualquer passo do tamanho útil sai da região, e que o reescalonamento afasta o ponto atual das paredes para que o passo possa ser grande onde há espaço e pequeno onde não há",
+      "Reconhece que apertar a tolerância **diminui** a distância sem nunca zerá-la — é assíntota, não meta",
+      "A resposta ao colega separa as duas afirmações: onde a resposta mora é uma coisa, por onde se caminha até ela é outra"
+    ],
+    "erro_provavel": "Responder que a diferença é \"erro de arredondamento do ponto flutuante\". É a resposta mais comum e está errada de um jeito que importa: mesmo com precisão infinita o método não chegaria a $(8,2)$, porque ele é **iterativo e converge a um limite** — cada iteração se aproxima da fronteira sem tocá-la, por construção. Confundir aproximação de natureza com erro de máquina leva à ação errada: aumentar a precisão numérica não resolve, e a única coisa que muda o resultado é a tolerância de parada, que decide **quão perto basta**.",
+    "resposta_guia": "O teorema do capítulo 08 afirma que **existe** um ótimo num vértice — e só isso. O seu colega acrescentou, sem perceber, \"logo o método precisa andar pelos vértices para encontrá-lo\", que é uma afirmação sobre o algoritmo e não está no teorema. O ponto final não é $(8,2)$ exatamente porque o método é iterativo e converge a um **limite**: cada passo se aproxima da fronteira sem tocá-la, e isso não é erro de ponto flutuante — aconteceria com precisão infinita. Perto da fronteira o gradiente sozinho não serve porque qualquer passo do tamanho útil sai da região; o reescalonamento transforma o espaço de modo que o ponto atual fique longe de todas as paredes, permitindo um passo grande onde há espaço e encolhendo-o onde não há. Apertar a tolerância diminui a distância de $4{,}5 \\times 10^{-6}$ e nunca a zera: é assíntota, não meta. Ao colega: *o teorema diz onde a resposta mora, não por onde se caminha até ela; e um método que se aproxima do vértice até a precisão que você pedir encontrou a resposta tanto quanto um que pousa nela.*",
+    "modelo": {
+      "rotulo": "montadora — o vértice de que o método interior se aproxima",
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        100,
+        150
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          10
+        ],
+        [
+          1,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          8,
+          2
+        ],
+        "valor": 1100
+      }
+    }
+  },
+  {
+    "id": "cap14.exB",
+    "capitulo": 14,
+    "serie": "cap14",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "pontos_interiores",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "O relatório que veio sem base",
+    "enunciado": "Uma analista roda um modelo de mistura com 40 mil variáveis num solver de mercado e traz a saída para você. Três coisas chamam atenção:\n\n- **nenhuma** variável vale exatamente zero — as \"zeradas\" aparecem como $3{,}7 \\times 10^{-9}$, $1{,}2 \\times 10^{-8}$ e assim por diante;\n- o relatório **não traz** preço-sombra nem faixas de sensibilidade;\n- o log menciona `barrier` e termina com `optimal`, sem falar em iterações de Simplex.\n\nA analista conclui que o solver \"está com defeito\" e quer refazer tudo em outra ferramenta.\n\n1. Que família de método foi usada? Qual das três observações é a mais decisiva para essa conclusão?\n2. Explique **cada uma** das três observações a partir da natureza do método.\n3. Ela precisa do preço-sombra para negociar com um fornecedor. O que você pede ao solver — e qual é o **custo** desse pedido?\n4. Com os valores $3{,}7 \\times 10^{-9}$, como você responde à pergunta \"quais ingredientes **não** entram na mistura?\" — e o que essa resposta exige de você que a saída do Simplex não exigia?\n5. \"O solver está com defeito\" é o diagnóstico certo? Se não, qual é?",
+    "criterios": [
+      "Identifica um **método de ponto interior** (barreira), e aponta que a ausência de zeros exatos é a observação mais decisiva — é assinatura da natureza do método, enquanto o log poderia ser ambíguo",
+      "Explica as três a partir da natureza: o método nunca toca a fronteira, logo nada zera; sem vértice não há **base**, e sem base não há leitura de preço-sombra nem de faixa pela $B^{-1}$; e `barrier` é o nome da família",
+      "Pede o ***crossover*** — a conversão da solução interior numa solução básica equivalente — e declara o custo: tempo adicional de processamento, que em problema grande não é desprezível",
+      "Para responder \"o que não entra\", reconhece que é preciso **fixar uma tolerância** e decidir por ela, o que é uma decisão de quem lê; a saída do Simplex dava zeros exatos e dispensava essa decisão",
+      "Recusa o diagnóstico: não há defeito nenhum — o método fez o que promete, e o que faltou foi saber que tipo de saída esperar"
+    ],
+    "erro_provavel": "Aceitar \"o solver está com defeito\" e trocar de ferramenta. É caro e não resolve: a outra ferramenta, se também usar barreira num problema desse tamanho, vai devolver exatamente a mesma coisa. O erro de fundo é ler a saída de um método interior com os olhos do Simplex — esperando base, zeros exatos e preço-sombra, que são subprodutos de terminar **num vértice**. Nada disso é prometido por um método que, por construção, não encosta na fronteira. O segundo erro é tratar $3{,}7 \\times 10^{-9}$ como \"praticamente zero\" sem declarar a tolerância: com 40 mil variáveis, onde você corta muda quais ingredientes entram na formulação, e essa escolha precisa estar escrita.",
+    "resposta_guia": "Foi um método de **ponto interior** (barreira), e a observação mais decisiva é a ausência de zeros exatos: o método nunca toca a fronteira, então nenhuma variável zera de fato. Daí saem as outras duas: sem vértice não há **base**, e sem base não há leitura direta de preço-sombra nem faixa de sensibilidade pela $B^{-1}$ — foi por isso que o relatório veio sem eles; e `barrier` é literalmente o nome da família. Para negociar com o fornecedor, peça ao solver a etapa de ***crossover***, que converte a solução interior numa solução básica equivalente e devolve base, preços e faixas. O custo é tempo adicional, e num problema de 40 mil variáveis ele não é desprezível. Para dizer quais ingredientes não entram, é preciso **fixar uma tolerância** — por exemplo, tratar como zero tudo abaixo de $10^{-6}$ — e essa é uma decisão de quem lê, que precisa ser declarada; a saída do Simplex dava zeros exatos e dispensava a decisão. \"O solver está com defeito\" é o diagnóstico errado: o método entregou o que promete, e o que faltou foi saber que tipo de saída esperar dele."
+  },
+  {
+    "id": "cap14.exC",
+    "capitulo": 14,
+    "serie": "cap14",
+    "variante": "C",
+    "tipo": "escolher",
+    "objetivo": "O3",
+    "capacidade": "pontos_interiores",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Simplex ou interior — pela instância, não pela fama",
+    "enunciado": "Quatro situações chegam na mesma semana. Para cada uma, escolha **Simplex** ou **ponto interior** e dê **o argumento decisivo** — um só, o que decide.\n\n| | A situação |\n|---|---|\n| **a** | Planejamento anual de uma rede logística: 800 mil variáveis, matriz muito esparsa, roda **uma vez** por ano |\n| **b** | Um modelo de programação **inteira** resolvido por *branch and bound*, com milhares de nós, cada um um problema linear quase igual ao anterior |\n| **c** | Um modelo de 30 variáveis cujo resultado vai a uma reunião de compras, que quer saber **quanto vale** cada recurso a mais |\n| **d** | Uma auditoria que exige o resultado **em fração exata**, para ser reproduzido à mão |\n\n5. Um fornecedor argumenta que o método dele é melhor \"porque é de 2019, e o Simplex é de 1947\". Responda em uma frase.",
+    "criterios": [
+      "**(a)** ponto interior, pelo argumento do **tamanho e esparsidade com execução única** — não há reotimização a aproveitar",
+      "**(b)** Simplex, pelo argumento da **reotimização barata**: o *branch and bound* reaproveita a base entre nós, e método interior recomeça",
+      "**(c)** Simplex (ou interior **com *crossover***), porque a reunião precisa de **preço-sombra**, que exige base",
+      "**(d)** Simplex, porque só ele opera em **aritmética exata**; método interior converge a um limite e devolve aproximação por natureza",
+      "Ao fornecedor, responde que idade não é critério — os dois convivem nos solvers de mercado porque respondem a necessidades diferentes — e pede a comparação com instância, *baseline* e máquina declarados"
+    ],
+    "erro_provavel": "Escolher pelo tamanho em todos os quatro casos: \"grande → interior, pequeno → Simplex\". O tamanho decide o item (a) e **não decide nenhum dos outros três**. Em (b) o que manda é a reotimização, e a instância pode ser enorme sem que isso mude a resposta; em (c) manda a necessidade de preço-sombra; em (d) manda a exatidão. Escolher método por uma característica só é o mesmo erro que o capítulo 77 ensina a recusar em artigo — tomar uma dimensão de comparação pela comparação inteira.",
+    "resposta_guia": "**(a)** Ponto interior: problema grande, esparso e resolvido uma única vez por ano — não há reotimização a aproveitar, e é exatamente o regime em que a família interior é a escolha usual do mercado. **(b)** Simplex, e o argumento é decisivo: o *branch and bound* resolve milhares de problemas quase idênticos em sequência, e o Simplex reaproveita a base do nó anterior para reotimizar em poucos pivôs, enquanto o método interior recomeça a cada nó. **(c)** Simplex — ou interior seguido de ***crossover*** —, porque a reunião de compras quer preço-sombra, que só existe a partir de uma **base**, e a solução interior não tem base. **(d)** Simplex, porque a auditoria exige resultado exato: o Simplex opera em frações e devolve o valor cravado; o método interior converge a um limite e entrega aproximação, por natureza e não por descuido. Ao fornecedor: *idade não é critério — os dois métodos convivem nos solvers de mercado porque respondem a necessidades diferentes; me mostre a comparação com instância, baseline e máquina declarados, e aí conversamos.*"
+  },
+  {
+    "id": "cap15.exA",
+    "capitulo": 15,
+    "serie": "cap15",
+    "variante": "A",
+    "tipo": "formular",
+    "objetivo": "O1",
+    "capacidade": "modelagem_aplicada",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Quatro enunciados, quatro padrões",
+    "enunciado": "Para **cada** situação abaixo, diga: (i) o padrão, (ii) **a variável de decisão**, com índices e unidade, (iii) o sentido do objetivo, (iv) o tipo dominante de restrição.\n\n| | A situação |\n|---|---|\n| **a** | *\"Uma refinaria compra quatro tipos de óleo cru e precisa produzir um combustível que atenda a especificações mínimas de octanagem e máximas de enxofre, gastando o mínimo.\"* |\n| **b** | *\"Uma rede tem 3 centros de distribuição e 8 lojas. Precisa decidir o abastecimento diário, minimizando frete, respeitando o estoque de cada centro e a demanda de cada loja.\"* |\n| **c** | *\"Uma fábrica de móveis tem 200 horas de marcenaria e 120 de pintura por semana, e quer decidir quantas mesas e cadeiras produzir para maximizar a margem.\"* |\n| **d** | *\"Um hospital precisa escolher, entre 9 turnos possíveis de 8 horas, quais ativar para que cada hora do dia tenha pelo menos a cobertura mínima de enfermagem, ao menor custo.\"* |\n\n5. Duas dessas quatro são **espelhos** uma da outra. Quais, e o que exatamente se inverte entre elas?\n6. Uma delas tem um problema que a Programação Linear **não resolve direito**. Qual, e por quê?",
+    "criterios": [
+      "**(a)** mistura — variável: quantidade (em unidade de volume ou massa) de cada tipo de óleo cru; minimiza custo; restrições de mínimo **e** de máximo sobre as especificações",
+      "**(b)** transporte — variável com **dois índices**: quanto vai do centro $i$ para a loja $j$; minimiza frete; oferta `≤` por centro e demanda `≥` por loja",
+      "**(c)** mix de produção — variável: quantas mesas e quantas cadeiras produzir; maximiza margem; recursos `≤`",
+      "**(d)** cobertura — variável **binária**: ativar ou não cada um dos 9 turnos; minimiza custo; cada hora coberta ao menos pelo mínimo exigido",
+      "Identifica (a) e (c) como espelhos, dizendo o que se inverte — **maximizar/minimizar** e `≤`/`≥` —, e aponta (d) como o caso que a Programação Linear não fecha, porque a variável honesta é binária e a relaxação devolve fração"
+    ],
+    "erro_provavel": "Classificar (b) como mix de produção porque \"cada centro decide quanto manda\". É o erro medido no capítulo, e a marca dele é o **desaparecimento do índice de destino**: com uma variável por centro, o modelo roda, devolve `Optimal`, e não sabe dizer quanto vai para cada loja — que é justamente a decisão que a operação precisa executar. O segundo erro é classificar (d) como mistura porque tem \"mínimo a atender\": a diferença não está na direção da restrição, e sim no que se escolhe — em mistura escolhe-se **quanto** de algo contínuo, em cobertura escolhe-se **quais**, e essa distinção é o que torna a variável binária.",
+    "resposta_guia": "**(a)** Mistura: a variável é quanto comprar de cada um dos quatro óleos (em m³ ou toneladas), o objetivo minimiza custo e as restrições são de especificação — mínimo de octanagem e máximo de enxofre. **(b)** Transporte: a variável tem dois índices, $x_{ij}$ = quanto vai do centro $i$ para a loja $j$ por dia; minimiza frete; oferta de cada centro `≤` e demanda de cada loja `≥`. **(c)** Mix de produção: a variável é quantas mesas e quantas cadeiras produzir por semana; maximiza margem; recursos (horas de marcenaria e de pintura) `≤`. **(d)** Cobertura: a variável é binária — ativar ou não cada um dos 9 turnos; minimiza custo; cada hora do dia precisa de cobertura mínima. Os espelhos são **(a) e (c)**: mix maximiza sob restrições `≤` de recurso, mistura minimiza sob restrições `≥` de exigência — invertem-se o sentido do objetivo e a direção da restrição. O caso que a Programação Linear não fecha é **(d)**: a variável honesta é binária, e relaxando para contínua o modelo devolve frações de turno, que não são escaláveis — a resposta vira um limitante inferior, não uma decisão."
+  },
+  {
+    "id": "cap15.exB",
+    "capitulo": 15,
+    "serie": "cap15",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "capacidade": "modelagem_aplicada",
+    "dificuldade": "dificil",
+    "contexto": "livro",
+    "titulo": "O modelo menor que respondia a outra pergunta",
+    "enunciado": "Uma distribuidora tem duas fábricas (capacidade 30 e 40) e três centros (demanda 20, 25 e 25). O custo por unidade em cada rota:\n\n| | centro 1 | centro 2 | centro 3 |\n|---|---:|---:|---:|\n| **fábrica 1** | 4 | 6 | 9 |\n| **fábrica 2** | 5 | 3 | 8 |\n\nO analista escreveu um modelo com **duas variáveis** — o total que sai de cada fábrica — usando o **custo médio** de cada uma (R$ 19/3 e R$ 16/3), com as capacidades e a demanda total de 70. O modelo roda, devolve `Optimal` e custo **R$ 403,33**. Ele apresenta como plano de frete.\n\n1. Refaça o modelo **certo**, com a variável de dois índices. Qual o plano e o custo?\n2. Qual é a diferença de custo, em reais e em porcentagem?\n3. **A diferença de custo não é o pior dano.** Qual é, e por quê?\n4. Em que momento exato da modelagem a informação foi perdida? Nomeie o passo.\n5. O analista argumenta: *\"o modelo menor roda em metade do tempo e o erro é de 10%\"*. Responda.",
+    "criterios": [
+      "Monta o modelo com $x_{ij}$ e chega ao plano $x_{11}=20$, $x_{13}=10$, $x_{22}=25$, $x_{23}=15$ com custo **R$ 365**",
+      "Calcula a diferença: R$ 38,33, cerca de **10,5%**",
+      "Identifica o dano maior: o modelo errado **não diz quanto vai para cada centro** — a informação que a operação precisa executar simplesmente não existe nele",
+      "Nomeia o passo: a perda ocorreu na **escolha da variável de decisão**, ao trocar $x_{ij}$ por um total por fábrica; o custo médio é consequência dessa escolha, não a causa",
+      "Responde ao argumento do tempo: um modelo que não responde à pergunta não tem erro de 10% — ele tem erro de **100%**, porque a saída dele não é executável, e o tempo economizado é irrelevante diante disso"
+    ],
+    "erro_provavel": "Tratar o caso como um problema de **precisão**: \"o custo médio é uma aproximação, dá 10% de erro, e em muitos contextos 10% é aceitável\". O raciocínio é razoável e a conclusão é falsa, porque mede a coisa errada. O modelo menor não é uma versão aproximada do modelo certo — é um modelo de **outro problema**. Ele responde \"quanto cada fábrica despacha no total\", e a pergunta era \"quanto vai de cada fábrica para cada centro\". Nenhuma melhora de precisão faria a resposta aparecer, porque a variável que a carregaria foi apagada. Confundir modelo aproximado com modelo de outra pergunta é o erro estrutural deste capítulo.",
+    "resposta_guia": "Com a variável de dois índices, o plano é $x_{11} = 20$, $x_{13} = 10$, $x_{22} = 25$, $x_{23} = 15$ — a fábrica 1 abastece o centro 1 inteiro e parte do 3, a fábrica 2 cobre o centro 2 e o resto do 3 —, ao custo de **R$ 365**. A diferença é de R$ 38,33, cerca de 10,5%. Mas o dano maior não é esse: o modelo errado **não informa quanto vai para cada centro**, e é exatamente essa a decisão que a operação precisa executar. A informação não está imprecisa — ela não existe. A perda aconteceu na **escolha da variável de decisão**: ao trocar $x_{ij}$ por um total por fábrica, o índice de destino saiu do modelo, e o custo médio foi apenas a consequência inevitável dessa escolha. Ao argumento do tempo: um modelo que não responde à pergunta feita não erra 10% — ele não serve, e meia hora economizada não compensa um plano de frete que ninguém consegue executar."
+  },
+  {
+    "id": "cap15.exC",
+    "capitulo": 15,
+    "serie": "cap15",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "capacidade": "modelagem_aplicada",
+    "dificuldade": "media",
+    "contexto": "livro",
+    "titulo": "Meia estação",
+    "enunciado": "A prefeitura precisa decidir **quais** estações de coleta abrir. São quatro candidatas, com custos de R$ 5, 4, 6 e 3 (em milhões), e cinco bairros que precisam ficar cobertos — cada bairro é alcançado por um subconjunto das estações.\n\nO modelo linear rodou e devolveu:\n\n```\nestações: [1/2, 1/2, 1/2, 1/2]   ·   custo 9   ·   Optimal\n```\n\nO secretário quer levar \"R$ 9 milhões\" para a reunião do orçamento.\n\n1. O que significa \"abrir 1/2 estação\"? A conta está errada?\n2. Por enumeração, a escolha mais barata que **de fato** cobre todos os bairros é abrir as estações 2 e 3, ao custo de **10**. Que relação existe entre 9 e 10, e como se chama esse 9?\n3. O secretário pode levar \"R$ 9 milhões\" para a reunião? E \"R$ 10 milhões\"? Justifique **cada** resposta.\n4. Arredondar a solução para cima — abrir as quatro estações — resolve? Quanto custaria, e o que isso diz sobre arredondar?\n5. O que precisa mudar para o modelo responder à pergunta que foi feita — e o que isso custa?",
+    "criterios": [
+      "Explica que \"1/2 estação\" não é executável e que **a conta não está errada**: o modelo relaxou uma variável que deveria ser binária, e resolveu corretamente o problema relaxado",
+      "Identifica 9 como **limitante inferior** do custo real, e reconhece que ele não é atingível — nenhuma escolha executável custa 9",
+      "Decide sobre a reunião: R$ 9 milhões **não** pode ser levado como orçamento, porque nenhuma decisão real custa isso; R$ 10 milhões pode, porque corresponde a uma escolha executável e verificada",
+      "Mostra que arredondar para cima custa 5+4+6+3 = **18**, quase o dobro do necessário — arredondar produz solução viável e ruim, e não há garantia geral de que arredondar sequer produza viável",
+      "Conclui que a variável precisa ser **binária**, o que leva a programação inteira, e reconhece o custo: enumeração com poda, mais cara que resolver um problema linear"
+    ],
+    "erro_provavel": "Levar os R$ 9 milhões para a reunião porque \"foi o que o modelo deu\" e o status era `Optimal`. É o erro que fecha a Parte II, e ele resume o livro: `Optimal` é uma afirmação sobre **o problema que foi resolvido**, não sobre o problema que foi perguntado. Aqui o modelo resolveu com perfeição um problema em que se pode abrir meia estação, e esse problema não existe. O erro simétrico é descartar o 9 como inútil: ele é um **limitante inferior** legítimo e valioso — diz que nenhuma solução vai custar menos que isso, o que já permite recusar uma proposta de R$ 8 milhões sem fazer conta nenhuma.",
+    "resposta_guia": "\"Abrir 1/2 estação\" não é executável, e a conta **não está errada**: o modelo relaxou para contínua uma variável que deveria ser binária e resolveu corretamente esse problema relaxado. A relação entre 9 e 10 é a de **limitante inferior**: como toda decisão binária também é viável no problema relaxado, o custo relaxado nunca supera o real — logo 9 ≤ 10 —, e neste caso o limite **não é atingível**. Na reunião: R$ 9 milhões não pode ser apresentado como orçamento, porque nenhuma decisão executável custa isso; R$ 10 milhões pode, porque corresponde a abrir as estações 2 e 3, uma escolha real e verificada. Arredondar para cima significa abrir as quatro, ao custo de 18 — quase o dobro do necessário —, e o caso ilustra por que arredondar não é estratégia: além de cara, ela não tem garantia geral nem de produzir solução viável. O que precisa mudar é a natureza da variável, que tem de ser binária; isso leva o problema para programação inteira, e o custo é real: em vez de resolver um problema linear, passa-se a depender de enumeração com poda, bem mais cara — em troca de uma resposta que se pode executar."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exA",
+    "variante": "A",
+    "tipo": "interpretar",
+    "objetivo": "O1",
+    "dificuldade": "media",
+    "titulo": "Custo reduzido como preço",
+    "enunciado": "No quadro final da montadora, a linha $z$ traz **50** sob as duas colunas de folga, e o plano é $(8,2)$ com lucro 1.100.\n\nO capítulo 09 chamou esses 50 de \"o que sobrou na linha $z$ depois das eliminações\". Este capítulo os chama de **preço**, e escreve o custo reduzido como $c_j - y^{\\top}a_j$.\n\n1. Identifique, na montadora, quem é $B$, quem é $c_B$ e quanto vale $y$.\n2. Um terceiro produto é proposto: consome **1 CPU e 1 pente**, e renderia **R$ 90**. Calcule o custo reduzido dele **sem** montar quadro nenhum. Ele entra no plano?\n3. Repita para um produto que consome **1 CPU e 2 pentes** e renderia **R$ 160**.\n4. Escreva, em uma frase de gerente, o que $c_j - y^{\\top}a_j$ significa.\n5. O capítulo diz que **solver nenhum calcula $B^{-1}$**. Se ninguém a calcula, o que significa o símbolo nas fórmulas acima?",
+    "criterios": [
+      "Identifica $B$ como a matriz das colunas básicas $x_1, x_2$, $c_B = (100, 150)$, e $y = (50, 50)$ — os preços que o quadro já exibia",
+      "Para o produto de 1 CPU e 1 pente: $90 - (50 + 50) = -10$. Custo reduzido negativo, **não entra** — ele consome R$ 100 de recurso para render 90",
+      "Para o de 1 CPU e 2 pentes: $160 - (50 + 100) = 10$. Positivo, **entraria** no plano e melhoraria o lucro",
+      "A frase de gerente diz algo como *\"o que o produto rende menos o que ele custa aos preços internos correntes\"* — e não \"o número que sobrou na conta\"",
+      "Explica que $B^{-1}$ é **notação**: guarda-se uma fatoração que permite resolver sistemas com $B$, e inverter de fato seria caro e numericamente ruim"
+    ],
+    "erro_provavel": "Calcular o custo reduzido dos produtos novos montando o quadro de novo. É a resposta certa pelo caminho que o capítulo existe para substituir — e ela não escala: com mil produtos candidatos, montar mil quadros é inviável, enquanto $c_j - y^{\\top}a_j$ é uma multiplicação por produto. O segundo erro é ler o custo reduzido negativo como \"o produto dá prejuízo\": ele **rende** R$ 90 e é lucrativo em si; o que ele não é, é lucrativo **em comparação com o que os mesmos recursos já rendem** — e essa comparação só existe porque os preços existem.",
+    "resposta_guia": "Na montadora, $B$ é a matriz com as colunas de $x_1$ e $x_2$ (as básicas no ótimo), $c_B = (100, 150)$ e $y = c_B^{\\top}B^{-1} = (50, 50)$ — exatamente os dois 50 que o quadro já mostrava sob as folgas. Para o produto que consome 1 CPU e 1 pente rendendo 90: $90 - (1 \\cdot 50 + 1 \\cdot 50) = -10$, negativo, então ele **não entra** — consome R$ 100 de recursos internos para render 90. Para o que consome 1 CPU e 2 pentes rendendo 160: $160 - (50 + 100) = 10$, positivo, e ele **entraria**, melhorando o plano. Em uma frase de gerente: *o custo reduzido é o que um produto rende menos o que ele custa aos preços internos que o meu próprio plano estabeleceu*. Sobre $B^{-1}$: o símbolo é notação. Nenhum solver inverte a matriz — guarda-se uma fatoração que permite **resolver sistemas** com $B$, o que é mais barato e numericamente muito melhor.",
+    "modelo": {
+      "rotulo": "montadora — a base de onde saem os preços",
+      "sentido": "max",
+      "variaveis": [
+        "x1",
+        "x2"
+      ],
+      "objetivo": [
+        100,
+        150
+      ],
+      "restricoes": [
+        [
+          1,
+          1,
+          "<=",
+          10
+        ],
+        [
+          1,
+          2,
+          "<=",
+          12
+        ]
+      ],
+      "otimo": {
+        "ponto": [
+          8,
+          2
+        ],
+        "valor": 1100
+      }
+    }
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exB",
+    "variante": "B",
+    "tipo": "diagnosticar",
+    "objetivo": "O2",
+    "dificuldade": "dificil",
+    "titulo": "A promessa que o experimento não cumpriu",
+    "enunciado": "Um colega leu que \"a forma revisada é mais eficiente que o quadro\" e implementou as duas. Ele traz a medição do handbook e diz que deve haver bug:\n\n```\ninstância            m    n  dens A  quadro fim   iter  ops quadro  ops revis.  razão\nmédia densa          8   30    1.00        0.81     21        6100        3262   1.87\nmédia esparsa        8   30    0.27        0.41     17        1428        1065   1.34\nmagra densa         10  120    1.00        0.93     75      100990       34170   2.96\nmagra esparsa       10  120    0.13        0.20     32        1350        1809   0.75\n```\n\n1. Antes de procurar bug: que **três garantias** a medição precisa ter para que a última linha seja um resultado, e não um defeito? (Elas estão no capítulo.)\n2. Ordene as quatro linhas pela razão. Que variável explica a ordem — $m$, $n$, densidade de $A$, ou outra coisa?\n3. Compare `dens A` com `quadro fim` em cada linha. O que essa diferença mede, e como ela explica a última linha?\n4. Enuncie a troca entre as duas formas em uma frase que **não** dê vencedor universal.\n5. O colega quer \"consertar\" a forma revisada para ganhar sempre. O que você diz — e que mudança de implementação de fato mudaria o resultado?",
+    "criterios": [
+      "Nomeia as três garantias: concordância com um **árbitro independente**, **mesma trajetória de pivô** nas duas formas, e instâncias **congeladas antes** de olhar resultado",
+      "Percebe que nem $m$, nem $n$, nem a densidade de $A$ sozinhos explicam a ordem — o que explica é o **preenchimento**, a diferença entre a densidade inicial e a final do quadro",
+      "Lê o preenchimento corretamente: a 'média esparsa' salta de 0,27 para 0,41 e a revisada ganha; a 'magra esparsa' quase não preenche (0,13 → 0,20) e a revisada perde",
+      "Enuncia a troca sem vencedor: o quadro **mantém tudo para poder ler**, a revisada **não mantém nada e recalcula** — qual sai mais barato depende de quanto o quadro preenche",
+      "Aponta a mudança que importa: parar de guardar $B^{-1}$ **explícita** e usar a forma de produto da inversa (ou uma fatoração), que é o custo de $m^2$ por iteração que esta versão paga sem precisar"
+    ],
+    "erro_provavel": "Procurar o bug. É o reflexo natural quando um experimento contraria o que se esperava, e neste caso ele custa a lição inteira: as três garantias da medição — árbitro independente, trajetória de pivô idêntica, instâncias congeladas antes — existem justamente para que o resultado inesperado possa ser **acreditado**. Sem elas, qualquer número que desagrade vira suspeita de defeito, e qualquer número que agrade vira confirmação. O segundo erro é concluir \"então a forma revisada não presta\": ela ganha 2,96× na instância mais parecida com um problema real (muitas colunas), e o que a medição derruba não é o método — é a **generalização** de que ele ganha sempre.",
+    "resposta_guia": "As três garantias são: concordância com um árbitro independente (a etapa 03, publicada e intocada), **mesma trajetória de pivô** nas duas formas — sem isso as contagens mediriam caminhos diferentes e a comparação seria sobre a regra de pivoteamento — e instâncias congeladas **antes** da primeira execução, com todas publicadas. Ordenando pela razão: 2,96 · 1,87 · 1,34 · 0,75. Nem $m$, nem $n$, nem a densidade de $A$ explicam sozinhos; o que explica é o **preenchimento**, isto é, quanto o quadro deixa de ser esparso ao pivotear. A 'média esparsa' vai de 0,27 a 0,41 — quase o dobro de trabalho por iteração no fim — e ali a revisada ganha; a 'magra esparsa' vai de 0,13 a 0,20, quase não preenche, continua barata de manter, e ali a revisada perde. A troca, sem vencedor universal: *o quadro mantém tudo para poder ler; a forma revisada não mantém nada e recalcula o que precisa — e qual sai mais barato depende de quanto o quadro preenche*. Ao colega: não há o que consertar no experimento; o que mudaria o resultado é a implementação parar de guardar $B^{-1}$ explicitamente — é ela que paga $m^2$ por iteração independentemente da esparsidade, e é exatamente esse custo que a forma de produto da inversa foi inventada para evitar."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exC",
+    "variante": "C",
+    "tipo": "julgar",
+    "objetivo": "O3",
+    "dificuldade": "media",
+    "titulo": "De quem é a esparsidade",
+    "enunciado": "Um fornecedor de software apresenta o produto dele: *\"nosso solver é esparso — ele aproveita a estrutura do seu problema e por isso é mais rápido\"*.\n\n1. \"Nosso solver é esparso\" é uma frase bem formada? Se não, reescreva-a de modo que fique.\n2. De onde vem a esparsidade de um modelo de produção com 5.000 produtos e 800 componentes? Estime a densidade e justifique a estimativa.\n3. Duas empresas usam o mesmo solver, uma com modelo denso e outra com esparso. O solver \"é mais rápido\" para as duas?\n4. Que **pergunta** você faz ao fornecedor para transformar a propaganda em informação verificável?\n5. O capítulo afirma que o método \"não cria nem destrói\" a esparsidade, mas **decide se ela é aproveitada**. Dê um exemplo de cada metade dessa frase, a partir da medição do capítulo.",
+    "criterios": [
+      "Recusa a frase: esparsidade é propriedade da **matriz do modelo**, não do solver — a reescrita correta diz que o solver *aproveita* a esparsidade quando ela existe",
+      "Estima a densidade a partir do domínio: cada produto usa poucas dezenas dentre 800 componentes, então a densidade fica na casa de 1% a 3% — e justifica pela lista de materiais, não por chute",
+      "Responde que **não**: o mesmo solver não entrega o mesmo ganho nos dois casos, porque o ganho depende da estrutura do modelo de cada uma",
+      "Faz uma pergunta verificável — resultados em instâncias com a densidade **do meu** problema, ou a curva de tempo por densidade —, e não \"vocês têm benchmark?\"",
+      "Dá os dois exemplos a partir da medição: o método não cria esparsidade (a densidade de $A$ vem do modelo e é a mesma para as duas formas), e decide se ela é aproveitada (o quadro a **perde** ao preencher; a forma revisada trabalha sobre a coluna original, que continua esparsa)"
+    ],
+    "erro_provavel": "Aceitar a frase como abreviação inofensiva de \"nosso solver lida bem com problemas esparsos\". A abreviação transfere para o produto uma propriedade que é do **cliente**, e o efeito prático é impedir a única pergunta útil: *qual é a densidade do meu problema, e o que o solver de vocês faz nessa faixa?* Quem compra sem fazer essa pergunta descobre depois que o ganho anunciado existia, e existia para outra estrutura de dados que não a sua.",
+    "resposta_guia": "A frase não é bem formada: esparsidade é propriedade da **matriz de restrições do modelo**, e um solver não é esparso nem denso. A reescrita correta é *\"nosso solver aproveita a esparsidade quando ela existe\"*. Num modelo com 5.000 produtos e 800 componentes, a esparsidade vem da lista de materiais: cada produto consome poucas dezenas de componentes, digamos 10 a 25, então a densidade fica em torno de 1% a 3% — a estimativa sai do domínio, não de chute. O mesmo solver **não** é \"mais rápido\" para as duas empresas: o ganho depende da estrutura do modelo de cada uma. A pergunta que transforma propaganda em informação é *\"que resultados vocês têm em instâncias com densidade parecida com a minha, e como o tempo varia com a densidade?\"*. Quanto às duas metades: o método não cria nem destrói a esparsidade — a densidade de $A$ vem do modelo e é a mesma para as duas formas do capítulo; mas ele decide se ela é aproveitada — o quadro a **perde** ao pivotear, transformando zeros em não-zeros, enquanto a forma revisada calcula o custo reduzido sobre a coluna original, que permanece esparsa a execução inteira."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exD",
+    "variante": "D",
+    "tipo": "diagnosticar",
+    "objetivo": "O4",
+    "dificuldade": "dificil",
+    "titulo": "Quatrocentas iterações",
+    "enunciado": "Um modelo que costumava resolver em 40 iterações passou a levar 400. O time quer trocar de solver.\n\nAntes de trocar, você aplica o instrumento do capítulo. Ele registra, a cada iteração, o valor do objetivo e a base.\n\n1. Liste as **três** hipóteses possíveis e a medida que distingue cada uma das outras duas.\n2. O capítulo declara um limiar para \"estagnação\". Qual é, e por que **três** e não duas iterações?\n3. O instrumento reporta: nenhuma base repetida, 0 iterações sem melhora, 400 iterações. Qual é o veredito, e o que ele **descarta**?\n4. Nesse cenário, trocar de solver ajuda? E trocar a regra de pivoteamento?\n5. Este handbook **não conseguiu construir** uma instância que estagne pelo seu próprio limiar, nem sorteando nem empilhando cinco restrições sobre um mesmo vértice. Por que essa informação vale ser publicada, em vez de o limiar ser baixado até algum exemplo caber?",
+    "criterios": [
+      "Lista as três — **ciclagem** (uma base já visitada volta), **estagnação** (sequência sem melhora, sem repetição de base) e **lentidão** (muitas iterações, todas melhorando) — com a medida que separa cada uma: repetição de base, e melhora do objetivo entre iterações",
+      "Enuncia o limiar de **3 iterações consecutivas sem melhora** e justifica: um empate isolado é rotina em vértice degenerado, como o capítulo 10 mediu",
+      "Dá o veredito **lentidão**, e reconhece que ele descarta ciclagem e estagnação — o problema é de tamanho ou de caminho, não de o método travar",
+      "Responde que trocar de solver pode ajudar (implementações diferem) mas não é o diagnóstico; trocar a regra de pivoteamento **também** pode mudar o número de iterações, e nenhum dos dois tem relação com ciclagem, que foi descartada",
+      "Explica que publicar o negativo preserva o valor do limiar: baixá-lo depois de ver o resultado é ajustar até ficar verde, e um limiar escolhido para caber no exemplo não mede mais nada"
+    ],
+    "erro_provavel": "Diagnosticar \"o solver travou\" e trocar de ferramenta. É o mesmo reflexo do capítulo 10 e tem o mesmo antídoto: **o que é do modelo sobrevive à troca do método**. Com 400 iterações **todas melhorando**, não há travamento nenhum — há um caminho longo, que pode vir do tamanho do modelo, da regra de pivoteamento ou de uma mudança nos dados que ninguém registrou. O erro simétrico, mais sutil, é chamar de \"estagnação\" qualquer execução lenta: sem o limiar declarado, a palavra vira adjetivo, e adjetivos não distinguem fenômenos.",
+    "resposta_guia": "As três hipóteses são: **ciclagem**, que se detecta pela repetição de uma base já visitada; **estagnação**, uma sequência longa porém finita sem melhora do objetivo, sem repetição de base; e **lentidão**, muitas iterações com melhora em todas. As duas medidas que as separam são a repetição de base e a melhora do objetivo entre iterações consecutivas. O limiar declarado é de **3** iterações consecutivas sem melhora — três e não duas porque um empate isolado é rotina em vértice degenerado, como o capítulo 10 mediu, e uma régua de duas classificaria como estagnação o comportamento normal. Com nenhuma base repetida e nenhuma iteração sem melhora em 400, o veredito é **lentidão**, o que descarta tanto ciclagem quanto estagnação: o método não travou, ele está fazendo um caminho longo. Trocar de solver pode ajudar, porque implementações diferem, mas não é o diagnóstico; trocar a regra de pivoteamento também pode mudar o número de iterações — e nenhum dos dois tem a ver com ciclagem, que já foi descartada. Publicar o resultado negativo vale porque o limiar só significa alguma coisa enquanto for anterior ao resultado: baixá-lo até algum exemplo caber é ajustar até ficar verde, e um limiar escolhido para o exemplo deixa de medir."
+  },
+  {
+    "capitulo": 11,
+    "serie": "cap11",
+    "capacidade": "simplex_revisado",
+    "contexto": "livro",
+    "id": "cap11.exE",
+    "variante": "E",
+    "tipo": "julgar",
+    "objetivo": "O5",
+    "dificuldade": "dificil",
+    "titulo": "Diferença de 10⁻¹²",
+    "enunciado": "Dois solvers rodaram o mesmo modelo de mistura. O relatório diz:\n\n> *\"Ambos chegaram ao mesmo ótimo. A diferença no valor da função objetivo foi de $8 \\times 10^{-12}$, portanto desprezível.\"*\n\nA medição do handbook, na sua instância de teste, deu:\n\n```\nvalor exato: 965935/486   ·   valor em float: 1987.520576131687\nerro relativo: 1.144e-16  ·  mesma base ao final: True  ·  O VEREDITO MUDOU: False\n```\n\n1. A conclusão do relatório — \"portanto desprezível\" — está justificada pelo que ele mediu? O que falta?\n2. Por que a medição do handbook reporta a **base** separada do valor? O que uma diz que a outra não diz?\n3. Descreva um cenário concreto em que dois planos com o mesmo lucro até a décima casa são **decisões diferentes** para a empresa.\n4. O capítulo diz que a tolerância é \"decisão de modelagem\". Que informação do **modelo** você precisa para escolhê-la?\n5. O que acontece se a tolerância for apertada demais? E frouxa demais?",
+    "criterios": [
+      "Aponta que a conclusão não está justificada: o relatório comparou **valores** e concluiu sobre **soluções** — falta comparar as bases, ou os planos",
+      "Explica a separação: o valor diz quanto se ganha, a base diz **qual plano** produz esse ganho; duas bases diferentes com o mesmo valor são decisões diferentes",
+      "Dá um cenário concreto — por exemplo, dois planos de mesmo lucro que usam fornecedores, linhas ou turnos diferentes, com riscos e contratos distintos",
+      "Identifica a informação necessária: a **escala dos dados** do modelo — em que ordem de grandeza estão custos e coeficientes —, porque \"perto de zero\" só significa algo em relação a essa escala",
+      "Descreve os dois erros: apertada demais, o solver continua pivoteando por ruído numérico e pode não parar; frouxa demais, ele para antes do ótimo e **ninguém percebe**, porque o status continua dizendo `Optimal`"
+    ],
+    "erro_provavel": "Aceitar \"a diferença é desprezível, logo é a mesma solução\". A inferência troca uma afirmação sobre o **valor** por uma afirmação sobre a **solução**, e elas não são equivalentes: o capítulo 10 já tinha mostrado que um mesmo lucro pode ser produzido por planos diferentes — é o caso de múltiplos ótimos. Quando isso acontece, a escolha entre eles é feita pelo que o modelo não captura, e um relatório que só compara valores esconde exatamente a decisão que interessa. É também por isso que a medição do handbook compara a base: um erro na décima terceira casa que **não** muda a base é uma notícia muito melhor do que um erro pequeno que muda.",
+    "resposta_guia": "A conclusão não está justificada: o relatório mediu **valores** e concluiu sobre **soluções**. Falta comparar as bases — ou, em linguagem de negócio, os planos. É por isso que a medição do handbook reporta a base separada: o valor diz quanto se ganha, a base diz **qual plano** produz esse ganho, e dois planos diferentes podem render o mesmo lucro até a última casa que se olhou. Um cenário concreto: dois planos de mesma margem em que um concentra a compra num único fornecedor e o outro a divide entre dois — mesmo lucro, riscos de contrato completamente diferentes; ou dois planos que usam turnos diferentes, com implicações de escala de pessoal. Para escolher a tolerância é preciso saber a **escala dos dados do modelo**: se os custos estão na casa dos milhões, $10^{-9}$ é ruído; se estão na casa dos centavos, é diferença real — \"perto de zero\" só significa algo em relação à ordem de grandeza do problema. Apertada demais, a tolerância faz o solver continuar pivoteando por ruído numérico e possivelmente não parar; frouxa demais, ele para antes do ótimo e **ninguém percebe**, porque o status continua sendo `Optimal`."
   }
 ]

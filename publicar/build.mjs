@@ -210,6 +210,25 @@ const T = EN
       outroIdiomaTitulo: "Read in English",
     };
 
+// Selo de maturidade do capítulo (ADR 0013, D2).
+//
+// O leitor precisa saber, ANTES de investir a leitura, em que estado o capítulo
+// está. Um handbook que cresce por lote tem, por construção, capítulos em
+// estados diferentes ao mesmo tempo — e disfarçar isso seria a versão editorial
+// do falso verde que os portões deste repositório existem para impedir.
+//
+// A escada é cumulativa: 🔵 é 🟡 mais experimento que regenera cada número; ✅ é
+// 🔵 mais revisão em contexto fresco. O selo é declarado no `sumario.json` e
+// verificado por `verifica-capitulos.mjs` — não é adjetivo de prosa.
+const MATURIDADE = {
+  v0: { emoji: "🟡", rotulo: "v0",
+        explica: "Esqueleto completo: 3 objetivos, 3 exercícios, \"quando não serve\" e origem com procedência. Ainda sem número medido próprio." },
+  medido: { emoji: "🔵", rotulo: "medido",
+            explica: "Todo número deste capítulo se regenera rodando um experimento do po-zero. Ainda sem revisão independente." },
+  verificado: { emoji: "✅", rotulo: "verificado",
+                explica: "Medido, revisto em contexto fresco por quem não escreveu, e com os portões provados quebrando." },
+};
+
 // Chat-companion (feature 017): URL do backend + espelho leve do registro de
 // capacidades (fonte-de-verdade do gating é o backend; aqui é só exibição).
 const COMPANION_BACKEND = sumario.companion_backend || "";
@@ -222,6 +241,13 @@ const COMPANION_CAPS = [
   { chave: "geometria", rotulo: "Geometria e método gráfico", libera: 8 },
   { chave: "simplex", rotulo: "Simplex de quadro", libera: 9 },
   { chave: "casos_especiais", rotulo: "Casos especiais e degenerescência", libera: 10 },
+  { chave: "simplex_revisado", rotulo: "Simplex revisado", libera: 11 },
+  { chave: "dualidade", rotulo: "Dualidade e preço-sombra", libera: 12 },
+  { chave: "sensibilidade", rotulo: "Análise de sensibilidade", libera: 13 },
+  { chave: "pontos_interiores", rotulo: "Pontos interiores", libera: 14 },
+  { chave: "modelagem_aplicada", rotulo: "Padrões de modelagem", libera: 15 },
+  { chave: "convexidade", rotulo: "Convexidade", libera: 38 },
+  { chave: "leitura_critica", rotulo: "Leitura crítica de artigo", libera: 77 },
 ];
 const capituloDe = (titulo) => parseInt((String(titulo).match(/^\s*(\d+)/) || [])[1], 10) || 0;
 function companionSnippet(chapter) {
@@ -681,7 +707,9 @@ for (let k = 0; k < itens.length; k++) {
   const { num, texto } = dividirTitulo(item.titulo);
   if (num) {
     const { cap, rev } = extrairDatas(bruto);
+    const mat = MATURIDADE[item.maturidade];
     const chips = [
+      mat ? `<span class="cap-maturidade" title="${mat.explica}">${mat.emoji} ${mat.rotulo}</span>` : "",
       cap ? `<span title="${T.seloVivo}">🕒 ${T.estadoArte} ${cap}</span>` : "",
       rev ? `<span>${T.revisao} ${rev}</span>` : "",
       `<span>📖 ~${tempoDeLeitura(bruto)} ${T.minLeitura}</span>`,
